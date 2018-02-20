@@ -1,0 +1,36 @@
+Director
+	Administrar alumno
+	Administrar Profesor
+	
+	Administrar Grupo
+	Rentar espacio
+	Definir horario
+
+	Registrar pago colaborador
+	Consultar ingresos
+
+	Registrar pago alumno
+	Consultar recibos de alumnos
+
+	Consultar notificaciones
+
+	Registrar campaña publicitaria
+
+	Administrar egresos
+
+	Consultar estadísticas
+
+
+
+Maestro
+	Administar Inscripciones
+	Tomar asistencia
+	Cobrar mensualidad
+	Visualizar historial de pagos
+	Administrar promoción
+	Consultar grupos
+	Consultar notificaciones
+
+
+	
+
