@@ -1,35 +1,29 @@
-Director
-	Administrar alumno
-	Administrar Profesor
-	
-	Administrar Grupo
-	Rentar espacio
-	Definir horario
-
-	Registrar pago colaborador
-	Consultar ingresos
-
-	Registrar pago alumno
-	Consultar recibos de alumnos
-
-	Consultar notificaciones
-
-	Registrar campaña publicitaria
-
-	Administrar egresos
-
-	Consultar estadísticas
-
-
+﻿Director
+	CU-01 Administrar alumno
+	CU-02 Administrar Profesor
+	CU-03 Administrar Grupo
+	CU-04 Administrar renta de espacio
+	CU-05 Definir horario
+	CU-06 Registrar pago colaborador
+	CU-07 Consultar ingresos
+	CU-08 Registrar pago alumno externo
+	CU-09 Consultar recibos de alumnos
+	CU-10 Consultar notificaciones director
+	CU-11 Registrar campaña publicitaria
+	CU-12 Administrar egresos
+	CU-13 Consultar estadísticas
 
 Maestro
-	Administar Inscripciones
-	Tomar asistencia
-	Cobrar mensualidad
-	Visualizar historial de pagos
-	Administrar promoción
-	Consultar grupos
-	Consultar notificaciones
+	CU-14 Inscribir alumno
+	CU-15 Administrar asistencia de alumnos
+	CU-16 Cobrar mensualidad a alumno
+	CU-17 Visualizar historial de pagos
+	CU-18 Crear promoción
+	CU-19 Consultar grupos
+	CU-20 Consultar notificaciones maestro
+	CU-21 Administrar cliente
+	CU-22 Dar de baja alumno
+	CU-23 Reinscribir alumno
 
 
 	
