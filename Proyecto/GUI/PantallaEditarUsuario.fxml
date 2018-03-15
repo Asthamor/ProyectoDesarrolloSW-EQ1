@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblInfoNecesaria" layoutX="128.0" layoutY="34.0" text="Información necesaria" />
+      <Separator layoutX="97.0" layoutY="59.0" prefWidth="200.0" style="-fx-background-color: #c08ed6;" />
+      <VBox layoutX="42.0" layoutY="81.0" prefHeight="122.0" prefWidth="100.0" spacing="35.0">
+         <children>
+            <Label fx:id="lblNombresUsuario" text="Nombre(s):">
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="lblApellidosUsuario" text="Apellido(s):">
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblTelefonoUsuario" text="Teléfono:">
+               <VBox.margin>
+                  <Insets left="35.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <JFXTextField fx:id="txtNombresUsuario" focusColor="#c08ed6" layoutX="146.0" layoutY="81.0" prefHeight="26.0" prefWidth="179.0" />
+      <JFXTextField fx:id="txtApellidosUsuario" focusColor="#c08ed6" layoutX="146.0" layoutY="125.0" prefHeight="26.0" prefWidth="179.0" />
+      <JFXTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" layoutX="146.0" layoutY="179.0" prefHeight="26.0" prefWidth="179.0" />
+      <Label fx:id="lblInfoOpcional" layoutX="131.0" layoutY="275.0" text="Información opcional" />
+      <Separator layoutX="97.0" layoutY="300.0" prefWidth="200.0" style="-fx-background-color: #c08ed6;" />
+      <Label fx:id="lblFotoUsuario" layoutX="63.0" layoutY="366.0" text="Fotografía:" />
+      <ImageView fx:id="imgFotoUsuario" fitHeight="150.0" fitWidth="200.0" layoutX="131.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="lblCorreoElectronico" layoutX="14.0" layoutY="517.0" text="Correo electrónico:" />
+      <JFXTextField fx:id="txtCorreoElectronico" focusColor="#c08ed6" layoutX="146.0" layoutY="513.0" prefHeight="26.0" prefWidth="179.0" />
+      <JFXButton fx:id="btnSeleccionarFoto" layoutX="166.0" layoutY="469.0" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #c08ed6;" text="Seleccionar foto" />
+      <JFXButton fx:id="btnGuardar" layoutX="312.0" layoutY="635.0" style="-fx-background-color: #c08ed6;" text="Guardar" />
+   </children>
+</AnchorPane>

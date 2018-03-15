@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <Pane prefHeight="768.0" prefWidth="166.0" style="-fx-background-color: #ffe6fd;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="768.0" prefWidth="166.0">
+               <children>
+                  <JFXButton fx:id="btnAtras" contentDisplay="TOP" prefHeight="54.0" prefWidth="166.0" text="">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnMisGrupos" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="166.0" text="Mis Grupos" textAlignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USERS" size="40" />
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </JFXButton>
+                  <JFXButton fx:id="btnInscripciones" alignment="TOP_LEFT" prefHeight="51.0" prefWidth="166.0" text="Inscripciones" textAlignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="FILE_TEXT_ALT" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnPromociones" alignment="TOP_LEFT" prefHeight="53.0" prefWidth="166.0" text="Promociones">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TICKET" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRentas" alignment="TOP_LEFT" prefHeight="37.0" prefWidth="166.0" text="Rentas">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="BUILDING" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnPagos" alignment="TOP_LEFT" prefHeight="36.0" prefWidth="166.0" text="Pagos">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="BITCOIN" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnFinanzas" alignment="TOP_LEFT" prefHeight="37.0" prefWidth="166.0" text="Finanzas">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="LINE_CHART" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnAnuncios" alignment="TOP_LEFT" prefHeight="42.0" prefWidth="166.0" text="Anuncios">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="FACEBOOK_SQUARE" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnAlumnos" alignment="TOP_LEFT" prefHeight="45.0" prefWidth="166.0" text="Alumnos">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="MORTAR_BOARD" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnGrupos" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="166.0" text="Grupos">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TROPHY" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnMaestros" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="166.0" text="Maestros">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USER" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnClientes" alignment="TOP_LEFT" prefHeight="42.0" prefWidth="166.0" text="Clientes">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="BLACK_TIE" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <Pane prefHeight="41.0" prefWidth="166.0" />
+                  <JFXButton fx:id="btnNotificaciones" alignment="TOP_LEFT" prefHeight="64.0" prefWidth="203.0" text="Notificaciones">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="BELL" size="40" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
