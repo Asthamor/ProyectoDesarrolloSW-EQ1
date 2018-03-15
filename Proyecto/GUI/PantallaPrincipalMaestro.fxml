@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <Pane prefHeight="768.0" prefWidth="166.0" style="-fx-background-color: #ffe6fd;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="768.0" prefWidth="166.0">
+               <children>
+                  <JFXButton fx:id="btnAtras" contentDisplay="TOP" prefHeight="64.0" prefWidth="203.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnMisGrupos" contentDisplay="TOP" prefHeight="64.0" prefWidth="203.0" text="Mis Grupos">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="USERS" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnInscripciones" contentDisplay="TOP" prefHeight="64.0" prefWidth="263.0" text="Inscripciones">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="FILE_TEXT_ALT" size="40" />
+                     </graphic>
+                  </JFXButton>
+                  <Pane prefHeight="476.0" prefWidth="166.0" />
+                  <JFXButton fx:id="btnNotificaciones" contentDisplay="TOP" prefHeight="64.0" prefWidth="263.0" text="Notificaciones">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="BELL" size="30" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
