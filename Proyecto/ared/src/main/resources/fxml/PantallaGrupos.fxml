@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="775.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaGruposController">
+    <children>
+      <ScrollPane fx:id="scrollGrupos" layoutX="22.0" layoutY="35.0" prefHeight="605.0" prefWidth="731.0" style="-fx-background-color: #ffffff;" stylesheets="@../styles/scrollpane.css">
+        <content>
+          <AnchorPane fx:id="pnlGrupos" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ffffff;" />
+        </content>
+      </ScrollPane>
+      <JFXButton fx:id="btnRegistrarGrupo" layoutX="629.0" layoutY="664.0" onAction="#abrirVentanaRegistrarGrupo" style="-fx-background-color: #c08ed6;" text="Registrar grupo" AnchorPane.rightAnchor="22.0" />
+   </children>
+</AnchorPane>
