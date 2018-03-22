@@ -6,6 +6,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaPrincipalDirectorController">
@@ -14,73 +15,76 @@
          <children>
             <VBox prefHeight="768.0" prefWidth="166.0">
                <children>
-                  <JFXButton fx:id="btnAtras" contentDisplay="TOP" onAction="#abrirVentanaAnterior" prefHeight="54.0" prefWidth="166.0" text="">
+                  <JFXButton fx:id="btnAtras" contentDisplay="TOP" onAction="#abrirVentanaAnterior" prefHeight="54.0" prefWidth="166.0" ripplerFill="#a4a1a1" text="">
                      <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="40" />
+                        <FontAwesomeIconView fill="#52be80" glyphName="ARROW_CIRCLE_LEFT" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnMisGrupos" alignment="TOP_LEFT" onAction="#abrirVentanaMisGrupos" prefHeight="50.0" prefWidth="166.0" text="Mis Grupos" textAlignment="CENTER">
+                  <JFXButton fx:id="btnMisGrupos" alignment="TOP_LEFT" graphicTextGap="15.0" onAction="#abrirVentanaMisGrupos" prefHeight="50.0" prefWidth="166.0" text="Mis Grupos" textAlignment="CENTER">
                      <graphic>
-                        <FontAwesomeIconView glyphName="USERS" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="USERS" size="35" />
                      </graphic>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnInscripciones" alignment="TOP_LEFT" onAction="#abrirVentanaInscripciones" prefHeight="51.0" prefWidth="166.0" text="Inscripciones" textAlignment="CENTER">
+                  <JFXButton fx:id="btnInscripciones" alignment="TOP_LEFT" graphicTextGap="20.0" onAction="#abrirVentanaInscripciones" prefHeight="51.0" prefWidth="166.0" text="Inscripciones" textAlignment="CENTER">
                      <graphic>
-                        <FontAwesomeIconView glyphName="FILE_TEXT_ALT" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="FILE_TEXT_ALT" size="35" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnPromociones" alignment="TOP_LEFT" onAction="#abrirVentanaPromociones" prefHeight="53.0" prefWidth="166.0" text="Promociones">
+                  <JFXButton fx:id="btnPromociones" alignment="TOP_LEFT" graphicTextGap="10.0" onAction="#abrirVentanaPromociones" prefHeight="53.0" prefWidth="166.0" text="Promociones">
                      <graphic>
-                        <FontAwesomeIconView glyphName="TICKET" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="TICKET" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnRentas" alignment="TOP_LEFT" onAction="#abrirVentanaRentas" prefHeight="37.0" prefWidth="166.0" text="Rentas">
+                  <JFXButton fx:id="btnRentas" alignment="TOP_LEFT" graphicTextGap="30.0" onAction="#abrirVentanaRentas" prefHeight="37.0" prefWidth="166.0" text="Rentas">
                      <graphic>
-                        <FontAwesomeIconView glyphName="BUILDING" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="BUILDING" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnPagos" alignment="TOP_LEFT" onAction="#abrirVentanaPagos" prefHeight="36.0" prefWidth="166.0" text="Pagos">
+                  <JFXButton fx:id="btnPagos" alignment="TOP_LEFT" graphicTextGap="40.0" onAction="#abrirVentanaPagos" prefHeight="36.0" prefWidth="166.0" text="Pagos">
                      <graphic>
-                        <FontAwesomeIconView glyphName="BITCOIN" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="BITCOIN" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnFinanzas" alignment="TOP_LEFT" onAction="#abrirVentanaFinanzas" prefHeight="37.0" prefWidth="166.0" text="Finanzas">
+                  <JFXButton fx:id="btnFinanzas" alignment="TOP_LEFT" graphicTextGap="25.0" onAction="#abrirVentanaFinanzas" prefHeight="37.0" prefWidth="166.0" text="Finanzas">
                      <graphic>
-                        <FontAwesomeIconView glyphName="LINE_CHART" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="LINE_CHART" size="33" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnAnuncios" alignment="TOP_LEFT" onAction="#abrirVentanaAnuncios" prefHeight="42.0" prefWidth="166.0" text="Anuncios">
+                  <JFXButton fx:id="btnAnuncios" alignment="TOP_LEFT" graphicTextGap="30.0" onAction="#abrirVentanaAnuncios" prefHeight="42.0" prefWidth="166.0" text="Anuncios">
                      <graphic>
-                        <FontAwesomeIconView glyphName="FACEBOOK_SQUARE" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="FACEBOOK_SQUARE" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnAlumnos" alignment="TOP_LEFT" onAction="#abrirVentanaAlumnos" prefHeight="45.0" prefWidth="166.0" text="Alumnos">
+                  <JFXButton fx:id="btnAlumnos" alignment="TOP_LEFT" graphicTextGap="20.0" onAction="#abrirVentanaAlumnos" prefHeight="45.0" prefWidth="166.0" text="Alumnos">
                      <graphic>
-                        <FontAwesomeIconView glyphName="MORTAR_BOARD" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="MORTAR_BOARD" size="35" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnGrupos" alignment="TOP_LEFT" onAction="#abrirVentanaGrupos" prefHeight="50.0" prefWidth="166.0" text="Grupos">
+                  <JFXButton fx:id="btnGrupos" alignment="TOP_LEFT" graphicTextGap="30.0" onAction="#abrirVentanaGrupos" prefHeight="50.0" prefWidth="166.0" text="Grupos">
                      <graphic>
-                        <FontAwesomeIconView glyphName="TROPHY" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="TROPHY" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnMaestros" alignment="TOP_LEFT" onAction="#abrirVentanaMaestros" prefHeight="39.0" prefWidth="166.0" text="Maestros">
+                  <JFXButton fx:id="btnMaestros" alignment="TOP_LEFT" graphicTextGap="30.0" onAction="#abrirVentanaMaestros" prefHeight="39.0" prefWidth="166.0" text="Maestros">
                      <graphic>
-                        <FontAwesomeIconView glyphName="USER" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="USER" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnClientes" alignment="TOP_LEFT" onAction="#abrirVentanaClientes" prefHeight="42.0" prefWidth="166.0" text="Clientes">
+                  <JFXButton fx:id="btnClientes" alignment="TOP_LEFT" graphicTextGap="35.0" onAction="#abrirVentanaClientes" prefHeight="42.0" prefWidth="166.0" text="Clientes">
                      <graphic>
-                        <FontAwesomeIconView glyphName="BLACK_TIE" size="40" />
+                        <FontAwesomeIconView fill="#000000cc" glyphName="BLACK_TIE" size="35" />
                      </graphic>
                   </JFXButton>
-                  <Pane prefHeight="73.0" prefWidth="166.0" />
-                  <JFXButton fx:id="btnNotificaciones" alignment="TOP_LEFT" onAction="#abrirVentanaNotificaciones" prefHeight="64.0" prefWidth="203.0" text="Notificaciones">
+                  <Pane prefHeight="98.0" prefWidth="166.0" />
+                  <JFXButton fx:id="btnNotificaciones" alignment="TOP_LEFT" graphicTextGap="15.0" onAction="#abrirVentanaNotificaciones" prefHeight="47.0" prefWidth="166.0" text="Notificaciones">
                      <graphic>
-                        <FontAwesomeIconView glyphName="BELL" size="40" />
+                        <FontAwesomeIconView fill="#f7dc6f" glyphName="BELL" size="35" />
                      </graphic>
                   </JFXButton>
                </children>
@@ -89,18 +93,18 @@
       </Pane>
    </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <Pane fx:id="pnlUsuario" prefHeight="53.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <JFXButton fx:id="btnSesionUsuario" layoutX="988.0" layoutY="1.0" text="h">
+                  <JFXButton fx:id="btnSesionUsuario" contentDisplay="RIGHT" layoutX="1024.0" layoutY="2.0" text="Usuario director">
                      <graphic>
                         <MaterialDesignIconView fill="#4183da" glyphName="ACCOUNT_CIRCLE" size="40" />
                      </graphic>
                   </JFXButton>
                </children>
             </Pane>
-            <Pane fx:id="contenedor" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" />
+            <StackPane fx:id="contenedor" prefWidth="1200.0" style="-fx-background-color: #ffffff;" />
          </children>
       </VBox>
    </center>

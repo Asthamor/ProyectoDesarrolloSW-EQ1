@@ -23,12 +23,12 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <JFXButton fx:id="btnEditarUsuario" layoutX="301.0" layoutY="180.0" text="">
+      <JFXButton fx:id="btnEditarUsuario" layoutX="301.0" layoutY="180.0" ripplerFill="#a4a1a1" text="">
          <graphic>
-            <FontAwesomeIconView glyphName="PENCIL" size="25" />
+            <FontAwesomeIconView fx:id="iconoBtn" glyphName="PENCIL" size="25" />
          </graphic>
          <tooltip>
-            <Tooltip text="Editar" />
+            <Tooltip fx:id="etBtnEditar" text="Editar" />
          </tooltip>
       </JFXButton>
    </children>

@@ -2,28 +2,31 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="1152.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarUsuarioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarUsuarioController">
    <children>
-      <BorderPane prefHeight="611.0" prefWidth="1152.0">
+      <BorderPane prefHeight="718.0" prefWidth="1203.0">
          <top>
-            <Pane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="91.0" prefWidth="1203.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="lblNuevoUsuario" layoutX="532.0" layoutY="10.0" text="Nuevo usuario" />
-                  <Separator layoutX="519.0" layoutY="30.0" prefHeight="0.0" prefWidth="115.0" style="-fx-background-color: #c08ed6;" />
+                  <Label fx:id="lblNuevoUsuario" layoutX="538.0" layoutY="32.0" text="Nuevo usuario" />
+                  <Separator layoutX="525.0" layoutY="52.0" prefHeight="0.0" prefWidth="115.0" style="-fx-background-color: #c08ed6;" />
                </children>
             </Pane>
          </top>
          <center>
-            <Pane prefHeight="357.0" prefWidth="534.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="571.0" prefWidth="1042.0" BorderPane.alignment="CENTER">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="513.0" stroke="BLACK" strokeType="INSIDE" width="1048.0" />
                   <Label fx:id="lblInfoNecesaria" layoutX="201.0" layoutY="30.0" text="Información necesaria" />
@@ -31,30 +34,51 @@
                   <Separator layoutX="524.0" layoutY="48.0" orientation="VERTICAL" prefHeight="354.0" prefWidth="3.0" />
                   <Separator layoutX="192.0" layoutY="53.0" prefHeight="2.0" prefWidth="154.0" style="-fx-background-color: #c08ed6;" />
                   <Separator layoutX="726.0" layoutY="50.0" prefHeight="4.0" prefWidth="146.0" style="-fx-background-color: #c08ed6;" />
-                  <Label fx:id="lblNombresUsuario" layoutX="123.0" layoutY="81.0" text="Nombre(s):" />
-                  <JFXTextField fx:id="txtNombresUsuario" focusColor="#c08ed6" layoutX="199.0" layoutY="77.0" prefHeight="26.0" prefWidth="210.0" />
-                  <Label fx:id="lblApellidosUsuario" layoutX="123.0" layoutY="166.0" text="Apellido(s):" />
-                  <Label fx:id="lblTelefonoUsuario" layoutX="132.0" layoutY="251.0" text="Teléfono:" />
-                  <JFXTextField fx:id="txtApellidosUsuario" focusColor="#c08ed6" layoutX="200.0" layoutY="162.0" prefHeight="26.0" prefWidth="210.0" />
-                  <JFXTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" layoutX="200.0" layoutY="247.0" prefHeight="26.0" prefWidth="211.0" />
                   <Label fx:id="lblFotografiaUsuario" layoutX="636.0" layoutY="134.0" text="Fotografía:" />
-                  <ImageView fx:id="imgFotoUsuario" fitHeight="178.0" fitWidth="187.0" layoutX="721.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Mondial%20Database/simbolo-de-usuario-negro-macho_318-60703.jpg" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imgFotoUsuario" fitHeight="178.0" fitWidth="187.0" layoutX="721.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
                   <JFXButton fx:id="btnSeleccionarFoto" layoutX="752.0" layoutY="265.0" style="-fx-background-color: #c08ed6;" text="Seleccionar foto" />
                   <Label fx:id="lblCorreoElectronicoUsuario" layoutX="585.0" layoutY="304.0" text="Correo electrónico:" />
                   <JFXTextField fx:id="txtCorreoElectronicoUsuario" focusColor="#c08ed6" layoutX="726.0" layoutY="309.0" prefHeight="26.0" prefWidth="176.0" />
                   <JFXButton fx:id="btnGuardarUsuario" layoutX="965.0" layoutY="470.0" style="-fx-background-color: #c08ed6;" text="Guardar" />
+                  <GridPane layoutX="106.0" layoutY="107.0" prefHeight="203.0" prefWidth="312.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="92.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.66665649414062" minWidth="10.0" prefWidth="220.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblNombresUsuario" text="Nombre(s):">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXTextField fx:id="txtNombresUsuario" focusColor="#c08ed6" prefHeight="26.0" prefWidth="210.0" GridPane.columnIndex="1" />
+                        <Label fx:id="lblApellidosUsuario" text="Apellido(s):" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXTextField fx:id="txtApellidosUsuario" focusColor="#c08ed6" prefHeight="26.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTelefonoUsuario" text="Teléfono:" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" prefHeight="26.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
                </children>
             </Pane>
          </center>
          <left>
-            <Pane prefHeight="357.0" prefWidth="52.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="571.0" prefWidth="81.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="52.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="571.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="56.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
