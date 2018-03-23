@@ -1,0 +1,5 @@
+Usuario: usuarioAredEspacio
+Contraseña: #GdrtOP=)-$47"we
+CREATE USER 'usuarioAredEspacio'@'localhost' IDENTIFIED BY '#GdrtOP=)-$47"we';
+GRANT ALL PRIVILEGES ON aredespacio . * TO 'usuarioAredEspacio'@'localhost';
+

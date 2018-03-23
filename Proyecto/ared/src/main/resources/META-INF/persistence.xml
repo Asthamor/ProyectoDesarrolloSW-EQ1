@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="uv.pulpos_ared_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>modelo.PagoAlumno</class>
+    <class>modelo.Director</class>
+    <class>modelo.Cliente</class>
+    <class>modelo.Horario</class>
+    <class>modelo.PagoAlumnoExterno</class>
+    <class>modelo.PagoRenta</class>
+    <class>modelo.Grupo</class>
+    <class>modelo.Egreso</class>
+    <class>modelo.Alumno</class>
+    <class>modelo.Maestro</class>
+    <class>modelo.Promocion</class>
+    <class>modelo.PagoMaestro</class>
+    <class>modelo.Renta</class>
+    <class>modelo.Publicidad</class>
+    <class>modelo.Usuario</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aredespacio?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="usuarioAredEspacio"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="#GdrtOP=)-$47&quot;we"/>
+    </properties>
+  </persistence-unit>
+</persistence>

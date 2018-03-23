@@ -117,6 +117,10 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
     @FXML
     private void abrirVentanaPagos(ActionEvent event) {
+        imagen.setVisible(false);
+        limpiarPanelPrincipal(this.pnlPrincipal, this.pantallaDividida);
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaPagos.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
     @FXML

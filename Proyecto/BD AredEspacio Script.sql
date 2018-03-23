@@ -357,6 +357,13 @@ CREATE TABLE IF NOT EXISTS `aredespacio`.`pagoAlumnoExterno` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- User `aredespacio`
+-- -----------------------------------------------------
+DROP USER IF EXISTS 'usuarioAredEspacio'@'localhost';
+CREATE USER 'usuarioAredEspacio'@'localhost' IDENTIFIED BY '#GdrtOP=)-$47"we';
+GRANT ALL PRIVILEGES ON aredespacio . * TO 'usuarioAredEspacio'@'localhost';
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
