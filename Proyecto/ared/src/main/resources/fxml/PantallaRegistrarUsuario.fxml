@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarUsuarioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarUsuarioController">
    <children>
       <BorderPane prefHeight="718.0" prefWidth="1203.0">
          <top>
@@ -36,10 +36,10 @@
                   <Separator layoutX="726.0" layoutY="50.0" prefHeight="4.0" prefWidth="146.0" style="-fx-background-color: #c08ed6;" />
                   <Label fx:id="lblFotografiaUsuario" layoutX="636.0" layoutY="134.0" text="Fotografía:" />
                   <ImageView fx:id="imgFotoUsuario" fitHeight="178.0" fitWidth="187.0" layoutX="721.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
-                  <JFXButton fx:id="btnSeleccionarFoto" layoutX="752.0" layoutY="265.0" style="-fx-background-color: #c08ed6;" text="Seleccionar foto" />
+                  <JFXButton fx:id="btnSeleccionarFoto" layoutX="752.0" layoutY="265.0" onAction="#seleccionarFoto" style="-fx-background-color: #c08ed6;" text="Seleccionar foto" />
                   <Label fx:id="lblCorreoElectronicoUsuario" layoutX="585.0" layoutY="304.0" text="Correo electrónico:" />
                   <JFXTextField fx:id="txtCorreoElectronicoUsuario" focusColor="#c08ed6" layoutX="726.0" layoutY="309.0" prefHeight="26.0" prefWidth="176.0" />
-                  <JFXButton fx:id="btnGuardarUsuario" layoutX="965.0" layoutY="470.0" style="-fx-background-color: #c08ed6;" text="Guardar" />
+                  <JFXButton fx:id="btnGuardarUsuario" layoutX="965.0" layoutY="470.0" onAction="#guardarUsuario" style="-fx-background-color: #c08ed6;" text="Guardar" />
                   <GridPane layoutX="106.0" layoutY="107.0" prefHeight="203.0" prefWidth="312.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="92.0" />
