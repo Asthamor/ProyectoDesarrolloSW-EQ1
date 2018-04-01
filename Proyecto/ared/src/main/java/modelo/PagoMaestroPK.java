@@ -21,15 +21,19 @@ public class PagoMaestroPK implements Serializable {
     @Column(name = "idPagoMaestro")
     private int idPagoMaestro;
     @Basic(optional = false)
-    @Column(name = "Maestro_idMaestro")
+    @Column(name = "maestro_idMaestro")
     private int maestroidMaestro;
+    @Basic(optional = false)
+    @Column(name = "maestro_usuario_nombreUsuario")
+    private String maestrousuarionombreUsuario;
 
     public PagoMaestroPK() {
     }
 
-    public PagoMaestroPK(int idPagoMaestro, int maestroidMaestro) {
+    public PagoMaestroPK(int idPagoMaestro, int maestroidMaestro, String maestrousuarionombreUsuario) {
         this.idPagoMaestro = idPagoMaestro;
         this.maestroidMaestro = maestroidMaestro;
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
     }
 
     public int getIdPagoMaestro() {
@@ -48,11 +52,20 @@ public class PagoMaestroPK implements Serializable {
         this.maestroidMaestro = maestroidMaestro;
     }
 
+    public String getMaestrousuarionombreUsuario() {
+        return maestrousuarionombreUsuario;
+    }
+
+    public void setMaestrousuarionombreUsuario(String maestrousuarionombreUsuario) {
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idPagoMaestro;
         hash += (int) maestroidMaestro;
+        hash += (maestrousuarionombreUsuario != null ? maestrousuarionombreUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -69,12 +82,15 @@ public class PagoMaestroPK implements Serializable {
         if (this.maestroidMaestro != other.maestroidMaestro) {
             return false;
         }
+        if ((this.maestrousuarionombreUsuario == null && other.maestrousuarionombreUsuario != null) || (this.maestrousuarionombreUsuario != null && !this.maestrousuarionombreUsuario.equals(other.maestrousuarionombreUsuario))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "modelo.PagoMaestroPK[ idPagoMaestro=" + idPagoMaestro + ", maestroidMaestro=" + maestroidMaestro + " ]";
+        return "modelo.PagoMaestroPK[ idPagoMaestro=" + idPagoMaestro + ", maestroidMaestro=" + maestroidMaestro + ", maestrousuarionombreUsuario=" + maestrousuarionombreUsuario + " ]";
     }
     
 }

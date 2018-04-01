@@ -15,8 +15,9 @@
     <class>modelo.Promocion</class>
     <class>modelo.PagoMaestro</class>
     <class>modelo.Renta</class>
-    <class>modelo.Publicidad</class>
     <class>modelo.Usuario</class>
+    <class>modelo.Publicidad</class>
+    <class>modelo.GrupoHasAlumno</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aredespacio?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="usuarioAredEspacio"/>

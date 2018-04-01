@@ -21,18 +21,22 @@ public class GrupoPK implements Serializable {
     @Column(name = "idGrupo")
     private int idGrupo;
     @Basic(optional = false)
-    @Column(name = "Maestro_idMaestro")
+    @Column(name = "maestro_idMaestro")
     private int maestroidMaestro;
     @Basic(optional = false)
-    @Column(name = "Horario_idHorario")
+    @Column(name = "maestro_usuario_nombreUsuario")
+    private String maestrousuarionombreUsuario;
+    @Basic(optional = false)
+    @Column(name = "horario_idHorario")
     private int horarioidHorario;
 
     public GrupoPK() {
     }
 
-    public GrupoPK(int idGrupo, int maestroidMaestro, int horarioidHorario) {
+    public GrupoPK(int idGrupo, int maestroidMaestro, String maestrousuarionombreUsuario, int horarioidHorario) {
         this.idGrupo = idGrupo;
         this.maestroidMaestro = maestroidMaestro;
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
         this.horarioidHorario = horarioidHorario;
     }
 
@@ -52,6 +56,14 @@ public class GrupoPK implements Serializable {
         this.maestroidMaestro = maestroidMaestro;
     }
 
+    public String getMaestrousuarionombreUsuario() {
+        return maestrousuarionombreUsuario;
+    }
+
+    public void setMaestrousuarionombreUsuario(String maestrousuarionombreUsuario) {
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
+    }
+
     public int getHorarioidHorario() {
         return horarioidHorario;
     }
@@ -65,6 +77,7 @@ public class GrupoPK implements Serializable {
         int hash = 0;
         hash += (int) idGrupo;
         hash += (int) maestroidMaestro;
+        hash += (maestrousuarionombreUsuario != null ? maestrousuarionombreUsuario.hashCode() : 0);
         hash += (int) horarioidHorario;
         return hash;
     }
@@ -82,6 +95,9 @@ public class GrupoPK implements Serializable {
         if (this.maestroidMaestro != other.maestroidMaestro) {
             return false;
         }
+        if ((this.maestrousuarionombreUsuario == null && other.maestrousuarionombreUsuario != null) || (this.maestrousuarionombreUsuario != null && !this.maestrousuarionombreUsuario.equals(other.maestrousuarionombreUsuario))) {
+            return false;
+        }
         if (this.horarioidHorario != other.horarioidHorario) {
             return false;
         }
@@ -90,7 +106,7 @@ public class GrupoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.GrupoPK[ idGrupo=" + idGrupo + ", maestroidMaestro=" + maestroidMaestro + ", horarioidHorario=" + horarioidHorario + " ]";
+        return "modelo.GrupoPK[ idGrupo=" + idGrupo + ", maestroidMaestro=" + maestroidMaestro + ", maestrousuarionombreUsuario=" + maestrousuarionombreUsuario + ", horarioidHorario=" + horarioidHorario + " ]";
     }
     
 }

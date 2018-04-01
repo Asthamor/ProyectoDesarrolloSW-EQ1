@@ -5,21 +5,32 @@
  */
 package modelo;
 
+import interfaces.IPersona;
+import java.util.List;
+
 /**
  *
  * @author alonso
  */
-public abstract class Persona {
+public abstract class Persona implements IPersona {
+
     private String nombre;
     private String apellidos;
     private String email;
     private String telefono;
-    private String rutaFotografia;
-    
-    
-    public abstract Persona[] obtenerTodos();
-    public abstract boolean actualzarDatos(Persona persona);
-    public abstract Persona[] buscar(String nombre);
+    private String imgFoto;
+    protected String tipoUsario;
+
+    @Override
+    public abstract List<Persona> obtenerTodos();
+
+    @Override
+    public abstract boolean actualizarDatos(Persona persona);
+
+    @Override
+    public abstract List<Persona> buscar(String nombre);
+
+    @Override
     public abstract boolean registrar(Persona persona);
 
     public String getNombre() {
@@ -54,14 +65,16 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    public String getRutaFotografia() {
-        return rutaFotografia;
+    public String getImgFoto() {
+        return imgFoto;
     }
 
-    public void setRutaFotografia(String rutaFotografia) {
-        this.rutaFotografia = rutaFotografia;
+    public void setImgFoto(String imgFoto) {
+        this.imgFoto = imgFoto;
     }
 
+    public String getTipoUsario() {
+        return tipoUsario;
+    }  
 
-    
 }

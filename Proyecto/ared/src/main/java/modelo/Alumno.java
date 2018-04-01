@@ -5,12 +5,18 @@
  */
 package modelo;
 
+import interfaces.IAlumno;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,26 +26,29 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.AlumnoJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author alonso
  */
-@Entity
+@Entity 
 @Table(name = "alumno")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a")
     , @NamedQuery(name = "Alumno.findByIdAlumno", query = "SELECT a FROM Alumno a WHERE a.idAlumno = :idAlumno")
-    , @NamedQuery(name = "Alumno.findByNombre", query = "SELECT a FROM Alumno a WHERE a.nombre = :nombre")
+    , @NamedQuery(name = "Alumno.findByNombre", query = "SELECT a FROM Alumno a WHERE a.nombre LIKE ':nombre%'")
     , @NamedQuery(name = "Alumno.findByApellidos", query = "SELECT a FROM Alumno a WHERE a.apellidos = :apellidos")
     , @NamedQuery(name = "Alumno.findByTelefono", query = "SELECT a FROM Alumno a WHERE a.telefono = :telefono")
     , @NamedQuery(name = "Alumno.findByEmail", query = "SELECT a FROM Alumno a WHERE a.email = :email")
     , @NamedQuery(name = "Alumno.findByImgFoto", query = "SELECT a FROM Alumno a WHERE a.imgFoto = :imgFoto")})
-public class Alumno implements Serializable {
+public class Alumno extends Persona implements Serializable, IAlumno {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,9 +69,12 @@ public class Alumno implements Serializable {
     private String email;
     @Column(name = "imgFoto")
     private String imgFoto;
-    @JoinTable(name = "inscripcion", joinColumns = {
-        @JoinColumn(name = "Alumno_idAlumno", referencedColumnName = "idAlumno")}, inverseJoinColumns = {
-        @JoinColumn(name = "Grupo_idGrupo", referencedColumnName = "idGrupo")})
+    @JoinTable(name = "grupo_has_alumno", joinColumns = {
+        @JoinColumn(name = "alumno_idAlumno", referencedColumnName = "idAlumno")}, inverseJoinColumns = {
+        @JoinColumn(name = "grupo_idGrupo", referencedColumnName = "idGrupo")
+        , @JoinColumn(name = "grupo_maestro_idMaestro", referencedColumnName = "maestro_idMaestro")
+        , @JoinColumn(name = "grupo_maestro_usuario_nombreUsuario", referencedColumnName = "maestro_usuario_nombreUsuario")
+        , @JoinColumn(name = "grupo_horario_idHorario", referencedColumnName = "horario_idHorario")})
     @ManyToMany
     private Collection<Grupo> grupoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno")
@@ -71,6 +83,7 @@ public class Alumno implements Serializable {
     private Collection<PagoAlumno> pagoAlumnoCollection;
 
     public Alumno() {
+        super.tipoUsario = "alumno";
     }
 
     public Alumno(Integer idAlumno) {
@@ -82,6 +95,14 @@ public class Alumno implements Serializable {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
+    }
+
+    public Alumno(Persona persona) {
+        this.nombre = persona.getNombre();
+        this.apellidos = persona.getApellidos();
+        this.telefono = persona.getTelefono();
+        this.email = persona.getEmail();
+        this.imgFoto = persona.getImgFoto();
     }
 
     public Integer getIdAlumno() {
@@ -130,6 +151,10 @@ public class Alumno implements Serializable {
 
     public void setImgFoto(String imgFoto) {
         this.imgFoto = imgFoto;
+    }
+
+    public String getTipoUsario() {
+        return super.tipoUsario;
     }
 
     @XmlTransient
@@ -183,5 +208,69 @@ public class Alumno implements Serializable {
     public String toString() {
         return "modelo.Alumno[ idAlumno=" + idAlumno + " ]";
     }
-    
+
+    @Override
+    public List<Persona> obtenerTodos() {
+        List<Persona> personas = new ArrayList();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
+        List<Alumno> alumnos = controlador.findAlumnoEntities();
+        for (Alumno alumno : alumnos) {
+            personas.add(alumno);
+        }
+        return personas;
+    }
+
+    @Override
+    public boolean actualizarDatos(Persona persona) {
+        boolean seActualizo = false;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
+        Alumno alumno = new Alumno(persona);
+        alumno.setIdAlumno(idAlumno);
+        alumno.setGrupoCollection(grupoCollection);
+        alumno.setPagoAlumnoCollection(pagoAlumnoCollection);
+        alumno.setPagoAlumnoExternoCollection(pagoAlumnoExternoCollection);
+        try {
+            controlador.edit(alumno);
+            seActualizo = true;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return seActualizo;
+    }
+
+    @Override
+    public List<Persona> buscar(String nombre) {
+       List<Persona> personas = new ArrayList();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
+        List<Alumno> alumnos = controlador.findAlumnoByName(nombre);
+        for (Alumno alumno : alumnos) {
+            personas.add(alumno);
+        }
+        return personas;
+    }
+
+    @Override
+    public boolean registrar(Persona persona) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
+        Alumno alumno = new Alumno(persona);
+        controlador.create(alumno);
+        return true;
+    }
+
+    @Override
+    public List<Alumno> obtenerAlumnosInscritos(String idGrupo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Alumno> obtenerAlumnosNoInscritos(String idGrupo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

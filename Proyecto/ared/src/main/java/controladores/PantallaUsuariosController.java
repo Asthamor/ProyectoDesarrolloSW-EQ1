@@ -5,10 +5,12 @@
  */
 package controladores;
 
+import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import modelo.Persona;
 
 /**
  * FXML Controller class
@@ -41,51 +44,72 @@ public class PantallaUsuariosController implements Initializable {
     private JFXButton btnRegistrarUsuario;
     @FXML
     private JFXButton btnBuscar;
-    
-    private String tipoUsuario;
-    private HBox pantallaDividida;
-    private StackPane pnlPrincipal;
     @FXML
     private JFXTextField txtNombreUsuario;
+
+    private HBox pantallaDividida;
+    private StackPane pnlPrincipal;
+    private Persona persona;
+    private List<Persona> personas;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        pnlUsuarios.getChildren().add(addFlowPane());
-        scrollUsuarios.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        
-    }    
 
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-        etNombreUsuario.setText("Nombre del " + this.tipoUsuario + ":");
-        btnRegistrarUsuario.setText("Registrar " + this.tipoUsuario);
+        scrollUsuarios.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
     }
 
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
     }
-    
-    
 
     public void setPantallaDividida(HBox pantallaDividida) {
         this.pantallaDividida = pantallaDividida;
     }
-    
-    public GridPane addFlowPane() {
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+        etNombreUsuario.setText("Nombre del " + this.persona.getTipoUsario() + ":");
+        btnRegistrarUsuario.setText("Registrar " + this.persona.getTipoUsario());
+        pnlUsuarios.getChildren().add(mostrarUsuarios(persona.obtenerTodos()));
+    }
+
+    public GridPane mostrarUsuarios(List<Persona> personas) {
+        System.out.println(personas.size());
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 2; j++) {
+        int filas = personas.size() / 2;
+        int auxiliar = 0;
+        if (personas.size() % 2 != 0) {
+            filas = (personas.size() + 1) / 2;
+        }
+        for (int i = 0; i < filas; i++) {
+            try {
+                FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionUsuario.fxml"));
+                Parent root = (Parent) loader.load();
+                TarjetaInformacionUsuarioController controlador = loader.getController();
+                controlador.setPersona(personas.get(auxiliar));
+                auxiliar++;
+                controlador.setPantallaDividida(pantallaDividida);
+                grid.add(root, 0, i);
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (auxiliar < personas.size()) {
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/TarjetaInformacionUsuario.fxml"));
-                    grid.add(root, j, i);
-                }
-                catch (IOException ex) {
-                    Logger.getLogger(PantallaUsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+                    FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionUsuario.fxml"));
+                    Parent root = (Parent) loader.load();
+                    TarjetaInformacionUsuarioController controlador = loader.getController();
+                    controlador.setPersona(personas.get(auxiliar));
+                    auxiliar++;
+                    controlador.setPantallaDividida(pantallaDividida);
+                    grid.add(root, 1, i);
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -103,11 +127,22 @@ public class PantallaUsuariosController implements Initializable {
             Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
         }
         PantallaRegistrarUsuarioController controlador = loader.getController();
-        controlador.setTipoUsuario(tipoUsuario);
+        controlador.setPersona(persona);
+        controlador.setPantallaDividida(pantallaDividida);
+        controlador.setPnlPrincipal(pnlPrincipal);
         pnlPrincipal.getChildren().add(root);
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
-    
-    
-    
+
+    @FXML
+    private void buscarUsuario(ActionEvent event) {
+        if (txtNombreUsuario.getText().isEmpty()) {
+            Mensajes.mensajeAlert("Ingrese el nombre del "+ persona.getTipoUsario() + " que desea buscar");
+        } else {
+            pnlUsuarios.getChildren().clear();
+            pnlUsuarios.getChildren().add(mostrarUsuarios(persona.buscar(txtNombreUsuario.getText())));
+        }
+
+    }
+
 }

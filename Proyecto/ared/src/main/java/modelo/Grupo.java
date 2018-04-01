@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -32,10 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g")
     , @NamedQuery(name = "Grupo.findByIdGrupo", query = "SELECT g FROM Grupo g WHERE g.grupoPK.idGrupo = :idGrupo")
-    , @NamedQuery(name = "Grupo.findByMaestroidMaestro", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestroidMaestro = :maestroidMaestro")
-    , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")
     , @NamedQuery(name = "Grupo.findByEstado", query = "SELECT g FROM Grupo g WHERE g.estado = :estado")
-    , @NamedQuery(name = "Grupo.findByFechaCreacion", query = "SELECT g FROM Grupo g WHERE g.fechaCreacion = :fechaCreacion")})
+    , @NamedQuery(name = "Grupo.findByFechaCreacion", query = "SELECT g FROM Grupo g WHERE g.fechaCreacion = :fechaCreacion")
+    , @NamedQuery(name = "Grupo.findByMaestroidMaestro", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestroidMaestro = :maestroidMaestro")
+    , @NamedQuery(name = "Grupo.findByMaestrousuarionombreUsuario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
+    , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")})
 public class Grupo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,10 +50,12 @@ public class Grupo implements Serializable {
     private Date fechaCreacion;
     @ManyToMany(mappedBy = "grupoCollection")
     private Collection<Alumno> alumnoCollection;
-    @JoinColumn(name = "Horario_idHorario", referencedColumnName = "idHorario", insertable = false, updatable = false)
+    @JoinColumn(name = "horario_idHorario", referencedColumnName = "idHorario", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Horario horario;
-    @JoinColumn(name = "Maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+        , @JoinColumn(name = "maestro_usuario_nombreUsuario", referencedColumnName = "usuario_nombreUsuario", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Maestro maestro;
 
@@ -62,8 +66,8 @@ public class Grupo implements Serializable {
         this.grupoPK = grupoPK;
     }
 
-    public Grupo(int idGrupo, int maestroidMaestro, int horarioidHorario) {
-        this.grupoPK = new GrupoPK(idGrupo, maestroidMaestro, horarioidHorario);
+    public Grupo(int idGrupo, int maestroidMaestro, String maestrousuarionombreUsuario, int horarioidHorario) {
+        this.grupoPK = new GrupoPK(idGrupo, maestroidMaestro, maestrousuarionombreUsuario, horarioidHorario);
     }
 
     public GrupoPK getGrupoPK() {

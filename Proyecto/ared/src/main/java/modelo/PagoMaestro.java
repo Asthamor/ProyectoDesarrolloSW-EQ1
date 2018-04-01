@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,10 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PagoMaestro.findAll", query = "SELECT p FROM PagoMaestro p")
     , @NamedQuery(name = "PagoMaestro.findByIdPagoMaestro", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.idPagoMaestro = :idPagoMaestro")
-    , @NamedQuery(name = "PagoMaestro.findByMaestroidMaestro", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "PagoMaestro.findByMonto", query = "SELECT p FROM PagoMaestro p WHERE p.monto = :monto")
     , @NamedQuery(name = "PagoMaestro.findByFecha", query = "SELECT p FROM PagoMaestro p WHERE p.fecha = :fecha")
-    , @NamedQuery(name = "PagoMaestro.findByPlazo", query = "SELECT p FROM PagoMaestro p WHERE p.plazo = :plazo")})
+    , @NamedQuery(name = "PagoMaestro.findByPlazo", query = "SELECT p FROM PagoMaestro p WHERE p.plazo = :plazo")
+    , @NamedQuery(name = "PagoMaestro.findByMaestroidMaestro", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestroidMaestro = :maestroidMaestro")
+    , @NamedQuery(name = "PagoMaestro.findByMaestrousuarionombreUsuario", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class PagoMaestro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +47,9 @@ public class PagoMaestro implements Serializable {
     private Date fecha;
     @Column(name = "plazo")
     private Integer plazo;
-    @JoinColumn(name = "Maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+        , @JoinColumn(name = "maestro_usuario_nombreUsuario", referencedColumnName = "usuario_nombreUsuario", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Maestro maestro;
 
@@ -56,8 +60,8 @@ public class PagoMaestro implements Serializable {
         this.pagoMaestroPK = pagoMaestroPK;
     }
 
-    public PagoMaestro(int idPagoMaestro, int maestroidMaestro) {
-        this.pagoMaestroPK = new PagoMaestroPK(idPagoMaestro, maestroidMaestro);
+    public PagoMaestro(int idPagoMaestro, int maestroidMaestro, String maestrousuarionombreUsuario) {
+        this.pagoMaestroPK = new PagoMaestroPK(idPagoMaestro, maestroidMaestro, maestrousuarionombreUsuario);
     }
 
     public PagoMaestroPK getPagoMaestroPK() {

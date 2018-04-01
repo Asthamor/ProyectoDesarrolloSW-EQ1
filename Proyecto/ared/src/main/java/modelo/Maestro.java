@@ -7,6 +7,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Maestro.findByEmail", query = "SELECT m FROM Maestro m WHERE m.email = :email")
     , @NamedQuery(name = "Maestro.findByImgFoto", query = "SELECT m FROM Maestro m WHERE m.imgFoto = :imgFoto")
     , @NamedQuery(name = "Maestro.findByUsuarionombreUsuario", query = "SELECT m FROM Maestro m WHERE m.maestroPK.usuarionombreUsuario = :usuarionombreUsuario")})
-public class Maestro implements Serializable {
+public class Maestro extends Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -70,6 +71,7 @@ public class Maestro implements Serializable {
     private Usuario usuario;
 
     public Maestro() {
+        super.tipoUsario = "maestro";
     }
 
     public Maestro(MaestroPK maestroPK) {
@@ -133,6 +135,10 @@ public class Maestro implements Serializable {
 
     public void setImgFoto(String imgFoto) {
         this.imgFoto = imgFoto;
+    }
+
+    public String getTipoUsario() {
+        return super.tipoUsario;
     }
 
     @XmlTransient
@@ -212,5 +218,25 @@ public class Maestro implements Serializable {
     public String toString() {
         return "modelo.Maestro[ maestroPK=" + maestroPK + " ]";
     }
-    
+
+    @Override
+    public List<Persona> obtenerTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean actualizarDatos(Persona persona) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Persona> buscar(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean registrar(Persona persona) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

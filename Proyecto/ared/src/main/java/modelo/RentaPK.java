@@ -21,23 +21,23 @@ public class RentaPK implements Serializable {
     @Column(name = "idRenta")
     private int idRenta;
     @Basic(optional = false)
-    @Column(name = "Horario_idHorario")
-    private int horarioidHorario;
-    @Basic(optional = false)
     @Column(name = "Cliente_idCliente")
     private int clienteidCliente;
     @Basic(optional = false)
-    @Column(name = "Pago_idPago")
-    private int pagoidPago;
+    @Column(name = "pagoRenta_idPago")
+    private int pagoRentaidPago;
+    @Basic(optional = false)
+    @Column(name = "horario_idHorario")
+    private int horarioidHorario;
 
     public RentaPK() {
     }
 
-    public RentaPK(int idRenta, int horarioidHorario, int clienteidCliente, int pagoidPago) {
+    public RentaPK(int idRenta, int clienteidCliente, int pagoRentaidPago, int horarioidHorario) {
         this.idRenta = idRenta;
-        this.horarioidHorario = horarioidHorario;
         this.clienteidCliente = clienteidCliente;
-        this.pagoidPago = pagoidPago;
+        this.pagoRentaidPago = pagoRentaidPago;
+        this.horarioidHorario = horarioidHorario;
     }
 
     public int getIdRenta() {
@@ -48,14 +48,6 @@ public class RentaPK implements Serializable {
         this.idRenta = idRenta;
     }
 
-    public int getHorarioidHorario() {
-        return horarioidHorario;
-    }
-
-    public void setHorarioidHorario(int horarioidHorario) {
-        this.horarioidHorario = horarioidHorario;
-    }
-
     public int getClienteidCliente() {
         return clienteidCliente;
     }
@@ -64,21 +56,29 @@ public class RentaPK implements Serializable {
         this.clienteidCliente = clienteidCliente;
     }
 
-    public int getPagoidPago() {
-        return pagoidPago;
+    public int getPagoRentaidPago() {
+        return pagoRentaidPago;
     }
 
-    public void setPagoidPago(int pagoidPago) {
-        this.pagoidPago = pagoidPago;
+    public void setPagoRentaidPago(int pagoRentaidPago) {
+        this.pagoRentaidPago = pagoRentaidPago;
+    }
+
+    public int getHorarioidHorario() {
+        return horarioidHorario;
+    }
+
+    public void setHorarioidHorario(int horarioidHorario) {
+        this.horarioidHorario = horarioidHorario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idRenta;
-        hash += (int) horarioidHorario;
         hash += (int) clienteidCliente;
-        hash += (int) pagoidPago;
+        hash += (int) pagoRentaidPago;
+        hash += (int) horarioidHorario;
         return hash;
     }
 
@@ -92,13 +92,13 @@ public class RentaPK implements Serializable {
         if (this.idRenta != other.idRenta) {
             return false;
         }
-        if (this.horarioidHorario != other.horarioidHorario) {
-            return false;
-        }
         if (this.clienteidCliente != other.clienteidCliente) {
             return false;
         }
-        if (this.pagoidPago != other.pagoidPago) {
+        if (this.pagoRentaidPago != other.pagoRentaidPago) {
+            return false;
+        }
+        if (this.horarioidHorario != other.horarioidHorario) {
             return false;
         }
         return true;
@@ -106,7 +106,7 @@ public class RentaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.RentaPK[ idRenta=" + idRenta + ", horarioidHorario=" + horarioidHorario + ", clienteidCliente=" + clienteidCliente + ", pagoidPago=" + pagoidPago + " ]";
+        return "modelo.RentaPK[ idRenta=" + idRenta + ", clienteidCliente=" + clienteidCliente + ", pagoRentaidPago=" + pagoRentaidPago + ", horarioidHorario=" + horarioidHorario + " ]";
     }
     
 }

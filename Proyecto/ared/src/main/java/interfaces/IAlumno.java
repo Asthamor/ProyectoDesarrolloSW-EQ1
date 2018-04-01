@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.util.List;
 import modelo.Alumno;
 
 /**
@@ -12,5 +13,6 @@ import modelo.Alumno;
  * @author alonso
  */
 public interface IAlumno {
-    public Alumno[] obtenerAlumnosInscritos();
+    public List<Alumno> obtenerAlumnosInscritos(String idGrupo);
+    public List<Alumno> obtenerAlumnosNoInscritos(String idGrupo);
 }

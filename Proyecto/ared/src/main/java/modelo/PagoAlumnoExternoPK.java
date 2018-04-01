@@ -21,18 +21,22 @@ public class PagoAlumnoExternoPK implements Serializable {
     @Column(name = "idPagoAlExterno")
     private int idPagoAlExterno;
     @Basic(optional = false)
-    @Column(name = "Maestro_idMaestro")
+    @Column(name = "maestro_idMaestro")
     private int maestroidMaestro;
     @Basic(optional = false)
-    @Column(name = "Alumno_idAlumno")
+    @Column(name = "maestro_usuario_nombreUsuario")
+    private String maestrousuarionombreUsuario;
+    @Basic(optional = false)
+    @Column(name = "alumno_idAlumno")
     private int alumnoidAlumno;
 
     public PagoAlumnoExternoPK() {
     }
 
-    public PagoAlumnoExternoPK(int idPagoAlExterno, int maestroidMaestro, int alumnoidAlumno) {
+    public PagoAlumnoExternoPK(int idPagoAlExterno, int maestroidMaestro, String maestrousuarionombreUsuario, int alumnoidAlumno) {
         this.idPagoAlExterno = idPagoAlExterno;
         this.maestroidMaestro = maestroidMaestro;
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
         this.alumnoidAlumno = alumnoidAlumno;
     }
 
@@ -52,6 +56,14 @@ public class PagoAlumnoExternoPK implements Serializable {
         this.maestroidMaestro = maestroidMaestro;
     }
 
+    public String getMaestrousuarionombreUsuario() {
+        return maestrousuarionombreUsuario;
+    }
+
+    public void setMaestrousuarionombreUsuario(String maestrousuarionombreUsuario) {
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
+    }
+
     public int getAlumnoidAlumno() {
         return alumnoidAlumno;
     }
@@ -65,6 +77,7 @@ public class PagoAlumnoExternoPK implements Serializable {
         int hash = 0;
         hash += (int) idPagoAlExterno;
         hash += (int) maestroidMaestro;
+        hash += (maestrousuarionombreUsuario != null ? maestrousuarionombreUsuario.hashCode() : 0);
         hash += (int) alumnoidAlumno;
         return hash;
     }
@@ -82,6 +95,9 @@ public class PagoAlumnoExternoPK implements Serializable {
         if (this.maestroidMaestro != other.maestroidMaestro) {
             return false;
         }
+        if ((this.maestrousuarionombreUsuario == null && other.maestrousuarionombreUsuario != null) || (this.maestrousuarionombreUsuario != null && !this.maestrousuarionombreUsuario.equals(other.maestrousuarionombreUsuario))) {
+            return false;
+        }
         if (this.alumnoidAlumno != other.alumnoidAlumno) {
             return false;
         }
@@ -90,7 +106,7 @@ public class PagoAlumnoExternoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.PagoAlumnoExternoPK[ idPagoAlExterno=" + idPagoAlExterno + ", maestroidMaestro=" + maestroidMaestro + ", alumnoidAlumno=" + alumnoidAlumno + " ]";
+        return "modelo.PagoAlumnoExternoPK[ idPagoAlExterno=" + idPagoAlExterno + ", maestroidMaestro=" + maestroidMaestro + ", maestrousuarionombreUsuario=" + maestrousuarionombreUsuario + ", alumnoidAlumno=" + alumnoidAlumno + " ]";
     }
     
 }

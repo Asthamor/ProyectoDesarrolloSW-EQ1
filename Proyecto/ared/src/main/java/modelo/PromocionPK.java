@@ -18,26 +18,30 @@ import javax.persistence.Embeddable;
 public class PromocionPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "idPromoci\u00f3n")
-    private int idPromoción;
+    @Column(name = "idPromocion")
+    private int idPromocion;
     @Basic(optional = false)
     @Column(name = "maestro_idMaestro")
     private int maestroidMaestro;
+    @Basic(optional = false)
+    @Column(name = "maestro_usuario_nombreUsuario")
+    private String maestrousuarionombreUsuario;
 
     public PromocionPK() {
     }
 
-    public PromocionPK(int idPromoción, int maestroidMaestro) {
-        this.idPromoción = idPromoción;
+    public PromocionPK(int idPromocion, int maestroidMaestro, String maestrousuarionombreUsuario) {
+        this.idPromocion = idPromocion;
         this.maestroidMaestro = maestroidMaestro;
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
     }
 
-    public int getIdPromoción() {
-        return idPromoción;
+    public int getIdPromocion() {
+        return idPromocion;
     }
 
-    public void setIdPromoción(int idPromoción) {
-        this.idPromoción = idPromoción;
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
     public int getMaestroidMaestro() {
@@ -48,11 +52,20 @@ public class PromocionPK implements Serializable {
         this.maestroidMaestro = maestroidMaestro;
     }
 
+    public String getMaestrousuarionombreUsuario() {
+        return maestrousuarionombreUsuario;
+    }
+
+    public void setMaestrousuarionombreUsuario(String maestrousuarionombreUsuario) {
+        this.maestrousuarionombreUsuario = maestrousuarionombreUsuario;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idPromoción;
+        hash += (int) idPromocion;
         hash += (int) maestroidMaestro;
+        hash += (maestrousuarionombreUsuario != null ? maestrousuarionombreUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -63,10 +76,13 @@ public class PromocionPK implements Serializable {
             return false;
         }
         PromocionPK other = (PromocionPK) object;
-        if (this.idPromoción != other.idPromoción) {
+        if (this.idPromocion != other.idPromocion) {
             return false;
         }
         if (this.maestroidMaestro != other.maestroidMaestro) {
+            return false;
+        }
+        if ((this.maestrousuarionombreUsuario == null && other.maestrousuarionombreUsuario != null) || (this.maestrousuarionombreUsuario != null && !this.maestrousuarionombreUsuario.equals(other.maestrousuarionombreUsuario))) {
             return false;
         }
         return true;
@@ -74,7 +90,7 @@ public class PromocionPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.PromocionPK[ idPromoci\u00f3n=" + idPromoción + ", maestroidMaestro=" + maestroidMaestro + " ]";
+        return "modelo.PromocionPK[ idPromocion=" + idPromocion + ", maestroidMaestro=" + maestroidMaestro + ", maestrousuarionombreUsuario=" + maestrousuarionombreUsuario + " ]";
     }
     
 }

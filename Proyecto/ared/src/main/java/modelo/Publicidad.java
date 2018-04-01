@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,13 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Publicidad.findAll", query = "SELECT p FROM Publicidad p")
-    , @NamedQuery(name = "Publicidad.findByIdPromoci\u00f3n", query = "SELECT p FROM Publicidad p WHERE p.publicidadPK.idPromoci\u00f3n = :idPromoci\u00f3n")
+    , @NamedQuery(name = "Publicidad.findByIdPublicidad", query = "SELECT p FROM Publicidad p WHERE p.publicidadPK.idPublicidad = :idPublicidad")
     , @NamedQuery(name = "Publicidad.findByFechaInicio", query = "SELECT p FROM Publicidad p WHERE p.fechaInicio = :fechaInicio")
     , @NamedQuery(name = "Publicidad.findByFechaFin", query = "SELECT p FROM Publicidad p WHERE p.fechaFin = :fechaFin")
     , @NamedQuery(name = "Publicidad.findByDescripcion", query = "SELECT p FROM Publicidad p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Publicidad.findByMonto", query = "SELECT p FROM Publicidad p WHERE p.monto = :monto")
     , @NamedQuery(name = "Publicidad.findByUrl", query = "SELECT p FROM Publicidad p WHERE p.url = :url")
-    , @NamedQuery(name = "Publicidad.findByMaestroidMaestro", query = "SELECT p FROM Publicidad p WHERE p.publicidadPK.maestroidMaestro = :maestroidMaestro")})
+    , @NamedQuery(name = "Publicidad.findByMaestroidMaestro", query = "SELECT p FROM Publicidad p WHERE p.publicidadPK.maestroidMaestro = :maestroidMaestro")
+    , @NamedQuery(name = "Publicidad.findByMaestrousuarionombreUsuario", query = "SELECT p FROM Publicidad p WHERE p.publicidadPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class Publicidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,7 +61,9 @@ public class Publicidad implements Serializable {
     @JoinColumn(name = "Egreso_idEgreso", referencedColumnName = "idEgreso")
     @ManyToOne(optional = false)
     private Egreso egresoidEgreso;
-    @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+        , @JoinColumn(name = "maestro_usuario_nombreUsuario", referencedColumnName = "usuario_nombreUsuario", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Maestro maestro;
 
@@ -77,8 +81,8 @@ public class Publicidad implements Serializable {
         this.monto = monto;
     }
 
-    public Publicidad(int idPromoción, int maestroidMaestro) {
-        this.publicidadPK = new PublicidadPK(idPromoción, maestroidMaestro);
+    public Publicidad(int idPublicidad, int maestroidMaestro, String maestrousuarionombreUsuario) {
+        this.publicidadPK = new PublicidadPK(idPublicidad, maestroidMaestro, maestrousuarionombreUsuario);
     }
 
     public PublicidadPK getPublicidadPK() {

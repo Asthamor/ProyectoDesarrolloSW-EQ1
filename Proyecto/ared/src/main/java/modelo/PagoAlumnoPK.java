@@ -21,7 +21,7 @@ public class PagoAlumnoPK implements Serializable {
     @Column(name = "idPagoAlumno")
     private int idPagoAlumno;
     @Basic(optional = false)
-    @Column(name = "Alumno_idAlumno")
+    @Column(name = "alumno_idAlumno")
     private int alumnoidAlumno;
 
     public PagoAlumnoPK() {

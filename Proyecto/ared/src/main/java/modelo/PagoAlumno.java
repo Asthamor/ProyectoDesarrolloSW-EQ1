@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,10 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PagoAlumno.findAll", query = "SELECT p FROM PagoAlumno p")
     , @NamedQuery(name = "PagoAlumno.findByIdPagoAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.idPagoAlumno = :idPagoAlumno")
-    , @NamedQuery(name = "PagoAlumno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :alumnoidAlumno")
     , @NamedQuery(name = "PagoAlumno.findByMonto", query = "SELECT p FROM PagoAlumno p WHERE p.monto = :monto")
     , @NamedQuery(name = "PagoAlumno.findByFechaPago", query = "SELECT p FROM PagoAlumno p WHERE p.fechaPago = :fechaPago")
-    , @NamedQuery(name = "PagoAlumno.findByPlazo", query = "SELECT p FROM PagoAlumno p WHERE p.plazo = :plazo")})
+    , @NamedQuery(name = "PagoAlumno.findByPlazo", query = "SELECT p FROM PagoAlumno p WHERE p.plazo = :plazo")
+    , @NamedQuery(name = "PagoAlumno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :alumnoidAlumno")})
 public class PagoAlumno implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,12 +48,15 @@ public class PagoAlumno implements Serializable {
     private Date fechaPago;
     @Column(name = "plazo")
     private Integer plazo;
-    @JoinColumn(name = "Alumno_idAlumno", referencedColumnName = "idAlumno", insertable = false, updatable = false)
+    @JoinColumn(name = "alumno_idAlumno", referencedColumnName = "idAlumno", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Alumno alumno;
-    @JoinColumn(name = "Promoci\u00f3n_idPromoci\u00f3n", referencedColumnName = "idPromoci\u00f3n")
+    @JoinColumns({
+        @JoinColumn(name = "promocion_idPromocion", referencedColumnName = "idPromocion")
+        , @JoinColumn(name = "promocion_maestro_idMaestro", referencedColumnName = "maestro_idMaestro")
+        , @JoinColumn(name = "promocion_maestro_usuario_nombreUsuario", referencedColumnName = "maestro_usuario_nombreUsuario")})
     @ManyToOne(optional = false)
-    private Promocion promociónidPromoción;
+    private Promocion promocion;
 
     public PagoAlumno() {
     }
@@ -110,12 +114,12 @@ public class PagoAlumno implements Serializable {
         this.alumno = alumno;
     }
 
-    public Promocion getPromociónidPromoción() {
-        return promociónidPromoción;
+    public Promocion getPromocion() {
+        return promocion;
     }
 
-    public void setPromociónidPromoción(Promocion promociónidPromoción) {
-        this.promociónidPromoción = promociónidPromoción;
+    public void setPromocion(Promocion promocion) {
+        this.promocion = promocion;
     }
 
     @Override

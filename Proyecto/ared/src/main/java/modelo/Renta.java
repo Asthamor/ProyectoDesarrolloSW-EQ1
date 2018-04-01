@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Renta.findAll", query = "SELECT r FROM Renta r")
     , @NamedQuery(name = "Renta.findByIdRenta", query = "SELECT r FROM Renta r WHERE r.rentaPK.idRenta = :idRenta")
-    , @NamedQuery(name = "Renta.findByHorarioidHorario", query = "SELECT r FROM Renta r WHERE r.rentaPK.horarioidHorario = :horarioidHorario")
     , @NamedQuery(name = "Renta.findByClienteidCliente", query = "SELECT r FROM Renta r WHERE r.rentaPK.clienteidCliente = :clienteidCliente")
-    , @NamedQuery(name = "Renta.findByPagoidPago", query = "SELECT r FROM Renta r WHERE r.rentaPK.pagoidPago = :pagoidPago")})
+    , @NamedQuery(name = "Renta.findByPagoRentaidPago", query = "SELECT r FROM Renta r WHERE r.rentaPK.pagoRentaidPago = :pagoRentaidPago")
+    , @NamedQuery(name = "Renta.findByHorarioidHorario", query = "SELECT r FROM Renta r WHERE r.rentaPK.horarioidHorario = :horarioidHorario")})
 public class Renta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,10 +36,10 @@ public class Renta implements Serializable {
     @JoinColumn(name = "Cliente_idCliente", referencedColumnName = "idCliente", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cliente cliente;
-    @JoinColumn(name = "Horario_idHorario", referencedColumnName = "idHorario", insertable = false, updatable = false)
+    @JoinColumn(name = "horario_idHorario", referencedColumnName = "idHorario", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Horario horario;
-    @JoinColumn(name = "Pago_idPago", referencedColumnName = "idPago", insertable = false, updatable = false)
+    @JoinColumn(name = "pagoRenta_idPago", referencedColumnName = "idPago", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PagoRenta pagoRenta;
 
@@ -50,8 +50,8 @@ public class Renta implements Serializable {
         this.rentaPK = rentaPK;
     }
 
-    public Renta(int idRenta, int horarioidHorario, int clienteidCliente, int pagoidPago) {
-        this.rentaPK = new RentaPK(idRenta, horarioidHorario, clienteidCliente, pagoidPago);
+    public Renta(int idRenta, int clienteidCliente, int pagoRentaidPago, int horarioidHorario) {
+        this.rentaPK = new RentaPK(idRenta, clienteidCliente, pagoRentaidPago, horarioidHorario);
     }
 
     public RentaPK getRentaPK() {

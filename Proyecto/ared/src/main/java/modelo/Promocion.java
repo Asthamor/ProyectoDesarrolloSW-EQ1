@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,11 +31,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Promocion.findAll", query = "SELECT p FROM Promocion p")
-    , @NamedQuery(name = "Promocion.findByIdPromoci\u00f3n", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPromoci\u00f3n = :idPromoci\u00f3n")
+    , @NamedQuery(name = "Promocion.findByIdPromocion", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPromocion = :idPromocion")
     , @NamedQuery(name = "Promocion.findByCodigo", query = "SELECT p FROM Promocion p WHERE p.codigo = :codigo")
-    , @NamedQuery(name = "Promocion.findByMaestroidMaestro", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "Promocion.findByConcepto", query = "SELECT p FROM Promocion p WHERE p.concepto = :concepto")
-    , @NamedQuery(name = "Promocion.findByDescuento", query = "SELECT p FROM Promocion p WHERE p.descuento = :descuento")})
+    , @NamedQuery(name = "Promocion.findByDescuento", query = "SELECT p FROM Promocion p WHERE p.descuento = :descuento")
+    , @NamedQuery(name = "Promocion.findByMaestroidMaestro", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestroidMaestro = :maestroidMaestro")
+    , @NamedQuery(name = "Promocion.findByMaestrousuarionombreUsuario", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class Promocion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,10 +50,12 @@ public class Promocion implements Serializable {
     @Basic(optional = false)
     @Column(name = "descuento")
     private int descuento;
-    @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+        , @JoinColumn(name = "maestro_usuario_nombreUsuario", referencedColumnName = "usuario_nombreUsuario", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Maestro maestro;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "promoci\u00f3nidPromoci\u00f3n")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "promocion")
     private Collection<PagoAlumno> pagoAlumnoCollection;
 
     public Promocion() {
@@ -67,8 +71,8 @@ public class Promocion implements Serializable {
         this.descuento = descuento;
     }
 
-    public Promocion(int idPromoción, int maestroidMaestro) {
-        this.promocionPK = new PromocionPK(idPromoción, maestroidMaestro);
+    public Promocion(int idPromocion, int maestroidMaestro, String maestrousuarionombreUsuario) {
+        this.promocionPK = new PromocionPK(idPromocion, maestroidMaestro, maestrousuarionombreUsuario);
     }
 
     public PromocionPK getPromocionPK() {

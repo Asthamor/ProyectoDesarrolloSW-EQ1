@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,10 +31,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PagoAlumnoExterno.findAll", query = "SELECT p FROM PagoAlumnoExterno p")
     , @NamedQuery(name = "PagoAlumnoExterno.findByIdPagoAlExterno", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.idPagoAlExterno = :idPagoAlExterno")
-    , @NamedQuery(name = "PagoAlumnoExterno.findByMaestroidMaestro", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.maestroidMaestro = :maestroidMaestro")
-    , @NamedQuery(name = "PagoAlumnoExterno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.alumnoidAlumno = :alumnoidAlumno")
     , @NamedQuery(name = "PagoAlumnoExterno.findByMonto", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.monto = :monto")
-    , @NamedQuery(name = "PagoAlumnoExterno.findByFecha", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.fecha = :fecha")})
+    , @NamedQuery(name = "PagoAlumnoExterno.findByFecha", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.fecha = :fecha")
+    , @NamedQuery(name = "PagoAlumnoExterno.findByMaestroidMaestro", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.maestroidMaestro = :maestroidMaestro")
+    , @NamedQuery(name = "PagoAlumnoExterno.findByMaestrousuarionombreUsuario", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
+    , @NamedQuery(name = "PagoAlumnoExterno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.alumnoidAlumno = :alumnoidAlumno")})
 public class PagoAlumnoExterno implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,10 +47,12 @@ public class PagoAlumnoExterno implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @JoinColumn(name = "Alumno_idAlumno", referencedColumnName = "idAlumno", insertable = false, updatable = false)
+    @JoinColumn(name = "alumno_idAlumno", referencedColumnName = "idAlumno", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Alumno alumno;
-    @JoinColumn(name = "Maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
+        , @JoinColumn(name = "maestro_usuario_nombreUsuario", referencedColumnName = "usuario_nombreUsuario", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Maestro maestro;
 
@@ -64,8 +68,8 @@ public class PagoAlumnoExterno implements Serializable {
         this.monto = monto;
     }
 
-    public PagoAlumnoExterno(int idPagoAlExterno, int maestroidMaestro, int alumnoidAlumno) {
-        this.pagoAlumnoExternoPK = new PagoAlumnoExternoPK(idPagoAlExterno, maestroidMaestro, alumnoidAlumno);
+    public PagoAlumnoExterno(int idPagoAlExterno, int maestroidMaestro, String maestrousuarionombreUsuario, int alumnoidAlumno) {
+        this.pagoAlumnoExternoPK = new PagoAlumnoExternoPK(idPagoAlExterno, maestroidMaestro, maestrousuarionombreUsuario, alumnoidAlumno);
     }
 
     public PagoAlumnoExternoPK getPagoAlumnoExternoPK() {

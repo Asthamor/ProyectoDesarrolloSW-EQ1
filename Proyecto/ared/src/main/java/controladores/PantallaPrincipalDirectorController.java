@@ -24,6 +24,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import modelo.Alumno;
+import modelo.Cliente;
+import modelo.Maestro;
+import modelo.Persona;
 
 /**
  * FXML Controller class
@@ -92,7 +96,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
         pantallaDividida = new HBox();
         contenedor.getChildren().addAll(pantallaDividida,imagen);
         contenedor.setAlignment(imagen,Pos.CENTER);
-        
+   
     }
 
     @FXML
@@ -118,7 +122,6 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaPagos(ActionEvent event) {
         imagen.setVisible(false);
-        limpiarPanelPrincipal(this.pnlPrincipal, this.pantallaDividida);
         pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaPagos.fxml", this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
@@ -134,8 +137,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaAlumnos(ActionEvent event) {
         imagen.setVisible(false);
-        limpiarPanelPrincipal(this.pnlPrincipal, this.pantallaDividida);
-        pnlPrincipal.getChildren().add(crearPantallaUsuarios("alumno"));
+        pnlPrincipal.getChildren().add(crearPantallaUsuarios(new Alumno(),this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
 
     }
@@ -143,7 +145,6 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaGrupos(ActionEvent event) {
         imagen.setVisible(false);
-        limpiarPanelPrincipal(this.pnlPrincipal, this.pantallaDividida);
         pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
 
@@ -152,16 +153,14 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaMaestros(ActionEvent event) {
         imagen.setVisible(false);
-        limpiarPanelPrincipal(this.pnlPrincipal, this.pantallaDividida);
-        pnlPrincipal.getChildren().add(crearPantallaUsuarios("maestro"));
+        pnlPrincipal.getChildren().add(crearPantallaUsuarios(new Maestro(),this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
     @FXML
     private void abrirVentanaClientes(ActionEvent event) {
         imagen.setVisible(false);
-        limpiarPanelPrincipal(this.pnlPrincipal, this.pantallaDividida);
-        pnlPrincipal.getChildren().add(crearPantallaUsuarios("cliente"));
+        pnlPrincipal.getChildren().add(crearPantallaUsuarios(new Cliente(),this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
@@ -170,13 +169,13 @@ public class PantallaPrincipalDirectorController implements Initializable {
     }
 
     public static void limpiarPanelPrincipal(StackPane pnlPrincipal, HBox pantallaDividida) {
-        
         pnlPrincipal.getChildren().clear();
         pantallaDividida.getChildren().clear();
         animacionCargarPantalla(pnlPrincipal);
     }
 
-    public Parent crearPantallaUsuarios(String tipoUsuario) {
+    public static Parent crearPantallaUsuarios(Persona persona,StackPane pnlPrincipal, HBox pantallaDividida) {
+        limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaUsuarios.fxml"));
         try {
@@ -187,7 +186,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
         PantallaUsuariosController controlador = loader.getController();
         controlador.setPantallaDividida(pantallaDividida);
         controlador.setPnlPrincipal(pnlPrincipal);
-        controlador.setTipoUsuario(tipoUsuario);
+        controlador.setPersona(persona);
         return root;
     }
 
