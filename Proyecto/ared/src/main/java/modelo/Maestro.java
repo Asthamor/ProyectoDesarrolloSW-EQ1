@@ -5,22 +5,32 @@
  */
 package modelo;
 
+import interfaces.IMaestro;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.AlumnoJpaController;
+import modelo.controladores.MaestroJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -38,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Maestro.findByEmail", query = "SELECT m FROM Maestro m WHERE m.email = :email")
     , @NamedQuery(name = "Maestro.findByImgFoto", query = "SELECT m FROM Maestro m WHERE m.imgFoto = :imgFoto")
     , @NamedQuery(name = "Maestro.findByUsuarionombreUsuario", query = "SELECT m FROM Maestro m WHERE m.maestroPK.usuarionombreUsuario = :usuarionombreUsuario")})
-public class Maestro extends Persona implements Serializable {
+public class Maestro extends Persona implements Serializable, IMaestro{
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -83,6 +93,15 @@ public class Maestro extends Persona implements Serializable {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
+    }
+    
+    public Maestro(MaestroPK maestroPK, Persona persona) {
+        this.maestroPK = maestroPK;
+        this.nombre = persona.getNombre();
+        this.apellidos = persona.getApellidos();
+        this.telefono = persona.getTelefono();
+        this.email = persona.getEmail();
+        this.imgFoto = persona.getImgFoto();
     }
 
     public Maestro(int idMaestro, String usuarionombreUsuario) {
@@ -221,22 +240,66 @@ public class Maestro extends Persona implements Serializable {
 
     @Override
     public List<Persona> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Persona> personas = new ArrayList();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
+        List<Maestro> maestros = controlador.findMaestroEntities();
+        for (Maestro maestro : maestros) {
+            personas.add(maestro);
+        }
+        return personas;
     }
 
     @Override
     public boolean actualizarDatos(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean seActualizo = false;
+        return seActualizo;
     }
 
     @Override
     public List<Persona> buscar(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Persona> personas = new ArrayList();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+      
+        MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
+        List<Maestro> maestros = controlador.findMaestroByName(nombre);
+        for (Maestro maestro : maestros) {
+            personas.add(maestro);
+        }
+        return personas;
     }
 
     @Override
     public boolean registrar(Persona persona) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
+        Maestro maestro = new Maestro(new MaestroPK(), persona);
+        try {
+            controlador.create(maestro);
+        } catch (Exception ex) {
+            Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Maestro obtenerDatos(String maestro) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Maestro> obtenerActivos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean obtenerEstado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String obtenerImagen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

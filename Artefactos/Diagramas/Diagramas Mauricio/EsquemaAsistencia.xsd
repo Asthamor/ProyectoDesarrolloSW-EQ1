@@ -1,0 +1,18 @@
+<xsd:schema xmlns:xsd=http://www.w3c.org/2001/XMLSchema>
+	
+	<xsd:element name="grupo">
+	<xsd:complexType>
+		<xsd:attribute name="idGrupo" type = "xs:string"/>
+		<xsd:element name="asistencia">
+		<xsd:complexType>
+			<xsd:element name="dia">
+			<xsd:complexType>
+				<xsd:element name="alumno"/>
+				<xsd:attribute name="asistencia" type = "xs:boolean"/>
+			</xsd:complexType>
+			</xsd:element>
+		</xsd:complexType>
+		</xsd:element>
+	</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

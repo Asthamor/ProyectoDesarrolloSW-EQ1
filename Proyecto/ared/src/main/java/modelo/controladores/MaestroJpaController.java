@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import modelo.Grupo;
 import modelo.Maestro;
 import modelo.MaestroPK;
@@ -29,7 +30,7 @@ import modelo.controladores.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author alonso
+ * @author mauricio
  */
 public class MaestroJpaController implements Serializable {
 
@@ -443,6 +444,12 @@ public class MaestroJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<Maestro> findMaestroByName(String name){
+        EntityManager em = getEntityManager();
+        TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findMaestroByNombre", Maestro.class);
+        return query.setParameter("nombre", name).getResultList();
     }
 
     public int getMaestroCount() {
