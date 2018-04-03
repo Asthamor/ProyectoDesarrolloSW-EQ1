@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import modelo.Alumno;
 import modelo.Cliente;
 import modelo.controladores.exceptions.IllegalOrphanException;
 import modelo.controladores.exceptions.NonexistentEntityException;
@@ -200,5 +201,10 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<Cliente> findClienteByName(String name) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Cliente.findByNombre").setParameter("nombre", name + "%").getResultList();
+    }
+
 }

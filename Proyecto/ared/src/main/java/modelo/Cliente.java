@@ -6,21 +6,28 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.ClienteJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -32,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
     , @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente")
-    , @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre")
+    , @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre LIKE :nombre")
     , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c WHERE c.apellidos = :apellidos")
     , @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono")
     , @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email")
@@ -74,6 +81,14 @@ public class Cliente extends Persona implements Serializable {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
+    }
+
+    public Cliente(Persona persona) {
+        this.nombre = persona.getNombre();
+        this.apellidos = persona.getApellidos();
+        this.telefono = persona.getTelefono();
+        this.email = persona.getEmail();
+        this.imgFoto = persona.getImgFoto();
     }
 
     public Integer getIdCliente() {
@@ -164,22 +179,54 @@ public class Cliente extends Persona implements Serializable {
 
     @Override
     public List<Persona> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Persona> personas = new ArrayList();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
+        List<Cliente> clientes = controlador.findClienteEntities();
+        for (Cliente cliente : clientes) {
+            personas.add(cliente);
+        }
+        return personas;
     }
 
     @Override
     public boolean actualizarDatos(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean seActualizo = false;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
+        Cliente cliente = new Cliente(persona);
+        cliente.setIdCliente(idCliente);
+        cliente.setRentaCollection(rentaCollection);
+        try {
+            controlador.edit(cliente);
+            seActualizo = true;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return seActualizo;
     }
 
     @Override
     public List<Persona> buscar(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Persona> personas = new ArrayList();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
+        List<Cliente> clientes = controlador.findClienteByName(nombre);
+        for (Cliente cliente : clientes) {
+            personas.add(cliente);
+        }
+        return personas;
     }
 
     @Override
     public boolean registrar(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
+        Cliente cliente = new Cliente(persona);
+        controlador.create(cliente);
+        return true;
     }
 
 }
