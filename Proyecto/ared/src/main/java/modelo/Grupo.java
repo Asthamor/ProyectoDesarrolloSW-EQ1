@@ -8,6 +8,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -39,6 +40,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Grupo.findByMaestrousuarionombreUsuario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
     , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")})
 public class Grupo implements Serializable {
+
+    @Basic(optional = false)
+    @Column(name = "nombre")
+    private String nombre;
+    @Column(name = "tipoDanza")
+    private String tipoDanza;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -142,6 +149,22 @@ public class Grupo implements Serializable {
     @Override
     public String toString() {
         return "modelo.Grupo[ grupoPK=" + grupoPK + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTipoDanza() {
+        return tipoDanza;
+    }
+
+    public void setTipoDanza(String tipoDanza) {
+        this.tipoDanza = tipoDanza;
     }
     
 }

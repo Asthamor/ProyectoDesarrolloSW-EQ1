@@ -25,7 +25,7 @@ import modelo.controladores.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author alonso
+ * @author mauricio
  */
 public class GrupoJpaController implements Serializable {
 

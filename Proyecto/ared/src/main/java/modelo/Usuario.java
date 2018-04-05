@@ -32,6 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a")})
 public class Usuario implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "tipoUsuario")
+    private String tipoUsuario;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -114,6 +118,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "modelo.Usuario[ nombreUsuario=" + nombreUsuario + " ]";
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
     
 }
