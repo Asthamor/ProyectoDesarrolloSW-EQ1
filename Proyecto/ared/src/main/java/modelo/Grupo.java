@@ -5,24 +5,33 @@
  */
 package modelo;
 
+import interfaces.IGrupo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.GrupoJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -39,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Grupo.findByMaestroidMaestro", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "Grupo.findByMaestrousuarionombreUsuario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
     , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")})
-public class Grupo implements Serializable {
+public class Grupo implements Serializable, IGrupo {
 
     @Basic(optional = false)
     @Column(name = "nombre")
@@ -166,5 +175,73 @@ public class Grupo implements Serializable {
     public void setTipoDanza(String tipoDanza) {
         this.tipoDanza = tipoDanza;
     }
-    
+
+    @Override
+    public List<Grupo> obtenerTodosLosGrupos() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
+        List<Grupo> grupos = controlador.findGrupoEntities();
+        return grupos;
+    }
+
+    @Override
+    public boolean registrarGrupo(Grupo grupo) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
+        try {
+            controlador.create(grupo);
+        } catch (Exception ex) {
+            Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+
+    }
+
+    @Override
+    public boolean actualizarDatosGrupo(Grupo grupo) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
+        grupo.setGrupoPK(grupoPK);
+        grupo.setAlumnoCollection(alumnoCollection);
+        grupo.setFechaCreacion(fechaCreacion);
+        grupo.setEstado(estado);
+        try {
+            controlador.edit(grupo);
+        } catch (Exception ex) {
+            Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+
+    }
+
+    @Override
+    public boolean eliminarGrupo(GrupoPK grupoPK) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
+        try {
+            controlador.destroy(grupoPK);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public List<Grupo> obtenerGruposMaestro(String idMaestro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

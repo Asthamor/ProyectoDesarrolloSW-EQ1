@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import modelo.Grupo;
 
 /**
  * FXML Controller class
@@ -46,7 +48,12 @@ public class PantallaEditarGrupoController implements Initializable {
     private JFXButton btnEliminarGrupo;
     @FXML
     private JFXButton btnEditarHorario;
+    
+    private Grupo grupo;
 
+    private HBox pantallaDividida;
+    
+    private TarjetaInformacionGrupoController controlador;
     /**
      * Initializes the controller class.
      */
@@ -54,5 +61,18 @@ public class PantallaEditarGrupoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+        //mostrarInformacion();
+    }
+
+    public void setPantallaDividida(HBox pantallaDividida) {
+        this.pantallaDividida = pantallaDividida;
+    }
+
+    public void setControlador(TarjetaInformacionGrupoController controlador) {
+        this.controlador = controlador;
+    }
     
 }
