@@ -448,7 +448,7 @@ public class MaestroJpaController implements Serializable {
     
     public List<Maestro> findMaestroByName(String name){
         EntityManager em = getEntityManager();
-        TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findMaestroByNombre", Maestro.class);
+        TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByNombre", Maestro.class);
         return query.setParameter("nombre", name).getResultList();
     }
 

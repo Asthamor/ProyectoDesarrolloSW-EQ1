@@ -7,17 +7,22 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.UsuarioJpaController;
 
 /**
  *
@@ -126,6 +131,32 @@ public class Usuario implements Serializable {
 
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+    
+    //Registrar un nuevo usuario, si el nombre de usuario existe, se agrega un
+    //número al final del nombre de usuario automáticamente y regresa el nombre
+    //de usuario con el que fue registrado
+    public String regNuevoUsuario(String tipoUsuario){
+        EntityManagerFactory entityManagerFactory = Persistence
+            .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        UsuarioJpaController controlador = new UsuarioJpaController(entityManagerFactory);
+        this.tipoUsuario = tipoUsuario;
+        int mod = 1;
+        String usuarioReg = nombreUsuario;
+        if (controlador.findUsuario(nombreUsuario) != null){
+            while (controlador.findUsuario(usuarioReg) != null){
+                usuarioReg = nombreUsuario + Integer.toString(mod);
+                mod++;
+            }
+            this.nombreUsuario = usuarioReg;
+        } 
+
+        try {
+            controlador.create(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return this.nombreUsuario;
     }
     
 }

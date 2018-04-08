@@ -273,9 +273,19 @@ public class Maestro extends Persona implements Serializable, IMaestro{
     public boolean registrar(Persona persona) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
-        Maestro maestro = new Maestro(new MaestroPK(), persona);
+        //Obtener nombre de usuario para el Maestro
+        String nombreUsuario = persona.getNombre() + persona.getApellidos();
+        usuario = new Usuario();
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setContraseña(nombreUsuario);
+        nombreUsuario = usuario.regNuevoUsuario(this.getTipoUsario());
+        
+        
+        this.maestroPK = new MaestroPK();
+        this.maestroPK.setUsuarionombreUsuario(nombreUsuario);
+        
         try {
-            controlador.create(maestro);
+            controlador.create(this);
         } catch (Exception ex) {
             Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
             return false;
