@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarGrupoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarGrupoController">
    <children>
       <BorderPane prefHeight="718.0" prefWidth="1200.0">
          <top>
@@ -67,11 +67,11 @@
                         </Label>
                         <JFXComboBox fx:id="cmbMaestro" focusColor="#c08ed6" prefHeight="28.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="txtTipoDanza" focusColor="#c08ed6" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <JFXButton fx:id="btnDefinirHorario" prefHeight="28.0" prefWidth="150.0" style="-fx-background-color: #c08ed6;" text="Definir horario" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="btnDefinirHorario" onAction="#definirHorario" prefHeight="28.0" prefWidth="150.0" style="-fx-background-color: #c08ed6;" text="Definir horario" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                         <JFXTextField fx:id="txtNombreGrupo" focusColor="#c08ed6" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <JFXButton fx:id="btnGuardarGrupo" layoutX="784.0" layoutY="409.0" style="-fx-background-color: #c08ed6;" text="Guardar" />
+                  <JFXButton fx:id="btnGuardarGrupo" layoutX="784.0" layoutY="409.0" onAction="#guardarGrupo" style="-fx-background-color: #c08ed6;" text="Guardar" />
                   <JFXTextArea fx:id="txtHorario" editable="false" focusColor="#405aa800" layoutX="546.0" layoutY="270.0" prefHeight="101.0" prefWidth="223.0" unFocusColor="#4d4d4d00" />
                </children>
             </Pane>

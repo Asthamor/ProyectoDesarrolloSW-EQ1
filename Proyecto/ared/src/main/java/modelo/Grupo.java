@@ -7,7 +7,6 @@ package modelo;
 
 import interfaces.IGrupo;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -189,7 +188,11 @@ public class Grupo implements Serializable, IGrupo {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
         try {
-            controlador.create(grupo);
+            this.grupoPK = new GrupoPK();
+            this.grupoPK.setMaestroidMaestro(grupo.getMaestro().getMaestroPK().getIdMaestro());
+            this.grupoPK.setHorarioidHorario(grupo.getHorario().getIdHorario());
+            this.grupoPK.setMaestrousuarionombreUsuario("");
+            controlador.create(this);
         } catch (Exception ex) {
             Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
             return false;

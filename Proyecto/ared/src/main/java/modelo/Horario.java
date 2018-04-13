@@ -5,19 +5,26 @@
  */
 package modelo;
 
+import interfaces.IHorario;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.HorarioJpaController;
 
 /**
  *
@@ -30,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Horario.findAll", query = "SELECT h FROM Horario h")
     , @NamedQuery(name = "Horario.findByIdHorario", query = "SELECT h FROM Horario h WHERE h.idHorario = :idHorario")
     , @NamedQuery(name = "Horario.findByRutaArchivo", query = "SELECT h FROM Horario h WHERE h.rutaArchivo = :rutaArchivo")})
-public class Horario implements Serializable {
+public class Horario implements Serializable,IHorario {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -115,5 +122,28 @@ public class Horario implements Serializable {
     public String toString() {
         return "modelo.Horario[ idHorario=" + idHorario + " ]";
     }
+
+    @Override
+    public Horario obtenerRutaHorario() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        HorarioJpaController controlador = new HorarioJpaController(entityManagerFactory);
+        List<Horario> horarios = controlador.findHorarioEntities();
+        return horarios.get(0);
+    }
+
+    @Override
+    public boolean crearHorario(Horario horario) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        HorarioJpaController controlador = new HorarioJpaController(entityManagerFactory);
+        try {
+            controlador.create(horario);
+        } catch (Exception ex) {
+            Logger.getLogger(Horario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

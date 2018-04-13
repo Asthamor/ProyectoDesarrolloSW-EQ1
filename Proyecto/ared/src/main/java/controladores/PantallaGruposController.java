@@ -48,7 +48,7 @@ public class PantallaGruposController implements Initializable, Controlador {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         scrollGrupos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        pnlGrupos.getChildren().add(mostrarGrupos());
+
     }
 
     @Override
@@ -60,6 +60,7 @@ public class PantallaGruposController implements Initializable, Controlador {
     @Override
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
+        pnlGrupos.getChildren().add(mostrarGrupos());
     }
 
     public GridPane mostrarGrupos() {
