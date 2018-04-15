@@ -83,6 +83,7 @@ public class PantallaGruposController implements Initializable, Controlador {
                 controlador.setGrupo(grupos.get(auxiliar));
                 auxiliar++;
                 controlador.setPantallaDividida(pantallaDividida);
+                controlador.setPnlPrincipal(pnlPrincipal);
                 grid.add(root, 0, i);
             } catch (IOException ex) {
                 Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,6 +96,7 @@ public class PantallaGruposController implements Initializable, Controlador {
                     controlador.setGrupo(grupos.get(auxiliar));
                     auxiliar++;
                     controlador.setPantallaDividida(pantallaDividida);
+                    controlador.setPnlPrincipal(pnlPrincipal);
                     grid.add(root, 1, i);
                 } catch (IOException ex) {
                     Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);

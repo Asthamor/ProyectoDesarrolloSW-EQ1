@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import static com.sun.javafx.PlatformUtil.isLinux;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import interfaces.Controlador;
@@ -111,8 +112,21 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
             grupo.setNombre(txtNombreGrupo.getText());
             grupo.setFechaCreacion(new Date());
             grupo.setMaestro((Maestro) maestros.get(cmbMaestro.getSelectionModel().getSelectedIndex()));
-            Horario horario= new Horario();
+            Horario horario = new Horario();
             horario = horario.obtenerRutaHorario();
+            if (horario == null) {
+                String rutaHorario;
+                String palabraClave = "user.name";
+                horario = new Horario();
+                horario.setIdHorario(1);
+                if (isLinux()) {
+                    rutaHorario = "/home/user.name/Horario.xml".replace(palabraClave, System.getProperty(palabraClave));
+                } else {
+                    rutaHorario = "/Users/user.name/Horario.xml".replace(palabraClave, System.getProperty(palabraClave));
+                }
+                horario.setRutaArchivo(rutaHorario);
+                horario.crearHorario(horario);
+            }
             grupo.setHorario(horario);
             if (grupo.registrarGrupo(grupo)) {
                 pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));

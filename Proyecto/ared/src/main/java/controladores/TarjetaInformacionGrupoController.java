@@ -36,8 +36,6 @@ public class TarjetaInformacionGrupoController implements Initializable {
     @FXML
     private Label lblTipoDanza;
     @FXML
-    private Label lblHorario;
-    @FXML
     private JFXTextArea txtHorario;
     @FXML
     private JFXButton btnEditarGrupo;
@@ -45,6 +43,7 @@ public class TarjetaInformacionGrupoController implements Initializable {
     private Grupo grupo;
 
     private HBox pantallaDividida;
+    private StackPane pnlPrincipal;
 
     private StackPane pnlSecundario = new StackPane();
 
@@ -65,6 +64,11 @@ public class TarjetaInformacionGrupoController implements Initializable {
         this.pantallaDividida = pantallaDividida;
     }
 
+    public void setPnlPrincipal(StackPane pnlPrincipal) {
+        this.pnlPrincipal = pnlPrincipal;
+    }
+
+
     public void mostrarInformacion(Grupo grupo) {
         lblNombreGrupo.setText(grupo.getNombre());
         lblTipoDanza.setText(grupo.getTipoDanza());
@@ -83,6 +87,7 @@ public class TarjetaInformacionGrupoController implements Initializable {
         PantallaEditarGrupoController controlador = loader.getController();
         controlador.setGrupo(grupo);
         controlador.setPantallaDividida(pantallaDividida);
+        controlador.setPnlPrincipal(pnlPrincipal);
         controlador.setControlador(this);
         pnlSecundario.getChildren().add(root);
         PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);

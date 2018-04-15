@@ -188,11 +188,7 @@ public class Grupo implements Serializable, IGrupo {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
         try {
-            this.grupoPK = new GrupoPK();
-            this.grupoPK.setMaestroidMaestro(grupo.getMaestro().getMaestroPK().getIdMaestro());
-            this.grupoPK.setHorarioidHorario(grupo.getHorario().getIdHorario());
-            this.grupoPK.setMaestrousuarionombreUsuario("");
-            controlador.create(this);
+            controlador.create(grupo);
         } catch (Exception ex) {
             Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -206,9 +202,11 @@ public class Grupo implements Serializable, IGrupo {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
         grupo.setGrupoPK(grupoPK);
-        grupo.setAlumnoCollection(alumnoCollection);
-        grupo.setFechaCreacion(fechaCreacion);
+        grupo.setMaestro(maestro);
         grupo.setEstado(estado);
+        grupo.setFechaCreacion(fechaCreacion);
+        grupo.setHorario(horario);
+        grupo.setAlumnoCollection(alumnoCollection);
         try {
             controlador.edit(grupo);
         } catch (Exception ex) {

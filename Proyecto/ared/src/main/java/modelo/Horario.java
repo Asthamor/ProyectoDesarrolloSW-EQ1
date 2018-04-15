@@ -125,10 +125,14 @@ public class Horario implements Serializable,IHorario {
 
     @Override
     public Horario obtenerRutaHorario() {
+        Horario horario = null;
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         HorarioJpaController controlador = new HorarioJpaController(entityManagerFactory);
         List<Horario> horarios = controlador.findHorarioEntities();
-        return horarios.get(0);
+        if(horarios.size()==1){
+            horario = horarios.get(0);
+        }
+        return horario;
     }
 
     @Override
