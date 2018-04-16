@@ -129,7 +129,7 @@ public class Horario implements Serializable,IHorario {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         HorarioJpaController controlador = new HorarioJpaController(entityManagerFactory);
         List<Horario> horarios = controlador.findHorarioEntities();
-        if(horarios.size()==1){
+        if(!horarios.isEmpty()){
             horario = horarios.get(0);
         }
         return horario;
