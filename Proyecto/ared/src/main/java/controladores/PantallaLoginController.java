@@ -5,15 +5,33 @@
  */
 package controladores;
 
+import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+
+import com.jfoenix.validation.base.ValidatorBase;
+import de.jensd.fx.glyphs.GlyphsBuilder;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import modelo.DirectorPK;
+import modelo.Usuario;
 
 /**
  * FXML Controller class
@@ -32,13 +50,104 @@ public class PantallaLoginController implements Initializable {
     private JFXPasswordField txtContraseña;
     @FXML
     private JFXButton btnIniciarSesion;
+  @FXML
+  private Label lblError;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+      btnIniciarSesion.setDefaultButton(true);
+      ValidatorBase requeridos = new RequiredFieldValidator();
+      requeridos.setMessage("Campo Requerido");
+      requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+            .glyph(FontAwesomeIcon.WARNING)
+            .size("1em")
+            .styleClass("error")
+            .build());
+      txtNombreUsuario.setValidators(requeridos);
+      requeridos = new RequiredFieldValidator();
+      requeridos.setMessage("La contraseña no puede estar vacía");
+      requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+            .glyph(FontAwesomeIcon.WARNING)
+            .size("1em")
+            .styleClass("error")
+            .build());
+      txtContraseña.getValidators().add(requeridos);
         // TODO
     }    
-    
+
+  @FXML
+  private void tryLogin(ActionEvent event) {
+    if (!camposVacios()){
+      String nombreUsuario = txtNombreUsuario.getText();
+      String contraseña = txtContraseña.getText();
+      int res = checkUser(nombreUsuario, contraseña);
+      Usuario u = new Usuario();
+      switch (res){
+        case 1:
+          u = u.buscar(nombreUsuario);
+          abrirMenuMaestro(u);
+          break;
+        case 0:
+          u = u.buscar(nombreUsuario);
+          abrirMenuDirector(u);
+          break;
+        default:
+          lblError.setVisible(true);
+          txtNombreUsuario.clear();
+          txtContraseña.clear();
+          break;
+      }
+    }
+  }
+  
+  private boolean camposVacios(){
+    boolean vacios = false;
+    if (!txtContraseña.validate()){
+      vacios = true;
+    }
+    if(!txtNombreUsuario.validate()){
+      vacios = true;
+    }
+    return vacios;
+  }
+  
+  private int checkUser(String nombreUsuario, String contraseña){
+    Usuario usuario = new Usuario();
+    int resultado = usuario.autenticar(nombreUsuario, contraseña);
+    return resultado;
+  }
+  
+  private boolean abrirMenuMaestro(Usuario usuario){
+    Stage mainStage = (Stage) txtNombreUsuario.getScene().getWindow(); 
+    mainStage.getProperties().put("nombreUsuario", usuario.getNombreUsuario());
+    mainStage.getProperties().put("persona", usuario.getMaestroCollection().toArray()[0]);
+      try {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalMaestro.fxml"));
+        mainStage.setScene(new Scene(root));
+        mainStage.show();
+        
+      } catch (IOException ex) {
+        Logger.getLogger(PantallaLoginController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    return true;
+
+  }
+  
+  private boolean abrirMenuDirector(Usuario usuario){
+    Stage mainStage = (Stage) txtNombreUsuario.getScene().getWindow(); 
+    mainStage.getProperties().put("nombreUsuario", usuario.getNombreUsuario());
+    mainStage.getProperties().put("persona", usuario.getDirectorCollection().toArray()[0]);
+      try {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalDirector.fxml"));
+        mainStage.setScene(new Scene(root));
+        mainStage.show();
+        
+      } catch (IOException ex) {
+        Logger.getLogger(PantallaLoginController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    return true;
+  }
 }

@@ -68,7 +68,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" onKeyTyped="#limitarCaracteresTelefono" prefHeight="26.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" onInputMethodTextChanged="#limitarCaracteresTel" onKeyTyped="#limitarCaracteresTelefono" prefHeight="26.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

@@ -29,6 +29,8 @@ public class PantallaPrincipalMaestroController implements Initializable {
     private JFXButton btnNotificaciones;
     @FXML
     private JFXButton btnPromociones;
+    @FXML
+    private JFXButton btnSesionUsuario;
 
     /**
      * Initializes the controller class.
@@ -48,6 +50,10 @@ public class PantallaPrincipalMaestroController implements Initializable {
 
     @FXML
     private void abrirVentanaPromociones(ActionEvent event) {
+    }
+
+    @FXML
+    private void usuarioMenuToggle(ActionEvent event) {
     }
     
 }

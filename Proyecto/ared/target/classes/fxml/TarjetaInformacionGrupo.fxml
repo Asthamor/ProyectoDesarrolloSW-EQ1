@@ -19,6 +19,9 @@
          </children>
       </VBox>
       <JFXButton fx:id="btnEditarGrupo" layoutX="321.0" layoutY="190.0" onAction="#editarGrupo" prefHeight="40.0" prefWidth="39.0" text="">
+         <graphic>
+            <FontAwesomeIconView glyphName="PENCIL" size="25" />
+         </graphic>
          <tooltip>
             <Tooltip text="Editar" />
          </tooltip>

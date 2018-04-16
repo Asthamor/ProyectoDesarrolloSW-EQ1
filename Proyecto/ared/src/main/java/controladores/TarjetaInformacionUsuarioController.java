@@ -7,8 +7,10 @@ package controladores;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,13 +76,7 @@ public class TarjetaInformacionUsuarioController implements Initializable {
         lblNombresUsuario.setText(persona.getNombre());
         lblApellidosUsuario.setText(persona.getApellidos());
         lblTelefonoUsuario.setText(persona.getTelefono());
-
-        Image imagen;
-        if (persona.getImgFoto() == null) {
-            imagen = new Image("/imagenes/iconoUsuario.png");
-        } else {
-            imagen = new Image(persona.getImgFoto());
-        }
+        Image imagen = new Image("file:" + persona.obtenerImagen());
         imgFotoUsuario.setImage(imagen);
         if (persona.getEmail() == null) {
             lblCorreoElectronicoUsuario.setText("");

@@ -12,12 +12,16 @@ import static controladores.PantallaPrincipalDirectorController.crearPantallaUsu
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -73,11 +77,28 @@ public class PantallaRegistrarUsuarioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        UnaryOperator<Change> filter = change -> {
+            String text = change.getText();
+            if (!change.isAdded()) {
+                return change;
+            } else {
+                if (text.matches("^[0-9]${0,10}")) {
+                    return change;
+                }
+            }
+
+            return null;
+        };
+
+        TextFormatter<String> textLimit = new TextFormatter<>(filter);
+
         txtCorreoElectronicoUsuario.setText("");
         rutaFoto = null;
         txtApellidosUsuario.setText("");
         txtNombresUsuario.setText("");
         txtTelefonoUsuario.setText("");
+        txtTelefonoUsuario.setTextFormatter(textLimit);
+
     }
 
     public void setPersona(Persona persona) {
@@ -97,7 +118,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
     private void seleccionarFoto(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
+            new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
         );
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
@@ -132,7 +153,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
 
     public boolean existenCamposVacios() {
         return txtNombresUsuario.getText().equals("") && txtApellidosUsuario.getText().equals("")
-                && txtTelefonoUsuario.getText().equals("");
+            && txtTelefonoUsuario.getText().equals("");
     }
 
     @FXML
@@ -161,41 +182,50 @@ public class PantallaRegistrarUsuarioController implements Initializable {
 
     @FXML
     private void limitarCaracteresTelefono(KeyEvent event) {
-        int limiteCaracteres = 10;
-        if (txtTelefonoUsuario.getText().length() >= limiteCaracteres) {
-            event.consume();
-        }
+//        int limiteCaracteres = 10;
+//        if (txtTelefonoUsuario.getText().length() >= limiteCaracteres) {
+//            event.consume();
+//        }
     }
 
     public boolean tamañoValidoCaracteres() {
         boolean tamañoValido = true;
-        if (txtCorreoElectronicoUsuario.getText().length() >= 100) {
+        if (txtCorreoElectronicoUsuario.getText().length() > 100) {
             tamañoValido = false;
             lblCorreoElectronicoUsuario.setTextFill(Color.web("#EC7063"));
         }
 
-        if (txtNombresUsuario.getText().length() >= 80) {
+        if (txtNombresUsuario.getText().length() > 80) {
             tamañoValido = false;
             lblNombresUsuario.setTextFill(Color.web("#EC7063"));
         }
 
-        if (txtApellidosUsuario.getText().length() >= 45) {
+        if (txtApellidosUsuario.getText().length() > 45) {
             tamañoValido = false;
             lblApellidosUsuario.setTextFill(Color.web("#EC7063"));
         }
 
-        if (txtTelefonoUsuario.getText().length() >= 10) {
+        if (txtTelefonoUsuario.getText().length() > 10) {
             tamañoValido = false;
             lblTelefonoUsuario.setTextFill(Color.web("#EC7063"));
         }
         return tamañoValido;
     }
-    
-    public void colorEtiquetas(){
+
+    public void colorEtiquetas() {
         lblCorreoElectronicoUsuario.setTextFill(Color.web("#000000"));
         lblNombresUsuario.setTextFill(Color.web("#000000"));
         lblApellidosUsuario.setTextFill(Color.web("#000000"));
         lblTelefonoUsuario.setTextFill(Color.web("#000000"));
+    }
+
+    @FXML
+    private void limitarCaracteresTel(InputMethodEvent event) {
+        int limiteCaracteres = 10;
+        if (txtTelefonoUsuario.getText().length() > limiteCaracteres) {
+            txtTelefonoUsuario.setText(
+                txtTelefonoUsuario.getText().substring(0, 9));
+        }
     }
 
 }

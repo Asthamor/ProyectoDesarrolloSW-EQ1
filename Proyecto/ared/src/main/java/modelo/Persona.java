@@ -20,6 +20,8 @@ public abstract class Persona implements IPersona {
     private String telefono;
     private String imgFoto;
     protected String tipoUsario;
+    
+    
 
     @Override
     public abstract List<Persona> obtenerTodos();
@@ -76,5 +78,9 @@ public abstract class Persona implements IPersona {
     public String getTipoUsario() {
         return tipoUsario;
     }  
+    
+    public String obtenerImagen() {
+        return imgFoto;
+    }
 
 }

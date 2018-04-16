@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: interfaces.IMaestroTest
 -------------------------------------------------------------------------------
+<<<<<<< Updated upstream
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0 sec - in interfaces.IMaestroTest
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.002 sec - in interfaces.IMaestroTest
+>>>>>>> Stashed changes

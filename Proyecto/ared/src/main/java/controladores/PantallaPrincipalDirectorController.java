@@ -214,6 +214,10 @@ public class PantallaPrincipalDirectorController implements Initializable {
         transicion.play();
 
     }
+
+    @FXML
+    private void usuarioMenuToggle(ActionEvent event) {
+    }
     
 
         
