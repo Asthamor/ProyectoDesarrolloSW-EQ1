@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.util.List;
+import modelo.Grupo;
 import modelo.Maestro;
 
 /**
@@ -17,6 +18,7 @@ public interface IMaestro extends IPersona {
     public List<Maestro> obtenerActivos();
     public boolean obtenerEstado();
     public String obtenerImagen();
+    public List<Grupo> obtenerGruposMaestro(int idMaestro);
     
     
 }

@@ -36,6 +36,7 @@ import javax.persistence.TypedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import modelo.controladores.AlumnoJpaController;
+import modelo.controladores.GrupoJpaController;
 import modelo.controladores.MaestroJpaController;
 import modelo.controladores.exceptions.NonexistentEntityException;
 
@@ -384,4 +385,13 @@ public class Maestro extends Persona implements Serializable, IMaestro {
   public void setEsActivo(Boolean esActivo) {
     this.esActivo = esActivo;
   }
+
+    @Override
+    public List<Grupo> obtenerGruposMaestro(int idMaestro) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
+        List<Maestro> maestros = controlador.findMaestroById(idMaestro);
+        List <Grupo> gruposMaestro = new ArrayList(maestros.get(0).getGrupoCollection());
+        return gruposMaestro;
+    }
 }

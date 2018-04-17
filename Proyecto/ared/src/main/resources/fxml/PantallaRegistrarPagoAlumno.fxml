@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="611.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="611.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
    <top>
       <Pane prefHeight="50.0" prefWidth="1177.0" BorderPane.alignment="CENTER" />
    </top>
@@ -38,7 +38,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <ListView fx:id="lstMaestros1" prefHeight="450.0" prefWidth="235.0" style="-fx-padding: 10px;">
+                        <ListView fx:id="lstGrupos" prefHeight="450.0" prefWidth="235.0" style="-fx-padding: 10px;">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -55,7 +55,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <ListView fx:id="lstMaestros" prefHeight="436.0" prefWidth="255.0" style="-fx-padding: 10px;">
+                        <ListView fx:id="lstAlumnos" prefHeight="436.0" prefWidth="255.0" style="-fx-padding: 10px;">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -92,7 +92,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Folio:" textAlignment="RIGHT">
+                              <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Maestro:" textAlignment="RIGHT">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -124,10 +124,10 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <JFXComboBox fx:id="cboxPlazo" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <Label fx:id="lblFechaPago" text="NOMBRELABEL" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="lblNombreMaestro" text="NUMFOLIO" textFill="RED" GridPane.columnIndex="1" />
-                              <JFXTextField fx:id="txtMonto" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <JFXComboBox fx:id="cboxPromocion" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label fx:id="lblAlumno" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lblNombreMaestro" text="Maestro" GridPane.columnIndex="1" />
+                              <JFXTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Fecha límite:" textAlignment="RIGHT" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="18.0" />
@@ -168,11 +168,11 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="MONTOPENALIZACIÓN" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Label text="GRUPOLABEL" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="FECHALABEL" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="FECHALIMITELABEL" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label text="MONTOTOTAL" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <Label prefHeight="17.0" prefWidth="105.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label fx:id="lblGrupo" prefHeight="17.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblFecha" prefHeight="17.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="lblFechaLimite" prefHeight="17.0" prefWidth="118.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lblMontoTotal" prefHeight="17.0" prefWidth="109.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                            </children>
                         </GridPane>
                      </children>

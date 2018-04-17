@@ -235,10 +235,6 @@ public class Grupo implements Serializable, IGrupo {
         return true;
     }
 
-    @Override
-    public List<Grupo> obtenerGruposMaestro(String idMaestro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK) {

@@ -107,6 +107,9 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
     @FXML
     private void abrirVentanaMisGrupos(ActionEvent event) {
+        imagen.setVisible(false);
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
     @FXML
