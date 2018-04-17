@@ -76,6 +76,8 @@ public class PantallaLoginController implements Initializable {
             .build());
       txtContraseña.getValidators().add(requeridos);
         // TODO
+        
+        
     }    
 
   @FXML
@@ -138,6 +140,7 @@ public class PantallaLoginController implements Initializable {
   
   private boolean abrirMenuDirector(Usuario usuario){
     Stage mainStage = (Stage) txtNombreUsuario.getScene().getWindow(); 
+    System.setProperty("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("persona", usuario.getDirectorCollection().toArray()[0]);
       try {

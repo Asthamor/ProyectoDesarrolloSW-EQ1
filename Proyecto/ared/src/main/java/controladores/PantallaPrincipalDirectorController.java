@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import modelo.Alumno;
 import modelo.Cliente;
@@ -96,8 +97,9 @@ public class PantallaPrincipalDirectorController implements Initializable {
         pantallaDividida = new HBox();
         contenedor.getChildren().addAll(pantallaDividida,imagen);
         contenedor.setAlignment(imagen,Pos.CENTER);
-   
     }
+    
+    
 
     @FXML
     private void abrirVentanaAnterior(ActionEvent event) {
@@ -217,6 +219,8 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
     @FXML
     private void usuarioMenuToggle(ActionEvent event) {
+      Stage mainStage = (Stage) btnSesionUsuario.getScene().getWindow();
+      System.out.println(mainStage.getProperties().get("nombreUsuario"));
     }
     
 

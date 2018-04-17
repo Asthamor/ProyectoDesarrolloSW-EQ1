@@ -302,22 +302,24 @@ public class Maestro extends Persona implements Serializable, IMaestro {
     nombreUsuario = usuario.regNuevoUsuario(this.getTipoUsario());
     
     this.esActivo = true;
+    
     //Copiar el archivo de imagen al directorio de la aplicación
-    String imagePath = System.getProperty("user.dir") + "/userPhoto/";
-    File imageDirectory = new File(imagePath);
-    if (!imageDirectory.exists()) {
-      imageDirectory.mkdir();
-    }
-    File f = new File(this.imgFoto);
-    imageDirectory = new File(
+    if(this.imgFoto != null && !this.imgFoto.trim().equals("")){
+      String imagePath = System.getProperty("user.dir") + "/userPhoto/";
+      File imageDirectory = new File(imagePath);
+      if (!imageDirectory.exists()) {
+        imageDirectory.mkdir();
+      }
+      File f = new File(this.imgFoto);
+      imageDirectory = new File(
         imagePath + f.getName() + nombreUsuario);
-    try {
-      Files.copy(f.toPath(), imageDirectory.toPath(), REPLACE_EXISTING);
-    } catch (IOException ex) {
-      Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
+      try {
+        Files.copy(f.toPath(), imageDirectory.toPath(), REPLACE_EXISTING);
+      } catch (IOException ex) {
+        Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      this.imgFoto = imageDirectory.getName();
     }
-    this.imgFoto = imageDirectory.getName();
-
     
     this.maestroPK = new MaestroPK();
     this.maestroPK.setUsuarionombreUsuario(nombreUsuario);
