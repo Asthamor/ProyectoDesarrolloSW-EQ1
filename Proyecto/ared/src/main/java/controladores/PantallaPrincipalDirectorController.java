@@ -70,6 +70,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private StackPane contenedor;
     
+    private Stage mainStage;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal = new StackPane();
     private ImageView imagen = new ImageView("/imagenes/aredEspacioCompleto.png");
@@ -97,6 +98,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
         pantallaDividida = new HBox();
         contenedor.getChildren().addAll(pantallaDividida,imagen);
         contenedor.setAlignment(imagen,Pos.CENTER);
+        btnSesionUsuario.setText(System.getProperty("nombreUsuario"));
     }
     
     
@@ -222,8 +224,8 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
     @FXML
     private void usuarioMenuToggle(ActionEvent event) {
-      Stage mainStage = (Stage) btnSesionUsuario.getScene().getWindow();
-      System.out.println(mainStage.getProperties().get("nombreUsuario"));
+      mainStage = (Stage) btnSesionUsuario.getScene().getWindow();
+      mainStage.getProperties().get("usuario");
     }
     
 

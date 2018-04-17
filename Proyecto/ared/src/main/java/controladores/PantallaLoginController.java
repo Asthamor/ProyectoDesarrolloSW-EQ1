@@ -143,9 +143,11 @@ public class PantallaLoginController implements Initializable {
     System.setProperty("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("persona", usuario.getDirectorCollection().toArray()[0]);
+    System.setProperty("nombreUsuario", usuario.getNombreUsuario());
       try {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalDirector.fxml"));
         mainStage.setScene(new Scene(root));
+        mainStage.setFullScreen(true);
         mainStage.show();
         
       } catch (IOException ex) {
