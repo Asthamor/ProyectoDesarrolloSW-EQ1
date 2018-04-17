@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -48,6 +50,9 @@ import modelo.controladores.exceptions.NonexistentEntityException;
     , @NamedQuery(name = "Grupo.findByMaestrousuarionombreUsuario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
     , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")})
 public class Grupo implements Serializable, IGrupo {
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
+  private Collection<PagoAlumno> pagoAlumnoCollection;
 
     @Basic(optional = false)
     @Column(name = "nombre")
@@ -244,5 +249,14 @@ public class Grupo implements Serializable, IGrupo {
     public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+  @XmlTransient
+  public Collection<PagoAlumno> getPagoAlumnoCollection() {
+    return pagoAlumnoCollection;
+  }
+
+  public void setPagoAlumnoCollection(Collection<PagoAlumno> pagoAlumnoCollection) {
+    this.pagoAlumnoCollection = pagoAlumnoCollection;
+  }
 
 }

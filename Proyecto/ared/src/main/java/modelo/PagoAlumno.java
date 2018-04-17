@@ -37,6 +37,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "PagoAlumno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :alumnoidAlumno")})
 public class PagoAlumno implements Serializable {
 
+  @JoinColumns({
+    @JoinColumn(name = "grupo_idGrupo", referencedColumnName = "idGrupo", insertable = false, updatable = false)
+    , @JoinColumn(name = "grupo_maestro_idMaestro", referencedColumnName = "maestro_idMaestro", insertable = false, updatable = false)
+    , @JoinColumn(name = "grupo_maestro_usuario_nombreUsuario", referencedColumnName = "maestro_usuario_nombreUsuario", insertable = false, updatable = false)
+    , @JoinColumn(name = "grupo_horario_idHorario", referencedColumnName = "horario_idHorario", insertable = false, updatable = false)})
+  @ManyToOne(optional = false)
+  private Grupo grupo;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PagoAlumnoPK pagoAlumnoPK;
@@ -146,5 +154,13 @@ public class PagoAlumno implements Serializable {
     public String toString() {
         return "modelo.PagoAlumno[ pagoAlumnoPK=" + pagoAlumnoPK + " ]";
     }
+
+  public Grupo getGrupo() {
+    return grupo;
+  }
+
+  public void setGrupo(Grupo grupo) {
+    this.grupo = grupo;
+  }
     
 }
