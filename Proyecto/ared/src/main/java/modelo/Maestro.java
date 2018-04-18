@@ -50,7 +50,7 @@ import modelo.controladores.exceptions.NonexistentEntityException;
 @NamedQueries({
   @NamedQuery(name = "Maestro.findAll", query = "SELECT m FROM Maestro m")
   , @NamedQuery(name = "Maestro.findByIdMaestro", query = "SELECT m FROM Maestro m WHERE m.maestroPK.idMaestro = :idMaestro")
-  , @NamedQuery(name = "Maestro.findByNombre", query = "SELECT m FROM Maestro m WHERE m.nombre = :nombre")
+  , @NamedQuery(name = "Maestro.findByNombre", query = "SELECT m FROM Maestro m WHERE m.nombre LIKE :nombre")
   , @NamedQuery(name = "Maestro.findByApellidos", query = "SELECT m FROM Maestro m WHERE m.apellidos = :apellidos")
   , @NamedQuery(name = "Maestro.findByTelefono", query = "SELECT m FROM Maestro m WHERE m.telefono = :telefono")
   , @NamedQuery(name = "Maestro.findByEmail", query = "SELECT m FROM Maestro m WHERE m.email = :email")
@@ -262,12 +262,13 @@ public class Maestro extends Persona implements Serializable, IMaestro {
   }
 
   @Override
-  public boolean actualizarDatos(Persona persona) {
+  public boolean actualizarDatos() {
     boolean seActualizo = true;
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
+    guardarImagen(this.getUsuario().getNombreUsuario());
     try {
-      controlador.edit((Maestro) persona);
+      controlador.edit(this);
     } catch (NonexistentEntityException ex) {
       Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
       seActualizo = false;
@@ -277,6 +278,7 @@ public class Maestro extends Persona implements Serializable, IMaestro {
     }
     return seActualizo;
   }
+  
 
   @Override
   public List<Persona> buscar(String nombre) {
@@ -301,27 +303,12 @@ public class Maestro extends Persona implements Serializable, IMaestro {
     usuario.setNombreUsuario(nombreUsuario);
     usuario.setContraseña(nombreUsuario);
     nombreUsuario = usuario.regNuevoUsuario(this.getTipoUsario());
-    
+
     this.esActivo = true;
-    
+
     //Copiar el archivo de imagen al directorio de la aplicación
-    if(this.imgFoto != null && !this.imgFoto.trim().equals("")){
-      String imagePath = System.getProperty("user.dir") + "/userPhoto/";
-      File imageDirectory = new File(imagePath);
-      if (!imageDirectory.exists()) {
-        imageDirectory.mkdir();
-      }
-      File f = new File(this.imgFoto);
-      imageDirectory = new File(
-        imagePath + f.getName() + nombreUsuario);
-      try {
-        Files.copy(f.toPath(), imageDirectory.toPath(), REPLACE_EXISTING);
-      } catch (IOException ex) {
-        Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      this.imgFoto = imageDirectory.getName();
-    }
-    
+    guardarImagen(nombreUsuario);
+
     this.maestroPK = new MaestroPK();
     this.maestroPK.setUsuarionombreUsuario(nombreUsuario);
     try {
@@ -386,12 +373,36 @@ public class Maestro extends Persona implements Serializable, IMaestro {
     this.esActivo = esActivo;
   }
 
-    @Override
-    public List<Grupo> obtenerGruposMaestro(int idMaestro) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
-        MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
-        List<Maestro> maestros = controlador.findMaestroById(idMaestro);
-        List <Grupo> gruposMaestro = new ArrayList(maestros.get(0).getGrupoCollection());
-        return gruposMaestro;
+  @Override
+  public List<Grupo> obtenerGruposMaestro(int idMaestro) {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
+    List<Maestro> maestros = controlador.findMaestroById(idMaestro);
+    List<Grupo> gruposMaestro = new ArrayList(maestros.get(0).getGrupoCollection());
+    return gruposMaestro;
+  }
+
+  private void guardarImagen(String nombreUsuario) {
+    if (this.imgFoto != null && !this.imgFoto.trim().equals("")) {
+      String imagePath = System.getProperty("user.dir") + "/userPhoto/";
+      File imageDirectory = new File(imagePath);
+      if (!imageDirectory.exists()) {
+        imageDirectory.mkdir();
+      }
+      File f = new File(this.imgFoto);
+      imageDirectory = new File(
+          imagePath + f.getName() + nombreUsuario);
+      try {
+        Files.copy(f.toPath(), imageDirectory.toPath(), REPLACE_EXISTING);
+      } catch (IOException ex) {
+        Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      this.imgFoto = imageDirectory.getName();
     }
+  }
+
+  @Override
+  public boolean actualizarDatos(Persona persona) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
 }

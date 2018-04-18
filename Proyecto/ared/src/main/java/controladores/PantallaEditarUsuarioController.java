@@ -132,7 +132,7 @@ public class PantallaEditarUsuarioController implements Initializable {
         persona.setTelefono(txtTelefonoUsuario.getText());
         persona.setImgFoto(rutaFoto);
         persona.setEmail(txtCorreoElectronico.getText());
-        if (persona.actualizarDatos(persona)) {
+        if (persona.actualizarDatos()) {
           controlador.mostrarInformacion(persona);
           pantallaDividida.getChildren().remove(1);
           Mensajes.mensajeExitoso("La información se actualizó correctamente");

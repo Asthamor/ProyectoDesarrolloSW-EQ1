@@ -14,6 +14,7 @@ import modelo.Persona;
  */
 public interface IPersona {
     public List<Persona> obtenerTodos();
+    public boolean actualizarDatos();
     public boolean actualizarDatos(Persona persona);
     public List<Persona> buscar(String nombre);
     public boolean registrar(Persona persona);

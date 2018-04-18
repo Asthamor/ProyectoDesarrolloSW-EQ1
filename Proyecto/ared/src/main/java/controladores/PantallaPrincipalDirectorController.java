@@ -99,6 +99,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
         contenedor.getChildren().addAll(pantallaDividida,imagen);
         contenedor.setAlignment(imagen,Pos.CENTER);
         btnSesionUsuario.setText(System.getProperty("nombreUsuario"));
+        
     }
     
     
@@ -219,13 +220,14 @@ public class PantallaPrincipalDirectorController implements Initializable {
         transicion.setFromValue(0);
         transicion.setToValue(1);
         transicion.play();
-
     }
+    
 
     @FXML
     private void usuarioMenuToggle(ActionEvent event) {
-      mainStage = (Stage) btnSesionUsuario.getScene().getWindow();
-      mainStage.getProperties().get("usuario");
+        imagen.setVisible(false);
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaEditarPerfil.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pantallaDividida.getChildren().add(pnlPrincipal);
     }
     
 

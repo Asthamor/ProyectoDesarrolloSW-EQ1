@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
@@ -31,15 +32,15 @@
                      <children>
                         <Label text="Editar Perfil">
                            <VBox.margin>
-                              <Insets top="30.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <StackPane prefHeight="226.0" prefWidth="299.0">
+                        <StackPane prefHeight="250.0" prefWidth="250.0">
                            <children>
-                              <JFXButton fx:id="btnEditarImagen" alignment="CENTER" prefHeight="33.0" prefWidth="67.0" style="-fx-background-color: #C08ED6;" text=" " StackPane.alignment="BOTTOM_RIGHT">
+                              <JFXButton fx:id="btnEditarImagen" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" onAction="#openImgExplorer" prefHeight="32.0" prefWidth="37.0" style="-fx-background-color: #C08ED6;" text=" " StackPane.alignment="BOTTOM_RIGHT">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="PENCIL" size="20" />
                                  </graphic>
@@ -47,7 +48,7 @@
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </StackPane.margin>
                               </JFXButton>
-                              <ImageView fx:id="imgUsuario" fitHeight="226.0" fitWidth="278.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                              <ImageView fx:id="imgUsuario" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                  <StackPane.margin>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </StackPane.margin></ImageView>
@@ -81,7 +82,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <Label text="NOMBRELABEL" GridPane.columnIndex="1" />
+                              <Label fx:id="lblNombreUsuario" text="NOMBRELABEL" GridPane.columnIndex="1" />
                               <JFXTextField fx:id="txtTelefono" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <JFXTextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
@@ -90,8 +91,8 @@
                               </JFXTextField>
                               <Label text="Contraseña:" GridPane.columnIndex="2" />
                               <Label text="Confirmar contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <JFXTextField fx:id="txtContraseña" GridPane.columnIndex="3" />
-                              <JFXTextField fx:id="txtConfirmarContraseña" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <JFXPasswordField fx:id="txtContraseña" GridPane.columnIndex="3" />
+                              <JFXPasswordField fx:id="txtConfContraseña" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                            </children>
                            <padding>
                               <Insets right="50.0" />
@@ -100,10 +101,14 @@
                               <Insets bottom="10.0" top="15.0" />
                            </VBox.margin>
                         </GridPane>
+                        <Label fx:id="lblError" text="Error de contraseñas" textFill="#d60404" visible="false" />
                         <Pane prefHeight="64.0" prefWidth="952.0">
                            <children>
-                              <JFXButton fx:id="btnGuardar" alignment="CENTER_RIGHT" defaultButton="true" layoutX="877.0" layoutY="24.0" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: C08ED6;" text="Guardar" />
+                              <JFXButton fx:id="btnGuardar" alignment="CENTER_RIGHT" defaultButton="true" layoutX="863.0" layoutY="14.0" onAction="#guardarCambios" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: C08ED6;" text="Guardar" />
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </Pane>
                      </children>
                      <HBox.margin>

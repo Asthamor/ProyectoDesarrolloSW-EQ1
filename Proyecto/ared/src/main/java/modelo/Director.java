@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Director.findByEmail", query = "SELECT d FROM Director d WHERE d.email = :email")
     , @NamedQuery(name = "Director.findByImgFoto", query = "SELECT d FROM Director d WHERE d.imgFoto = :imgFoto")
     , @NamedQuery(name = "Director.findByUsuarionombreUsuario", query = "SELECT d FROM Director d WHERE d.directorPK.usuarionombreUsuario = :usuarionombreUsuario")})
-public class Director implements Serializable {
+public class Director extends Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -153,5 +154,30 @@ public class Director implements Serializable {
     public String toString() {
         return "modelo.Director[ directorPK=" + directorPK + " ]";
     }
+
+  @Override
+  public List<Persona> obtenerTodos() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public boolean actualizarDatos( ) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public List<Persona> buscar(String nombre) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public boolean registrar(Persona persona) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public boolean actualizarDatos(Persona persona) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
     
 }

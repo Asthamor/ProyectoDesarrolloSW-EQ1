@@ -203,15 +203,15 @@ public class Usuario implements Serializable {
     return true;
   }
 
-  public boolean editarPassword(Usuario usuario) {
+  public boolean editarPassword(String newPassword) {
     EntityManagerFactory entityManagerFactory = Persistence
         .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     UsuarioJpaController controlador = new UsuarioJpaController(entityManagerFactory);
     this.salt = generarSalt();
 
     try {
-      this.contraseña = generarPass(this.contraseña, this.salt);
-      controlador.edit(usuario);
+      this.contraseña = generarPass(newPassword, this.salt);
+      controlador.edit(this);
       return true;
     } catch (NonexistentEntityException ex) {
       Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -273,7 +273,7 @@ public class Usuario implements Serializable {
     if (usuario != null) {
       
       try {
-        String password = generarPass(nombreUsuario, usuario.getSalt());
+        String password = generarPass(contraseña, usuario.getSalt());;
         if(password.equals(usuario.contraseña)){
           if("maestro".equals(usuario.getTipoUsuario())){
            result = 1; 
