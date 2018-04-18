@@ -5,9 +5,17 @@
  */
 package controladores;
 
+import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.validation.base.ValidatorBase;
+import static controladores.PantallaPrincipalDirectorController.crearPantalla;
+import de.jensd.fx.glyphs.GlyphsBuilder;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import interfaces.Controlador;
 import java.net.URL;
 import java.text.DateFormat;
@@ -20,6 +28,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -30,6 +39,7 @@ import javafx.scene.layout.StackPane;
 import modelo.Alumno;
 import modelo.Grupo;
 import modelo.Maestro;
+import modelo.PagoAlumno;
 
 /**
  * FXML Controller class
@@ -40,8 +50,6 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
 
     @FXML
     private JFXButton btnRegistrar;
-    @FXML
-    private Label lblNombreMaestro;
     @FXML
     private JFXTextField txtMonto;
     private HBox pantallaDividida;
@@ -55,7 +63,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     private List<Alumno> alumnos;
     private List<Grupo> grupos;
     @FXML
-    private JFXComboBox<?> cboxPromocion;
+    private JFXComboBox<String> cboxPromocion;
     @FXML
     private Label lblGrupo;
     @FXML
@@ -73,6 +81,21 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nombresGrupos = new ArrayList();
+        ValidatorBase requeridos = new NumberValidator();
+        requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+                .glyph(FontAwesomeIcon.WARNING)
+                .size("1em")
+                .styleClass("error")
+                .build());
+        txtMonto.getValidators().add(requeridos);
+        ValidatorBase requeridos2 = new RequiredFieldValidator();
+        requeridos.setMessage("Monto necesario");
+        requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+                .glyph(FontAwesomeIcon.WARNING)
+                .size("1em")
+                .styleClass("error")
+                .build());
+        txtMonto.getValidators().add(requeridos2);
     }
 
     @Override
@@ -95,6 +118,8 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
         lblFecha.setText(DateFormat.getDateInstance().format(new Date()));
         lblFechaLimite.setText(DateFormat.getDateInstance().format(fechaProximoPago));
         Maestro maestro = new Maestro();
+//        Stage mainStage = (Stage) lblAlumno.getScene().getWindow();
+//        Persona persona = (Persona) mainStage.getProperties().get("persona");
         grupos = maestro.obtenerGruposMaestro(2);
         grupos.forEach((grupo) -> {
             nombresGrupos.add(grupo.getNombre());
@@ -138,6 +163,31 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private void añadirTotal(KeyEvent event) {
         lblMontoTotal.setText(txtMonto.getText());
+    }
+
+    @FXML
+    private void registrarAlumno(ActionEvent event) {
+        if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
+            if (!existenCamposErroneos()) {
+                PagoAlumno pagoAlumno = new PagoAlumno();
+                pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
+                pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
+                pagoAlumno.setFechaPago(new Date());
+                pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
+                if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
+                    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+                    pantallaDividida.getChildren().add(pnlPrincipal);
+                    Mensajes.mensajeExitoso("El pago se registro correctamente");
+                }
+            }
+        } else {
+            Mensajes.mensajeAlert("Debe seleccionar un alumno");
+        }
+
+    }
+
+    public boolean existenCamposErroneos() {
+        return !txtMonto.validate();
     }
 
 }

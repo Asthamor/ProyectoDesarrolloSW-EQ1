@@ -5,21 +5,28 @@
  */
 package modelo;
 
+import interfaces.IPagoAlumno;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import modelo.controladores.PagoAlumnoJpaController;
+import modelo.controladores.PromocionJpaController;
 
 /**
  *
@@ -35,15 +42,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "PagoAlumno.findByFechaPago", query = "SELECT p FROM PagoAlumno p WHERE p.fechaPago = :fechaPago")
     , @NamedQuery(name = "PagoAlumno.findByPlazo", query = "SELECT p FROM PagoAlumno p WHERE p.plazo = :plazo")
     , @NamedQuery(name = "PagoAlumno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :alumnoidAlumno")})
-public class PagoAlumno implements Serializable {
+public class PagoAlumno implements Serializable, IPagoAlumno {
 
-  @JoinColumns({
-    @JoinColumn(name = "grupo_idGrupo", referencedColumnName = "idGrupo", insertable = false, updatable = false)
-    , @JoinColumn(name = "grupo_maestro_idMaestro", referencedColumnName = "maestro_idMaestro", insertable = false, updatable = false)
-    , @JoinColumn(name = "grupo_maestro_usuario_nombreUsuario", referencedColumnName = "maestro_usuario_nombreUsuario", insertable = false, updatable = false)
-    , @JoinColumn(name = "grupo_horario_idHorario", referencedColumnName = "horario_idHorario", insertable = false, updatable = false)})
-  @ManyToOne(optional = false)
-  private Grupo grupo;
+    @JoinColumns({
+        @JoinColumn(name = "grupo_idGrupo", referencedColumnName = "idGrupo", insertable = false, updatable = false)
+        , @JoinColumn(name = "grupo_maestro_idMaestro", referencedColumnName = "maestro_idMaestro", insertable = false, updatable = false)
+        , @JoinColumn(name = "grupo_maestro_usuario_nombreUsuario", referencedColumnName = "maestro_usuario_nombreUsuario", insertable = false, updatable = false)
+        , @JoinColumn(name = "grupo_horario_idHorario", referencedColumnName = "horario_idHorario", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
+    private Grupo grupo;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -155,12 +162,33 @@ public class PagoAlumno implements Serializable {
         return "modelo.PagoAlumno[ pagoAlumnoPK=" + pagoAlumnoPK + " ]";
     }
 
-  public Grupo getGrupo() {
-    return grupo;
-  }
+    public Grupo getGrupo() {
+        return grupo;
+    }
 
-  public void setGrupo(Grupo grupo) {
-    this.grupo = grupo;
-  }
-    
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    @Override
+    public boolean registrarPagoMensual(PagoAlumno pago) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+        PromocionJpaController promocion = new PromocionJpaController(entityManagerFactory);
+        Grupo grupo = pago.getGrupo();
+        PromocionPK p = new PromocionPK();
+        p.setIdPromocion(1);
+        p.setMaestroidMaestro(2);
+        p.setMaestrousuarionombreUsuario("ChristopherPerez1");
+        Promocion promocion2 = promocion.findPromocion(p);
+        pago.setPromocion(promocion2);
+        try {
+            controlador.create(pago);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
 }
