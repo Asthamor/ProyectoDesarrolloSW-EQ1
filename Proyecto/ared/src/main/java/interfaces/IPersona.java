@@ -16,6 +16,7 @@ public interface IPersona {
     public List<Persona> obtenerTodos();
     public boolean actualizarDatos();
     public boolean actualizarDatos(Persona persona);
+    public boolean actualizarDatos(boolean editarImagen);
     public List<Persona> buscar(String nombre);
     public boolean registrar(Persona persona);
 }

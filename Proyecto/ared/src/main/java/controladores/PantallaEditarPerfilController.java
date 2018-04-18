@@ -59,6 +59,8 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
   private Usuario usuario;
   private Image img;
   private String imgPath;
+  private boolean imgFlag = false;
+  
   @FXML
   private Label lblError;
 
@@ -72,6 +74,7 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
     txtTelefono.setText(persona.getTelefono());
     txtEmail.setText(persona.getEmail());
     imgPath = "file:" + persona.obtenerImagen();
+    System.out.println(imgPath);
     img = new Image(imgPath, true);
     imgUsuario.setImage(img);
     btnEditarImagen.toFront();
@@ -103,6 +106,7 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
   @FXML
   private void openImgExplorer(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
+    fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
     fileChooser.getExtensionFilters().addAll(
         new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
     );
@@ -111,7 +115,7 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
       Image imagen = new Image("file:" + file.getAbsolutePath());
       imgPath = file.getAbsolutePath();
       imgUsuario.setImage(imagen);
-      
+      imgFlag = true;
     }
   }
 
@@ -119,13 +123,18 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
   private void guardarCambios(ActionEvent event) {
     persona.setTelefono(txtTelefono.getText());
     persona.setEmail(txtEmail.getText());
-    persona.setImgFoto(imgPath);
+    if (imgFlag){
+      persona.setImgFoto(imgPath);
+    }
+    
     int passControl = checkPassword();
     if (passControl == 1){
       usuario.editarPassword(txtContraseña.getText());
-      persona.actualizarDatos();
+      persona.actualizarDatos(imgFlag);
+      Mensajes.mensajeExitoso("Los cambios se han guardado");
     } else if (passControl == -1){
       persona.actualizarDatos();
+      Mensajes.mensajeExitoso("Los cambios se han guardado");
     }
     
   }

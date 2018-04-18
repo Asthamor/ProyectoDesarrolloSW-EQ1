@@ -262,11 +262,13 @@ public class Maestro extends Persona implements Serializable, IMaestro {
   }
 
   @Override
-  public boolean actualizarDatos() {
+  public boolean actualizarDatos(boolean editarImagen) {
     boolean seActualizo = true;
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
-    guardarImagen(this.getUsuario().getNombreUsuario());
+    if (editarImagen) {
+      guardarImagen(this.getUsuario().getNombreUsuario());
+    }
     try {
       controlador.edit(this);
     } catch (NonexistentEntityException ex) {
@@ -278,7 +280,6 @@ public class Maestro extends Persona implements Serializable, IMaestro {
     }
     return seActualizo;
   }
-  
 
   @Override
   public List<Persona> buscar(String nombre) {
@@ -392,7 +393,10 @@ public class Maestro extends Persona implements Serializable, IMaestro {
       File f = new File(this.imgFoto);
       imageDirectory = new File(
           imagePath + f.getName() + nombreUsuario);
+      System.out.println(f.toPath());
+      System.out.println(imageDirectory.toPath());
       try {
+
         Files.copy(f.toPath(), imageDirectory.toPath(), REPLACE_EXISTING);
       } catch (IOException ex) {
         Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
@@ -403,6 +407,11 @@ public class Maestro extends Persona implements Serializable, IMaestro {
 
   @Override
   public boolean actualizarDatos(Persona persona) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public boolean actualizarDatos() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 }

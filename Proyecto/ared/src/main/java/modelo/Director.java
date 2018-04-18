@@ -179,5 +179,10 @@ public class Director extends Persona implements Serializable {
   public boolean actualizarDatos(Persona persona) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
+
+  @Override
+  public boolean actualizarDatos(boolean editarImagen) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
     
 }
