@@ -27,8 +27,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import modelo.Alumno;
 import modelo.Grupo;
 import modelo.Maestro;
@@ -39,18 +42,9 @@ import modelo.Usuario;
 /**
  * FXML Controller class
  *
- * @author alonso
+ * @author mauricio
  */
-public class PantallaInscribirAlumnoController implements Initializable, Controlador {
-
-  @FXML
-  private JFXTextField txtMonto;
-  @FXML
-  private JFXComboBox<?> comboPromocion;
-  @FXML
-  private Label labelMontoFinal;
-  @FXML
-  private JFXButton btnInscribir;
+public class PantallaBajaInscripcion implements Initializable, Controlador {
 
   private HBox pantallaDividida;
   private StackPane pnlPrincipal;
@@ -65,6 +59,18 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
 
   private Persona persona;
   private Usuario usuario;
+  @FXML
+  private ImageView imgAlumno;
+  @FXML
+  private Label lblAlumno;
+  @FXML
+  private Label lblTelefono;
+  @FXML
+  private Label lblCorreo;
+  @FXML
+  private JFXButton btnReinscribir;
+  @FXML
+  private JFXButton btnDarBaja;
 
   public boolean setUserData() {
     String nombreUsuario = System.getProperty("nombreUsuario");
@@ -86,49 +92,34 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
   public void initialize(URL url, ResourceBundle rb) {
     setUserData();
     setListGrupos();
-    ValidatorBase numVal = new NumberValidator();
-    numVal.setMessage("Inserte el monto");
-    ValidatorBase req = new RequiredFieldValidator();
-    req.setMessage("Inserte el monto de inscripción");
-    txtMonto.setValidators(numVal);
-    txtMonto.setValidators(req);
-    txtMonto.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observable,
-          String oldValue, String newValue) {
-        labelMontoFinal.setText("$" + newValue);
-      }
-    });
 
   }
 
-  @FXML
-  private void inscribirAlumno(ActionEvent event) {
-    int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
-    int almIndex = lstAlumnos.getSelectionModel().getSelectedIndex();
-    if (txtMonto.validate() && almIndex != -1 && grpIndex != -1) {
-
-      Grupo grupo = grupos.get(grpIndex);
-      Alumno alumn = alumnos.get(almIndex);
-      grupo.getAlumnoCollection().add(alumn);
-      PagoAlumno pago = new PagoAlumno();
-      pago.setAlumno(alumn);
-      pago.setGrupo(grupo);
-      pago.setMonto(Integer.parseInt(txtMonto.getText()));
-      pago.setFechaPago(new Date());
-      pago.registrarPago();
-      grupo.actualizarDatosGrupo(grupo);
-      setListGrupos();
-      Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
-          + " inscrito en el grupo " + grupo.getNombre());
-    } else if (almIndex == -1) {
-      Mensajes.mensajeAlert("Selecciona un alumno");
-    } else if (grpIndex == -1){
-      Mensajes.mensajeAlert("Selecciona un grupo");
-    }
-
-  }
-
+//  private void inscribirAlumno(ActionEvent event) {
+//    int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
+//    int almIndex = lstAlumnos.getSelectionModel().getSelectedIndex();
+//    if (txtMonto.validate() && almIndex != -1 && grpIndex != -1) {
+//
+//      Grupo grupo = grupos.get(grpIndex);
+//      Alumno alumn = alumnos.get(almIndex);
+//      grupo.getAlumnoCollection().add(alumn);
+//      PagoAlumno pago = new PagoAlumno();
+//      pago.setAlumno(alumn);
+//      pago.setGrupo(grupo);
+//      pago.setMonto(Integer.parseInt(txtMonto.getText()));
+//      pago.setFechaPago(new Date());
+//      pago.registrarPago();
+//      grupo.actualizarDatosGrupo(grupo);
+//      setListGrupos();
+//      Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
+//          + " inscrito en el grupo " + grupo.getNombre());
+//    } else if (almIndex == -1) {
+//      Mensajes.mensajeAlert("Selecciona un alumno");
+//    } else if (grpIndex == -1){
+//      Mensajes.mensajeAlert("Selecciona un grupo");
+//    }
+//
+//  }
   @Override
   public void setPantallaDividida(HBox pantallaDividida) {
     this.pantallaDividida = pantallaDividida;
@@ -156,17 +147,54 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
         nombresAlumnos = new ArrayList();
         int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
         if (grpIndex != -1) {
-          alumnos = grupos.get(grpIndex).obtenerAlumnosNoInscritos();
+          alumnos = new ArrayList(grupos.get(grpIndex).getAlumnoCollection());
           alumnos.forEach((alumno) -> {
             nombresAlumnos.add(alumno.getNombre() + " " + alumno.getApellidos());
           });
           ObservableList<String> items = FXCollections.observableArrayList();
           items.addAll(nombresAlumnos);
           lstAlumnos.setItems(items);
+          lstAlumnos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+              if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
+                Alumno alumn = alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex());
+                lblAlumno.setText(alumn.getNombre() + " " + alumn.getApellidos());
+                lblCorreo.setText(alumn.getEmail());
+                lblTelefono.setText(alumn.getTelefono());
+                imgAlumno.setImage(new Image(alumn.obtenerImagen()));
+              }
+            }
+
+          });
+
         }
       }
     });
     return true;
   }
 
+  @FXML
+  private void reinscribir(ActionEvent event) {
+     Mensajes.mensajeAlert("En construcción");
+  }
+
+  @FXML
+  private void darBaja(ActionEvent event) {
+    int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
+    int almIndex = lstAlumnos.getSelectionModel().getSelectedIndex();
+    if (almIndex != -1 && grpIndex != -1) {
+      Grupo grupo = grupos.get(grpIndex);
+      Alumno alumn = alumnos.get(almIndex);
+      grupo.getAlumnoCollection().remove(alumn);
+      grupo.actualizarDatosGrupo(grupo);
+      setListGrupos();
+      Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
+          + " se ha eliminado del grupo " + grupo.getNombre());
+    } else if (almIndex == -1) {
+      Mensajes.mensajeAlert("Selecciona un alumno");
+    } else if (grpIndex == -1){
+      Mensajes.mensajeAlert("Selecciona un grupo");
+    }
+  }
 }

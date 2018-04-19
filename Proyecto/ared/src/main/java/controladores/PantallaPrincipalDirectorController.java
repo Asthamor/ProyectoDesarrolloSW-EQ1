@@ -118,7 +118,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaInscripciones(ActionEvent event) {
         imagen.setVisible(false);
-        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaInscribirAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaInscripciones.fxml", this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 

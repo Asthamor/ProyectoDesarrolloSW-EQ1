@@ -192,4 +192,23 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
         return true;
     }
   
+  public boolean registrarPago(){
+     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+        PagoAlumnoPK pagoPK = new PagoAlumnoPK();
+        pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
+        pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
+        pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
+        pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
+        pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
+        this.setPagoAlumnoPK(pagoPK);
+         try {
+            controlador.create(this);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+  }
+  
 }
