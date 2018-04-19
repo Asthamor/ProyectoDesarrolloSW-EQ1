@@ -297,7 +297,7 @@ public class AlumnoJpaController implements Serializable {
     
     public List<Alumno> findAlumnoByName(String name){
         EntityManager em = getEntityManager();
-        return em.createQuery("SELECT a FROM Alumno a WHERE a.nombre LIKE :nombre").setParameter("nombre", name+"%").getResultList();
+        return em.createQuery("SELECT a FROM Alumno a WHERE a.nombre LIKE :nombre").setParameter("nombre", "%" + name+"%").getResultList();
     }
     
 }

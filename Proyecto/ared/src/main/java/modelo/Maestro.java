@@ -32,11 +32,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
-import javax.persistence.TypedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import modelo.controladores.AlumnoJpaController;
-import modelo.controladores.GrupoJpaController;
 import modelo.controladores.MaestroJpaController;
 import modelo.controladores.exceptions.NonexistentEntityException;
 
@@ -352,16 +349,18 @@ public class Maestro extends Persona implements Serializable, IMaestro {
 
     @Override
     public String obtenerImagen() {
-        String imagePath = "/imagenes/iconoUsuario.png";
+        String currentPath = System.getProperty("user.dir");
+        String imagePath = "/userPhoto/iconoUsuario.png";
 
         if (this.imgFoto != null) {
-            String currentPath = System.getProperty("user.dir");
             Path classPath = Paths.get(System.getProperty("java.class.path"));
             File f = new File(currentPath + "/userPhoto/" + this.imgFoto);
 
             if (f.exists()) {
                 imagePath = f.getAbsolutePath();//classPath.relativize(f.toPath()).toString();
             }
+        } else {
+          imagePath = currentPath + imagePath;
         }
         return imagePath;
     }

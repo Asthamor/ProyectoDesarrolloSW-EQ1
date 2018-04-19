@@ -130,12 +130,22 @@ public class PantallaEditarUsuarioController implements Initializable {
         persona.setNombre(txtNombresUsuario.getText());
         persona.setApellidos(txtApellidosUsuario.getText());
         persona.setTelefono(txtTelefonoUsuario.getText());
-        persona.setImgFoto(rutaFoto);
+        
         persona.setEmail(txtCorreoElectronico.getText());
-        if (persona.actualizarDatos()) {
+        if (rutaFoto != null){
+          persona.setImgFoto(rutaFoto);
+          if (persona.actualizarDatos(true)) {
           controlador.mostrarInformacion(persona);
           pantallaDividida.getChildren().remove(1);
           Mensajes.mensajeExitoso("La información se actualizó correctamente");
+          }
+        } else {
+          if (persona.actualizarDatos(false)) {
+          controlador.mostrarInformacion(persona);
+          pantallaDividida.getChildren().remove(1);
+          Mensajes.mensajeExitoso("La información se actualizó correctamente");
+          }
+          
         }
       }
 

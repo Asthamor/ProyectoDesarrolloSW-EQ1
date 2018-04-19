@@ -76,7 +76,7 @@ public class TarjetaInformacionUsuarioController implements Initializable {
         lblNombresUsuario.setText(persona.getNombre());
         lblApellidosUsuario.setText(persona.getApellidos());
         lblTelefonoUsuario.setText(persona.getTelefono());
-        Image imagen = new Image("file:" + persona.obtenerImagen());
+        Image imagen = new Image("file:" + persona.obtenerImagen(),true);
         imgFotoUsuario.setImage(imagen);
         if (persona.getEmail() == null) {
             lblCorreoElectronicoUsuario.setText("");

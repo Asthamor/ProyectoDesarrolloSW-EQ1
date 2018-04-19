@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import clasesApoyo.Formatters;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -13,6 +14,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -77,27 +80,13 @@ public class PantallaRegistrarUsuarioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        UnaryOperator<Change> filter = change -> {
-            String text = change.getText();
-            if (!change.isAdded()) {
-                return change;
-            } else {
-                if (text.matches("^[0-9]${0,10}")) {
-                    return change;
-                }
-            }
-
-            return null;
-        };
-
-        TextFormatter<String> textLimit = new TextFormatter<>(filter);
 
         txtCorreoElectronicoUsuario.setText("");
         rutaFoto = null;
         txtApellidosUsuario.setText("");
         txtNombresUsuario.setText("");
         txtTelefonoUsuario.setText("");
-        txtTelefonoUsuario.setTextFormatter(textLimit);
+        txtTelefonoUsuario.setTextFormatter(Formatters.getNumFormatter(10));
 
     }
 
@@ -187,6 +176,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
             event.consume();
         }
     }
+    
 
     public boolean tamañoValidoCaracteres() {
         boolean tamañoValido = true;
