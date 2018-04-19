@@ -161,21 +161,30 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     private void registrarAlumno(ActionEvent event) {
         if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
             if (!existenCamposErroneos()) {
-                PagoAlumno pagoAlumno = new PagoAlumno();
-                pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
-                pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
-                pagoAlumno.setFechaPago(new Date());
-                pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
-                if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
-                    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
-                    pantallaDividida.getChildren().add(pnlPrincipal);
-                    Mensajes.mensajeExitoso("El pago se registro correctamente");
+                if (tamañoInvalidoCaracteres()) {
+                    Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
+                } else {
+                    PagoAlumno pagoAlumno = new PagoAlumno();
+                    pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
+                    pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
+                    pagoAlumno.setFechaPago(new Date());
+                    pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
+                    if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
+                        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+                        pantallaDividida.getChildren().add(pnlPrincipal);
+                        Mensajes.mensajeExitoso("El pago se registro correctamente");
+                    }
                 }
+
             }
         } else {
             Mensajes.mensajeAlert("Debe seleccionar un alumno");
         }
 
+    }
+
+    public boolean tamañoInvalidoCaracteres() {
+        return txtMonto.getText().length() > 11;
     }
 
     public boolean existenCamposErroneos() {

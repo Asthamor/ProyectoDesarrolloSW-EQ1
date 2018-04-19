@@ -238,15 +238,15 @@ public class Grupo implements Serializable, IGrupo {
     }
 
 
-    @Override
-    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
   @XmlTransient
   public Collection<PagoAlumno> getPagoAlumnoCollection() {
@@ -257,6 +257,7 @@ public class Grupo implements Serializable, IGrupo {
     this.pagoAlumnoCollection = pagoAlumnoCollection;
   }
   
+  @Override
   public List<Alumno> obtenerAlumnosNoInscritos(){
     Alumno a = new Alumno();
     List<Alumno> noInscritos = new ArrayList();
@@ -271,6 +272,7 @@ public class Grupo implements Serializable, IGrupo {
     return noInscritos;
   }
   
+  @Override
   public String obtenerUltimoGrupo() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);

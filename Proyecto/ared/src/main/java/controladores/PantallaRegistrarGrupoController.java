@@ -156,13 +156,13 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
 
     @FXML
     private void guardarGrupo(ActionEvent event) {
-        if (existenCamposVacios()) {
+        if (existenCamposVacios() || txtHorario.getText().equals("")) {
             Mensajes.mensajeAlert("Algunos campos estan vacíos");
 
         } else {
-//            if (!tamañoValidoCaracteres()) {
-//                Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
-//            } else {
+            if (tamañoInvalidoCaracteres()) {
+                Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
+            } else {
             Grupo grupo = new Grupo();
             grupo.setTipoDanza(txtTipoDanza.getText());
             grupo.setNombre(txtNombreGrupo.getText());
@@ -190,8 +190,12 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
                 pantallaDividida.getChildren().add(pnlPrincipal);
                 Mensajes.mensajeExitoso("El grupo se registro correctamente");
             }
-//            }
+            }
         }
+    }
+    
+    public boolean tamañoInvalidoCaracteres(){
+        return txtNombreGrupo.getText().length() > 100 || txtTipoDanza.getText().length() > 45;
     }
 
     public boolean existenCamposVacios() {

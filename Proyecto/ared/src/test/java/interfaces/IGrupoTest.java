@@ -5,8 +5,10 @@
  */
 package interfaces;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import modelo.Alumno;
 import modelo.Grupo;
 import modelo.GrupoPK;
 import modelo.Horario;
@@ -53,9 +55,9 @@ public class IGrupoTest {
     public void testObtenerTodosLosGrupos() {
         System.out.println("obtenerTodosLosGrupos");
         IGrupo instance = new Grupo();
-        int expResult = 3;
+        boolean expResult = true;
         List<Grupo> grupos = instance.obtenerTodosLosGrupos();
-        int result = grupos.size();
+        boolean result = grupos.size() > 0;
         assertEquals(expResult, result);
     }
 
@@ -122,22 +124,29 @@ public class IGrupoTest {
         boolean result = instance.eliminarGrupo(grupoPK);
         assertEquals(expResult, result);
     }
+    
+    @Test
+    public void testObtenerAlumnosNoInscritos(){
+        System.out.println("obtenerAlumnosNoInscritos");
+        IGrupo instance = new Grupo();
+        boolean expResult = true;
+        Grupo grupo = instance.obtenerTodosLosGrupos().get(0);
+        List<Alumno> alumnos = grupo.obtenerAlumnosNoInscritos();
+        boolean result = alumnos.size() > 0;
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testObtenerUltimoGrupo(){
+        System.out.println("obtenerUltimoGrupo");
+        IGrupo instance = new Grupo();
+        boolean expResult = true;
+        String id = instance.obtenerUltimoGrupo();
+        boolean result = !id.equals(null);
+        assertEquals(expResult, result);
+    }
 
-//    /**
-//     * Test of obtenerGruposMaestro method, of class IGrupo.
-//     */
-//    @Test
-//    public void testObtenerGruposMaestro() {
-//        System.out.println("obtenerGruposMaestro");
-//        String idMaestro = "";
-//        IGrupo instance = new IGrupoImpl();
-//        List<Grupo> expResult = null;
-//        List<Grupo> result = instance.obtenerGruposMaestro(idMaestro);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+
 //    /**
 //     * Test of registrarInscripcionAlumno method, of class IGrupo.
 //     */

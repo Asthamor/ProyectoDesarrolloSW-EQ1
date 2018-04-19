@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.util.List;
+import modelo.Alumno;
 import modelo.Grupo;
 import modelo.GrupoPK;
 
@@ -18,8 +19,10 @@ public interface IGrupo {
     public boolean registrarGrupo(Grupo grupo);
     public boolean actualizarDatosGrupo(Grupo grupo);
     public boolean eliminarGrupo(GrupoPK grupoPK);
-    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK);
-    public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK);
+    public List<Alumno> obtenerAlumnosNoInscritos();
+    public String obtenerUltimoGrupo();
+//    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK);
+//    public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK);
     
     
     

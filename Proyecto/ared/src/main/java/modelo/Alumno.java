@@ -263,15 +263,7 @@ public class Alumno extends Persona implements Serializable, IAlumno {
         return true;
     }
 
-    @Override
-    public List<Alumno> obtenerAlumnosInscritos(String idGrupo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public List<Alumno> obtenerAlumnosNoInscritos(String idGrupo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
   @Override
   public boolean actualizarDatos() {

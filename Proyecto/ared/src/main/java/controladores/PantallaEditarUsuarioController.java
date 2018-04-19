@@ -143,14 +143,14 @@ public class PantallaEditarUsuarioController implements Initializable {
   }
 
   public boolean existenCamposVacios() {
-    return txtNombresUsuario.getText().equals("") && txtApellidosUsuario.getText().equals("")
-        && txtTelefonoUsuario.getText().equals("");
+    return txtNombresUsuario.getText().equals("") || txtApellidosUsuario.getText().equals("")
+        || txtTelefonoUsuario.getText().equals("");
   }
 
   @FXML
   private void limitarCaracteresEmail(KeyEvent event) {
     int limiteCaracteres = 100;
-    if (txtCorreoElectronico.getText().length() >= limiteCaracteres) {
+    if (txtCorreoElectronico.getText().length() > limiteCaracteres) {
       event.consume();
     }
   }
@@ -158,7 +158,7 @@ public class PantallaEditarUsuarioController implements Initializable {
   @FXML
   private void limitarCaracteresNombre(KeyEvent event) {
     int limiteCaracteres = 80;
-    if (txtNombresUsuario.getText().length() >= limiteCaracteres) {
+    if (txtNombresUsuario.getText().length() > limiteCaracteres) {
       event.consume();
     }
   }
@@ -166,7 +166,7 @@ public class PantallaEditarUsuarioController implements Initializable {
   @FXML
   private void limitarCaracteresApellido(KeyEvent event) {
     int limiteCaracteres = 45;
-    if (txtApellidosUsuario.getText().length() >= limiteCaracteres) {
+    if (txtApellidosUsuario.getText().length() > limiteCaracteres) {
       event.consume();
     }
   }
@@ -174,29 +174,29 @@ public class PantallaEditarUsuarioController implements Initializable {
   @FXML
   private void limitarCaracteresTelefono(KeyEvent event) {
     int limiteCaracteres = 10;
-    if (txtTelefonoUsuario.getText().length() >= limiteCaracteres) {
+    if (txtTelefonoUsuario.getText().length() > limiteCaracteres) {
       event.consume();
     }
   }
 
   public boolean tamañoValidoCaracteres() {
     boolean tamañoValido = true;
-    if (txtCorreoElectronico.getText().length() >= 100) {
+    if (txtCorreoElectronico.getText().length() > 100) {
       tamañoValido = false;
       lblCorreoElectronico.setTextFill(Color.web("#EC7063"));
     }
 
-    if (txtNombresUsuario.getText().length() >= 80) {
+    if (txtNombresUsuario.getText().length() > 80) {
       tamañoValido = false;
       lblNombresUsuario.setTextFill(Color.web("#EC7063"));
     }
 
-    if (txtApellidosUsuario.getText().length() >= 45) {
+    if (txtApellidosUsuario.getText().length() > 45) {
       tamañoValido = false;
       lblApellidosUsuario.setTextFill(Color.web("#EC7063"));
     }
 
-    if (txtTelefonoUsuario.getText().length() >= 10) {
+    if (txtTelefonoUsuario.getText().length() > 10) {
       tamañoValido = false;
       lblTelefonoUsuario.setTextFill(Color.web("#EC7063"));
     }
