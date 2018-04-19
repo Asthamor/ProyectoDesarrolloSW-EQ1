@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import interfaces.Controlador;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,7 +24,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import modelo.Grupo;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 /**
  * FXML Controller class
@@ -41,12 +47,23 @@ public class PantallaGruposController implements Initializable, Controlador {
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
+    private Document document;
+    private Element gruposXML;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SAXReader reader = new SAXReader();
+        try {
+            document = reader.read("/home/alonso/Desktop/grupoXML.xml");
+        } catch (DocumentException ex) {
+            Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Element root = document.getRootElement();
+        gruposXML = root.element("grupos");
+
         scrollGrupos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
     }
@@ -81,9 +98,13 @@ public class PantallaGruposController implements Initializable, Controlador {
                 Parent root = (Parent) loader.load();
                 TarjetaInformacionGrupoController controlador = loader.getController();
                 controlador.setGrupo(grupos.get(auxiliar));
-                auxiliar++;
+                Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
+                        + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
+                controlador.setColorGrupo(Color.web(grupoXML.attributeValue("color")));
+                controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
                 controlador.setPantallaDividida(pantallaDividida);
                 controlador.setPnlPrincipal(pnlPrincipal);
+                auxiliar++;
                 grid.add(root, 0, i);
             } catch (IOException ex) {
                 Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,9 +115,12 @@ public class PantallaGruposController implements Initializable, Controlador {
                     Parent root = (Parent) loader.load();
                     TarjetaInformacionGrupoController controlador = loader.getController();
                     controlador.setGrupo(grupos.get(auxiliar));
-                    auxiliar++;
+                    Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
+                            + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
+                    controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
                     controlador.setPantallaDividida(pantallaDividida);
                     controlador.setPnlPrincipal(pnlPrincipal);
+                    auxiliar++;
                     grid.add(root, 1, i);
                 } catch (IOException ex) {
                     Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,6 +136,28 @@ public class PantallaGruposController implements Initializable, Controlador {
                 pnlPrincipal, pantallaDividida);
         pnlPrincipal.getChildren().add(root);
         pantallaDividida.getChildren().add(pnlPrincipal);
+    }
+
+    public String obtnerHorarioGrupo(Element grupo) {
+        String horario = "";
+        if (grupo != null) {
+            Element horarioXML = grupo.element("horario");
+            for (Iterator<Element> itr3 = horarioXML.elementIterator("dia"); itr3.hasNext();) {
+                Element dia = itr3.next();
+                String columna = String.valueOf(dia.attributeValue("nombreDia"));
+                horario += columna;
+                for (Iterator<Element> itr4 = dia.elementIterator("hora"); itr4.hasNext();) {
+                    String horaIncio = (String.valueOf(((Element) itr4.next()).getData())).trim();
+                    String horaFin = (String.valueOf(((Element) itr4.next()).getData())).trim();
+
+                    horario += " " + horaIncio + "-" + horaFin;
+
+                }
+                horario += "\n";
+            }
+        }
+
+        return horario;
     }
 
 }

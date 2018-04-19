@@ -270,5 +270,10 @@ public class Grupo implements Serializable, IGrupo {
     }
     return noInscritos;
   }
-
+  
+  public String obtenerUltimoGrupo() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
+        return controlador.ultimoRegistro();
+    }
 }

@@ -1,43 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="355.0" style="-fx-background-color: #F8F9F9;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TarjetaInformacionGrupoController">
+<StackPane fx:id="panelTarjeta" onMouseClicked="#editarGrupo" onMouseEntered="#cambiarColor" prefHeight="230.0" prefWidth="355.0" style="-fx-background-color: #BDC3C7" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TarjetaInformacionGrupoController">
    <children>
-      <VBox layoutX="82.0" layoutY="15.0" prefHeight="200.0" prefWidth="236.0" spacing="15.0">
-         <children>
-            <Label fx:id="lblNombreGrupo" text="Nombre del grupo" />
-            <Label fx:id="lblTipoDanza" text="Tipo Danza" />
-            <JFXTextArea fx:id="txtHorario" editable="false" focusColor="#ffffff00" prefHeight="104.0" prefWidth="222.0" text="No es posible mostrar el horario en este momento.&#10;" unFocusColor="#ffffff00" />
-         </children>
-      </VBox>
-      <JFXButton fx:id="btnEditarGrupo" layoutX="321.0" layoutY="190.0" onAction="#editarGrupo" prefHeight="40.0" prefWidth="39.0" text="">
-         <tooltip>
-            <Tooltip text="Editar" />
-         </tooltip>
-         <graphic>
-            <FontAwesomeIconView glyphName="PENCIL" size="25" wrappingWidth="27.428571701049805" />
-         </graphic>
-      </JFXButton>
-      <Label layoutX="21.0" layoutY="16.0" text="Nombre:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="32.0" layoutY="47.0" text="Danza:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="27.0" layoutY="79.0" text="Horario:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane prefHeight="216.0" prefWidth="335.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="87.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.0" minWidth="10.0" prefWidth="248.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="146.0" valignment="TOP" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label contentDisplay="RIGHT" text="Nombre:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="7.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label contentDisplay="RIGHT" text="Danza:" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="7.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label contentDisplay="RIGHT" text="Horario:" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="7.0" top="7.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="lblNombreGrupo" text="Nombre del grupo" GridPane.columnIndex="1" />
+                        <Label fx:id="lblTipoDanza" text="Tipo Danza" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextArea fx:id="txtHorario" focusColor="#BDC3C7" style="-fx-background-color: #BDC3C7;" unFocusColor="#BDC3C7" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </Pane>
+         </center>
+         <bottom>
+            <Pane prefHeight="15.0" prefWidth="355.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <Pane prefHeight="215.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="215.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
    </children>
-</AnchorPane>
+</StackPane>

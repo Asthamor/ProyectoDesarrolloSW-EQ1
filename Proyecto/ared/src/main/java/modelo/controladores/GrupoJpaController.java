@@ -77,7 +77,7 @@ public class GrupoJpaController implements Serializable {
                 maestro.getGrupoCollection().add(grupo);
                 maestro = em.merge(maestro);
             }
-            for (Alumno alumnoCollectionAlumno : grupo.getAlumnoCollection()) {
+        for (Alumno alumnoCollectionAlumno : grupo.getAlumnoCollection()) {
                 alumnoCollectionAlumno.getGrupoCollection().add(grupo);
                 alumnoCollectionAlumno = em.merge(alumnoCollectionAlumno);
             }
@@ -250,6 +250,19 @@ public class GrupoJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public String ultimoRegistro(){
+        String id = "";
+        EntityManager em = getEntityManager();
+        List <Grupo> grupo;
+        try{
+            grupo = em.createQuery("select g from Grupo g order by g.grupoPK.idGrupo desc").setMaxResults(1).getResultList();;
+        } finally{
+            em.close();
+        }
+        id = String.valueOf(grupo.get(0).getGrupoPK().getIdGrupo());
+        return id;
     }
     
 }

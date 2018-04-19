@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane id="StackPane" fx:id="pnlPrincipal" onMouseClicked="#agregarDia" onMouseEntered="#cambiarDeColor" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #e0e0e0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TarjetaHorarioController">
+<StackPane id="StackPane" fx:id="pnlPrincipal" onMouseClicked="#agregarDia" onMouseEntered="#cambiarDeColor" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #e0e0e0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TarjetaHorarioController">
    <children>
       <HBox alignment="CENTER">
          <children>
-            <StackPane prefHeight="200.0" prefWidth="200.0">
+            <StackPane prefHeight="30.0" prefWidth="70.0">
                <children>
-                  <Label fx:id="lblNombreGrupo" alignment="CENTER" layoutY="7.0" prefHeight="15.0" prefWidth="119.0" text="Nombre del grupo">
+                  <Label fx:id="lblNombreGrupo" alignment="CENTER" layoutY="7.0" prefHeight="15.0" prefWidth="66.0" text="Nombre del grupo">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Label>
                </children>
             </StackPane>
-            <JFXButton fx:id="botonLibre" onAction="#cambiarLibre" prefHeight="15.0" prefWidth="15.0" text="">
+            <JFXButton fx:id="botonLibre" onAction="#cambiarLibre" prefHeight="15.0" prefWidth="15.0" ripplerFill="#a4a1a1" text="">
                <graphic>
                   <FontAwesomeIconView glyphName="TIMES_CIRCLE_ALT" size="15" />
                </graphic>

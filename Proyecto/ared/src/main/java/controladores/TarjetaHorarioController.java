@@ -1,10 +1,10 @@
 package controladores;
 
+import clasesApoyo.Mapas;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -40,8 +40,7 @@ public class TarjetaHorarioController implements Initializable {
     private int columna;
     private int fila;
     private TextArea txtHorarioGrupo;
-    private HashMap mapaFilas;
-    private HashMap mapaColumnas;
+    private Mapas mapas = null;
     private ArrayList<ArrayList<Integer>> horasGrupo;
     private String[] horarioGrupo;
 
@@ -79,14 +78,6 @@ public class TarjetaHorarioController implements Initializable {
 
     public void setHorarioGrupo(String[] horarioGrupo) {
         this.horarioGrupo = horarioGrupo;
-    }
-
-    public void setMapaFilas(HashMap mapaFilas) {
-        this.mapaFilas = mapaFilas;
-    }
-
-    public void setMapaColumnas(HashMap mapaColumnas) {
-        this.mapaColumnas = mapaColumnas;
     }
 
     public void setTxtHorarioGrupo(TextArea txtHorarioGrupo) {
@@ -163,19 +154,21 @@ public class TarjetaHorarioController implements Initializable {
     }
 
     public void mostrarHorario() {
-        String horarioDia = mapaColumnas.get(columna) + " ";
+        if(mapas == null)
+            mapas = new Mapas();
+        String horarioDia = mapas.getMapaColumnas().get(columna).toString();
         if (horasGrupo.get(columna).size() > 0) {
             int horaInicio = horasGrupo.get(columna).get(0);
             int horaFin = horasGrupo.get(columna).get(0);
             for (int i = 0; i < horasGrupo.get(columna).size(); i++) {
                 if (i == horasGrupo.get(columna).size() - 1) {
-                    horarioDia += mapaFilas.get(horaInicio) + "-" + mapaFilas.get(horaFin + 1) + ",";
+                    horarioDia += " " + mapas.getMapaFilas().get(horaInicio) + "-" + mapas.getMapaFilas().get(horaFin + 1);
                 } else {
                     if ((horasGrupo.get(columna).get(i + 1) - horasGrupo.get(columna).get(i)) == 1) {
                         horaFin = horasGrupo.get(columna).get(i + 1);
 
                     } else {
-                        horarioDia += mapaFilas.get(horaInicio) + "-" + mapaFilas.get(horaFin + 1) + ", ";
+                        horarioDia += " " + mapas.getMapaFilas().get(horaInicio) + "-" + mapas.getMapaFilas().get(horaFin + 1);
                         horaInicio = horasGrupo.get(columna).get(i + 1);
                         horaFin = horasGrupo.get(columna).get(i + 1);
                     }
@@ -188,8 +181,10 @@ public class TarjetaHorarioController implements Initializable {
         horarioGrupo[columna] = horarioDia;
         String horario = "";
         for(int i = 0; i < horarioGrupo.length; i++){
-            if(!horarioGrupo[i].equals(""))
-                horario += horarioGrupo[i].substring(0, horarioGrupo[i].length()-1) + "\n";
+            if(!horarioGrupo[i].equals("")){
+                horario += horarioGrupo[i] + "\n";
+            }
+                
         }
         txtHorarioGrupo.setText(horario);
     }
