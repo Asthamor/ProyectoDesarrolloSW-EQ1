@@ -5,21 +5,27 @@
  */
 package modelo;
 
+import interfaces.IPagoAlumno;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import modelo.controladores.PagoAlumnoJpaController;
 
 /**
  *
@@ -39,7 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
   , @NamedQuery(name = "PagoAlumno.findByGrupomaestroidMaestro", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupomaestroidMaestro = :grupomaestroidMaestro")
   , @NamedQuery(name = "PagoAlumno.findByGrupomaestrousuarionombreUsuario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupomaestrousuarionombreUsuario = :grupomaestrousuarionombreUsuario")
   , @NamedQuery(name = "PagoAlumno.findByGrupohorarioidHorario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupohorarioidHorario = :grupohorarioidHorario")})
-public class PagoAlumno implements Serializable {
+public class PagoAlumno implements Serializable, IPagoAlumno {
 
   private static final long serialVersionUID = 1L;
   @EmbeddedId
@@ -165,5 +171,25 @@ public class PagoAlumno implements Serializable {
   public String toString() {
     return "modelo.PagoAlumno[ pagoAlumnoPK=" + pagoAlumnoPK + " ]";
   }
+  
+  @Override
+  public boolean registrarPagoMensual(PagoAlumno pago) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+        PagoAlumnoPK pagoPK = new PagoAlumnoPK();
+        pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
+        pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
+        pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
+        pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
+        pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
+        pago.setPagoAlumnoPK(pagoPK);
+        try {
+            controlador.create(pago);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
   
 }

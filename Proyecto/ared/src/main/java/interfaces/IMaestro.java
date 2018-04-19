@@ -19,6 +19,7 @@ public interface IMaestro extends IPersona {
     public boolean obtenerEstado();
     public String obtenerImagen();
     public List<Grupo> obtenerGruposMaestro(int idMaestro);
+    public Maestro obtenerMaestro(String nombreUsuario);
     
     
 }

@@ -53,7 +53,7 @@ public class IGrupoTest {
     public void testObtenerTodosLosGrupos() {
         System.out.println("obtenerTodosLosGrupos");
         IGrupo instance = new Grupo();
-        int expResult = 4;
+        int expResult = 3;
         List<Grupo> grupos = instance.obtenerTodosLosGrupos();
         int result = grupos.size();
         assertEquals(expResult, result);
@@ -74,7 +74,7 @@ public class IGrupoTest {
         grupo.setHorario(horario);
         Maestro maestro = new Maestro();
         List<Persona> maestros = maestro.obtenerTodos();
-        grupo.setMaestro((Maestro) maestros.get(1));
+        grupo.setMaestro((Maestro) maestros.get(0));
         IGrupo instance = new Grupo();
         boolean expResult = true;
         boolean result = instance.registrarGrupo(grupo);

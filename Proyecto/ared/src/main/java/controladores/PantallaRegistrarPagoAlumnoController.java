@@ -20,7 +20,6 @@ import interfaces.Controlador;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -69,11 +68,10 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private Label lblFecha;
     @FXML
-    private Label lblFechaLimite;
-    @FXML
     private Label lblMontoTotal;
     @FXML
     private Label lblAlumno;
+    Maestro maestro;
 
     /**
      * Initializes the controller class.
@@ -110,17 +108,11 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     }
 
     public void mostrarGruposMaestro() {
-        Date fechaProximoPago;
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.MONTH, 1);
-        fechaProximoPago = cal.getTime();
         lblFecha.setText(DateFormat.getDateInstance().format(new Date()));
-        lblFechaLimite.setText(DateFormat.getDateInstance().format(fechaProximoPago));
-        Maestro maestro = new Maestro();
-//        Stage mainStage = (Stage) lblAlumno.getScene().getWindow();
-//        Persona persona = (Persona) mainStage.getProperties().get("persona");
-        grupos = maestro.obtenerGruposMaestro(2);
+        maestro = new Maestro();
+        String nombreUsuario = System.getProperty("nombreUsuario");
+        maestro = maestro.obtenerMaestro(nombreUsuario);
+        grupos = maestro.obtenerGruposMaestro(maestro.getMaestroPK().getIdMaestro());
         grupos.forEach((grupo) -> {
             nombresGrupos.add(grupo.getNombre());
         });
