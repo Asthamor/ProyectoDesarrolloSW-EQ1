@@ -3,69 +3,153 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaInscribirAlumnoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaInscribirAlumnoController">
+   <center>
+      <Pane prefHeight="53.0" prefWidth="1200.0" style="-fx-background-color: #ffffff; -fx-border-color: 000000;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="666.0" prefWidth="1103.0">
+               <children>
+                  <VBox prefHeight="768.0" prefWidth="300.0">
+                     <children>
+                        <Label text="Grupos:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ListView fx:id="lstGrupo" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="768.0" prefWidth="300.0">
+                     <children>
+                        <Label text="Alumnos:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ListView fx:id="lstAlumnos" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="666.0" prefWidth="489.0">
+                     <children>
+                        <Label text="Inscribir Alumno">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <GridPane prefHeight="243.0" prefWidth="670.0">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="198.66668701171875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.33331298828125" minWidth="10.0" prefWidth="296.33331298828125" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Monto:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <JFXTextField fx:id="txtMonto" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" />
+                              <Label text="Promoción:" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <JFXComboBox fx:id="comboPromocion" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Monto final:" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="labelMontoFinal" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="50.0" top="50.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </GridPane>
+                        <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="212.0" prefWidth="495.0">
+                           <children>
+                              <JFXButton fx:id="btnInscribir" layoutX="14.0" layoutY="147.0" onAction="#inscribirAlumno" prefHeight="41.0" prefWidth="231.0" style="-fx-background-color: #c08ed6#9870aa;" text="Inscribir">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children></Pane>
+   </center>
    <top>
-      <Pane prefHeight="53.0" prefWidth="1200.0" style="-fx-background-color: #ffffff; -fx-border-color: 000000;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </top>
    <left>
-      <Pane prefHeight="604.0" prefWidth="64.0" style="-fx-background-color: ffffff;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <Pane prefHeight="604.0" prefWidth="63.0" style="-fx-background-color: ffffff;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <Pane prefHeight="88.0" prefWidth="1200.0" style="-fx-background-color: ffffff;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
-   <center>
-      <AnchorPane prefHeight="629.0" prefWidth="1073.0" style="-fx-background-color: ffffff; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
-         <children>
-            <Label layoutX="492.0" layoutY="17.0" text="Inscribir Alumno" textFill="#0d0d0d">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="376.0" layoutY="92.0" text="Alumno:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="326.0" layoutY="189.0" text="Monto a pagar:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="280.0" layoutY="285.0" text="Promoción a aplicar:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="342.0" layoutY="386.0" text="Monto final:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <JFXComboBox fx:id="comboAlumnos" layoutX="487.0" layoutY="92.0" prefHeight="25.0" prefWidth="297.0" />
-            <JFXTextField fx:id="txtMonto" layoutX="483.0" layoutY="188.0" prefHeight="25.0" prefWidth="300.0" />
-            <JFXComboBox fx:id="comboPromocion" layoutX="487.0" layoutY="285.0" prefHeight="25.0" prefWidth="312.0" />
-            <Label fx:id="labelMontoFinal" layoutX="481.0" layoutY="390.0" text="\$0">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="btnInscribir" layoutX="830.0" layoutY="529.0" prefHeight="41.0" prefWidth="175.0" style="-fx-background-color: #c08ed6#9870aa;" text="Inscribir">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </JFXButton>
-            <Separator layoutX="458.0" layoutY="43.0" prefWidth="200.0" style="-fx-background-color: #a426db;" />
-         </children>
-      </AnchorPane>
-   </center>
 </BorderPane>

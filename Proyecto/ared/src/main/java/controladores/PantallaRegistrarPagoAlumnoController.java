@@ -156,27 +156,27 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     private void añadirTotal(KeyEvent event) {
         lblMontoTotal.setText(txtMonto.getText());
     }
-
-    @FXML
-    private void registrarAlumno(ActionEvent event) {
-        if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
-            if (!existenCamposErroneos()) {
-                PagoAlumno pagoAlumno = new PagoAlumno();
-                pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
-                pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
-                pagoAlumno.setFechaPago(new Date());
-                pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
-                if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
-                    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
-                    pantallaDividida.getChildren().add(pnlPrincipal);
-                    Mensajes.mensajeExitoso("El pago se registro correctamente");
-                }
-            }
-        } else {
-            Mensajes.mensajeAlert("Debe seleccionar un alumno");
-        }
-
-    }
+//
+//    @FXML
+//    private void registrarAlumno(ActionEvent event) {
+//        if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
+//            if (!existenCamposErroneos()) {
+//                PagoAlumno pagoAlumno = new PagoAlumno();
+//                pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
+//                pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
+//                pagoAlumno.setFechaPago(new Date());
+//                pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
+//                if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
+//                    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+//                    pantallaDividida.getChildren().add(pnlPrincipal);
+//                    Mensajes.mensajeExitoso("El pago se registro correctamente");
+//                }
+//            }
+//        } else {
+//            Mensajes.mensajeAlert("Debe seleccionar un alumno");
+//        }
+//
+//    }
 
     public boolean existenCamposErroneos() {
         return !txtMonto.validate();

@@ -413,8 +413,8 @@ public class Maestro extends Persona implements Serializable, IMaestro {
     @Override
     public boolean actualizarDatos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
+    }
     @Override
     public Maestro obtenerMaestro(String nombreUsuario) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);

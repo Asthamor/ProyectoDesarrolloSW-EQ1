@@ -20,6 +20,4 @@ public interface IMaestro extends IPersona {
     public String obtenerImagen();
     public List<Grupo> obtenerGruposMaestro(int idMaestro);
     public Maestro obtenerMaestro(String nombreUsuario);
-    
-    
 }

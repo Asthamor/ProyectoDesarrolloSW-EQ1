@@ -7,8 +7,10 @@ package modelo;
 
 import interfaces.IGrupo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -253,6 +255,20 @@ public class Grupo implements Serializable, IGrupo {
 
   public void setPagoAlumnoCollection(Collection<PagoAlumno> pagoAlumnoCollection) {
     this.pagoAlumnoCollection = pagoAlumnoCollection;
+  }
+  
+  public List<Alumno> obtenerAlumnosNoInscritos(){
+    Alumno a = new Alumno();
+    List<Alumno> noInscritos = new ArrayList();
+    List<Persona> alumnos =  a.obtenerTodos();
+    List<Alumno> inscritos = new ArrayList<>(this.getAlumnoCollection());
+    for (Iterator<Persona> it = alumnos.iterator(); it.hasNext();) {
+      Alumno alumno = (Alumno) it.next();
+      if(!inscritos.contains(alumno)){
+        noInscritos.add(alumno);
+      }
+    }
+    return noInscritos;
   }
 
 }
