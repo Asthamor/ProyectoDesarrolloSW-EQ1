@@ -282,26 +282,21 @@ public class Alumno extends Persona implements Serializable, IAlumno {
     String currentPath = System.getProperty("user.dir");
 
     String imagePath = "/userPhoto/iconoAlumno.png";
-      Path classPath = Paths.get(System.getProperty("java.class.path"));
+    Path classPath = Paths.get(System.getProperty("java.class.path"));
     if (this.imgFoto != null) {
-
       File f = new File(currentPath + "/userPhoto/" + this.imgFoto);
-  }
-    return imagePath;
-    }
-      imagePath = currentPath + imagePath;
-    } else {
-        imagePath = f.getAbsolutePath();//classPath.relativize(f.toPath()).toString();
+
       if (f.exists()) {
+        imagePath = f.getAbsolutePath();//classPath.relativize(f.toPath()).toString();
       }
-
-  @Override
-  public List<Alumno> obtenerAlumnosInscritos(String idGrupo) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } else {
+      imagePath = currentPath + imagePath;
+    }
+    return imagePath;
   }
-  @Override
 
-  public List<Alumno> obtenerAlumnosNoInscritos(String idGrupo) {
+  @Override
+  public boolean actualizarDatos() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
@@ -325,11 +320,6 @@ public class Alumno extends Persona implements Serializable, IAlumno {
       }
       this.imgFoto = imageDirectory.getName();
     }
-  }
-
-  @Override
-  public boolean actualizarDatos() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
