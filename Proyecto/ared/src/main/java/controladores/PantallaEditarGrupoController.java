@@ -165,7 +165,7 @@ public class PantallaEditarGrupoController implements Initializable {
         if (existenCamposVacios()) {
             Mensajes.mensajeAlert("Algunos campos estan vacíos");
         } else {
-            if (!tamañoInvalidoCaracteres()) {
+            if (tamañoInvalidoCaracteres()) {
                 Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
             } else {
             grupo.setTipoDanza(txtTipoDanza.getText());
@@ -226,7 +226,7 @@ public class PantallaEditarGrupoController implements Initializable {
         for (int i = 0; i < horarioGrupo.length; i++) {
             if (!horarioGrupo[i].equals("")) {
                 String dia = (horarioGrupo[i].split("\\s"))[0];
-                String[] horas = (horarioGrupo[i].replace(dia, "")).split(",");
+                String[] horas = ((horarioGrupo[i].replace(dia, "")).trim()).split("\\s");
                 System.out.println(horas.length);
                 Element diaXML = horarioXML.addElement("dia").
                         addAttribute("num", String.valueOf(i)).

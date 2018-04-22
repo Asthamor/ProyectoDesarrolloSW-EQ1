@@ -213,7 +213,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
         for (int i = 0; i < horarioGrupo.length; i++) {
             if (!horarioGrupo[i].equals("")) {
                 String dia = (horarioGrupo[i].split("\\s"))[0];
-                String[] horas = (horarioGrupo[i].replace(dia, "")).split(",");
+                String[] horas = ((horarioGrupo[i].replace(dia, "")).trim()).split("\\s");
                 System.out.println(horas.length);
                 Element diaXML = horarioXML.addElement("dia").
                         addAttribute("num", String.valueOf(i)).
