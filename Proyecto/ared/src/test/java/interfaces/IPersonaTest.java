@@ -22,7 +22,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 public class IPersonaTest {
     
     public IPersonaTest() {

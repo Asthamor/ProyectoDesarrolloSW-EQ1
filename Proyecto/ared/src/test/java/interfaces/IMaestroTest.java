@@ -18,7 +18,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 public class IMaestroTest {
     
     public IMaestroTest() {
