@@ -47,6 +47,11 @@ import modelo.controladores.PagoAlumnoJpaController;
   , @NamedQuery(name = "PagoAlumno.findByGrupohorarioidHorario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupohorarioidHorario = :grupohorarioidHorario")})
 public class PagoAlumno implements Serializable, IPagoAlumno {
 
+    @Basic(optional = false)
+    @Column(name = "fecha_vencimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaVencimiento;
+
   private static final long serialVersionUID = 1L;
   @EmbeddedId
   protected PagoAlumnoPK pagoAlumnoPK;
@@ -210,5 +215,13 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
         }
         return true;
   }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
   
 }

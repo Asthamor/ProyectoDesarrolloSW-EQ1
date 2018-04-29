@@ -23,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
-import modelo.Director;
 import modelo.Maestro;
 import modelo.Persona;
 import modelo.Usuario;

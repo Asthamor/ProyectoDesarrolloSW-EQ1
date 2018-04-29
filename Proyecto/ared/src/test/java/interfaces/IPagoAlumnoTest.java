@@ -24,7 +24,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-//@Ignore
+@Ignore
 public class IPagoAlumnoTest {
 
     public IPagoAlumnoTest() {

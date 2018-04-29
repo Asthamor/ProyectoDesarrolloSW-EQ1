@@ -1,5 +1,14 @@
 use aredespacio;
 
+#insertar usuarios
+INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('AlonsoLora','607d4a33400883c45f3740d92116d04744b73cfa354d5c97eea8ba4cd4d9bd8f','director','o9DzRgc1jiJNXOvGgcxZ');
+INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('MauricioTorres','933796dfa4096ae22ddc609103ad01cf34eedabe13aa00668ce1cf7bac6aee15','director','BAjXMhkzaSFk2xkbBlGK');
+INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('MauTorres','e6241cc68b99f1faa75b5171e7fc4163a409cc58e87af384f5477f42446d6432','maestro','HeXE7CDji1TqXRNAtVvB');
+INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('RaymundoRay','8e9689da2234e7672d54728cc4665ec9b181bc69efb0d77341999db2b5c31360','maestro','nkjfSw/pOe+FlGdU9705');
+INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('RayPerez','791c3e87ffe0d70603287c7f2060ae178e97e7f1d932ce05719fb9a2b526ab9c','director','3Q8ohYLDpzxoz7ia83lq');
+INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('usuario','791c3e87ffe0d70603287c7f2060ae178e97e7f1d932ce05719fb9a2b526ab9c','maestro','3Q8ohYLDpzxoz7ia83lq');
+
+
 #insertar alumnos;
 INSERT INTO `alumno` (`idAlumno`,`nombre`,`apellidos`,`telefono`,`email`) VALUES (1,"Wayne","Owen","0458581893","enim.Etiam.imperdiet@quis.ca"),(2,"Kelsie","Zamora","5833544607","nonummy.Fusce@consectetuer.co.uk"),(3,"Flynn","Harrell","0993572543","eget@dictummagna.com"),(4,"Zenia","Romero","4402020667","eget.nisi@faucibus.org"),(5,"Timothy","Holt","6529661476","Vivamus.sit.amet@tinciduntduiaugue.ca"),(6,"Dana","Logan","0432996439","ullamcorper.magna.Sed@anteMaecenas.net"),(7,"Christopher","Banks","3775483960","ligula.Donec@augue.edu"),(8,"Nehru","Carey","7313022154","auctor.ullamcorper.nisl@semper.org"),(9,"Eden","Clayton","0847465628","varius.ultrices.mauris@eu.net"),(10,"Colton","Holland","3025059963","pellentesque.Sed@Pellentesquehabitant.org");
 INSERT INTO `alumno` (`idAlumno`,`nombre`,`apellidos`,`telefono`,`email`) VALUES (11,"Zephania","Alexander","1857747414","ac@mollisDuissit.co.uk"),(12,"Shellie","Copeland","7270097476","ullamcorper.velit@duiCum.com"),(13,"Adam","Carney","7068042120","mauris.blandit@ullamcorper.org"),(14,"Medge","Kinney","7572662837","Integer.urna.Vivamus@auctor.co.uk"),(15,"Kyra","Greene","5482653339","magna.Lorem@Phasellusin.co.uk"),(16,"Robin","Gibbs","8290949016","et.magna@bibendum.org"),(17,"Margaret","Grant","1466795933","fringilla@facilisiseget.org"),(18,"Harding","Howard","9829042444","montes.nascetur@consectetueripsumnunc.edu"),(19,"Sigourney","Padilla","5063475512","nisi.dictum@necmaurisblandit.net"),(20,"Buckminster","Poole","9203480433","pede.Nunc@Maecenas.org");
@@ -26,24 +35,18 @@ INSERT INTO `maestro` (`idMaestro`,`nombre`,`apellidos`,`telefono`,`email`,`esAc
 
 #insertar directores
 
-INSERT INTO `director` (`idDirector`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (1,'Mauricio','Torres','2281215150','mau@uv.mx','26f4f8a991e2f33cccaf094eccff165df9e646f1_hq.jpgMauricioTorres','MauricioTorres');
-INSERT INTO `director` (`idDirector`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (2,'Raymundo','Ray','213124124','',NULL,'RaymundoRay');
-INSERT INTO `director` (`idDirector`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (3,'Mau','Torres','12341234','mqu@uv.mx','HP-Pavilion-x360-13z-57a64dcc5f9b58974a44b1f8.jpgMauTorres','MauTorres');
-INSERT INTO `director` (`idDirector`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (4,'Alonso','Lora','12314124','alonso@uv.mx','HP-Pavilion-x360-13z-57a64dcc5f9b58974a44b1f8.jpgAlonsoLora','AlonsoLora');
-INSERT INTO `director` (`idDirector`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (5,'Ray','Perez','2314124123','elray@uv.mx','HP-Pavilion-x360-13z-57a64dcc5f9b58974a44b1f8.jpgRayPerez','RayPerez');
+INSERT INTO `maestro` (`idMaestro`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (1,'Mauricio','Torres','2281215150','mau@uv.mx','26f4f8a991e2f33cccaf094eccff165df9e646f1_hq.jpgMauricioTorres','MauricioTorres');
+INSERT INTO `maestro` (`idMaestro`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (2,'Raymundo','Ray','213124124','',NULL,'RaymundoRay');
+INSERT INTO `maestro` (`idMaestro`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (3,'Mau','Torres','12341234','mqu@uv.mx','HP-Pavilion-x360-13z-57a64dcc5f9b58974a44b1f8.jpgMauTorres','MauTorres');
+INSERT INTO `maestro` (`idMaestro`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (4,'Alonso','Lora','12314124','alonso@uv.mx','HP-Pavilion-x360-13z-57a64dcc5f9b58974a44b1f8.jpgAlonsoLora','AlonsoLora');
+INSERT INTO `maestro` (`idMaestro`,`nombre`,`apellidos`,`telefono`,`email`,`imgFoto`,`usuario_nombreUsuario`) VALUES (5,'Ray','Perez','2314124123','elray@uv.mx','HP-Pavilion-x360-13z-57a64dcc5f9b58974a44b1f8.jpgRayPerez','RayPerez');
 
 #insertar grupos
-INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (1,NULL,'2018-04-18',1,'MauricioTorres',1,'Folklore','Danza Folklorica');
-INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (2,NULL,'2018-04-18',1,'MauricioTorres',1,'Árabe 101','Danza Árabe');
-INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (3,NULL,'2018-04-18',2,'RaymundoRay',1,'Pole','Pole Dance');
-INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (4,NULL,'2018-04-18',3,'MauTorres',1,'Bailes de salón','Danzada');
+#INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (1,NULL,'2018-04-18',1,'MauricioTorres',1,'Folklore','Danza Folklorica');
+#INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (2,NULL,'2018-04-18',1,'MauricioTorres',1,'Árabe 101','Danza Árabe');
+#INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (3,NULL,'2018-04-18',2,'RaymundoRay',1,'Pole','Pole Dance');
+#INSERT INTO `grupo` (`idGrupo`,`estado`,`fechaCreacion`,`maestro_idMaestro`,`maestro_usuario_nombreUsuario`,`horario_idHorario`,`nombre`,`tipoDanza`) VALUES (4,NULL,'2018-04-18',3,'MauTorres',1,'Bailes de salón','Danzada');
 
-#insertar usuarios
-INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('AlonsoLora','607d4a33400883c45f3740d92116d04744b73cfa354d5c97eea8ba4cd4d9bd8f','director','o9DzRgc1jiJNXOvGgcxZ');
-INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('MauricioTorres','933796dfa4096ae22ddc609103ad01cf34eedabe13aa00668ce1cf7bac6aee15','director','BAjXMhkzaSFk2xkbBlGK');
-INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('MauTorres','e6241cc68b99f1faa75b5171e7fc4163a409cc58e87af384f5477f42446d6432','maestro','HeXE7CDji1TqXRNAtVvB');
-INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('RaymundoRay','8e9689da2234e7672d54728cc4665ec9b181bc69efb0d77341999db2b5c31360','maestro','nkjfSw/pOe+FlGdU9705');
-INSERT INTO `usuario` (`nombreUsuario`,`contraseña`,`tipoUsuario`,`salt`) VALUES ('RayPerez','791c3e87ffe0d70603287c7f2060ae178e97e7f1d932ce05719fb9a2b526ab9c','director','3Q8ohYLDpzxoz7ia83lq');
 
 #insertar clientes
 INSERT INTO `cliente` (`idCliente`,`nombre`,`apellidos`,`telefono`,`email`) VALUES (6,"Simone","Conrad","4850153409","euismod.ac@Crasdictumultricies.com"),(7,"Abdul","Hess","9701873975","lacus.varius@anequeNullam.net"),(8,"Nicole","Salas","0267075226","magna.Duis@cursuset.net"),(9,"Slade","Potter","4768347677","Nullam@non.net"),(10,"Ivor","Nelson","9075813023","lorem@nec.ca"),(11,"Cedric","Peterson","9057619480","ipsum.dolor.sit@luctusvulputatenisi.com"),(12,"Hamish","Walton","8498732439","eget.volutpat@laciniaSedcongue.co.uk"),(13,"Sydnee","Sawyer","9321872613","eu.tempor@ProinultricesDuis.com"),(14,"Montana","Graham","4878621916","ullamcorper.Duis.cursus@loremutaliquam.net"),(15,"Evan","Cruz","4035995251","turpis.In@enimSednulla.co.uk");

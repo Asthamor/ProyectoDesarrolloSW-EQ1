@@ -33,6 +33,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.Asistencia;
 import modelo.controladores.GrupoJpaController;
 import modelo.controladores.exceptions.NonexistentEntityException;
 
@@ -52,6 +53,9 @@ import modelo.controladores.exceptions.NonexistentEntityException;
     , @NamedQuery(name = "Grupo.findByMaestrousuarionombreUsuario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
     , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")})
 public class Grupo implements Serializable, IGrupo {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
+    private Collection<Asistencia> asistenciaCollection;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
   private Collection<PagoAlumno> pagoAlumnoCollection;
@@ -277,5 +281,14 @@ public class Grupo implements Serializable, IGrupo {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
         return controlador.ultimoRegistro();
+    }
+
+    @XmlTransient
+    public Collection<Asistencia> getAsistenciaCollection() {
+        return asistenciaCollection;
+    }
+
+    public void setAsistenciaCollection(Collection<Asistencia> asistenciaCollection) {
+        this.asistenciaCollection = asistenciaCollection;
     }
 }

@@ -257,7 +257,7 @@ public class GrupoJpaController implements Serializable {
         EntityManager em = getEntityManager();
         List <Grupo> grupo;
         try{
-            grupo = em.createQuery("select g from Grupo g order by g.grupoPK.idGrupo desc").setMaxResults(1).getResultList();;
+            grupo = em.createQuery("select g from Grupo g order by g.grupoPK.idGrupo desc").setMaxResults(1).getResultList();
         } finally{
             em.close();
         }

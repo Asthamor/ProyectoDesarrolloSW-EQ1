@@ -56,6 +56,10 @@ import modelo.controladores.exceptions.NonexistentEntityException;
   , @NamedQuery(name = "Alumno.findByImgFoto", query = "SELECT a FROM Alumno a WHERE a.imgFoto = :imgFoto")})
 public class Alumno extends Persona implements Serializable, IAlumno {
 
+    @Basic(optional = false)
+    @Column(name = "esActivo")
+    private String esActivo;
+
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -341,5 +345,13 @@ public class Alumno extends Persona implements Serializable, IAlumno {
     }
     return seActualizo;
   }
+
+    public String getEsActivo() {
+        return esActivo;
+    }
+
+    public void setEsActivo(String esActivo) {
+        this.esActivo = esActivo;
+    }
 
 }

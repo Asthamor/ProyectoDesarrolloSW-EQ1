@@ -55,6 +55,9 @@ import modelo.controladores.exceptions.NonexistentEntityException;
     , @NamedQuery(name = "Maestro.findByUsuarionombreUsuario", query = "SELECT m FROM Maestro m WHERE m.maestroPK.usuarionombreUsuario = :usuarionombreUsuario")})
 public class Maestro extends Persona implements Serializable, IMaestro {
 
+    @Column(name = "esDirector")
+    private Boolean esDirector;
+
     @Column(name = "esActivo")
     private Boolean esActivo;
 
@@ -420,5 +423,13 @@ public class Maestro extends Persona implements Serializable, IMaestro {
         MaestroJpaController controlador = new MaestroJpaController(entityManagerFactory);
         List<Maestro> maestros = controlador.findMaestrobyNombreUsuario(nombreUsuario);
         return maestros.get(0);
+    }
+
+    public Boolean getEsDirector() {
+        return esDirector;
+    }
+
+    public void setEsDirector(Boolean esDirector) {
+        this.esDirector = esDirector;
     }
 }

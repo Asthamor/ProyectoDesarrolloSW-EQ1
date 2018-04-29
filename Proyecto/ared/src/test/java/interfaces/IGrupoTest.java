@@ -26,7 +26,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-//@Ignore
+@Ignore
 public class IGrupoTest {
 
     public IGrupoTest() {

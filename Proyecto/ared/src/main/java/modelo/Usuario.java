@@ -44,6 +44,9 @@ import org.apache.commons.codec.binary.Base64;
   , @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a")})
 public class Usuario implements Serializable {
 
+    @Column(name = "estado")
+    private Integer estado;
+
   @Basic(optional = false)
   @Column(name = "salt")
   private String salt;
@@ -60,8 +63,6 @@ public class Usuario implements Serializable {
   @Basic(optional = false)
   @Column(name = "contrase\u00f1a")
   private String contraseña;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-  private Collection<Director> directorCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
   private Collection<Maestro> maestroCollection;
 
@@ -91,15 +92,6 @@ public class Usuario implements Serializable {
 
   public void setContraseña(String contraseña) {
     this.contraseña = contraseña;
-  }
-
-  @XmlTransient
-  public Collection<Director> getDirectorCollection() {
-    return directorCollection;
-  }
-
-  public void setDirectorCollection(Collection<Director> directorCollection) {
-    this.directorCollection = directorCollection;
   }
 
   @XmlTransient
@@ -298,4 +290,12 @@ public class Usuario implements Serializable {
     Usuario usuario = controlador.findUsuario(nombreUsuario);
     return usuario;
   }
+
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
 }

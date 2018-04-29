@@ -30,7 +30,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import modelo.DirectorPK;
 import modelo.Usuario;
 
 /**
@@ -142,7 +141,7 @@ public class PantallaLoginController implements Initializable {
     Stage mainStage = (Stage) txtNombreUsuario.getScene().getWindow(); 
     System.setProperty("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("nombreUsuario", usuario.getNombreUsuario());
-    mainStage.getProperties().put("persona", usuario.getDirectorCollection().toArray()[0]);
+    mainStage.getProperties().put("persona", usuario.getMaestroCollection().toArray()[0]);
     
       try {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalDirector.fxml"));
