@@ -20,6 +20,7 @@ import interfaces.Controlador;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -168,6 +169,11 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                     pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
                     pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
                     pagoAlumno.setFechaPago(new Date());
+                    Calendar calendario = Calendar.getInstance();
+                    calendario.setTime(new Date());
+                    calendario.add(Calendar.MONTH, 1);
+                    Date fechaVencimiento = calendario.getTime();
+                    pagoAlumno.setFechaVencimiento(fechaVencimiento);
                     pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
                     if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
                         pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
