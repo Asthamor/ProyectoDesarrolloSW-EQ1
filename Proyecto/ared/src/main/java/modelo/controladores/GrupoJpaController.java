@@ -18,14 +18,17 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import modelo.PagoAlumno;
+import modelo.Asistencia;
 import modelo.Grupo;
 import modelo.GrupoPK;
+import modelo.controladores.exceptions.IllegalOrphanException;
 import modelo.controladores.exceptions.NonexistentEntityException;
 import modelo.controladores.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author mauricio
+ * @author mau
  */
 public class GrupoJpaController implements Serializable {
 
@@ -45,9 +48,15 @@ public class GrupoJpaController implements Serializable {
         if (grupo.getAlumnoCollection() == null) {
             grupo.setAlumnoCollection(new ArrayList<Alumno>());
         }
-        grupo.getGrupoPK().setMaestroidMaestro(grupo.getMaestro().getMaestroPK().getIdMaestro());
+        if (grupo.getPagoAlumnoCollection() == null) {
+            grupo.setPagoAlumnoCollection(new ArrayList<PagoAlumno>());
+        }
+        if (grupo.getAsistenciaCollection() == null) {
+            grupo.setAsistenciaCollection(new ArrayList<Asistencia>());
+        }
         grupo.getGrupoPK().setMaestrousuarionombreUsuario(grupo.getMaestro().getMaestroPK().getUsuarionombreUsuario());
         grupo.getGrupoPK().setHorarioidHorario(grupo.getHorario().getIdHorario());
+        grupo.getGrupoPK().setMaestroidMaestro(grupo.getMaestro().getMaestroPK().getIdMaestro());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -68,6 +77,18 @@ public class GrupoJpaController implements Serializable {
                 attachedAlumnoCollection.add(alumnoCollectionAlumnoToAttach);
             }
             grupo.setAlumnoCollection(attachedAlumnoCollection);
+            Collection<PagoAlumno> attachedPagoAlumnoCollection = new ArrayList<PagoAlumno>();
+            for (PagoAlumno pagoAlumnoCollectionPagoAlumnoToAttach : grupo.getPagoAlumnoCollection()) {
+                pagoAlumnoCollectionPagoAlumnoToAttach = em.getReference(pagoAlumnoCollectionPagoAlumnoToAttach.getClass(), pagoAlumnoCollectionPagoAlumnoToAttach.getPagoAlumnoPK());
+                attachedPagoAlumnoCollection.add(pagoAlumnoCollectionPagoAlumnoToAttach);
+            }
+            grupo.setPagoAlumnoCollection(attachedPagoAlumnoCollection);
+            Collection<Asistencia> attachedAsistenciaCollection = new ArrayList<Asistencia>();
+            for (Asistencia asistenciaCollectionAsistenciaToAttach : grupo.getAsistenciaCollection()) {
+                asistenciaCollectionAsistenciaToAttach = em.getReference(asistenciaCollectionAsistenciaToAttach.getClass(), asistenciaCollectionAsistenciaToAttach.getAsistenciaPK());
+                attachedAsistenciaCollection.add(asistenciaCollectionAsistenciaToAttach);
+            }
+            grupo.setAsistenciaCollection(attachedAsistenciaCollection);
             em.persist(grupo);
             if (horario != null) {
                 horario.getGrupoCollection().add(grupo);
@@ -77,9 +98,27 @@ public class GrupoJpaController implements Serializable {
                 maestro.getGrupoCollection().add(grupo);
                 maestro = em.merge(maestro);
             }
-        for (Alumno alumnoCollectionAlumno : grupo.getAlumnoCollection()) {
+            for (Alumno alumnoCollectionAlumno : grupo.getAlumnoCollection()) {
                 alumnoCollectionAlumno.getGrupoCollection().add(grupo);
                 alumnoCollectionAlumno = em.merge(alumnoCollectionAlumno);
+            }
+            for (PagoAlumno pagoAlumnoCollectionPagoAlumno : grupo.getPagoAlumnoCollection()) {
+                Grupo oldGrupoOfPagoAlumnoCollectionPagoAlumno = pagoAlumnoCollectionPagoAlumno.getGrupo();
+                pagoAlumnoCollectionPagoAlumno.setGrupo(grupo);
+                pagoAlumnoCollectionPagoAlumno = em.merge(pagoAlumnoCollectionPagoAlumno);
+                if (oldGrupoOfPagoAlumnoCollectionPagoAlumno != null) {
+                    oldGrupoOfPagoAlumnoCollectionPagoAlumno.getPagoAlumnoCollection().remove(pagoAlumnoCollectionPagoAlumno);
+                    oldGrupoOfPagoAlumnoCollectionPagoAlumno = em.merge(oldGrupoOfPagoAlumnoCollectionPagoAlumno);
+                }
+            }
+            for (Asistencia asistenciaCollectionAsistencia : grupo.getAsistenciaCollection()) {
+                Grupo oldGrupoOfAsistenciaCollectionAsistencia = asistenciaCollectionAsistencia.getGrupo();
+                asistenciaCollectionAsistencia.setGrupo(grupo);
+                asistenciaCollectionAsistencia = em.merge(asistenciaCollectionAsistencia);
+                if (oldGrupoOfAsistenciaCollectionAsistencia != null) {
+                    oldGrupoOfAsistenciaCollectionAsistencia.getAsistenciaCollection().remove(asistenciaCollectionAsistencia);
+                    oldGrupoOfAsistenciaCollectionAsistencia = em.merge(oldGrupoOfAsistenciaCollectionAsistencia);
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -94,10 +133,10 @@ public class GrupoJpaController implements Serializable {
         }
     }
 
-    public void edit(Grupo grupo) throws NonexistentEntityException, Exception {
-        grupo.getGrupoPK().setMaestroidMaestro(grupo.getMaestro().getMaestroPK().getIdMaestro());
+    public void edit(Grupo grupo) throws IllegalOrphanException, NonexistentEntityException, Exception {
         grupo.getGrupoPK().setMaestrousuarionombreUsuario(grupo.getMaestro().getMaestroPK().getUsuarionombreUsuario());
         grupo.getGrupoPK().setHorarioidHorario(grupo.getHorario().getIdHorario());
+        grupo.getGrupoPK().setMaestroidMaestro(grupo.getMaestro().getMaestroPK().getIdMaestro());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -109,6 +148,30 @@ public class GrupoJpaController implements Serializable {
             Maestro maestroNew = grupo.getMaestro();
             Collection<Alumno> alumnoCollectionOld = persistentGrupo.getAlumnoCollection();
             Collection<Alumno> alumnoCollectionNew = grupo.getAlumnoCollection();
+            Collection<PagoAlumno> pagoAlumnoCollectionOld = persistentGrupo.getPagoAlumnoCollection();
+            Collection<PagoAlumno> pagoAlumnoCollectionNew = grupo.getPagoAlumnoCollection();
+            Collection<Asistencia> asistenciaCollectionOld = persistentGrupo.getAsistenciaCollection();
+            Collection<Asistencia> asistenciaCollectionNew = grupo.getAsistenciaCollection();
+            List<String> illegalOrphanMessages = null;
+            for (PagoAlumno pagoAlumnoCollectionOldPagoAlumno : pagoAlumnoCollectionOld) {
+                if (!pagoAlumnoCollectionNew.contains(pagoAlumnoCollectionOldPagoAlumno)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain PagoAlumno " + pagoAlumnoCollectionOldPagoAlumno + " since its grupo field is not nullable.");
+                }
+            }
+            for (Asistencia asistenciaCollectionOldAsistencia : asistenciaCollectionOld) {
+                if (!asistenciaCollectionNew.contains(asistenciaCollectionOldAsistencia)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Asistencia " + asistenciaCollectionOldAsistencia + " since its grupo field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
             if (horarioNew != null) {
                 horarioNew = em.getReference(horarioNew.getClass(), horarioNew.getIdHorario());
                 grupo.setHorario(horarioNew);
@@ -124,6 +187,20 @@ public class GrupoJpaController implements Serializable {
             }
             alumnoCollectionNew = attachedAlumnoCollectionNew;
             grupo.setAlumnoCollection(alumnoCollectionNew);
+            Collection<PagoAlumno> attachedPagoAlumnoCollectionNew = new ArrayList<PagoAlumno>();
+            for (PagoAlumno pagoAlumnoCollectionNewPagoAlumnoToAttach : pagoAlumnoCollectionNew) {
+                pagoAlumnoCollectionNewPagoAlumnoToAttach = em.getReference(pagoAlumnoCollectionNewPagoAlumnoToAttach.getClass(), pagoAlumnoCollectionNewPagoAlumnoToAttach.getPagoAlumnoPK());
+                attachedPagoAlumnoCollectionNew.add(pagoAlumnoCollectionNewPagoAlumnoToAttach);
+            }
+            pagoAlumnoCollectionNew = attachedPagoAlumnoCollectionNew;
+            grupo.setPagoAlumnoCollection(pagoAlumnoCollectionNew);
+            Collection<Asistencia> attachedAsistenciaCollectionNew = new ArrayList<Asistencia>();
+            for (Asistencia asistenciaCollectionNewAsistenciaToAttach : asistenciaCollectionNew) {
+                asistenciaCollectionNewAsistenciaToAttach = em.getReference(asistenciaCollectionNewAsistenciaToAttach.getClass(), asistenciaCollectionNewAsistenciaToAttach.getAsistenciaPK());
+                attachedAsistenciaCollectionNew.add(asistenciaCollectionNewAsistenciaToAttach);
+            }
+            asistenciaCollectionNew = attachedAsistenciaCollectionNew;
+            grupo.setAsistenciaCollection(asistenciaCollectionNew);
             grupo = em.merge(grupo);
             if (horarioOld != null && !horarioOld.equals(horarioNew)) {
                 horarioOld.getGrupoCollection().remove(grupo);
@@ -153,6 +230,28 @@ public class GrupoJpaController implements Serializable {
                     alumnoCollectionNewAlumno = em.merge(alumnoCollectionNewAlumno);
                 }
             }
+            for (PagoAlumno pagoAlumnoCollectionNewPagoAlumno : pagoAlumnoCollectionNew) {
+                if (!pagoAlumnoCollectionOld.contains(pagoAlumnoCollectionNewPagoAlumno)) {
+                    Grupo oldGrupoOfPagoAlumnoCollectionNewPagoAlumno = pagoAlumnoCollectionNewPagoAlumno.getGrupo();
+                    pagoAlumnoCollectionNewPagoAlumno.setGrupo(grupo);
+                    pagoAlumnoCollectionNewPagoAlumno = em.merge(pagoAlumnoCollectionNewPagoAlumno);
+                    if (oldGrupoOfPagoAlumnoCollectionNewPagoAlumno != null && !oldGrupoOfPagoAlumnoCollectionNewPagoAlumno.equals(grupo)) {
+                        oldGrupoOfPagoAlumnoCollectionNewPagoAlumno.getPagoAlumnoCollection().remove(pagoAlumnoCollectionNewPagoAlumno);
+                        oldGrupoOfPagoAlumnoCollectionNewPagoAlumno = em.merge(oldGrupoOfPagoAlumnoCollectionNewPagoAlumno);
+                    }
+                }
+            }
+            for (Asistencia asistenciaCollectionNewAsistencia : asistenciaCollectionNew) {
+                if (!asistenciaCollectionOld.contains(asistenciaCollectionNewAsistencia)) {
+                    Grupo oldGrupoOfAsistenciaCollectionNewAsistencia = asistenciaCollectionNewAsistencia.getGrupo();
+                    asistenciaCollectionNewAsistencia.setGrupo(grupo);
+                    asistenciaCollectionNewAsistencia = em.merge(asistenciaCollectionNewAsistencia);
+                    if (oldGrupoOfAsistenciaCollectionNewAsistencia != null && !oldGrupoOfAsistenciaCollectionNewAsistencia.equals(grupo)) {
+                        oldGrupoOfAsistenciaCollectionNewAsistencia.getAsistenciaCollection().remove(asistenciaCollectionNewAsistencia);
+                        oldGrupoOfAsistenciaCollectionNewAsistencia = em.merge(oldGrupoOfAsistenciaCollectionNewAsistencia);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -170,7 +269,7 @@ public class GrupoJpaController implements Serializable {
         }
     }
 
-    public void destroy(GrupoPK id) throws NonexistentEntityException {
+    public void destroy(GrupoPK id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -181,6 +280,24 @@ public class GrupoJpaController implements Serializable {
                 grupo.getGrupoPK();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The grupo with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            Collection<PagoAlumno> pagoAlumnoCollectionOrphanCheck = grupo.getPagoAlumnoCollection();
+            for (PagoAlumno pagoAlumnoCollectionOrphanCheckPagoAlumno : pagoAlumnoCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Grupo (" + grupo + ") cannot be destroyed since the PagoAlumno " + pagoAlumnoCollectionOrphanCheckPagoAlumno + " in its pagoAlumnoCollection field has a non-nullable grupo field.");
+            }
+            Collection<Asistencia> asistenciaCollectionOrphanCheck = grupo.getAsistenciaCollection();
+            for (Asistencia asistenciaCollectionOrphanCheckAsistencia : asistenciaCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Grupo (" + grupo + ") cannot be destroyed since the Asistencia " + asistenciaCollectionOrphanCheckAsistencia + " in its asistenciaCollection field has a non-nullable grupo field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             Horario horario = grupo.getHorario();
             if (horario != null) {

@@ -58,7 +58,7 @@ public class Alumno extends Persona implements Serializable, IAlumno {
 
     @Basic(optional = false)
     @Column(name = "esActivo")
-    private String esActivo;
+    private boolean esActivo;
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -346,11 +346,11 @@ public class Alumno extends Persona implements Serializable, IAlumno {
     return seActualizo;
   }
 
-    public String getEsActivo() {
+    public boolean getEsActivo() {
         return esActivo;
     }
 
-    public void setEsActivo(String esActivo) {
+    public void setEsActivo(boolean esActivo) {
         this.esActivo = esActivo;
     }
 

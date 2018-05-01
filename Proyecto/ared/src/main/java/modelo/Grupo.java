@@ -33,8 +33,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import modelo.controladores.Asistencia;
 import modelo.controladores.GrupoJpaController;
+import modelo.controladores.exceptions.IllegalOrphanException;
 import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
@@ -237,6 +237,8 @@ public class Grupo implements Serializable, IGrupo {
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }

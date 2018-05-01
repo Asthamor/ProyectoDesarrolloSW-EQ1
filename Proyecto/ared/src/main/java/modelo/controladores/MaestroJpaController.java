@@ -30,7 +30,7 @@ import modelo.controladores.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author mauricio
+ * @author mau
  */
 public class MaestroJpaController implements Serializable {
 

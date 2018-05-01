@@ -24,7 +24,7 @@ import modelo.controladores.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author alonso
+ * @author mau
  */
 public class HorarioJpaController implements Serializable {
 

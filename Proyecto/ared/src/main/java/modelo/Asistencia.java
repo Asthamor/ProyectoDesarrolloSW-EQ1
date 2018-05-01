@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.controladores;
+package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import modelo.Grupo;
 
 /**
  *
@@ -109,7 +108,7 @@ public class Asistencia implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.controladores.Asistencia[ asistenciaPK=" + asistenciaPK + " ]";
+        return "modelo.Asistencia[ asistenciaPK=" + asistenciaPK + " ]";
     }
     
 }

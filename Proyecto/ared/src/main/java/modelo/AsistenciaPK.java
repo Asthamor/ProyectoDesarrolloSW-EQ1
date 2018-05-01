@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.controladores;
+package modelo;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -122,7 +122,7 @@ public class AsistenciaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.controladores.AsistenciaPK[ idasistencia=" + idasistencia + ", grupoidGrupo=" + grupoidGrupo + ", grupomaestroidMaestro=" + grupomaestroidMaestro + ", grupomaestrousuarionombreUsuario=" + grupomaestrousuarionombreUsuario + ", grupohorarioidHorario=" + grupohorarioidHorario + " ]";
+        return "modelo.AsistenciaPK[ idasistencia=" + idasistencia + ", grupoidGrupo=" + grupoidGrupo + ", grupomaestroidMaestro=" + grupomaestroidMaestro + ", grupomaestrousuarionombreUsuario=" + grupomaestrousuarionombreUsuario + ", grupohorarioidHorario=" + grupohorarioidHorario + " ]";
     }
     
 }

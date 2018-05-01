@@ -5,23 +5,17 @@
  */
 package controladores;
 
-import clasesApoyo.Formatters;
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
@@ -46,15 +40,15 @@ public class PantallaRegistrarUsuarioController implements Initializable {
     @FXML
     private Label lblNombresUsuario;
     @FXML
-    private JFXTextField txtNombresUsuario;
+    private JFXLimitedTextField txtNombresUsuario;
     @FXML
     private Label lblApellidosUsuario;
     @FXML
     private Label lblTelefonoUsuario;
     @FXML
-    private JFXTextField txtApellidosUsuario;
+    private JFXLimitedTextField txtApellidosUsuario;
     @FXML
-    private JFXTextField txtTelefonoUsuario;
+    private JFXLimitedTextField txtTelefonoUsuario;
     @FXML
     private Label lblFotografiaUsuario;
     @FXML
@@ -64,7 +58,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
     @FXML
     private Label lblCorreoElectronicoUsuario;
     @FXML
-    private JFXTextField txtCorreoElectronicoUsuario;
+    private JFXLimitedTextField txtCorreoElectronicoUsuario;
     @FXML
     private JFXButton btnGuardarUsuario;
     @FXML
@@ -83,10 +77,14 @@ public class PantallaRegistrarUsuarioController implements Initializable {
 
         txtCorreoElectronicoUsuario.setText("");
         rutaFoto = null;
+        txtApellidosUsuario.setAlphanumericLimiter(50);
+        txtApellidosUsuario.setRequired(true);
         txtApellidosUsuario.setText("");
+        txtNombresUsuario.setAlphanumericLimiter(50);
+        txtNombresUsuario.setRequired(true);
         txtNombresUsuario.setText("");
-        txtTelefonoUsuario.setText("");
-        txtTelefonoUsuario.setTextFormatter(Formatters.getNumFormatter(10));
+        txtTelefonoUsuario.setNumLimiter(10);
+        txtTelefonoUsuario.setRequired(true);
 
     }
 
@@ -107,7 +105,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
     private void seleccionarFoto(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
+                new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
         );
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
@@ -119,103 +117,31 @@ public class PantallaRegistrarUsuarioController implements Initializable {
 
     @FXML
     private void guardarUsuario(ActionEvent event) {
-        colorEtiquetas();
-        if (existenCamposVacios()) {
-            Mensajes.mensajeAlert("Algunos campos estan vacíos");
-        } else {
-            if (!tamañoValidoCaracteres()) {
-                Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
-            } else {
-                persona.setNombre(txtNombresUsuario.getText());
-                persona.setApellidos(txtApellidosUsuario.getText());
-                persona.setTelefono(txtTelefonoUsuario.getText());
-                persona.setImgFoto(rutaFoto);
-                persona.setEmail(txtCorreoElectronicoUsuario.getText());
-                if (persona.registrar(persona)) {
-                    pnlPrincipal.getChildren().add(crearPantallaUsuarios(persona, this.pnlPrincipal, this.pantallaDividida));
-                    pantallaDividida.getChildren().add(pnlPrincipal);
-                    Mensajes.mensajeExitoso("El " + persona.getTipoUsario() + " se registro correctamente");
-                }
+        if (!existenCamposVacios()) {
+            persona.setNombre(txtNombresUsuario.getText());
+            persona.setApellidos(txtApellidosUsuario.getText());
+            persona.setTelefono(txtTelefonoUsuario.getText());
+            persona.setImgFoto(rutaFoto);
+            persona.setEmail(txtCorreoElectronicoUsuario.getText());
+            if (persona.registrar(persona)) {
+                pnlPrincipal.getChildren().add(crearPantallaUsuarios(persona, this.pnlPrincipal, this.pantallaDividida));
+                pantallaDividida.getChildren().add(pnlPrincipal);
+                Mensajes.mensajeExitoso("El " + persona.getTipoUsario() + " se registro correctamente");
             }
         }
     }
 
     public boolean existenCamposVacios() {
-        return txtNombresUsuario.getText().equals("") || txtApellidosUsuario.getText().equals("")
-            || txtTelefonoUsuario.getText().equals("");
-    }
-
-    @FXML
-    private void limitarCaracteresEmail(KeyEvent event) {
-        int limiteCaracteres = 100;
-        if (txtCorreoElectronicoUsuario.getText().length() > limiteCaracteres) {
-            event.consume();
+        boolean validos = true;
+        if (txtNombresUsuario.validate()){
+            validos = false;
         }
-    }
-
-    @FXML
-    private void limitarCaracteresNombre(KeyEvent event) {
-        int limiteCaracteres = 80;
-        if (txtNombresUsuario.getText().length() > limiteCaracteres) {
-            event.consume();
-        }
-    }
-
-    @FXML
-    private void limitarCaracteresApellido(KeyEvent event) {
-        int limiteCaracteres = 45;
-        if (txtApellidosUsuario.getText().length() > limiteCaracteres) {
-            event.consume();
-        }
-    }
-
-    @FXML
-    private void limitarCaracteresTelefono(KeyEvent event) {
-        int limiteCaracteres = 10;
-        if (txtTelefonoUsuario.getText().length() > limiteCaracteres) {
-            event.consume();
-        }
-    }
-    
-
-    public boolean tamañoValidoCaracteres() {
-        boolean tamañoValido = true;
-        if (txtCorreoElectronicoUsuario.getText().length() > 100) {
-            tamañoValido = false;
-            lblCorreoElectronicoUsuario.setTextFill(Color.web("#EC7063"));
-        }
-
-        if (txtNombresUsuario.getText().length() > 80) {
-            tamañoValido = false;
-            lblNombresUsuario.setTextFill(Color.web("#EC7063"));
-        }
-
-        if (txtApellidosUsuario.getText().length() > 45) {
-            tamañoValido = false;
-            lblApellidosUsuario.setTextFill(Color.web("#EC7063"));
-        }
-
-        if (txtTelefonoUsuario.getText().length() > 10) {
-            tamañoValido = false;
-            lblTelefonoUsuario.setTextFill(Color.web("#EC7063"));
-        }
-        return tamañoValido;
-    }
-
-    public void colorEtiquetas() {
-        lblCorreoElectronicoUsuario.setTextFill(Color.web("#000000"));
-        lblNombresUsuario.setTextFill(Color.web("#000000"));
-        lblApellidosUsuario.setTextFill(Color.web("#000000"));
-        lblTelefonoUsuario.setTextFill(Color.web("#000000"));
-    }
-
-    @FXML
-    private void limitarCaracteresTel(InputMethodEvent event) {
-        int limiteCaracteres = 10;
-        if (txtTelefonoUsuario.getText().length() > limiteCaracteres) {
-            txtTelefonoUsuario.setText(
-                txtTelefonoUsuario.getText().substring(0, 9));
-        }
+//        txtNombresUsuario.setText(txtNombresUsuario.getText().trim());
+//        txtApellidosUsuario.setText(txtApellidosUsuario.getText().trim());
+//        txtTelefonoUsuario.setText(txtTelefonoUsuario.getText().trim());
+        return txtNombresUsuario.validate() && txtApellidosUsuario.validate() && txtTelefonoUsuario.validate();
+        
+        
     }
 
 }
