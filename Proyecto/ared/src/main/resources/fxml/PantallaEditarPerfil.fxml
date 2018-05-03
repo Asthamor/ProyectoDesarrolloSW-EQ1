@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import clasesApoyo.JFXLimitedTextField?>
 
 <BorderPane prefHeight="611.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEditarPerfilController">
    <top>
@@ -83,12 +84,12 @@
                                  </padding>
                               </Label>
                               <Label fx:id="lblNombreUsuario" text="NOMBRELABEL" GridPane.columnIndex="1" />
-                              <JFXTextField fx:id="txtTelefono" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <JFXTextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <JFXLimitedTextField fx:id="txtTelefono" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXLimitedTextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
-                              </JFXTextField>
+                              </JFXLimitedTextField>
                               <Label text="Contraseña:" GridPane.columnIndex="2" />
                               <Label text="Confirmar contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <JFXPasswordField fx:id="txtContraseña" GridPane.columnIndex="3" />

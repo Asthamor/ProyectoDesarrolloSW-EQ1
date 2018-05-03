@@ -7,10 +7,8 @@ package controladores;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -106,4 +104,6 @@ public class TarjetaInformacionUsuarioController implements Initializable {
         }
         pantallaDividida.getChildren().add(pnlSecundario);
     }
+    
+    
 }

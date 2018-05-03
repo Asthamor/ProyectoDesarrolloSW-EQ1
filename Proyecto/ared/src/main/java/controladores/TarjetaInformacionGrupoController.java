@@ -59,6 +59,7 @@ public class TarjetaInformacionGrupoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txtHorario.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+        txtHorario.setDisable(true);
         panelTarjeta.backgroundProperty().bind(Bindings
                 .when(panelTarjeta.focusedProperty())
                 .then(focusBackground)

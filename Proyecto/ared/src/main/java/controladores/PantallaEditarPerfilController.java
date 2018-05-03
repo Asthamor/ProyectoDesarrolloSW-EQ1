@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -19,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -35,15 +35,15 @@ import modelo.Usuario;
 public class PantallaEditarPerfilController implements Initializable, Controlador {
 
   @FXML
-  private JFXTextField txtTelefono;
+  private JFXLimitedTextField txtTelefono;
   @FXML
-  private JFXTextField txtEmail;
+  private JFXLimitedTextField txtEmail;
   @FXML
   private JFXPasswordField txtContraseña;
   @FXML
   private JFXButton btnEditarImagen;
   @FXML
-  private ImageView imgUsuario;
+  private ImageView imgUsuario; 
   @FXML
   private JFXButton btnGuardar;
   @FXML
@@ -68,6 +68,8 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    txtTelefono.setNumLimiter(10);
+    txtEmail.setSizeLimiter(100);
     setUserData();
     lblNombreUsuario.setText(persona.getNombre() + " " + persona.getApellidos());
     txtTelefono.setText(persona.getTelefono());

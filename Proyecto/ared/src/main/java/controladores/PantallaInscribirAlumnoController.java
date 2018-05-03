@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -44,7 +45,7 @@ import modelo.Usuario;
 public class PantallaInscribirAlumnoController implements Initializable, Controlador {
 
   @FXML
-  private JFXTextField txtMonto;
+  private JFXLimitedTextField txtMonto;
   @FXML
   private JFXComboBox<?> comboPromocion;
   @FXML
@@ -84,14 +85,16 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    txtMonto.setRequired(true);
+    txtMonto.setNumLimiter(6);
     setUserData();
     setListGrupos();
     ValidatorBase numVal = new NumberValidator();
     numVal.setMessage("Inserte el monto");
     ValidatorBase req = new RequiredFieldValidator();
     req.setMessage("Inserte el monto de inscripción");
-    txtMonto.setValidators(numVal);
-    txtMonto.setValidators(req);
+    txtMonto.setValidators(numVal, req);
+    
     txtMonto.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable,

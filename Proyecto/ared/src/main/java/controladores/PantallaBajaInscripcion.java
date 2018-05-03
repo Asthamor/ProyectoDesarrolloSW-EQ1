@@ -7,15 +7,9 @@ package controladores;
 
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.NumberValidator;
-import com.jfoenix.validation.RequiredFieldValidator;
-import com.jfoenix.validation.base.ValidatorBase;
 import interfaces.Controlador;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -31,11 +25,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import modelo.Alumno;
 import modelo.Grupo;
 import modelo.Maestro;
-import modelo.PagoAlumno;
 import modelo.Persona;
 import modelo.Usuario;
 

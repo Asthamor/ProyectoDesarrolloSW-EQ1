@@ -5,14 +5,11 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,9 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import modelo.Persona;
 
@@ -42,11 +37,11 @@ public class PantallaEditarUsuarioController implements Initializable {
   @FXML
   private Label lblTelefonoUsuario;
   @FXML
-  private JFXTextField txtNombresUsuario;
+  private JFXLimitedTextField txtNombresUsuario;
   @FXML
-  private JFXTextField txtApellidosUsuario;
+  private JFXLimitedTextField txtApellidosUsuario;
   @FXML
-  private JFXTextField txtTelefonoUsuario;
+  private JFXLimitedTextField txtTelefonoUsuario;
   @FXML
   private Label lblInfoOpcional;
   @FXML
@@ -56,7 +51,7 @@ public class PantallaEditarUsuarioController implements Initializable {
   @FXML
   private Label lblCorreoElectronico;
   @FXML
-  private JFXTextField txtCorreoElectronico;
+  private JFXLimitedTextField txtCorreoElectronico;
   @FXML
   private JFXButton btnSeleccionarFoto;
   @FXML
@@ -72,6 +67,14 @@ public class PantallaEditarUsuarioController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    txtCorreoElectronico.setSizeLimiter(100);
+    txtNombresUsuario.setAlphanumericLimiter(80);
+    txtApellidosUsuario.setAlphanumericLimiter(45);
+    txtTelefonoUsuario.setNumLimiter(10);
+
+    txtNombresUsuario.setRequired(true);
+    txtApellidosUsuario.setRequired(true);
+    txtTelefonoUsuario.setRequired(true);
 
   }
 
@@ -94,7 +97,7 @@ public class PantallaEditarUsuarioController implements Initializable {
     txtTelefonoUsuario.setText(persona.getTelefono());
 
     Image imagen = new Image("file:" + persona.obtenerImagen());
-    
+
     imgFotoUsuario.setImage(imagen);
     if (persona.getEmail() == null) {
       txtCorreoElectronico.setText("");
@@ -107,7 +110,7 @@ public class PantallaEditarUsuarioController implements Initializable {
   private void seleccionarFoto(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
+            new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png")
     );
     File file = fileChooser.showOpenDialog(null);
     if (file != null) {
@@ -120,103 +123,45 @@ public class PantallaEditarUsuarioController implements Initializable {
 
   @FXML
   private void actualizarInformacion(ActionEvent event) {
-    colorEtiquetas();
-    if (existenCamposVacios()) {
-      Mensajes.mensajeAlert("Algunos campos estan vacíos");
-    } else {
-      if (!tamañoValidoCaracteres()) {
-        Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
-      } else {
-        persona.setNombre(txtNombresUsuario.getText());
-        persona.setApellidos(txtApellidosUsuario.getText());
-        persona.setTelefono(txtTelefonoUsuario.getText());
-        
-        persona.setEmail(txtCorreoElectronico.getText());
-        if (rutaFoto != null){
-          persona.setImgFoto(rutaFoto);
-          if (persona.actualizarDatos(true)) {
-          controlador.mostrarInformacion(persona);
-          pantallaDividida.getChildren().remove(1);
-          Mensajes.mensajeExitoso("La información se actualizó correctamente");
-          }
-        } else {
-          if (persona.actualizarDatos(false)) {
-          controlador.mostrarInformacion(persona);
-          pantallaDividida.getChildren().remove(1);
-          Mensajes.mensajeExitoso("La información se actualizó correctamente");
-          }
-          
-        }
-      }
+    if (!existenCamposVacios()) {
+      persona.setNombre(txtNombresUsuario.getText());
+      persona.setApellidos(txtApellidosUsuario.getText());
+      persona.setTelefono(txtTelefonoUsuario.getText());
+      persona.setEmail(txtCorreoElectronico.getText());
 
+      if (rutaFoto != null) {
+        persona.setImgFoto(rutaFoto);
+        if (persona.actualizarDatos(true)) {
+          controlador.mostrarInformacion(persona);
+          pantallaDividida.getChildren().remove(1);
+          Mensajes.mensajeExitoso("La información se actualizó correctamente");
+        }
+      } else {
+        if (persona.actualizarDatos(false)) {
+          controlador.mostrarInformacion(persona);
+          pantallaDividida.getChildren().remove(1);
+          Mensajes.mensajeExitoso("La información se actualizó correctamente");
+        }
+
+      }
     }
+
   }
 
   public boolean existenCamposVacios() {
-    return txtNombresUsuario.getText().equals("") || txtApellidosUsuario.getText().equals("")
-        || txtTelefonoUsuario.getText().equals("");
+    boolean vacios = true;
+    txtNombresUsuario.setText(txtNombresUsuario.getText().trim());
+    txtApellidosUsuario.setText(txtApellidosUsuario.getText().trim());
+    txtTelefonoUsuario.setText(txtTelefonoUsuario.getText().trim());
+
+    boolean valNombre = txtNombresUsuario.validate();
+    boolean valApellidos = txtApellidosUsuario.validate();
+    boolean valTel = txtTelefonoUsuario.validate();
+
+    if (valNombre && valApellidos && valTel) {
+      vacios = false;
+    }
+    return vacios;
   }
 
-  @FXML
-  private void limitarCaracteresEmail(KeyEvent event) {
-    int limiteCaracteres = 100;
-    if (txtCorreoElectronico.getText().length() > limiteCaracteres) {
-      event.consume();
-    }
-  }
-
-  @FXML
-  private void limitarCaracteresNombre(KeyEvent event) {
-    int limiteCaracteres = 80;
-    if (txtNombresUsuario.getText().length() > limiteCaracteres) {
-      event.consume();
-    }
-  }
-
-  @FXML
-  private void limitarCaracteresApellido(KeyEvent event) {
-    int limiteCaracteres = 45;
-    if (txtApellidosUsuario.getText().length() > limiteCaracteres) {
-      event.consume();
-    }
-  }
-
-  @FXML
-  private void limitarCaracteresTelefono(KeyEvent event) {
-    int limiteCaracteres = 10;
-    if (txtTelefonoUsuario.getText().length() > limiteCaracteres) {
-      event.consume();
-    }
-  }
-
-  public boolean tamañoValidoCaracteres() {
-    boolean tamañoValido = true;
-    if (txtCorreoElectronico.getText().length() > 100) {
-      tamañoValido = false;
-      lblCorreoElectronico.setTextFill(Color.web("#EC7063"));
-    }
-
-    if (txtNombresUsuario.getText().length() > 80) {
-      tamañoValido = false;
-      lblNombresUsuario.setTextFill(Color.web("#EC7063"));
-    }
-
-    if (txtApellidosUsuario.getText().length() > 45) {
-      tamañoValido = false;
-      lblApellidosUsuario.setTextFill(Color.web("#EC7063"));
-    }
-
-    if (txtTelefonoUsuario.getText().length() > 10) {
-      tamañoValido = false;
-      lblTelefonoUsuario.setTextFill(Color.web("#EC7063"));
-    }
-    return tamañoValido;
-  }
-
-  public void colorEtiquetas() {
-    lblCorreoElectronico.setTextFill(Color.web("#000000"));
-    lblNombresUsuario.setTextFill(Color.web("#000000"));
-    lblApellidosUsuario.setTextFill(Color.web("#000000"));
-    lblTelefonoUsuario.setTextFill(Color.web("#000000"));
-  }
 }

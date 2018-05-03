@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import clasesApoyo.JFXLimitedTextField?>
 
 <BorderPane prefHeight="611.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
    <top>
@@ -112,7 +113,7 @@
                               </Label>
                               <JFXComboBox fx:id="cboxPromocion" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label fx:id="lblAlumno" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="1" />
-                              <JFXTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <JFXLimitedTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Monto: $" textAlignment="RIGHT" GridPane.rowIndex="3">
                                  <font>
                                     <Font size="18.0" />

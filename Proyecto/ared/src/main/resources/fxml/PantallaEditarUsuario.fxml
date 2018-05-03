@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import clasesApoyo.JFXLimitedTextField?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEditarUsuarioController">
    <children>
@@ -20,7 +21,7 @@
       <Label fx:id="lblFotoUsuario" layoutX="63.0" layoutY="366.0" text="Fotografía:" />
       <ImageView fx:id="imgFotoUsuario" fitHeight="150.0" fitWidth="200.0" layoutX="131.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="lblCorreoElectronico" layoutX="24.0" layoutY="524.0" text="Correo electrónico:" />
-      <JFXTextField fx:id="txtCorreoElectronico" focusColor="#c08ed6" layoutX="147.0" layoutY="520.0" onKeyTyped="#limitarCaracteresEmail" prefHeight="26.0" prefWidth="179.0" />
+      <JFXLimitedTextField fx:id="txtCorreoElectronico" focusColor="#c08ed6" layoutX="147.0" layoutY="520.0" prefHeight="26.0" prefWidth="179.0" />
       <JFXButton fx:id="btnSeleccionarFoto" layoutX="142.0" layoutY="469.0" onAction="#seleccionarFoto" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #c08ed6;" text="Seleccionar foto" />
       <JFXButton fx:id="btnGuardar" layoutX="312.0" layoutY="661.0" onAction="#actualizarInformacion" style="-fx-background-color: #c08ed6;" text="Guardar" />
       <GridPane layoutX="14.0" layoutY="83.0" prefHeight="150.0" prefWidth="332.0" vgap="10.0">
@@ -52,9 +53,9 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextField fx:id="txtNombresUsuario" focusColor="#c08ed6" onKeyTyped="#limitarCaracteresNombre" prefHeight="26.0" prefWidth="179.0" GridPane.columnIndex="1" />
-            <JFXTextField fx:id="txtApellidosUsuario" focusColor="#c08ed6" onKeyTyped="#limitarCaracteresApellido" prefHeight="26.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" onKeyTyped="#limitarCaracteresTelefono" prefHeight="26.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXLimitedTextField fx:id="txtNombresUsuario" focusColor="#c08ed6" prefHeight="26.0" prefWidth="179.0" GridPane.columnIndex="1" />
+            <JFXLimitedTextField fx:id="txtApellidosUsuario" focusColor="#c08ed6" prefHeight="26.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXLimitedTextField fx:id="txtTelefonoUsuario" focusColor="#c08ed6" prefHeight="26.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

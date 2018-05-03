@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -51,7 +52,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private JFXButton btnRegistrar;
     @FXML
-    private JFXTextField txtMonto;
+    private JFXLimitedTextField txtMonto;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     @FXML
@@ -95,6 +96,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                 .styleClass("error")
                 .build());
         txtMonto.getValidators().add(requeridos2);
+        txtMonto.setNumLimiter(6);
     }
 
     @Override

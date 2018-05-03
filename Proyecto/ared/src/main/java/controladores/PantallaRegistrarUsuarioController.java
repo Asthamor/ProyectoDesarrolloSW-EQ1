@@ -8,9 +8,11 @@ package controladores;
 import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.validation.base.ValidatorBase;
 import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,11 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import modelo.Persona;
 
@@ -74,7 +73,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        txtCorreoElectronicoUsuario.setSizeLimiter(100);
         txtCorreoElectronicoUsuario.setText("");
         rutaFoto = null;
         txtApellidosUsuario.setAlphanumericLimiter(50);
@@ -85,7 +84,6 @@ public class PantallaRegistrarUsuarioController implements Initializable {
         txtNombresUsuario.setText("");
         txtTelefonoUsuario.setNumLimiter(10);
         txtTelefonoUsuario.setRequired(true);
-
     }
 
     public void setPersona(Persona persona) {
@@ -128,20 +126,24 @@ public class PantallaRegistrarUsuarioController implements Initializable {
                 pantallaDividida.getChildren().add(pnlPrincipal);
                 Mensajes.mensajeExitoso("El " + persona.getTipoUsario() + " se registro correctamente");
             }
+        } else {
+            Mensajes.mensajeAlert("Error");
         }
     }
 
     public boolean existenCamposVacios() {
-        boolean validos = true;
-        if (txtNombresUsuario.validate()){
-            validos = false;
+        boolean vacios = true;
+        txtNombresUsuario.setText(txtNombresUsuario.getText().trim());
+        txtApellidosUsuario.setText(txtApellidosUsuario.getText().trim());
+        
+        boolean valNombre = txtNombresUsuario.validate();
+        boolean valApellidos = txtApellidosUsuario.validate();
+        boolean valTel = txtTelefonoUsuario.validate();
+        
+        if ((valNombre && valApellidos) && valTel){ 
+            vacios = false;
         }
-//        txtNombresUsuario.setText(txtNombresUsuario.getText().trim());
-//        txtApellidosUsuario.setText(txtApellidosUsuario.getText().trim());
-//        txtTelefonoUsuario.setText(txtTelefonoUsuario.getText().trim());
-        return txtNombresUsuario.validate() && txtApellidosUsuario.validate() && txtTelefonoUsuario.validate();
-        
-        
+        return vacios;
     }
 
 }

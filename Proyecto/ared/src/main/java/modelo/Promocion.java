@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Promocion.findByMaestrousuarionombreUsuario", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class Promocion implements Serializable {
 
+  @Column(name = "paraInscripcion")
+  private Short paraInscripcion;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PromocionPK promocionPK;
@@ -148,5 +151,13 @@ public class Promocion implements Serializable {
     public String toString() {
         return "modelo.Promocion[ promocionPK=" + promocionPK + " ]";
     }
+
+  public Short getParaInscripcion() {
+    return paraInscripcion;
+  }
+
+  public void setParaInscripcion(Short paraInscripcion) {
+    this.paraInscripcion = paraInscripcion;
+  }
     
 }

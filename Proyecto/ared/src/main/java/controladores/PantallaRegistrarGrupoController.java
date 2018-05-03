@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
@@ -63,9 +64,9 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
     @FXML
     private Label lblHorario;
     @FXML
-    private JFXTextField txtNombreGrupo;
+    private JFXLimitedTextField txtNombreGrupo;
     @FXML
-    private JFXTextField txtTipoDanza;
+    private JFXLimitedTextField txtTipoDanza;
     @FXML
     private JFXComboBox<String> cmbMaestro;
     @FXML
@@ -90,7 +91,12 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        txtNombreGrupo.setRequired(true);
+        txtNombreGrupo.setAlphanumericLimiter(100);
         txtNombreGrupo.setText("");
+        
+        txtTipoDanza.setRequired(true);
+        txtTipoDanza.setAlphanumericLimiter(45);
         txtTipoDanza.setText("");
         ArrayList<String> nombresMaestros = new ArrayList();
         Maestro instanciaMaestro = new Maestro();

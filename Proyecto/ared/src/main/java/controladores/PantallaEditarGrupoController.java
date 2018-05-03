@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
@@ -58,9 +59,9 @@ public class PantallaEditarGrupoController implements Initializable {
     @FXML
     private Label lblHorario;
     @FXML
-    private JFXTextField txtNombreGrupo;
+    private JFXLimitedTextField txtNombreGrupo;
     @FXML
-    private JFXTextField txtTipoDanza;
+    private JFXLimitedTextField txtTipoDanza;
     @FXML
     private JFXTextArea txtHorario;
     @FXML
@@ -95,7 +96,7 @@ public class PantallaEditarGrupoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+      
     }
 
     public void setGrupo(Grupo grupo) {

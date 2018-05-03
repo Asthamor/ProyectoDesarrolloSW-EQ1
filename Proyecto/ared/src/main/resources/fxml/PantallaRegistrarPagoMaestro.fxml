@@ -111,7 +111,7 @@
                                     <JFXComboBox fx:id="cboxPlazo" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label fx:id="lblFechaPago" text="FECHALABEL" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label fx:id="lblNombreMaestro" text="NOMBRELABEL" GridPane.columnIndex="1" />
-                                    <JFXTextField fx:id="txtMonto" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <JFXLimitedTextField fx:id="txtMonto" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
                            </children>

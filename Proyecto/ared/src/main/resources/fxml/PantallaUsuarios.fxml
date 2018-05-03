@@ -15,7 +15,7 @@
       </ScrollPane>
       <Label fx:id="etNombreUsuario" layoutX="22.0" layoutY="32.0" text="Nombre del usuario:" />
       <JFXButton fx:id="btnRegistrarUsuario" layoutX="629.0" layoutY="661.0" onAction="#abrirVentanaRegistrarUsuario" prefHeight="18.0" prefWidth="124.0" style="-fx-background-color: #c08ed6;" text="Registrar usuario" AnchorPane.rightAnchor="22.0" />
-      <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" layoutX="155.0" layoutY="28.0" prefHeight="26.0" prefWidth="254.0" />
+      <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" layoutX="155.0" layoutY="28.0" onInputMethodTextChanged="#buscar" prefHeight="26.0" prefWidth="254.0" />
       <JFXButton fx:id="btnBuscar" layoutX="432.0" layoutY="27.0" onAction="#buscarUsuario" style="-fx-background-color: #c08ed6;" text="Buscar" />
    </children>
 </AnchorPane>
