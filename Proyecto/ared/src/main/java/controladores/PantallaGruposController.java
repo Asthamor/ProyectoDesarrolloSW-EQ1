@@ -7,7 +7,10 @@ package controladores;
 
 import com.jfoenix.controls.JFXButton;
 import interfaces.Controlador;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -55,9 +58,10 @@ public class PantallaGruposController implements Initializable, Controlador {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        crearArchivoXML();
         SAXReader reader = new SAXReader();
         try {
-            document = reader.read("/home/alonso/Desktop/grupoXML.xml");
+            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -158,6 +162,33 @@ public class PantallaGruposController implements Initializable, Controlador {
         }
 
         return horario;
+    }
+
+    public void crearArchivoXML() {
+        String ruta = System.getProperty("user.dir") + "/horariosAred.xml";
+        System.out.println(ruta);
+        File file = new File(ruta);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try (FileWriter fileWriter = new FileWriter(file);
+                    PrintWriter printWriter = new PrintWriter(fileWriter,true)) {
+                String contenido = "<ared>"
+                        +   "<grupos>"
+                        +   "</grupos>"
+                        +   "<rentas>"
+                        +   "</rentas>"
+                        + "</ared>";
+                printWriter.write(contenido);
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
 }
