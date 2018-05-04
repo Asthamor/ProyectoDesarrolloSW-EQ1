@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaPagosController">
+<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaPagosController">
    <children>
       <HBox layoutX="50.0" layoutY="117.0" prefHeight="452.0" prefWidth="1104.0" spacing="20.0">
          <children>
-            <JFXButton fx:id="btnPagoMaestro" contentDisplay="TOP" prefHeight="450.0" prefWidth="358.0" style="-fx-background-color: #ffe6fd;" text="Maestro">
+            <JFXButton fx:id="btnPagoMaestro" contentDisplay="TOP" onAction="#ventanaPagoMaestro" prefHeight="450.0" prefWidth="358.0" style="-fx-background-color: #ffe6fd;" text="Maestro">
                <graphic>
                   <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +37,7 @@
                   <Font size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnPagoAlumno" contentDisplay="TOP" prefHeight="446.0" prefWidth="359.0" style="-fx-background-color: #ffe6fd;" text="Alumno">
+            <JFXButton fx:id="btnPagoAlumno" contentDisplay="TOP" onAction="#ventanaPagoAlumnoExterno" prefHeight="446.0" prefWidth="359.0" style="-fx-background-color: #ffe6fd;" text="Alumno">
                <graphic>
                   <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -4,10 +4,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="685.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaListaAlumnosController">
+<AnchorPane id="AnchorPane" prefHeight="685.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaListaAlumnosController">
    <children>
       <JFXButton layoutX="44.0" layoutY="596.0" style="-fx-background-color: #c08ed6;" text="Asistencias" />
-      <JFXButton layoutX="274.0" layoutY="596.0" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c08ed6;" text="Pagos" />
+      <JFXButton layoutX="274.0" layoutY="596.0" onAction="#realizarPago" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c08ed6;" text="Pagos" />
       <ListView fx:id="tbAlumnos" layoutX="44.0" layoutY="35.0" prefHeight="541.0" prefWidth="308.0" />
    </children>
 </AnchorPane>

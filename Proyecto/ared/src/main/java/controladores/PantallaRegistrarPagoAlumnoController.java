@@ -9,7 +9,6 @@ import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +32,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
@@ -162,25 +165,50 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
 
     @FXML
     private void registrarAlumno(ActionEvent event) {
+        boolean bandera = false;
         if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
             if (!existenCamposErroneos()) {
                 if (tamañoInvalidoCaracteres()) {
                     Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
                 } else {
-                    PagoAlumno pagoAlumno = new PagoAlumno();
-                    pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
-                    pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
-                    pagoAlumno.setFechaPago(new Date());
                     Calendar calendario = Calendar.getInstance();
                     calendario.setTime(new Date());
                     calendario.add(Calendar.MONTH, 1);
                     Date fechaVencimiento = calendario.getTime();
-                    pagoAlumno.setFechaVencimiento(fechaVencimiento);
-                    pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
-                    if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
-                        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
-                        pantallaDividida.getChildren().add(pnlPrincipal);
-                        Mensajes.mensajeExitoso("El pago se registro correctamente");
+                    List<PagoAlumno> pagos = new ArrayList<>(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getPagoAlumnoCollection());
+                    PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
+                    Date fechaActualPago = ultimoPago.getFechaVencimiento();
+                    Date fechaActual = new Date();
+                    if (fechaActualPago.getTime() > fechaActual.getTime()) {
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Atención");
+                        alert.setHeaderText("Atención");
+                        alert.setContentText("El ultimo pago se realizó el: " + DateFormat.getDateInstance().format(ultimoPago.getFechaPago()) + ","
+                                + "el proximo pago se debe realizar el: " + DateFormat.getDateInstance().format(fechaActualPago)+"¿Seguro que desea continuar?");
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK) {
+                            bandera = false;
+                            calendario.setTime(fechaActualPago);
+                            calendario.add(Calendar.MONTH, 1);
+                            fechaVencimiento = calendario.getTime();
+                        } else {
+                            bandera = true;
+                        }
+
+                    }
+                    if (bandera != true) {
+                        PagoAlumno pagoAlumno = new PagoAlumno();
+                        pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
+                        pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
+                        pagoAlumno.setFechaPago(new Date());
+                        pagoAlumno.setFechaVencimiento(fechaVencimiento);
+                        pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
+                        if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
+                            pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+                            pantallaDividida.getChildren().add(pnlPrincipal);
+                            Mensajes.mensajeExitoso("El pago se registro correctamente, el proximo pago deberá realizarse el: "+DateFormat.getDateInstance().format(fechaVencimiento));
+                        }
                     }
                 }
 

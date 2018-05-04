@@ -70,12 +70,13 @@ public class PantallaMisGruposController implements Initializable, Controlador {
     @Override
     public void setPantallaDividida(HBox pantallaDividida) {
         this.pantallaDividida = pantallaDividida;
-        mostrarMisGrupos();
+        
     }
 
     @Override
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
+        mostrarMisGrupos();
     }
     
     public void mostrarMisGrupos(){
