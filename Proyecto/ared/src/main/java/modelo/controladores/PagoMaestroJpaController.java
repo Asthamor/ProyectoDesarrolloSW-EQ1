@@ -21,7 +21,7 @@ import modelo.controladores.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author alonso
+ * @author raymundo
  */
 public class PagoMaestroJpaController implements Serializable {
 

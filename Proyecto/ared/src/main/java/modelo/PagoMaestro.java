@@ -7,32 +7,39 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import modelo.controladores.PagoAlumnoJpaController;
+import modelo.controladores.PagoMaestroJpaController;
 
 /**
  *
- * @author alonso
+ * @author raymundo
  */
 @Entity
-@Table(name = "pagoMaestro")
+@Table(name = "pagomaestro")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PagoMaestro.findAll", query = "SELECT p FROM PagoMaestro p")
     , @NamedQuery(name = "PagoMaestro.findByIdPagoMaestro", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.idPagoMaestro = :idPagoMaestro")
     , @NamedQuery(name = "PagoMaestro.findByMonto", query = "SELECT p FROM PagoMaestro p WHERE p.monto = :monto")
-    , @NamedQuery(name = "PagoMaestro.findByFecha", query = "SELECT p FROM PagoMaestro p WHERE p.fecha = :fecha")
+    , @NamedQuery(name = "PagoMaestro.findByFechaPago", query = "SELECT p FROM PagoMaestro p WHERE p.fechaPago = :fechaPago")
     , @NamedQuery(name = "PagoMaestro.findByPlazo", query = "SELECT p FROM PagoMaestro p WHERE p.plazo = :plazo")
+    , @NamedQuery(name = "PagoMaestro.findByFechaVencimiento", query = "SELECT p FROM PagoMaestro p WHERE p.fechaVencimiento = :fechaVencimiento")
     , @NamedQuery(name = "PagoMaestro.findByMaestroidMaestro", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "PagoMaestro.findByMaestrousuarionombreUsuario", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class PagoMaestro implements Serializable {
@@ -42,11 +49,14 @@ public class PagoMaestro implements Serializable {
     protected PagoMaestroPK pagoMaestroPK;
     @Column(name = "monto")
     private Integer monto;
-    @Column(name = "fecha")
+    @Column(name = "fechaPago")
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private Date fechaPago;
     @Column(name = "plazo")
     private Integer plazo;
+    @Column(name = "fecha_vencimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaVencimiento;
     @JoinColumns({
         @JoinColumn(name = "maestro_idMaestro", referencedColumnName = "idMaestro", insertable = false, updatable = false)
         , @JoinColumn(name = "maestro_usuario_nombreUsuario", referencedColumnName = "usuario_nombreUsuario", insertable = false, updatable = false)})
@@ -80,12 +90,12 @@ public class PagoMaestro implements Serializable {
         this.monto = monto;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaPago() {
+        return fechaPago;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaPago(Date fechaPago) {
+        this.fechaPago = fechaPago;
     }
 
     public Integer getPlazo() {
@@ -94,6 +104,14 @@ public class PagoMaestro implements Serializable {
 
     public void setPlazo(Integer plazo) {
         this.plazo = plazo;
+    }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
     }
 
     public Maestro getMaestro() {
@@ -128,5 +146,21 @@ public class PagoMaestro implements Serializable {
     public String toString() {
         return "modelo.PagoMaestro[ pagoMaestroPK=" + pagoMaestroPK + " ]";
     }
-    
+
+    public boolean registrarPago() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoMaestroJpaController controlador = new PagoMaestroJpaController(entityManagerFactory);
+        PagoMaestroPK pagoPK = new PagoMaestroPK();
+        pagoPK.setMaestroidMaestro(maestro.getMaestroPK().getIdMaestro());
+        pagoPK.setMaestrousuarionombreUsuario(maestro.getMaestroPK().getUsuarionombreUsuario());
+        this.setPagoMaestroPK(pagoPK);
+        try {
+            controlador.create(this);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
 }

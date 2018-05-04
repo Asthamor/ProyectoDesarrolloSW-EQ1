@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -35,21 +36,27 @@
          <center>
             <Pane prefHeight="526.0" prefWidth="1025.0" BorderPane.alignment="CENTER">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="513.0" stroke="BLACK" strokeType="INSIDE" width="1048.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="538.0" layoutX="-15.0" layoutY="-10.0" stroke="BLACK" strokeType="INSIDE" width="1063.0" />
                   <HBox prefHeight="517.0" prefWidth="1045.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="450.0" prefWidth="281.0" style="-fx-background-color: ffe6fd;">
                            <children>
-                              <ImageView fx:id="imgMaestro" fitHeight="494.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true" style="margin: 10px 10px 10px;">
+                              <ImageView fx:id="imgMaestro" fitHeight="380.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true" style="margin: 10px 10px 10px;">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="90.0" />
                                  </VBox.margin>
+                                 <image>
+                                    <Image url="@../imagenes/iconoMaestro.png" />
+                                 </image>
                               </ImageView>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </VBox>
-                        <VBox prefHeight="517.0" prefWidth="255.0">
+                        <VBox prefHeight="532.0" prefWidth="253.0">
                            <children>
-                              <Label text="Colaboradores:">
+                              <Label text="Maestros:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -61,8 +68,14 @@
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                               </ListView>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </VBox>
                         <AnchorPane prefHeight="569.0" prefWidth="515.0">
                            <children>
@@ -71,7 +84,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <JFXButton fx:id="btnRegistrar" layoutX="393.0" layoutY="462.0" prefHeight="38.0" prefWidth="98.0" style="-fx-background-color: C08ED6;" text="Registrar" />
+                              <JFXButton fx:id="btnRegistrar" layoutX="393.0" layoutY="462.0" onAction="#registrarPago" prefHeight="38.0" prefWidth="98.0" style="-fx-background-color: C08ED6;" text="Registrar" />
                               <GridPane layoutX="91.0" layoutY="116.0" prefHeight="293.0" prefWidth="350.0">
                                 <columnConstraints>
                                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -92,7 +105,7 @@
                                           <Insets right="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label text="Fecha:" GridPane.rowIndex="1">
+                                    <Label text="Fecha actual:" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -108,8 +121,14 @@
                                           <Insets right="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label fx:id="lblFechaPago" prefHeight="17.0" prefWidth="139.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="lblNombreMaestro" prefHeight="17.0" prefWidth="131.0" GridPane.columnIndex="1" />
+                                    <Label fx:id="lblFechaPago" prefHeight="17.0" prefWidth="139.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label fx:id="lblNombreMaestro" prefHeight="27.0" prefWidth="175.0" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
                                     <JFXTextField fx:id="txtMonto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label text="Fecha proximo pago:" GridPane.rowIndex="2">
                                        <font>

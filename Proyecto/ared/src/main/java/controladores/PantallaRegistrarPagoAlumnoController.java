@@ -77,6 +77,8 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private Label lblAlumno;
     Maestro maestro;
+    @FXML
+    private Label lblFechaProximoPago;
 
     /**
      * Initializes the controller class.
@@ -147,6 +149,10 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         @Override
                         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                             if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
+                                List<PagoAlumno> pagos = new ArrayList<>(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getPagoAlumnoCollection());
+                                PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
+                                Date fechaActualPago = ultimoPago.getFechaVencimiento();
+                                lblFechaProximoPago.setText(DateFormat.getDateInstance().format(fechaActualPago));
                                 lblGrupo.setText(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getNombre());
                                 lblAlumno.setText(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getNombre() + " " + alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getApellidos());
                             }
@@ -184,7 +190,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         alert.setTitle("Atención");
                         alert.setHeaderText("Atención");
                         alert.setContentText("El ultimo pago se realizó el: " + DateFormat.getDateInstance().format(ultimoPago.getFechaPago()) + ","
-                                + "el proximo pago se debe realizar el: " + DateFormat.getDateInstance().format(fechaActualPago)+"¿Seguro que desea continuar?");
+                                + "el proximo pago se debe realizar el: " + DateFormat.getDateInstance().format(fechaActualPago) + " ¿Seguro que desea continuar?");
 
                         Optional<ButtonType> result = alert.showAndWait();
                         if (result.get() == ButtonType.OK) {
@@ -207,7 +213,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
                             pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
                             pantallaDividida.getChildren().add(pnlPrincipal);
-                            Mensajes.mensajeExitoso("El pago se registro correctamente, el proximo pago deberá realizarse el: "+DateFormat.getDateInstance().format(fechaVencimiento));
+                            Mensajes.mensajeExitoso("El pago se registro correctamente, el proximo pago deberá realizarse el: " + DateFormat.getDateInstance().format(fechaVencimiento));
                         }
                     }
                 }

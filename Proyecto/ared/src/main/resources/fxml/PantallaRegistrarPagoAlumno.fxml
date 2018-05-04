@@ -82,8 +82,8 @@
                               <RowConstraints maxHeight="52.0" minHeight="7.0" prefHeight="43.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="12.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
@@ -112,7 +112,10 @@
                                  </GridPane.margin>
                               </Label>
                               <JFXComboBox fx:id="cboxPromocion" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="lblAlumno" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="1" />
+                              <Label fx:id="lblAlumno" prefHeight="27.0" prefWidth="163.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                               <JFXLimitedTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Monto: $" textAlignment="RIGHT" GridPane.rowIndex="3">
                                  <font>
@@ -138,9 +141,31 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblGrupo" prefHeight="17.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="lblFecha" prefHeight="17.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="lblMontoTotal" prefHeight="17.0" prefWidth="109.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="lblGrupo" prefHeight="17.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                              <Label fx:id="lblFecha" prefHeight="17.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                              <Label fx:id="lblMontoTotal" prefHeight="27.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                              <Label text="Fecha proximo pago:" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="lblFechaProximoPago" prefHeight="27.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </GridPane>
                      </children>
