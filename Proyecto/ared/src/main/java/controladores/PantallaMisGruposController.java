@@ -5,30 +5,27 @@
  */
 package controladores;
 
-import com.jfoenix.controls.JFXButton;
+import static controladores.PantallaGruposController.crearArchivoXML;
+import static controladores.PantallaGruposController.obtnerHorarioGrupo;
 import interfaces.Controlador;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import modelo.Grupo;
+import modelo.Maestro;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -39,19 +36,18 @@ import org.dom4j.io.SAXReader;
  *
  * @author alonso
  */
-public class PantallaGruposController implements Initializable, Controlador {
+public class PantallaMisGruposController implements Initializable, Controlador {
 
     @FXML
     private ScrollPane scrollGrupos;
     @FXML
-    private AnchorPane pnlGrupos;
-    @FXML
-    private JFXButton btnRegistrarGrupo;
-
+    private GridPane gridGrupos;
+    
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
-    private Document document;
+    private Maestro maestro;
     private Element gruposXML;
+    private Document document;
 
     /**
      * Initializes the controller class.
@@ -69,34 +65,32 @@ public class PantallaGruposController implements Initializable, Controlador {
         gruposXML = root.element("grupos");
 
         scrollGrupos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
-    }
+    }    
 
     @Override
     public void setPantallaDividida(HBox pantallaDividida) {
         this.pantallaDividida = pantallaDividida;
-
+        mostrarMisGrupos();
     }
 
     @Override
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
-        pnlGrupos.getChildren().add(mostrarGrupos());
     }
-
-    public GridPane mostrarGrupos() {
-        Grupo grupo = new Grupo();
-        List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
-        GridPane grid = new GridPane();
-        grid.setVgap(10);
-        grid.setHgap(10);
-        int filas = grupos.size() / 2;
+    
+    public void mostrarMisGrupos(){
+        maestro = new Maestro();
+        String nombreUsuario = System.getProperty("nombreUsuario");
+        maestro = maestro.obtenerMaestro(nombreUsuario);
+        gridGrupos.setVgap(10);
+        gridGrupos.setHgap(10);
+        int filas = maestro.getGrupoCollection().size() / 2;
         int auxiliar = 0;
-        if (grupos.size() % 2 != 0) {
-            filas = (grupos.size() + 1) / 2;
+        if (maestro.getGrupoCollection().size() % 2 != 0) {
+            filas = (maestro.getGrupoCollection().size() + 1) / 2;
         }
-
-        for (int i = 0; i < filas; i++) {
+        List<Grupo> grupos = new ArrayList(maestro.getGrupoCollection());
+         for (int i = 0; i < filas; i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionGrupo.fxml"));
                 Parent root = (Parent) loader.load();
@@ -108,9 +102,10 @@ public class PantallaGruposController implements Initializable, Controlador {
                 controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
                 controlador.setPantallaDividida(pantallaDividida);
                 controlador.setPnlPrincipal(pnlPrincipal);
-                controlador.setEditarGrupo(true);
+                controlador.setAlumnos(new ArrayList(grupos.get(auxiliar).getAlumnoCollection()));
+                controlador.setEditarGrupo(false);
                 auxiliar++;
-                grid.add(root, 0, i);
+                gridGrupos.add(root, 0, i);
             } catch (IOException ex) {
                 Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -126,71 +121,15 @@ public class PantallaGruposController implements Initializable, Controlador {
                     controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
                     controlador.setPantallaDividida(pantallaDividida);
                     controlador.setPnlPrincipal(pnlPrincipal);
-                    controlador.setEditarGrupo(true);
+                    controlador.setAlumnos(new ArrayList(grupos.get(auxiliar).getAlumnoCollection()));
+                    controlador.setEditarGrupo(false);
                     auxiliar++;
-                    grid.add(root, 1, i);
+                    gridGrupos.add(root, 1, i);
                 } catch (IOException ex) {
                     Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        return grid;
     }
-
-    @FXML
-    private void abrirVentanaRegistrarGrupo(ActionEvent event) {
-        Parent root = PantallaPrincipalDirectorController.crearPantalla("/fxml/PantallaRegistrarGrupo.fxml",
-                pnlPrincipal, pantallaDividida);
-        pnlPrincipal.getChildren().add(root);
-        pantallaDividida.getChildren().add(pnlPrincipal);
-    }
-
-    public static String obtnerHorarioGrupo(Element grupo) {
-        String horario = "";
-        if (grupo != null) {
-            Element horarioXML = grupo.element("horario");
-            for (Iterator<Element> itr3 = horarioXML.elementIterator("dia"); itr3.hasNext();) {
-                Element dia = itr3.next();
-                String columna = String.valueOf(dia.attributeValue("nombreDia"));
-                horario += columna;
-                for (Iterator<Element> itr4 = dia.elementIterator("hora"); itr4.hasNext();) {
-                    String horaIncio = (String.valueOf(((Element) itr4.next()).getData())).trim();
-                    String horaFin = (String.valueOf(((Element) itr4.next()).getData())).trim();
-
-                    horario += " " + horaIncio + "-" + horaFin;
-
-                }
-                horario += "\n";
-            }
-        }
-
-        return horario;
-    }
-
-    public static void crearArchivoXML() {
-        String ruta = System.getProperty("user.dir") + "/horariosAred.xml";
-        File file = new File(ruta);
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try (FileWriter fileWriter = new FileWriter(file);
-                    PrintWriter printWriter = new PrintWriter(fileWriter,true)) {
-                String contenido = "<ared>\n"
-                        +   "   <grupos>\n"
-                        +   "   </grupos>\n"
-                        +   "   <rentas>\n"
-                        +   "   </rentas>\n"
-                        + "</ared>";
-                printWriter.write(contenido);
-            } catch (IOException ex) {
-                Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-    }
-
+    
 }

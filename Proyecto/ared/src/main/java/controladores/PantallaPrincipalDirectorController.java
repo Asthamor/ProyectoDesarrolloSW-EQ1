@@ -111,7 +111,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaMisGrupos(ActionEvent event) {
         imagen.setVisible(false);
-        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaMisGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
@@ -225,17 +225,10 @@ public class PantallaPrincipalDirectorController implements Initializable {
         transicion.play();
     }
     
-
     @FXML
     private void usuarioMenuToggle(ActionEvent event) {
         imagen.setVisible(false);
         pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaEditarPerfil.fxml", this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
-    }
-    
-
-        
-
-    
-
+    }   
 }

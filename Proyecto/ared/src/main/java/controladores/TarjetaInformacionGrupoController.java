@@ -8,6 +8,7 @@ package controladores;
 import com.jfoenix.controls.JFXTextArea;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import modelo.Alumno;
 import modelo.Grupo;
 
 /**
@@ -46,6 +48,8 @@ public class TarjetaInformacionGrupoController implements Initializable {
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
+    private boolean editarGrupo;
+    private List<Alumno> alumnos;
 
     private StackPane pnlSecundario = new StackPane();
     private final Background focusBackground = new Background(new BackgroundFill(Color.web("#BDC3C7"), CornerRadii.EMPTY, Insets.EMPTY));
@@ -72,6 +76,14 @@ public class TarjetaInformacionGrupoController implements Initializable {
         mostrarInformacion(grupo);
     }
 
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public void setEditarGrupo(boolean editarGrupo) {
+        this.editarGrupo = editarGrupo;
+    }
+
     public void setPantallaDividida(HBox pantallaDividida) {
         this.pantallaDividida = pantallaDividida;
     }
@@ -88,8 +100,8 @@ public class TarjetaInformacionGrupoController implements Initializable {
         lblNombreGrupo.setText(grupo.getNombre());
         lblTipoDanza.setText(grupo.getTipoDanza());
     }
-    
-    public void setColorGrupo(Color colorGrupo){
+
+    public void setColorGrupo(Color colorGrupo) {
         this.colorGrupo = colorGrupo;
     }
 
@@ -101,24 +113,43 @@ public class TarjetaInformacionGrupoController implements Initializable {
     @FXML
     private void editarGrupo(MouseEvent event) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(TarjetaInformacionGrupoController.class.getResource("/fxml/PantallaEditarGrupo.fxml"));
-        try {
-            root = (Parent) loader.load();
-            PantallaEditarGrupoController controlador = loader.getController();
-            controlador.setGrupo(grupo);
-            controlador.setPantallaDividida(pantallaDividida);
-            controlador.setPnlPrincipal(pnlPrincipal);
-            controlador.setControlador(this);
-            controlador.agregarHorario(txtHorario.getText());
-            controlador.setColorGrupo(colorGrupo);
-            pnlSecundario.getChildren().add(root);
-            PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
-            if (pantallaDividida.getChildren().size() > 1) {
-                pantallaDividida.getChildren().remove(1);
+        if (editarGrupo) {
+            FXMLLoader loader = new FXMLLoader(TarjetaInformacionGrupoController.class.getResource("/fxml/PantallaEditarGrupo.fxml"));
+            try {
+                root = (Parent) loader.load();
+                PantallaEditarGrupoController controlador = loader.getController();
+                controlador.setGrupo(grupo);
+                controlador.setPantallaDividida(pantallaDividida);
+                controlador.setPnlPrincipal(pnlPrincipal);
+                controlador.setControlador(this);
+                controlador.agregarHorario(txtHorario.getText());
+                controlador.setColorGrupo(colorGrupo);
+                pnlSecundario.getChildren().add(root);
+                PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
+                if (pantallaDividida.getChildren().size() > 1) {
+                    pantallaDividida.getChildren().remove(1);
+                }
+                pantallaDividida.getChildren().add(pnlSecundario);
+            } catch (IOException ex) {
+                Logger.getLogger(TarjetaInformacionGrupoController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            pantallaDividida.getChildren().add(pnlSecundario);
-        } catch (IOException ex) {
-            Logger.getLogger(TarjetaInformacionGrupoController.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            FXMLLoader loader = new FXMLLoader(TarjetaInformacionGrupoController.class.getResource("/fxml/PantallaListaAlumnos.fxml"));
+            try {
+                root = (Parent) loader.load();
+                PantallaListaAlumnosController controlador = loader.getController();
+                controlador.setPantallaDividida(pantallaDividida);
+                controlador.setPnlPrincipal(pnlPrincipal);
+                controlador.setAlumnos(alumnos);
+                pnlSecundario.getChildren().add(root);
+                PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
+                if (pantallaDividida.getChildren().size() > 1) {
+                    pantallaDividida.getChildren().remove(1);
+                }
+                pantallaDividida.getChildren().add(pnlSecundario);
+            } catch (IOException ex) {
+                Logger.getLogger(TarjetaInformacionGrupoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

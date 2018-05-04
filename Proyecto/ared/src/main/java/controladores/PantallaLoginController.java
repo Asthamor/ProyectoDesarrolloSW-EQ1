@@ -85,15 +85,15 @@ public class PantallaLoginController implements Initializable {
       String nombreUsuario = txtNombreUsuario.getText();
       String contraseña = txtContraseña.getText();
       int res = checkUser(nombreUsuario, contraseña);
-      Usuario u = new Usuario();
+      Usuario usuario = new Usuario();
       switch (res){
         case 1:
-          u = u.buscar(nombreUsuario);
-          abrirMenuMaestro(u);
+          usuario = usuario.buscar(nombreUsuario);
+          abrirMenuMaestro(usuario);
           break;
         case 0:
-          u = u.buscar(nombreUsuario);
-          abrirMenuDirector(u);
+          usuario = usuario.buscar(nombreUsuario);
+          abrirMenuDirector(usuario);
           break;
         default:
           lblError.setVisible(true);
@@ -122,12 +122,14 @@ public class PantallaLoginController implements Initializable {
   }
   
   private boolean abrirMenuMaestro(Usuario usuario){
-    Stage mainStage = (Stage) txtNombreUsuario.getScene().getWindow(); 
+    Stage mainStage = (Stage) txtNombreUsuario.getScene().getWindow();
+    System.setProperty("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("nombreUsuario", usuario.getNombreUsuario());
     mainStage.getProperties().put("persona", usuario.getMaestroCollection().toArray()[0]);
       try {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalMaestro.fxml"));
         mainStage.setScene(new Scene(root));
+        mainStage.setFullScreen(true);
         mainStage.show();
         
       } catch (IOException ex) {

@@ -54,7 +54,7 @@
                         </Label>
                         <Label fx:id="lblNombreGrupo" text="Nombre del grupo" GridPane.columnIndex="1" />
                         <Label fx:id="lblTipoDanza" text="Tipo Danza" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <JFXTextArea fx:id="txtHorario" focusColor="#BDC3C7" style="-fx-background-color: #BDC3C7;" unFocusColor="#BDC3C7" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextArea fx:id="txtHorario" editable="false" focusColor="#BDC3C7" style="-fx-background-color: #BDC3C7;" unFocusColor="#BDC3C7" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

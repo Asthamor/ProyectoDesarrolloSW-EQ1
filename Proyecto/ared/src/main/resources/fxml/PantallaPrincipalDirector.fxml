@@ -97,7 +97,7 @@
          <children>
             <Pane fx:id="pnlUsuario" prefHeight="53.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <JFXButton fx:id="btnSesionUsuario" contentDisplay="RIGHT" layoutX="1024.0" layoutY="2.0" onAction="#usuarioMenuToggle" text="Usuario director">
+                  <JFXButton fx:id="btnSesionUsuario" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="1004.0" layoutY="2.0" onAction="#usuarioMenuToggle" prefHeight="50.0" prefWidth="193.0" text="Usuario director">
                      <graphic>
                         <MaterialDesignIconView fill="#4183da" glyphName="ACCOUNT_CIRCLE" size="40" />
                      </graphic>
