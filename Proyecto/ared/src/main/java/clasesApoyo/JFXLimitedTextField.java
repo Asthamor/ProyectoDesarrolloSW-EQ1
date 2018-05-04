@@ -48,14 +48,14 @@ public class JFXLimitedTextField extends JFXTextField {
     textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        if (newValue.matches("[0-9]{0," + Integer.toString(size) + "}")) {
+        if (newValue.matches("\\d{0," + Integer.toString(size) + "}")) {
           setText(newValue);
         } else {
           setText(oldValue);
         }
       }
     });
-    this.setValidators(new NumberValidator());
+    
   }
 
   public final void setSizeLimiter(int size) {
@@ -75,7 +75,7 @@ public class JFXLimitedTextField extends JFXTextField {
     textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        if (newValue.matches("[a-zA-Z0-9 ñ]{0," + Integer.toString(size) + "}")) {
+        if (newValue.matches("[a-zA-Z0-9 ñáéíóú]{0," + Integer.toString(size) + "}")) {
           setText(newValue);
         } else {
           setText(oldValue);

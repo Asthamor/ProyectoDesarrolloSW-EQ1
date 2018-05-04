@@ -15,6 +15,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
 import interfaces.Controlador;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -119,6 +120,8 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
       pago.setGrupo(grupo);
       pago.setMonto(Integer.parseInt(txtMonto.getText()));
       pago.setFechaPago(new Date());
+      Date vence = java.sql.Date.valueOf(LocalDate.now().plusMonths(1));
+      pago.setFechaVencimiento(vence);
       pago.registrarPago();
       grupo.actualizarDatosGrupo(grupo);
       setListGrupos();

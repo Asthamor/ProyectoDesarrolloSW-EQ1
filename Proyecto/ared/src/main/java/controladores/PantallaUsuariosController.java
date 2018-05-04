@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -147,7 +148,7 @@ public class PantallaUsuariosController implements Initializable {
   }
 
   @FXML
-  private void buscar(InputMethodEvent event) {
+  private void buscar(KeyEvent event) {
     if (txtNombreUsuario.getText().isEmpty()) {
       pnlUsuarios.getChildren().clear();
       pnlUsuarios.getChildren().add(mostrarUsuarios(persona.obtenerTodos()));
