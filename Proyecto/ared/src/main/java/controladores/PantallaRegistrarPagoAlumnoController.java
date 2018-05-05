@@ -134,6 +134,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                 lstAlumnos.setItems(null);
                 lblGrupo.setText("");
                 lblAlumno.setText("");
+                lblFechaProximoPago.setText("");
                 nombresAlumnos = new ArrayList();
                 if (grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getAlumnoCollection().isEmpty()) {
 
@@ -150,7 +151,16 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                             if (lstAlumnos.getSelectionModel().getSelectedIndex() != -1) {
                                 List<PagoAlumno> pagos = new ArrayList<>(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getPagoAlumnoCollection());
-                                PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
+                                //PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
+                                PagoAlumno ultimoPago = null;
+                                PagoAlumno auxiliar;
+                                for (int i = pagos.size() - 1; i >= 0; i--) {
+                                    auxiliar = pagos.get(i);
+                                    if (auxiliar.getGrupo().getGrupoPK().getIdGrupo() == grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getGrupoPK().getIdGrupo()) {
+                                        ultimoPago = pagos.get(i);
+                                        break;
+                                    }
+                                }
                                 Date fechaActualPago = ultimoPago.getFechaVencimiento();
                                 lblFechaProximoPago.setText(DateFormat.getDateInstance().format(fechaActualPago));
                                 lblGrupo.setText(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getNombre());
@@ -182,7 +192,16 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                     calendario.add(Calendar.MONTH, 1);
                     Date fechaVencimiento = calendario.getTime();
                     List<PagoAlumno> pagos = new ArrayList<>(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getPagoAlumnoCollection());
-                    PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
+//                    PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
+                    PagoAlumno ultimoPago = null;
+                    PagoAlumno auxiliar;
+                    for (int i = pagos.size() - 1; i >= 0; i--) {
+                        auxiliar = pagos.get(i);
+                        if (auxiliar.getGrupo().getGrupoPK().getIdGrupo() == grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getGrupoPK().getIdGrupo()) {
+                            ultimoPago = pagos.get(i);
+                            break;
+                        }
+                    }
                     Date fechaActualPago = ultimoPago.getFechaVencimiento();
                     Date fechaActual = new Date();
                     if (fechaActualPago.getTime() > fechaActual.getTime()) {

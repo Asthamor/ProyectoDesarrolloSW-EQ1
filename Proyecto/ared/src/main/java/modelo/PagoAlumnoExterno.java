@@ -7,19 +7,25 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import modelo.controladores.PagoAlumnoExternoJpaController;
+import modelo.controladores.PagoAlumnoJpaController;
 
 /**
  *
@@ -131,6 +137,18 @@ public class PagoAlumnoExterno implements Serializable {
         }
         return true;
     }
+    
+     public boolean registrarPago(){
+     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoAlumnoExternoJpaController controlador = new PagoAlumnoExternoJpaController(entityManagerFactory);
+         try {
+            controlador.create(this);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+  }
 
     @Override
     public String toString() {
