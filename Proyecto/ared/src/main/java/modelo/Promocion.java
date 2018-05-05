@@ -7,20 +7,26 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import modelo.controladores.AlumnoJpaController;
+import modelo.controladores.PromocionJpaController;
 
 /**
  *
@@ -39,8 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Promocion.findByMaestrousuarionombreUsuario", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class Promocion implements Serializable {
 
-  @Column(name = "paraInscripcion")
-  private Short paraInscripcion;
+    @Column(name = "paraInscripcion")
+    private Short paraInscripcion;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -152,12 +158,26 @@ public class Promocion implements Serializable {
         return "modelo.Promocion[ promocionPK=" + promocionPK + " ]";
     }
 
-  public Short getParaInscripcion() {
-    return paraInscripcion;
-  }
+    public Short getParaInscripcion() {
+        return paraInscripcion;
+    }
 
-  public void setParaInscripcion(Short paraInscripcion) {
-    this.paraInscripcion = paraInscripcion;
-  }
-    
+    public void setParaInscripcion(Short paraInscripcion) {
+        this.paraInscripcion = paraInscripcion;
+    }
+
+    public boolean crearPromocion() {
+        boolean seCreo = false;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PromocionJpaController controlador = new PromocionJpaController(entityManagerFactory);
+        try {
+            controlador.create(this);
+            seCreo = true;
+        } catch (Exception ex) {
+            Logger.getLogger(Promocion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return seCreo;
+    }
+
 }

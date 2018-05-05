@@ -174,19 +174,8 @@ public class PantallaDefinirHorarioGrupoController implements Initializable {
                             Parent pantalla = crearTarjetaHorario(columna, horaIncio, false, false);
                             agenda.add(pantalla, columna + 1, horaIncio, 1, (horaFin - horaIncio));
                         }
-
-                    }
-
-                }
-            }
-            if (editarGrupo) {
-                String horario = "";
-                for (int i = 0; i < horarioGrupo.length; i++) {
-                    if (!horarioGrupo[i].equals("")) {
-                        horario += horarioGrupo[i].substring(0, horarioGrupo[i].length() - 1) + "\n";
                     }
                 }
-                txtHorarioGrupo.setText(horario);
             }
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaDefinirHorarioGrupoController.class.getName()).log(Level.SEVERE, null, ex);

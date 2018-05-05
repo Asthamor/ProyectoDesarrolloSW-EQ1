@@ -52,8 +52,8 @@ public class TarjetaInformacionGrupoController implements Initializable {
     private List<Alumno> alumnos;
 
     private StackPane pnlSecundario = new StackPane();
-    private final Background focusBackground = new Background(new BackgroundFill(Color.web("#BDC3C7"), CornerRadii.EMPTY, Insets.EMPTY));
-    private final Background unfocusBackground = new Background(new BackgroundFill(Color.web("#e0e0e0"), CornerRadii.EMPTY, Insets.EMPTY));
+    private final Background focusBackground = new Background(new BackgroundFill(Color.web("#FFD4FC"), CornerRadii.EMPTY, Insets.EMPTY));
+    private final Background unfocusBackground = new Background(new BackgroundFill(Color.web("#ffe6fd"), CornerRadii.EMPTY, Insets.EMPTY));
     @FXML
     private StackPane panelTarjeta;
 
@@ -62,8 +62,6 @@ public class TarjetaInformacionGrupoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        txtHorario.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-        txtHorario.setDisable(true);
         panelTarjeta.backgroundProperty().bind(Bindings
                 .when(panelTarjeta.focusedProperty())
                 .then(focusBackground)

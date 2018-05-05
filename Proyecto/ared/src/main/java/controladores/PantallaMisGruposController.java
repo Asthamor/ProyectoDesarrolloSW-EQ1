@@ -99,7 +99,6 @@ public class PantallaMisGruposController implements Initializable, Controlador {
                 controlador.setGrupo(grupos.get(auxiliar));
                 Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
                         + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
-                controlador.setColorGrupo(Color.web(grupoXML.attributeValue("color")));
                 controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
                 controlador.setPantallaDividida(pantallaDividida);
                 controlador.setPnlPrincipal(pnlPrincipal);
@@ -118,7 +117,6 @@ public class PantallaMisGruposController implements Initializable, Controlador {
                     controlador.setGrupo(grupos.get(auxiliar));
                     Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
                             + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
-                    controlador.setColorGrupo(Color.web(grupoXML.attributeValue("color")));
                     controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
                     controlador.setPantallaDividida(pantallaDividida);
                     controlador.setPnlPrincipal(pnlPrincipal);

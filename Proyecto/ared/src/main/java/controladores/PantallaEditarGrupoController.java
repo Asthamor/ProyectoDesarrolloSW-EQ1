@@ -10,7 +10,6 @@ import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -54,3 +54,8 @@
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
 }
+
+ .text-area .content{
+      -fx-background-color: #ffe6fd;
+      -fx-border-color: #ffe6fd;
+  }

@@ -70,10 +70,16 @@ public class PantallaPrincipalMaestroController implements Initializable {
 
     @FXML
     private void abrirVentanaInscripciones(ActionEvent event) {
+        imagen.setVisible(false);
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaInscripciones.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
     @FXML
     private void abrirVentanaPromociones(ActionEvent event) {
+        imagen.setVisible(false);
+        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaPromociones.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
     @FXML
