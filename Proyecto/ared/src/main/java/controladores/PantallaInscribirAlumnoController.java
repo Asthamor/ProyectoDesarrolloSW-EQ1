@@ -114,7 +114,11 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
 
       Grupo grupo = grupos.get(grpIndex);
       Alumno alumn = alumnos.get(almIndex);
+      alumn.getGrupoCollection().add(grupo);
       grupo.getAlumnoCollection().add(alumn);
+      alumn.actualizarDatos(false);
+      grupo.actualizarDatosGrupo(grupo);
+      
       PagoAlumno pago = new PagoAlumno();
       pago.setAlumno(alumn);
       pago.setGrupo(grupo);
@@ -123,7 +127,7 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
       Date vence = java.sql.Date.valueOf(LocalDate.now().plusMonths(1));
       pago.setFechaVencimiento(vence);
       pago.registrarPago();
-      grupo.actualizarDatosGrupo(grupo);
+      
       setListGrupos();
       Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
           + " inscrito en el grupo " + grupo.getNombre());
