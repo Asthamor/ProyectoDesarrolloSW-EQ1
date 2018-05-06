@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import interfaces.IPagoMaestro;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
@@ -42,7 +43,7 @@ import modelo.controladores.PagoMaestroJpaController;
     , @NamedQuery(name = "PagoMaestro.findByFechaVencimiento", query = "SELECT p FROM PagoMaestro p WHERE p.fechaVencimiento = :fechaVencimiento")
     , @NamedQuery(name = "PagoMaestro.findByMaestroidMaestro", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "PagoMaestro.findByMaestrousuarionombreUsuario", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
-public class PagoMaestro implements Serializable {
+public class PagoMaestro implements Serializable, IPagoMaestro {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -147,6 +148,7 @@ public class PagoMaestro implements Serializable {
         return "modelo.PagoMaestro[ pagoMaestroPK=" + pagoMaestroPK + " ]";
     }
 
+    @Override
     public boolean registrarPago() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoMaestroJpaController controlador = new PagoMaestroJpaController(entityManagerFactory);

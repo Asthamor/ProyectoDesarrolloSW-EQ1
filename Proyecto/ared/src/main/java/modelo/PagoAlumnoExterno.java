@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import interfaces.IPagoAlumnoExterno;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
@@ -42,7 +43,7 @@ import modelo.controladores.PagoAlumnoJpaController;
     , @NamedQuery(name = "PagoAlumnoExterno.findByMaestroidMaestro", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "PagoAlumnoExterno.findByMaestrousuarionombreUsuario", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")
     , @NamedQuery(name = "PagoAlumnoExterno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumnoExterno p WHERE p.pagoAlumnoExternoPK.alumnoidAlumno = :alumnoidAlumno")})
-public class PagoAlumnoExterno implements Serializable {
+public class PagoAlumnoExterno implements Serializable, IPagoAlumnoExterno {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -138,6 +139,7 @@ public class PagoAlumnoExterno implements Serializable {
         return true;
     }
     
+    @Override
      public boolean registrarPago(){
      EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoAlumnoExternoJpaController controlador = new PagoAlumnoExternoJpaController(entityManagerFactory);
