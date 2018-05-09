@@ -152,7 +152,12 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
   private boolean setListGrupos() {
     Grupo g = new Grupo();
     nombresGrupos = new ArrayList();
-    grupos = g.obtenerTodosLosGrupos();
+    if (usuario.getTipoUsuario().equals("director")){
+      grupos = g.obtenerTodosLosGrupos();
+    } else {
+      grupos = g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro());
+    }
+    
     grupos.forEach((grupo) -> {
       nombresGrupos.add(grupo.getNombre());
     });

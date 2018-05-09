@@ -274,7 +274,8 @@ public class Cliente extends Persona implements Serializable {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
     //Registrar usuario y contraseña y obtener el nuevo usuario para el Maestro
-    String nombreUsuario = persona.getNombre() + persona.getApellidos() + "cliente";
+    String nombreUsuario = persona.getNombre().replace(" ", "") + 
+            persona.getApellidos().replace(" ", "") + "cliente";
     //Copiar el archivo de imagen al directorio de la aplicación
     guardarImagen(nombreUsuario);
     try {
