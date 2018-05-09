@@ -44,6 +44,7 @@ import modelo.Alumno;
 import modelo.Grupo;
 import modelo.Maestro;
 import modelo.PagoAlumno;
+import modelo.Promocion;
 
 /**
  * FXML Controller class
@@ -64,8 +65,10 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     private ListView<String> lstAlumnos;
     private ArrayList<String> nombresGrupos;
     private ArrayList<String> nombresAlumnos;
+    private ArrayList<String> nombrePromociones;
     private List<Alumno> alumnos;
     private List<Grupo> grupos;
+    private List<Promocion> promociones;
     @FXML
     private JFXComboBox<String> cboxPromocion;
     @FXML
@@ -79,6 +82,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     Maestro maestro;
     @FXML
     private Label lblFechaProximoPago;
+    private int montoFinal;
 
     /**
      * Initializes the controller class.
@@ -102,6 +106,29 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                 .build());
         txtMonto.getValidators().add(requeridos2);
         txtMonto.setNumLimiter(6);
+        maestro = new Maestro();
+        String nombreUsuario = System.getProperty("nombreUsuario");
+        maestro = maestro.obtenerMaestro(nombreUsuario);
+        nombrePromociones = new ArrayList();
+        promociones = new ArrayList();
+        List<Promocion> promocionesAux = new ArrayList(maestro.getPromocionCollection());
+        for (Promocion promocion : promocionesAux) {
+            if (promocion.getParaInscripcion() == 0) {
+                if(promocion.getPromocionPK().getIdPromocion()==0)
+                    promocion.getPromocionPK().setIdPromocion(promocionesAux.size());
+                promociones.add(promocion);
+            }
+        }
+        nombrePromociones.add("Ninguna");
+        if (!promociones.isEmpty()) {
+            promociones.forEach((promocion) -> {
+                nombrePromociones.add(promocion.getCodigo());
+            });
+        }
+        ObservableList<String> items = FXCollections.observableArrayList();
+        items.addAll(nombrePromociones);
+        cboxPromocion.setItems(items);
+        cboxPromocion.getSelectionModel().select(0);
     }
 
     @Override
@@ -117,9 +144,6 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
 
     public void mostrarGruposMaestro() {
         lblFecha.setText(DateFormat.getDateInstance().format(new Date()));
-        maestro = new Maestro();
-        String nombreUsuario = System.getProperty("nombreUsuario");
-        maestro = maestro.obtenerMaestro(nombreUsuario);
         grupos = maestro.obtenerGruposMaestro(maestro.getMaestroPK().getIdMaestro());
         grupos.forEach((grupo) -> {
             nombresGrupos.add(grupo.getNombre());
@@ -176,7 +200,18 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
 
     @FXML
     private void añadirTotal(KeyEvent event) {
-        lblMontoTotal.setText(txtMonto.getText());
+        lblMontoTotal.setText("");
+        if (cboxPromocion.getSelectionModel().getSelectedIndex() == 0) {
+            montoFinal = Integer.parseInt(txtMonto.getText());
+            lblMontoTotal.setText(txtMonto.getText());
+        } else {
+            try {
+                montoFinal = (int) (Integer.parseInt(txtMonto.getText()) - ((Integer.parseInt(txtMonto.getText()))
+                        * (promociones.get(cboxPromocion.getSelectionModel().getSelectedIndex() - 1).getDescuento() * .01)));
+                lblMontoTotal.setText(String.valueOf(montoFinal));
+            } catch (NumberFormatException exception) {
+            }
+        }
     }
 
     @FXML
@@ -227,8 +262,11 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
                         pagoAlumno.setGrupo(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()));
                         pagoAlumno.setFechaPago(new Date());
+                        if (cboxPromocion.getSelectionModel().getSelectedIndex() != 0) {
+                            pagoAlumno.setPromocion(promociones.get(cboxPromocion.getSelectionModel().getSelectedIndex() - 1));
+                        }
                         pagoAlumno.setFechaVencimiento(fechaVencimiento);
-                        pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText()));
+                        pagoAlumno.setMonto(montoFinal);
                         if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
                             pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
                             pantallaDividida.getChildren().add(pnlPrincipal);
@@ -250,6 +288,12 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
 
     public boolean existenCamposErroneos() {
         return !txtMonto.validate();
+    }
+
+    @FXML
+    private void limpiarMonto(ActionEvent event) {
+        lblMontoTotal.setText("");
+        txtMonto.setText("");
     }
 
 }

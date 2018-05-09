@@ -111,7 +111,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <JFXComboBox fx:id="cboxPromocion" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <JFXComboBox fx:id="cboxPromocion" onAction="#limpiarMonto" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label fx:id="lblAlumno" prefHeight="27.0" prefWidth="163.0" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" />

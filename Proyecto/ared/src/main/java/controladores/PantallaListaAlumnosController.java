@@ -6,6 +6,7 @@
 package controladores;
 
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
+import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import interfaces.Controlador;
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
     public void setAlumnos(List<Alumno> alumnos) {
         this.alumnos = alumnos;
         mostrarAlumnos();
-    }    
+    }
 
     @Override
     public void setPantallaDividida(HBox pantallaDividida) {
@@ -57,10 +58,10 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
     }
-    
-    public void mostrarAlumnos(){
+
+    public void mostrarAlumnos() {
         ArrayList<String> nombresAlumnos = new ArrayList();
-        for(Alumno alumno: alumnos){
+        for (Alumno alumno : alumnos) {
             nombresAlumnos.add(alumno.getNombre() + " " + alumno.getApellidos());
         }
         ObservableList<String> items = FXCollections.observableArrayList();
