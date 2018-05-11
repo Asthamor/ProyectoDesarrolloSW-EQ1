@@ -246,7 +246,7 @@ public class Maestro extends Persona implements Serializable, IMaestro {
 
     @Override
     public String toString() {
-        return "modelo.Maestro[ maestroPK=" + maestroPK + " ]";
+        return nombre + " " + apellidos;
     }
 
     @Override

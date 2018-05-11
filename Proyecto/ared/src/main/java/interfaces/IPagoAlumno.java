@@ -11,6 +11,7 @@ import modelo.PagoAlumno;
  *
  * @author raymundo
  */
-public interface IPagoAlumno {
-   boolean registrarPagoMensual(PagoAlumno pago);
+public interface IPagoAlumno{
+   public boolean registrarPagoMensual(PagoAlumno pago);
+   
 }

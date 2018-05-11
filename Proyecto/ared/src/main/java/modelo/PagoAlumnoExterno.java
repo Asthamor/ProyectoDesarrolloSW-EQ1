@@ -5,9 +5,11 @@
  */
 package modelo;
 
+import clasesApoyo.Mensajes;
 import interfaces.IPagoAlumnoExterno;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -27,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import modelo.controladores.PagoAlumnoExternoJpaController;
 import modelo.controladores.PagoAlumnoJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -156,5 +159,31 @@ public class PagoAlumnoExterno implements Serializable, IPagoAlumnoExterno {
     public String toString() {
         return "modelo.PagoAlumnoExterno[ pagoAlumnoExternoPK=" + pagoAlumnoExternoPK + " ]";
     }
+    @Override
+    public boolean eliminar() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PagoAlumnoExternoJpaController controlador = new PagoAlumnoExternoJpaController(entityManagerFactory);
+    
+    try {
+      controlador.destroy(pagoAlumnoExternoPK);
+      return true;
+    } catch (NonexistentEntityException ex) {
+      Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return false;
+  }
+
+  @Override
+  public List<PagoAlumnoExterno> obtenerTodos() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PagoAlumnoExternoJpaController controlador = new PagoAlumnoExternoJpaController(entityManagerFactory);
+    List<PagoAlumnoExterno> pagos = controlador.findPagoAlumnoExternoEntities();
+    return pagos;
+  }
+  
+  public boolean generarRecibo(){
+    Mensajes.mensajeAlert("Por implementar");
+    return true;
+  }
     
 }

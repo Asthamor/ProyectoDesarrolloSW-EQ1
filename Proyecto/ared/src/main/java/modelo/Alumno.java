@@ -216,7 +216,7 @@ public class Alumno extends Persona implements Serializable, IAlumno {
 
   @Override
   public String toString() {
-    return "modelo.Alumno[ idAlumno=" + idAlumno + " ]";
+    return nombre + " " + apellidos;
   }
 
   @Override

@@ -161,7 +161,7 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Atención");
                             alert.setHeaderText("Atención");
-                            alert.setContentText("El ultimo pago se realizó el: " + DateFormat.getDateInstance().format(ultimoPago.getFechaPago()) + ","
+                            alert.setContentText("El ultimo pago se realizó el: " + DateFormat.getDateInstance().format(ultimoPago.getFecha()) + ","
                                     + "el proximo pago se debe realizar el: " + DateFormat.getDateInstance().format(fechaActualPago) + " ¿Seguro que desea continuar?");
 
                             Optional<ButtonType> result = alert.showAndWait();
@@ -180,7 +180,7 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
                     if (bandera != true) {
                         PagoMaestro pagoMaestro = new PagoMaestro();
                         pagoMaestro.setMaestro((Maestro) maestros.get(lstMaestros.getSelectionModel().getSelectedIndex()));
-                        pagoMaestro.setFechaPago(new Date());
+                        pagoMaestro.setFecha(new Date());
                         pagoMaestro.setFechaVencimiento(fechaVencimiento);
                         pagoMaestro.setMonto(Integer.parseInt(txtMonto.getText()));
                         if (pagoMaestro.registrarPago()) {

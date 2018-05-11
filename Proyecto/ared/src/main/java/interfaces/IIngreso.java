@@ -6,14 +6,15 @@
 package interfaces;
 
 import java.util.List;
-import modelo.PagoAlumnoExterno;
+import modelo.Ingreso;
 
 /**
  *
- * @author raymundo
+ * @author mau
  */
-public interface IPagoAlumnoExterno{
-    public boolean registrarPago();
-    public boolean eliminar();
-    public List<PagoAlumnoExterno> obtenerTodos();
+public interface IIngreso {
+  public boolean registrarPago();
+  public List<Ingreso> obtenerTodos();
+  public boolean generarRecibo();
+  public String getNombre();
 }

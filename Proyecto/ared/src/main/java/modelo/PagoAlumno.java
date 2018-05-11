@@ -26,6 +26,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import modelo.controladores.PagoAlumnoJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -47,10 +48,10 @@ import modelo.controladores.PagoAlumnoJpaController;
   , @NamedQuery(name = "PagoAlumno.findByGrupohorarioidHorario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupohorarioidHorario = :grupohorarioidHorario")})
 public class PagoAlumno implements Serializable, IPagoAlumno {
 
-    @Basic(optional = false)
-    @Column(name = "fecha_vencimiento")
-    @Temporal(TemporalType.DATE)
-    private Date fechaVencimiento;
+  @Basic(optional = false)
+  @Column(name = "fecha_vencimiento")
+  @Temporal(TemporalType.DATE)
+  private Date fechaVencimiento;
 
   private static final long serialVersionUID = 1L;
   @EmbeddedId
@@ -176,52 +177,54 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
   public String toString() {
     return "modelo.PagoAlumno[ pagoAlumnoPK=" + pagoAlumnoPK + " ]";
   }
-  
+
   @Override
   public boolean registrarPagoMensual(PagoAlumno pago) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
-        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
-        PagoAlumnoPK pagoPK = new PagoAlumnoPK();
-        pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
-        pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
-        pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
-        pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
-        pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
-        pago.setPagoAlumnoPK(pagoPK);
-        try {
-            controlador.create(pago);
-        } catch (Exception ex) {
-            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        return true;
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+    PagoAlumnoPK pagoPK = new PagoAlumnoPK();
+    pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
+    pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
+    pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
+    pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
+    pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
+    pago.setPagoAlumnoPK(pagoPK);
+    try {
+      controlador.create(pago);
+    } catch (Exception ex) {
+      Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
     }
-  
-  public boolean registrarPago(){
-     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
-        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
-        PagoAlumnoPK pagoPK = new PagoAlumnoPK();
-        pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
-        pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
-        pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
-        pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
-        pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
-        this.setPagoAlumnoPK(pagoPK);
-         try {
-            controlador.create(this);
-        } catch (Exception ex) {
-            Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        return true;
+    return true;
   }
 
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
+  public boolean registrarPago() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+    PagoAlumnoPK pagoPK = new PagoAlumnoPK();
+    pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
+    pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
+    pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
+    pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
+    pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
+    this.setPagoAlumnoPK(pagoPK);
+    try {
+      controlador.create(this);
+    } catch (Exception ex) {
+      Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
     }
+    return true;
+  }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
-    }
-  
+  public Date getFechaVencimiento() {
+    return fechaVencimiento;
+  }
+
+  public void setFechaVencimiento(Date fechaVencimiento) {
+    this.fechaVencimiento = fechaVencimiento;
+  }
+
+
+
 }

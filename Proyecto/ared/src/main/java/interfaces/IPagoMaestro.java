@@ -9,6 +9,6 @@ package interfaces;
  *
  * @author raymundo
  */
-public interface IPagoMaestro {
-    public boolean registrarPago();
+public interface IPagoMaestro extends IIngreso{
+   
 }

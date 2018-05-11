@@ -53,7 +53,7 @@ public class IPagoMaestroTest {
         Maestro maestro = new Maestro();
         maestro = (Maestro) maestro.obtenerTodos().get(0);
         pagoMaestro.setMaestro(maestro);
-        pagoMaestro.setFechaPago(new Date());
+        pagoMaestro.setFecha(new Date());
         pagoMaestro.setFechaVencimiento(new Date());
         pagoMaestro.setMonto(1);
         boolean expResult = true;
