@@ -49,6 +49,10 @@ import modelo.controladores.exceptions.NonexistentEntityException;
 public class PagoAlumno implements Serializable, IPagoAlumno {
 
   @Basic(optional = false)
+  @Column(name = "monto")
+  private double monto;
+
+  @Basic(optional = false)
   @Column(name = "fecha_vencimiento")
   @Temporal(TemporalType.DATE)
   private Date fechaVencimiento;
@@ -56,9 +60,6 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
   private static final long serialVersionUID = 1L;
   @EmbeddedId
   protected PagoAlumnoPK pagoAlumnoPK;
-  @Basic(optional = false)
-  @Column(name = "monto")
-  private int monto;
   @Column(name = "fechaPago")
   @Temporal(TemporalType.DATE)
   private Date fechaPago;
@@ -105,13 +106,6 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
     this.pagoAlumnoPK = pagoAlumnoPK;
   }
 
-  public int getMonto() {
-    return monto;
-  }
-
-  public void setMonto(int monto) {
-    this.monto = monto;
-  }
 
   public Date getFechaPago() {
     return fechaPago;
@@ -223,6 +217,14 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
 
   public void setFechaVencimiento(Date fechaVencimiento) {
     this.fechaVencimiento = fechaVencimiento;
+  }
+
+  public double getMonto() {
+    return monto;
+  }
+
+  public void setMonto(double monto) {
+    this.monto = monto;
   }
 
 

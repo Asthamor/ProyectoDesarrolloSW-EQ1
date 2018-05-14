@@ -8,8 +8,10 @@ package controladores;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -44,14 +46,18 @@ public class PantallaUsuariosController implements Initializable {
   @FXML
   private JFXButton btnRegistrarUsuario;
   @FXML
-  private JFXButton btnBuscar;
-  @FXML
   private JFXTextField txtNombreUsuario;
 
   private HBox pantallaDividida;
   private StackPane pnlPrincipal;
+
   private Persona persona;
   private List<Persona> personas;
+  private List<Persona> datosPersonas;
+  private boolean getActivos = true;
+
+  @FXML
+  private JFXToggleButton toggleActivos;
 
   /**
    * Initializes the controller class.
@@ -75,11 +81,24 @@ public class PantallaUsuariosController implements Initializable {
     this.persona = persona;
     etNombreUsuario.setText("Nombre del " + this.persona.getTipoUsario() + ":");
     btnRegistrarUsuario.setText("Registrar " + this.persona.getTipoUsario());
-    pnlUsuarios.getChildren().add(mostrarUsuarios(persona.obtenerTodos()));
+    obtenerDatos();
+  }
+
+  private void obtenerDatos() {
+    if (getActivos) {
+      datosPersonas = this.persona.obtenerActivos();
+      personas = new ArrayList();
+      personas.addAll(datosPersonas);
+      pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
+    } else {
+      datosPersonas = this.persona.obtenerInactivos();
+      personas = new ArrayList();
+      personas.addAll(datosPersonas);
+      pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
+    }
   }
 
   public GridPane mostrarUsuarios(List<Persona> personas) {
-    System.out.println(personas.size());
     GridPane grid = new GridPane();
     grid.setVgap(10);
     grid.setHgap(10);
@@ -135,7 +154,6 @@ public class PantallaUsuariosController implements Initializable {
     pantallaDividida.getChildren().add(pnlPrincipal);
   }
 
-  @FXML
   private void buscarUsuario(ActionEvent event) {
     if (txtNombreUsuario.getText().isEmpty()) {
       Mensajes.mensajeAlert("Ingrese el nombre del " + persona.getTipoUsario() + " que desea buscar");
@@ -148,13 +166,28 @@ public class PantallaUsuariosController implements Initializable {
 
   @FXML
   private void buscar(KeyEvent event) {
-    if (txtNombreUsuario.getText().isEmpty()) {
+    if (txtNombreUsuario.getText().trim().isEmpty()) {
       pnlUsuarios.getChildren().clear();
-      pnlUsuarios.getChildren().add(mostrarUsuarios(persona.obtenerTodos()));
+      personas.clear();
+      personas.addAll(datosPersonas);
+      pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
     } else {
+      personas.clear();
+      for (Persona p : datosPersonas) {
+        if (p.getNombre().toLowerCase().contains(txtNombreUsuario.getText().toLowerCase())) {
+          personas.add(p);
+        }
+      }
       pnlUsuarios.getChildren().clear();
-      pnlUsuarios.getChildren().add(mostrarUsuarios(persona.buscar(txtNombreUsuario.getText())));
+      pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
     }
+  }
+
+  @FXML
+  private void toggleActivos(ActionEvent event) {
+    getActivos = toggleActivos.isSelected();
+    obtenerDatos();
+
   }
 
 }

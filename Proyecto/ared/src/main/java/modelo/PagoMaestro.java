@@ -47,11 +47,13 @@ import modelo.controladores.PagoMaestroJpaController;
   , @NamedQuery(name = "PagoMaestro.findByMaestrousuarionombreUsuario", query = "SELECT p FROM PagoMaestro p WHERE p.pagoMaestroPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
 public class PagoMaestro extends Ingreso implements Serializable, IPagoMaestro {
 
+  // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+  @Column(name = "monto")
+  private Double monto;
+
   private static final long serialVersionUID = 1L;
   @EmbeddedId
   protected PagoMaestroPK pagoMaestroPK;
-  @Column(name = "monto")
-  private Integer monto;
   @Column(name = "fecha")
   @Temporal(TemporalType.DATE)
   private Date fecha;
@@ -90,13 +92,6 @@ public class PagoMaestro extends Ingreso implements Serializable, IPagoMaestro {
     this.pagoMaestroPK = pagoMaestroPK;
   }
 
-  public Integer getMonto() {
-    return monto;
-  }
-
-  public void setMonto(Integer monto) {
-    this.monto = monto;
-  }
 
   public Integer getPlazo() {
     return plazo;
@@ -202,6 +197,19 @@ public class PagoMaestro extends Ingreso implements Serializable, IPagoMaestro {
   public String getTipo(){
     super.tipo = "Maestro"; 
    return tipo;
+  }
+
+  @Override
+  public Double getMonto() {
+    return monto;
+  }
+  
+  @Override
+  public Date getDate(){
+    return fecha;
+  }
+  public void setMonto(Double monto) {
+    this.monto = monto;
   }
 
 }

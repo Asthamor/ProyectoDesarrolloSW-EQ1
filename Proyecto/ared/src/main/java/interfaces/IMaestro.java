@@ -15,7 +15,6 @@ import modelo.Maestro;
  */
 public interface IMaestro extends IPersona {
     public Maestro obtenerDatos(String maestro);
-    public List<Maestro> obtenerActivos();
     public boolean obtenerEstado();
     public String obtenerImagen();
     public List<Grupo> obtenerGruposMaestro(int idMaestro);

@@ -52,8 +52,8 @@ import modelo.controladores.exceptions.NonexistentEntityException;
   , @NamedQuery(name = "Cliente.findByImgFoto", query = "SELECT c FROM Cliente c WHERE c.imgFoto = :imgFoto")})
 public class Cliente extends Persona implements Serializable {
 
-    @Column(name = "esActivo")
-    private String esActivo;
+  @Column(name = "esActivo")
+  private Boolean esActivo;
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -190,7 +190,7 @@ public class Cliente extends Persona implements Serializable {
       }
       File f = new File(this.imgFoto);
       imageDirectory = new File(
-          imagePath + f.getName() + nombreUsuario);
+              imagePath + f.getName() + nombreUsuario);
       System.out.println(f.toPath());
       System.out.println(imageDirectory.toPath());
       try {
@@ -274,8 +274,8 @@ public class Cliente extends Persona implements Serializable {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
     //Registrar usuario y contraseña y obtener el nuevo usuario para el Maestro
-    String nombreUsuario = persona.getNombre().replace(" ", "") + 
-            persona.getApellidos().replace(" ", "") + "cliente";
+    String nombreUsuario = persona.getNombre().replace(" ", "")
+            + persona.getApellidos().replace(" ", "") + "cliente";
     //Copiar el archivo de imagen al directorio de la aplicación
     guardarImagen(nombreUsuario);
     try {
@@ -312,12 +312,45 @@ public class Cliente extends Persona implements Serializable {
     return seActualizo;
   }
 
-    public String getEsActivo() {
-        return esActivo;
-    }
 
-    public void setEsActivo(String esActivo) {
-        this.esActivo = esActivo;
+  @Override
+  public List<Persona> obtenerActivos() {
+    EntityManagerFactory entityManagerFactory = Persistence
+            .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
+    List<Cliente> clientes = controlador.findClienteEntities();
+    List<Persona> activos = new ArrayList<>();
+    for (Cliente c : clientes) {
+      if (c.getEsActivo()) {
+        activos.add(c);
+      }
     }
+    return activos;
+  }
+    @Override
+  public List<Persona> obtenerInactivos() {
+    EntityManagerFactory entityManagerFactory = Persistence
+            .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    ClienteJpaController controlador = new ClienteJpaController(entityManagerFactory);
+    List<Cliente> clientes = controlador.findClienteEntities();
+    List<Persona> activos = new ArrayList<>();
+    for (Cliente c : clientes) {
+      if (!c.getEsActivo()) {
+        activos.add(c);
+      }
+    }
+    return activos;
+  }
+
+  public boolean getEsActivo() {
+    if (esActivo != null){
+      return esActivo;
+    }
+    return false;
+  }
+
+  public void setEsActivo(Boolean esActivo) {
+    this.esActivo = esActivo;
+  }
 
 }

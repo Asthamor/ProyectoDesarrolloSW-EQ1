@@ -134,7 +134,7 @@ public class PantallaEditarPerfilController implements Initializable, Controlado
       persona.actualizarDatos(imgFlag);
       Mensajes.mensajeExitoso("Los cambios se han guardado");
     } else if (passControl == -1){
-      persona.actualizarDatos();
+      persona.actualizarDatos(imgFlag);
       Mensajes.mensajeExitoso("Los cambios se han guardado");
     }
     

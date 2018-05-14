@@ -42,14 +42,15 @@ import modelo.controladores.PagoRentaJpaController;
   , @NamedQuery(name = "PagoRenta.findByFecha", query = "SELECT p FROM PagoRenta p WHERE p.fecha = :fecha")})
 public class PagoRenta extends Ingreso implements Serializable, IIngreso {
 
+  @Basic(optional = false)
+  @Column(name = "monto")
+  private double monto;
+
   private static final long serialVersionUID = 1L;
   @Id
   @Basic(optional = false)
   @Column(name = "idPago")
   private Integer idPago;
-  @Basic(optional = false)
-  @Column(name = "monto")
-  private int monto;
   @Column(name = "fecha")
   @Temporal(TemporalType.DATE)
   private Date fecha;
@@ -79,13 +80,6 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
     this.idPago = idPago;
   }
 
-  public int getMonto() {
-    return monto;
-  }
-
-  public void setMonto(int monto) {
-    this.monto = monto;
-  }
 
   public Date getFecha() {
     return fecha;
@@ -167,6 +161,14 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
   public String getTipo(){
     super.tipo = "Renta";
     return tipo;
+  }
+  @Override
+  public Date getDate(){
+    return fecha;
+  }
+
+  public void setMonto(double monto) {
+    this.monto = monto;
   }
 
 }

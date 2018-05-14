@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Egreso.findByFecha", query = "SELECT e FROM Egreso e WHERE e.fecha = :fecha")})
 public class Egreso implements Serializable {
 
+  @Basic(optional = false)
+  @Column(name = "monto")
+  private double monto;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -45,9 +49,6 @@ public class Egreso implements Serializable {
     @Basic(optional = false)
     @Column(name = "concepto")
     private String concepto;
-    @Basic(optional = false)
-    @Column(name = "monto")
-    private int monto;
     @Basic(optional = false)
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -85,13 +86,6 @@ public class Egreso implements Serializable {
         this.concepto = concepto;
     }
 
-    public int getMonto() {
-        return monto;
-    }
-
-    public void setMonto(int monto) {
-        this.monto = monto;
-    }
 
     public Date getFecha() {
         return fecha;
@@ -134,5 +128,13 @@ public class Egreso implements Serializable {
     public String toString() {
         return "modelo.Egreso[ idEgreso=" + idEgreso + " ]";
     }
+
+  public double getMonto() {
+    return monto;
+  }
+
+  public void setMonto(double monto) {
+    this.monto = monto;
+  }
     
 }

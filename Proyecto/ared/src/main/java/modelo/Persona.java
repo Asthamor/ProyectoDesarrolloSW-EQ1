@@ -25,6 +25,8 @@ public abstract class Persona implements IPersona {
 
     @Override
     public abstract List<Persona> obtenerTodos();
+    
+    
 
     @Override
     public abstract boolean actualizarDatos();

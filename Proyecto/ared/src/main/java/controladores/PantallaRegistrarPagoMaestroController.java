@@ -182,7 +182,7 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
                         pagoMaestro.setMaestro((Maestro) maestros.get(lstMaestros.getSelectionModel().getSelectedIndex()));
                         pagoMaestro.setFecha(new Date());
                         pagoMaestro.setFechaVencimiento(fechaVencimiento);
-                        pagoMaestro.setMonto(Integer.parseInt(txtMonto.getText()));
+                        pagoMaestro.setMonto(Double.parseDouble(txtMonto.getText()));
                         if (pagoMaestro.registrarPago()) {
                             pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoMaestro.fxml", this.pnlPrincipal, this.pantallaDividida));
                             pantallaDividida.getChildren().add(pnlPrincipal);

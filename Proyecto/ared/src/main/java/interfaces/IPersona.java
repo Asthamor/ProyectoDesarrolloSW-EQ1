@@ -14,6 +14,8 @@ import modelo.Persona;
  */
 public interface IPersona {
     public List<Persona> obtenerTodos();
+    public List<Persona> obtenerActivos();
+    public List<Persona> obtenerInactivos();
     public boolean actualizarDatos();
     public boolean actualizarDatos(Persona persona);
     public boolean actualizarDatos(boolean editarImagen);

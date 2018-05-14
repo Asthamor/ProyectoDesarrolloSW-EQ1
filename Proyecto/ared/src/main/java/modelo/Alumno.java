@@ -56,9 +56,9 @@ import modelo.controladores.exceptions.NonexistentEntityException;
   , @NamedQuery(name = "Alumno.findByImgFoto", query = "SELECT a FROM Alumno a WHERE a.imgFoto = :imgFoto")})
 public class Alumno extends Persona implements Serializable, IAlumno {
 
-    @Basic(optional = false)
-    @Column(name = "esActivo")
-    private boolean esActivo;
+  @Basic(optional = false)
+  @Column(name = "esActivo")
+  private boolean esActivo;
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -313,7 +313,7 @@ public class Alumno extends Persona implements Serializable, IAlumno {
       }
       File f = new File(this.imgFoto);
       imageDirectory = new File(
-          imagePath + f.getName() + nombreUsuario);
+              imagePath + f.getName() + nombreUsuario);
       System.out.println(f.toPath());
       System.out.println(imageDirectory.toPath());
 
@@ -346,12 +346,43 @@ public class Alumno extends Persona implements Serializable, IAlumno {
     return seActualizo;
   }
 
-    public boolean getEsActivo() {
-        return esActivo;
-    }
+  public boolean getEsActivo() {
+    return esActivo;
+  }
 
-    public void setEsActivo(boolean esActivo) {
-        this.esActivo = esActivo;
+  public void setEsActivo(boolean esActivo) {
+    this.esActivo = esActivo;
+  }
+
+  @Override
+  public List<Persona> obtenerActivos() {
+    EntityManagerFactory entityManagerFactory = Persistence
+            .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
+    List<Alumno> alumnos = controlador.findAlumnoEntities();
+    List<Persona> activos = new ArrayList<>();
+    for (Alumno a : alumnos) {
+      if (a.getEsActivo()) {
+        activos.add(a);
+      }
     }
+    return activos;
+  }
+
+  @Override
+  public List<Persona> obtenerInactivos() {
+    EntityManagerFactory entityManagerFactory = Persistence
+            .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
+    List<Alumno> alumnos = controlador.findAlumnoEntities();
+    List<Persona> activos = new ArrayList<>();
+    for (Alumno a : alumnos) {
+      if (!a.getEsActivo()) {
+        activos.add(a);
+      }
+    }
+    return activos;
+  }
+
 
 }

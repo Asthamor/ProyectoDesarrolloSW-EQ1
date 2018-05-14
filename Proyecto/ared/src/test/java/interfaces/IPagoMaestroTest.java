@@ -55,7 +55,7 @@ public class IPagoMaestroTest {
         pagoMaestro.setMaestro(maestro);
         pagoMaestro.setFecha(new Date());
         pagoMaestro.setFechaVencimiento(new Date());
-        pagoMaestro.setMonto(1);
+        pagoMaestro.setMonto(1.0);
         boolean expResult = true;
         boolean result = pagoMaestro.registrarPago();
         assertEquals(expResult, result);

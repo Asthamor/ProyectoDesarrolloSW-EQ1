@@ -17,4 +17,5 @@ public interface IIngreso {
   public List<Ingreso> obtenerTodos();
   public boolean generarRecibo();
   public String getNombre();
+  public Double getMonto();
 }

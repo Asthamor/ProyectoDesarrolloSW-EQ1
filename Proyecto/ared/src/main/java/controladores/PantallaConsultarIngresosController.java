@@ -9,37 +9,39 @@ import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+//import com.jfoenix.controls.JFXButton.ButtonType;
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import interfaces.Controlador;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Ingreso;
-import modelo.PagoAlumno;
 import modelo.PagoAlumnoExterno;
 import modelo.PagoMaestro;
 import modelo.PagoRenta;
@@ -82,7 +84,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
   @FXML
   private TableColumn<Ingreso, String> tcTipo;
   @FXML
-  private TableColumn<Ingreso, Integer> tcMonto;
+  private TableColumn<Ingreso, Double> tcMonto;
   @FXML
   private TableColumn<Ingreso, String> tcNombre;
   @FXML
@@ -96,13 +98,17 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
   @FXML
   private TableColumn<PagoAlumnoExterno, Date> tcFechaPaAlumn;
   @FXML
-  private TableColumn<PagoAlumnoExterno, Integer> tcMontoPaAlumn;
+  private TableColumn<PagoAlumnoExterno, Double> tcMontoPaAlumn;
   @FXML
   private TableColumn<PagoAlumnoExterno, PagoAlumnoExterno> tcEliminar;
   @FXML
   private JFXTextField txtBuscarPago;
 
   private Object selectedIndex;
+  @FXML
+  private StackPane stack;
+  @FXML
+  private JFXButton btnEstadisticas;
 
   /**
    * Initializes the controller class.
@@ -159,9 +165,9 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
   private void setCurrencyFormatters() {
     tcMonto.setCellFactory(column -> {
-      return new TableCell<Ingreso, Integer>() {
+      return new TableCell<Ingreso, Double>() {
         @Override
-        protected void updateItem(Integer item, boolean empty) {
+        protected void updateItem(Double item, boolean empty) {
           super.updateItem(item, empty);
 
           if (item == null || empty) {
@@ -177,9 +183,9 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
     });
 
     tcMontoPaAlumn.setCellFactory(column -> {
-      return new TableCell<PagoAlumnoExterno, Integer>() {
+      return new TableCell<PagoAlumnoExterno, Double>() {
         @Override
-        protected void updateItem(Integer item, boolean empty) {
+        protected void updateItem(Double item, boolean empty) {
           super.updateItem(item, empty);
 
           if (item == null || empty) {
@@ -221,9 +227,9 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
     tcEliminar.setCellValueFactory(
             param -> new ReadOnlyObjectWrapper<>(param.getValue())
     );
-    tcEliminar.setCellFactory(param -> new TableCell<PagoAlumnoExterno, PagoAlumnoExterno>() {
-      private final JFXButton delete = new JFXButton("Eliminar");
 
+    tcEliminar.setCellFactory(param -> new TableCell<PagoAlumnoExterno, PagoAlumnoExterno>() {
+      private final JFXButton delete = new JFXButton("", GlyphsDude.createIcon(FontAwesomeIcon.TRASH, "15px"));
       @Override
       protected void updateItem(PagoAlumnoExterno item, boolean empty) {
         super.updateItem(item, empty);
@@ -235,10 +241,16 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
         setGraphic(delete);
         delete.setOnAction(event -> {
           PagoAlumnoExterno seleccion = item;
-          if (item.eliminar()) {
-            getTableView().getItems().remove(item);
-            datosPagoAlumnos.remove(seleccion);
+          javafx.scene.control.ButtonType respuesta = Mensajes.dialogoConfirmacion("Confirmar eliminar",
+                  "Desea eliminar el registro\n"
+                  + ((PagoAlumnoExterno) item).toString());
+          if (respuesta == javafx.scene.control.ButtonType.APPLY) {
+            if (item.eliminar()) {
+              getTableView().getItems().remove(item);
+              datosPagoAlumnos.remove(seleccion);
+            }
           }
+
         });
       }
     });
@@ -284,12 +296,12 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
     String busqueda = txtBuscarPAlumno.getText().toLowerCase();
     if (!busqueda.isEmpty()) {
       pagosAlumnos.clear();
-      for (PagoAlumnoExterno pae : datosPagoAlumnos) {
-        if (pae.getAlumno().toString().toLowerCase().contains(busqueda)
-                || pae.getMaestro().toString().toLowerCase().contains(busqueda)) {
-          pagosAlumnos.add(pae);
-        }
-      }
+      datosPagoAlumnos.stream().filter((pae) -> 
+              (pae.getAlumno().toString().toLowerCase().contains(busqueda)
+              || pae.getMaestro().toString().toLowerCase().contains(busqueda)))
+              .forEachOrdered((pae) -> {
+                pagosAlumnos.add(pae);
+      });
       tbPagosAlumnos.setItems(pagosAlumnos);
     } else {
       pagosAlumnos.clear();
@@ -311,8 +323,23 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
           ((PagoMaestro) selectedIndex).generarRecibo();
         }
       }
-
     }
+  }
 
+  @FXML
+  private void mostrarEstadisticas(ActionEvent event) {
+    PantallaPrincipalDirectorController.limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
+    Parent root = null;
+    FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaEstadisticas.fxml"));
+    try {
+      root = (Parent) loader.load();
+    } catch (IOException ex) {
+      Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    PantallaEstadisticasController controlador = loader.getController();
+    controlador.setPantallaDividida(pantallaDividida);
+    controlador.setPnlPrincipal(pnlPrincipal);
+    pnlPrincipal.getChildren().add(root);
+    pantallaDividida.getChildren().add(pnlPrincipal);
   }
 }

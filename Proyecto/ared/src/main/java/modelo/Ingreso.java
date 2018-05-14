@@ -23,5 +23,10 @@ public abstract class Ingreso implements IIngreso{
     return fecha;
   }
   
+  @Override
+  public Double getMonto(){
+    return monto;
+  }
+  
   
 }
