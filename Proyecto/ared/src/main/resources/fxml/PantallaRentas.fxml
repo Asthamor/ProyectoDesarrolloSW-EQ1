@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane prefHeight="718.0" prefWidth="775.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRentasController">
+   <center>
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="TOP_RIGHT" prefHeight="718.0" prefWidth="715.0" spacing="10.0">
+               <children>
+                  <TableView fx:id="tbRentas" prefHeight="644.0" prefWidth="715.0">
+                    <columns>
+                      <TableColumn fx:id="colCliente" prefWidth="218.0" text="Cliente" />
+                      <TableColumn fx:id="colFecha" prefWidth="176.0" text="Fecha" />
+                        <TableColumn fx:id="colHorario" prefWidth="248.0" text="Horario" />
+                        <TableColumn fx:id="colPagado" prefWidth="72.0" text="Pagado" />
+                    </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnNuevaRenta" alignment="CENTER" contentDisplay="CENTER" onAction="#crearRenta" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #c08ed6;" text="Nueva renta" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <Pane prefHeight="400.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="400.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

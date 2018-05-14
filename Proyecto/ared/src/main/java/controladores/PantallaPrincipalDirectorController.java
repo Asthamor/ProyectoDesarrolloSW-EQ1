@@ -131,6 +131,10 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
   @FXML
   private void abrirVentanaRentas(ActionEvent event) {
+      imagen.setVisible(false);
+    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml", 
+            this.pnlPrincipal, this.pantallaDividida));
+    pantallaDividida.getChildren().add(pnlPrincipal);
   }
 
   @FXML

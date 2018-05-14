@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import modelo.Grupo;
 import modelo.Maestro;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -61,6 +62,32 @@ public class IMaestroTest {
         boolean expResult = true;
         Maestro maestro = instance.obtenerMaestro("IrvinVera");
         boolean result = maestro != null;
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testObtenerGruposMaestro(){
+        Maestro maestroPrueba = new Maestro();
+        if(maestroPrueba.obtenerMaestro("IstaelOzuna") == null){
+            maestroPrueba.setApellidos("Ozuna");
+            maestroPrueba.setNombre("Istael");
+            maestroPrueba.setTelefono("25578");
+            maestroPrueba.registrar(maestroPrueba);
+           
+            
+            
+        }
+        
+        Grupo grupo = new Grupo();
+        
+        
+        System.out.println("obtenerGruposMaestro");
+
+        boolean expResult = true;
+        
+        boolean result = true;
+        
+        System.out.println(maestroPrueba.obtenerMaestro("IstaelOzuna"));
         assertEquals(expResult, result);
     }
 

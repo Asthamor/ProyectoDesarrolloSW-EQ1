@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="pnlPrincipal" onMouseClicked="#reservarHora" onMouseEntered="#cambiarColor" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TarjetaHorarioRentaController">
+   <children>
+      <GridPane prefHeight="31.0" prefWidth="666.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="589.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="93.0" minWidth="0.0" prefWidth="66.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="lblNombreGrupo" text="Label" />
+            <JFXButton fx:id="btnLibre" onAction="#horaLibre" ripplerFill="#a4a1a1" text="" GridPane.columnIndex="1">
+               <graphic>
+                  <FontAwesomeIconView glyphName="TIMES_CIRCLE_ALT" size="20" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </GridPane>
+   </children>
+</StackPane>

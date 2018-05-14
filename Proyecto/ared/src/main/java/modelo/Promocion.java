@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import interfaces.IPromocion;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -25,7 +26,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import modelo.controladores.AlumnoJpaController;
 import modelo.controladores.PromocionJpaController;
 
 /**
@@ -43,7 +43,7 @@ import modelo.controladores.PromocionJpaController;
     , @NamedQuery(name = "Promocion.findByDescuento", query = "SELECT p FROM Promocion p WHERE p.descuento = :descuento")
     , @NamedQuery(name = "Promocion.findByMaestroidMaestro", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestroidMaestro = :maestroidMaestro")
     , @NamedQuery(name = "Promocion.findByMaestrousuarionombreUsuario", query = "SELECT p FROM Promocion p WHERE p.promocionPK.maestrousuarionombreUsuario = :maestrousuarionombreUsuario")})
-public class Promocion implements Serializable {
+public class Promocion implements Serializable, IPromocion {
 
     @Column(name = "paraInscripcion")
     private Short paraInscripcion;
@@ -166,6 +166,7 @@ public class Promocion implements Serializable {
         this.paraInscripcion = paraInscripcion;
     }
 
+    @Override
     public boolean crearPromocion() {
         boolean seCreo = false;
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);

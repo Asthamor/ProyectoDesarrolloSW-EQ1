@@ -5,15 +5,21 @@
  */
 package modelo;
 
+import interfaces.IRenta;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import modelo.controladores.RentaJpaController;
 
 /**
  *
@@ -28,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Renta.findByClienteidCliente", query = "SELECT r FROM Renta r WHERE r.rentaPK.clienteidCliente = :clienteidCliente")
     , @NamedQuery(name = "Renta.findByPagoRentaidPago", query = "SELECT r FROM Renta r WHERE r.rentaPK.pagoRentaidPago = :pagoRentaidPago")
     , @NamedQuery(name = "Renta.findByHorarioidHorario", query = "SELECT r FROM Renta r WHERE r.rentaPK.horarioidHorario = :horarioidHorario")})
-public class Renta implements Serializable {
+public class Renta implements Serializable, IRenta {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -109,6 +115,31 @@ public class Renta implements Serializable {
     @Override
     public String toString() {
         return "modelo.Renta[ rentaPK=" + rentaPK + " ]";
+    }
+
+    @Override
+    public List<Renta> obtenerTodaRentas() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
+        return controlador.findRentaEntities();
+    }
+
+    @Override
+    public boolean crearRenta() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
+        
+        return true;
+    }
+
+    @Override
+    public boolean editarRenta() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Renta> buscarRenta(Date fecha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
