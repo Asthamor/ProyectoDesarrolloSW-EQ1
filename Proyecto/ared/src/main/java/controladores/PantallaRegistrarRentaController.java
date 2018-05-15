@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import static controladores.PantallaGruposController.crearArchivoXML;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import interfaces.Controlador;
+import interfaces.IControladorRentas;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -46,7 +47,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
@@ -55,7 +55,7 @@ import org.dom4j.io.XMLWriter;
  *
  * @author alonso
  */
-public class PantallaRegistrarRentaController implements Initializable, Controlador {
+public class PantallaRegistrarRentaController implements Initializable, Controlador, IControladorRentas {
 
     @FXML
     private JFXDatePicker txtDia;
@@ -113,10 +113,12 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         this.pnlPrincipal = pnlPrincipal;
     }
 
+    @Override
     public ArrayList<Integer> getHorarioRenta() {
         return horarioRenta;
     }
 
+    @Override
     public void agregarHora(int fila) {
         horarioRenta.add(fila);
         Collections.sort(horarioRenta);
@@ -139,7 +141,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
             gridHorario.add(crearTarjetaHorario("", "", true, false, i), 1, i);
         }
     }
-
+    
     public void mostrarFechaActual() {
         txtDia.setValue(LocalDate.now());
         lblFecha.setText(txtDia.getValue().toString());
@@ -162,6 +164,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         cmbCliente.setItems(items);
     }
 
+    @Override
     public void mostrarHorarios() {
         if (mapas == null) {
             mapas = new Mapas();

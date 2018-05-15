@@ -6,6 +6,7 @@
 package controladores;
 
 import com.jfoenix.controls.JFXButton;
+import interfaces.IControladorRentas;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
@@ -43,7 +44,7 @@ public class TarjetaHorarioRentaController implements Initializable {
     private final Background focusBackground = new Background(new BackgroundFill(Color.web("#BDC3C7"), CornerRadii.EMPTY, Insets.EMPTY));
     private final Background unfocusBackground = new Background(new BackgroundFill(Color.web("#e0e0e0"), CornerRadii.EMPTY, Insets.EMPTY));
     private int fila;
-    private PantallaRegistrarRentaController controlador;
+    private IControladorRentas controlador;
 
     /**
      * Initializes the controller class.
@@ -61,17 +62,18 @@ public class TarjetaHorarioRentaController implements Initializable {
         this.fila = fila;
     }
 
-    public void setControlador(PantallaRegistrarRentaController controlador) {
+    public void setControlador(IControladorRentas controlador) {
         this.controlador = controlador;
     }
 
     public void setHoraLibre(boolean horaLibre) {
         this.horaLibre = horaLibre;
-        if (this.horaLibre) {
+        if (this.horaLibre && !esGrupo) {
             btnLibre.setVisible(false);
             lblNombreGrupo.setText("");
         } else {
-            btnLibre.setVisible(true);
+            if(horaLibre)
+                btnLibre.setVisible(true);
             ocupado = new Background(new BackgroundFill(Color.web(this.colorEvento), CornerRadii.EMPTY, Insets.EMPTY));
             pnlPrincipal.backgroundProperty().bind(Bindings
                     .when(pnlPrincipal.focusedProperty())

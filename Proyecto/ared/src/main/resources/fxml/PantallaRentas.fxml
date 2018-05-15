@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="718.0" prefWidth="715.0" spacing="10.0">
                <children>
-                  <TableView fx:id="tbRentas" prefHeight="644.0" prefWidth="715.0">
+                  <TableView fx:id="tbRentas" onMouseClicked="#mostrarDetallesRenta" prefHeight="644.0" prefWidth="715.0">
                     <columns>
                       <TableColumn fx:id="colCliente" prefWidth="276.0" text="Cliente" />
                       <TableColumn fx:id="colFecha" prefWidth="189.0" text="Fecha" />

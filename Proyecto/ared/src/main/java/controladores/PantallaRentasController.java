@@ -10,7 +10,6 @@ import interfaces.Controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,13 +23,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import modelo.Renta;
 import modelo.RentaXML;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 /**
@@ -122,6 +120,29 @@ public class PantallaRentasController implements Initializable, Controlador {
     @Override
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
+    }
+
+    @FXML
+    private void mostrarDetallesRenta(MouseEvent event) {
+        RentaXML renta = tbRentas.getSelectionModel().getSelectedItem();
+        Parent root = null;
+        StackPane pnlSecundario = new StackPane();
+        FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaEditarRenta.fxml"));
+        try {
+            root = (Parent) loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        PantallaEditarRentaController controlador = loader.getController();
+        controlador.setRentaXML(renta);
+        controlador.setPantallaDividida(pantallaDividida);
+        pnlSecundario.getChildren().add(root);
+        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
+        if(pantallaDividida.getChildren().size() > 1){
+            pantallaDividida.getChildren().remove(1);
+        }
+        pantallaDividida.getChildren().add(pnlSecundario);
     }
 
 }
