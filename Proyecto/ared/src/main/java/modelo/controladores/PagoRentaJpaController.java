@@ -206,5 +206,15 @@ public class PagoRentaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public PagoRenta obtenerUltimoPago() {
+        EntityManager em = getEntityManager();
+        PagoRenta pagoRenta = null;
+        try {
+            pagoRenta = (PagoRenta) em.createNamedQuery("PagoRenta.obtenerUltimoPago").setMaxResults(1).getSingleResult();
+        } finally {
+            em.close();
+        }
+        return pagoRenta;
+    }
 }

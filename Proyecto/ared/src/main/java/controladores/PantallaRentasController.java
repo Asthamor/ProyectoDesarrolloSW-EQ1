@@ -9,10 +9,13 @@ import com.jfoenix.controls.JFXButton;
 import interfaces.Controlador;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +27,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Renta;
+import modelo.RentaXML;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 /**
  * FXML Controller class
@@ -33,26 +41,38 @@ import modelo.Renta;
 public class PantallaRentasController implements Initializable, Controlador {
 
     @FXML
-    private TableView<Renta> tbRentas;
+    private TableView<RentaXML> tbRentas;
     @FXML
-    private TableColumn<Renta, String> colCliente;
+    private TableColumn<RentaXML, String> colCliente;
     @FXML
-    private TableColumn<Renta, String> colFecha;
+    private TableColumn<RentaXML, String> colFecha;
     @FXML
-    private TableColumn<Renta, String> colHorario;
+    private TableColumn<RentaXML, String> colHorario;
     @FXML
-    private TableColumn<Renta, String> colPagado;
+    private TableColumn<RentaXML, String> colMonto;
     @FXML
     private JFXButton btnNuevaRenta;
+    
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
+    private List<RentaXML> rentas;
+    private Document document;
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        rentas = new ArrayList();
+        PantallaGruposController.crearArchivoXML();
+        SAXReader reader = new SAXReader();
+        try {
+            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+        } catch (DocumentException ex) {
+            Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        mostrarRentas();
     }
 
     @FXML
@@ -73,18 +93,30 @@ public class PantallaRentasController implements Initializable, Controlador {
     }
     
     public void mostrarRentas(){
-        Renta renta = new Renta();
-        List<Renta> rentas = renta.obtenerTodaRentas();
-        
-        colCliente = new TableColumn("cliente");
-        colCliente.setCellValueFactory(new PropertyValueFactory<Renta, String>("cliente"));
-        
+        leerRentasXML();
+        colCliente.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("nombreCliente"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("dia"));
+        colHorario.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("horario"));
+        colMonto.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("monto"));
+        tbRentas.setItems(FXCollections.observableArrayList(rentas));
+    }
+    
+    public void leerRentasXML(){
+        List<org.dom4j.Node> nodos = document.selectNodes("/ared/rentas/renta");
+        for(org.dom4j.Node renta: nodos){
+            RentaXML rentaXML = new RentaXML();
+            rentaXML.setId(renta.valueOf("@id"));
+            rentaXML.setDia(renta.valueOf("@dia"));
+            rentaXML.setNombreCliente(renta.selectSingleNode("cliente").getText());
+            rentaXML.setHorario(renta.selectSingleNode("horario").getText());
+            rentaXML.setMonto(renta.selectSingleNode("monto").getText());
+            rentas.add(rentaXML);
+        }
     }
 
     @Override
     public void setPantallaDividida(HBox pantallaDividida) {
         this.pantallaDividida = pantallaDividida;
-        mostrarRentas();
     }
 
     @Override

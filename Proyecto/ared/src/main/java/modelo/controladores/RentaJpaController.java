@@ -40,9 +40,9 @@ public class RentaJpaController implements Serializable {
         if (renta.getRentaPK() == null) {
             renta.setRentaPK(new RentaPK());
         }
+        renta.getRentaPK().setHorarioidHorario(renta.getHorario().getIdHorario());
         renta.getRentaPK().setClienteidCliente(renta.getCliente().getIdCliente());
         renta.getRentaPK().setPagoRentaidPago(renta.getPagoRenta().getIdPago());
-        renta.getRentaPK().setHorarioidHorario(renta.getHorario().getIdHorario());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -89,9 +89,9 @@ public class RentaJpaController implements Serializable {
     }
 
     public void edit(Renta renta) throws NonexistentEntityException, Exception {
+        renta.getRentaPK().setHorarioidHorario(renta.getHorario().getIdHorario());
         renta.getRentaPK().setClienteidCliente(renta.getCliente().getIdCliente());
         renta.getRentaPK().setPagoRentaidPago(renta.getPagoRenta().getIdPago());
-        renta.getRentaPK().setHorarioidHorario(renta.getHorario().getIdHorario());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -237,6 +237,17 @@ public class RentaJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public String obtenerUltimoRegistro(){
+        EntityManager em = getEntityManager();
+        String id = "";
+        try{
+            id = em.createNamedQuery("Renta.obtenerUltimoRegistro").setMaxResults(1).getSingleResult().toString();
+        }finally{
+            em.close();
+        }
+        return id;
     }
     
 }

@@ -116,33 +116,41 @@ public class TarjetaHorarioRentaController implements Initializable {
                     .otherwise(ocupado)
             );
             lblNombreGrupo.setText("Reservado");
-            
+
             controlador.agregarHora(fila);
             controlador.mostrarHorarios();
         }
     }
-    
-    public boolean esHoraSalteada(){
+
+    public boolean esHoraSalteada() {
         boolean horaSalteada = true;
-        if(controlador.getHorarioRenta().isEmpty()){
+        if (controlador.getHorarioRenta().isEmpty()) {
             horaSalteada = false;
-        }else{
-            int ultimoElemnto = controlador.getHorarioRenta().size()-1;
-            horaSalteada = !((controlador.getHorarioRenta().get(0) == fila +1) || (controlador.getHorarioRenta().get(ultimoElemnto) == fila -1));
+        } else {
+            int ultimoElemnto = controlador.getHorarioRenta().size() - 1;
+            horaSalteada = !((controlador.getHorarioRenta().get(0) == fila + 1) || (controlador.getHorarioRenta().get(ultimoElemnto) == fila - 1));
         }
         return horaSalteada;
     }
 
     @FXML
     private void horaLibre(ActionEvent event) {
-        btnLibre.setVisible(false);
-        lblNombreGrupo.setText("");
-        pnlPrincipal.backgroundProperty().bind(Bindings
-                .when(pnlPrincipal.focusedProperty())
-                .then(focusBackground)
-                .otherwise(unfocusBackground)
-        );
-        controlador.getHorarioRenta().remove(Integer.valueOf(fila));
-        controlador.mostrarHorarios();
+        if (esHoraValida()) {
+            btnLibre.setVisible(false);
+            lblNombreGrupo.setText("");
+            pnlPrincipal.backgroundProperty().bind(Bindings
+                    .when(pnlPrincipal.focusedProperty())
+                    .then(focusBackground)
+                    .otherwise(unfocusBackground)
+            );
+            controlador.getHorarioRenta().remove(Integer.valueOf(fila));
+            controlador.mostrarHorarios();
+        }
+    }
+
+    public boolean esHoraValida() {
+        int ultimoElemnto = controlador.getHorarioRenta().size() - 1;
+        return (controlador.getHorarioRenta().get(0) == fila) || (controlador.getHorarioRenta().get(ultimoElemnto) == fila);
+
     }
 }

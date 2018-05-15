@@ -9,6 +9,8 @@ import interfaces.IRenta;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
@@ -31,6 +33,7 @@ import modelo.controladores.RentaJpaController;
 @NamedQueries({
     @NamedQuery(name = "Renta.findAll", query = "SELECT r FROM Renta r")
     , @NamedQuery(name = "Renta.findByIdRenta", query = "SELECT r FROM Renta r WHERE r.rentaPK.idRenta = :idRenta")
+    , @NamedQuery(name = "Renta.obtenerUltimoRegistro", query = "SELECT r.rentaPK.idRenta FROM Renta r order by r.rentaPK.idRenta desc")
     , @NamedQuery(name = "Renta.findByClienteidCliente", query = "SELECT r FROM Renta r WHERE r.rentaPK.clienteidCliente = :clienteidCliente")
     , @NamedQuery(name = "Renta.findByPagoRentaidPago", query = "SELECT r FROM Renta r WHERE r.rentaPK.pagoRentaidPago = :pagoRentaidPago")
     , @NamedQuery(name = "Renta.findByHorarioidHorario", query = "SELECT r FROM Renta r WHERE r.rentaPK.horarioidHorario = :horarioidHorario")})
@@ -126,10 +129,19 @@ public class Renta implements Serializable, IRenta {
 
     @Override
     public boolean crearRenta() {
+        boolean seCreo = false;
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
-        
-        return true;
+        if (this.getPagoRenta().registrarPago()) {
+            try {
+                pagoRenta = pagoRenta.obtenerUltimoPago();
+                controlador.create(this);
+                seCreo = true;
+            } catch (Exception ex) {
+                Logger.getLogger(Renta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return seCreo;
     }
 
     @Override
@@ -142,4 +154,10 @@ public class Renta implements Serializable, IRenta {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public String obtenerUltimaRenta(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
+        return controlador.obtenerUltimoRegistro();
+    }
+
 }
