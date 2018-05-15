@@ -171,4 +171,8 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
     this.monto = monto;
   }
 
+  @Override
+  public Double getMonto(){
+    return this.monto;
+  }
 }

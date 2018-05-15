@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane  maxHeight="718.0" maxWidth="1200.0" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEstadisticasController">
+<StackPane maxHeight="718.0" maxWidth="1200.0" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEstadisticasController">
    <children>
       <HBox prefHeight="718.0" prefWidth="1200.0">
          <StackPane.margin>
@@ -22,18 +24,31 @@
          <children>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <JFXToggleButton fx:id="toggleEgresos" onAction="#mostrarEgresos" selected="true" text="Egresos" />
-                  <JFXToggleButton fx:id="toggleIngresos" onAction="#mostrarIngresos" selected="true" text="Ingresos" />
-                  <JFXButton fx:id="btnCerrar" minWidth="68.0" onAction="#cerrarPantalla" prefHeight="16.0" text="Cerrar" />
+                  <JFXToggleButton fx:id="toggleUtilidad" onAction="#mostrarUtilidad" selected="true" style="-jfx-toggle-color: #C08ED6;" text="Utilidad" />
+                  <JFXToggleButton fx:id="toggleEgresos" onAction="#mostrarEgresos" selected="true" style="-jfx-toggle-color: #C08ED6;" text="Egresos" />
+                  <JFXToggleButton fx:id="togglePagoM" onAction="#mostrarPagoMaestro" selected="true" style="-jfx-toggle-color: #C08ED6;" text="Pagos de Maestro" />
+                  <JFXToggleButton fx:id="togglePagoR" onAction="#mostrarPagoR" selected="true" style="-jfx-toggle-color: #C08ED6;" text="Pagos de Renta" />
+                  <JFXToggleButton fx:id="toggleIngresos" onAction="#mostrarIngresos" selected="true" style="-jfx-toggle-color: #C08ED6;" text="Ingresos" toggleColor="#f36a38" toggleLineColor="#f3d6cc" />
+                  <JFXComboBox fx:id="cbPeriodo" onAction="#cambiarPeriodo" promptText="Periodo" />
+                  <JFXButton fx:id="btnCerrar" maxWidth="20.0" minWidth="0.0" onAction="#cerrarPantalla" prefWidth="20.0" style="-fx-background-color: #C08ED6;">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CLOSE" />
+                     </graphic></JFXButton>
                </buttons>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
             </ButtonBar>
             <AreaChart fx:id="grafica" prefHeight="718.0" prefWidth="739.0" title="Ingresos y egresos">
               <xAxis>
-                <CategoryAxis label="Mes" side="BOTTOM" />
+                <CategoryAxis label="Mes" side="BOTTOM" fx:id="xaxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yaxis" side="LEFT" />
               </yAxis>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
             </AreaChart>
          </children>
       </VBox>
