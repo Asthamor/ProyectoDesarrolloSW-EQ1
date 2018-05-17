@@ -7,21 +7,28 @@ package controladores;
 
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
+import static controladores.PantallaPrincipalDirectorController.limpiarPanelPrincipal;
 import interfaces.Controlador;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Alumno;
+import modelo.Grupo;
 
 /**
  * FXML Controller class
@@ -35,6 +42,7 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
     private List<Alumno> alumnos;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
+    private Grupo grupo;
 
     /**
      * Initializes the controller class.
@@ -59,6 +67,10 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
         this.pnlPrincipal = pnlPrincipal;
     }
 
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
     public void mostrarAlumnos() {
         ArrayList<String> nombresAlumnos = new ArrayList();
         for (Alumno alumno : alumnos) {
@@ -72,6 +84,25 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
     @FXML
     private void realizarPago(ActionEvent event) {
         pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+        pantallaDividida.getChildren().add(pnlPrincipal);
+    }
+
+    @FXML
+    private void tomarAsistencia(ActionEvent event) {
+        limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(PantallaListaAlumnosController.class.getResource("/fxml/PantallaAdministrarAsistencia.fxml"));
+        try {
+            root = (Parent) loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaListaAlumnosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PantallaAdministrarAsistenciaController controlador = loader.getController();
+        controlador.setGrupo(grupo);
+        controlador.setPantallaDividida(pantallaDividida);
+        controlador.setPnlPrincipal(pnlPrincipal);
+
+        pnlPrincipal.getChildren().add(root);
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 }

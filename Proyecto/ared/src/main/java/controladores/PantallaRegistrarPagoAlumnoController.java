@@ -111,11 +111,13 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
         maestro = maestro.obtenerMaestro(nombreUsuario);
         nombrePromociones = new ArrayList();
         promociones = new ArrayList();
+        Promocion promocionAux = new Promocion();
+        List<Promocion> promocionesTotales = promocionAux.obtenerPromociones();
         List<Promocion> promocionesAux = new ArrayList(maestro.getPromocionCollection());
         for (Promocion promocion : promocionesAux) {
             if (promocion.getParaInscripcion() == 0) {
                 if(promocion.getPromocionPK().getIdPromocion()==0)
-                    promocion.getPromocionPK().setIdPromocion(promocionesAux.size());
+                    promocion.getPromocionPK().setIdPromocion(promocionesTotales.size());
                 promociones.add(promocion);
             }
         }

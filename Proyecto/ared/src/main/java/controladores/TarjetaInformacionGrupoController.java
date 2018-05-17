@@ -138,6 +138,7 @@ public class TarjetaInformacionGrupoController implements Initializable {
                 PantallaListaAlumnosController controlador = loader.getController();
                 controlador.setPantallaDividida(pantallaDividida);
                 controlador.setPnlPrincipal(pnlPrincipal);
+                controlador.setGrupo(grupo);
                 controlador.setAlumnos(alumnos);
                 pnlSecundario.getChildren().add(root);
                 PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);

@@ -7,7 +7,9 @@ package modelo;
 
 import interfaces.IPromocion;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -179,6 +181,13 @@ public class Promocion implements Serializable, IPromocion {
         }
         
         return seCreo;
+    }
+    
+    public List<Promocion> obtenerPromociones(){
+         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+         PromocionJpaController controlador = new PromocionJpaController(entityManagerFactory);
+         List<Promocion> listaPromociones = controlador.findPromocionEntities();
+         return listaPromociones;
     }
 
 }
