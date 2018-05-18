@@ -250,4 +250,15 @@ public class RentaJpaController implements Serializable {
         return id;
     }
     
+    public Renta buscarRenta(int id){
+        EntityManager em = getEntityManager();
+        Renta renta;
+        try{
+            renta = (Renta) em.createNamedQuery("Renta.findByIdRenta").setParameter("idRenta", id).getSingleResult();
+        }finally{
+            em.close();
+        }
+        return renta;
+    }
+    
 }

@@ -29,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import modelo.controladores.PagoRentaJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -163,6 +164,40 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
             result.add((Ingreso) p);
         }
         return result;
+    }
+    
+    public boolean actualizarPago(){
+        boolean seActualizo = false;
+        EntityManagerFactory entityManagerFactory = Persistence
+                .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+
+        PagoRentaJpaController controlador = new PagoRentaJpaController(entityManagerFactory);
+        try {
+            controlador.edit(this);
+            seActualizo = true;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PagoRenta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoRenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return seActualizo;
+    }
+    
+    public boolean eliminarPago(){
+         boolean seElimino = false;
+        EntityManagerFactory entityManagerFactory = Persistence
+                .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+
+        PagoRentaJpaController controlador = new PagoRentaJpaController(entityManagerFactory);
+        try {
+            controlador.destroy(this.idPago);
+            seElimino = true;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PagoRenta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(PagoRenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return seElimino;
     }
 
     @Override

@@ -22,6 +22,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import modelo.controladores.RentaJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -154,10 +155,29 @@ public class Renta implements Serializable, IRenta {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Renta buscarRenta(int id){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
+        return controlador.buscarRenta(id);
+    }
+    
     public String obtenerUltimaRenta(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
         return controlador.obtenerUltimoRegistro();
+    }
+    
+    public boolean eliminarRenta(){
+        boolean seElimino = false;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
+        try {
+            controlador.destroy(rentaPK);
+            seElimino = true;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Renta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return seElimino;
     }
 
 }

@@ -6,6 +6,7 @@
 package controladores;
 
 import clasesApoyo.Mapas;
+import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import static controladores.PantallaGruposController.crearArchivoXML;
@@ -51,9 +52,9 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
     @FXML
     private Label lblHorario;
     private ArrayList<Integer> horarioRenta;
-    private Mapas mapas;
+    private Mapas mapa;
     private Document document;
-    private RentaXML renta;
+    private RentaXML rentaXML;
     @FXML
     private JFXDatePicker txtDia;
     private String dia;
@@ -76,34 +77,43 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (mapa == null) {
+            mapa = new Mapas();
+        }
     }
 
     public void cargarDatos() {
         mostrarFecha();
+        mostrarRenta();
     }
-    
 
-    public void setRenta(RentaXML renta) {
-        this.renta = renta;
-        txtDia.setValue(LocalDate.parse(this.renta.getDia()));
-        lblHorario.setText(this.renta.getHorario());
+    public void setRentaXML(RentaXML rentaXML) {
+        this.rentaXML = rentaXML;
+        lblHorario.setText(this.rentaXML.getHorario());
+        txtDia.setValue(LocalDate.parse(this.rentaXML.getDia()));
     }
 
     public void setHorarioRenta(ArrayList<Integer> horarioRenta) {
         this.horarioRenta = horarioRenta;
+        obtenerHorario();
     }
 
     public void setControlador(PantallaEditarRentaController controlador) {
         this.controlador = controlador;
     }
 
+    public void obtenerHorario() {
+        int horaInicio = Integer.parseInt(mapa.getMapaHoras().get(lblHorario.getText().split("-")[0]).toString());
+        int horaFin = Integer.parseInt(mapa.getMapaHoras().get(lblHorario.getText().split("-")[1]).toString());
+        for (int i = horaInicio; i < horaFin; i++) {
+            horarioRenta.add(i);
+        }
+    }
+
     @FXML
     private void mostrarEventos(ActionEvent event) {
         lblHorario.setText("");
         horarioRenta.clear();
-        if (!txtDia.getValue().toString().equals(renta.getDia())) {
-            cambioDia = true;
-        }
         mostrarFecha();
     }
 
@@ -120,14 +130,14 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
 
     @Override
     public void mostrarHorarios() {
-        if (mapas == null) {
-            mapas = new Mapas();
+        if (mapa == null) {
+            mapa = new Mapas();
         }
         String horario = "";
         if (!horarioRenta.isEmpty()) {
             int ultimoElemnto = horarioRenta.size() - 1;
-            horario = mapas.getMapaFilas().get(horarioRenta.get(0)) + "-"
-                    + mapas.getMapaFilas().get(horarioRenta.get(ultimoElemnto) + 1);
+            horario = mapa.getMapaFilas().get(horarioRenta.get(0)) + "-"
+                    + mapa.getMapaFilas().get(horarioRenta.get(ultimoElemnto) + 1);
         }
         lblHorario.setText(horario);
     }
@@ -137,7 +147,8 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
         gridHorario.getChildren().clear();
         agregarAgenda();
         mostrarGrupos();
-        mostrarRentas();
+        mostrarTodasLasRentas();
+        
     }
 
     public void agregarAgenda() {
@@ -159,9 +170,6 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
     }
 
     public void mostrarGrupos() {
-        if (mapas == null) {
-            mapas = new Mapas();
-        }
         Element root = document.getRootElement();
         List<org.dom4j.Node> grupoXML = root.selectNodes("/ared/grupos/grupo[horario/dia/@num = '" + dia + "']");
         String nombreGrupo;
@@ -176,8 +184,8 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
                 Element dia = itr3.next();
                 int columna = Integer.valueOf(dia.attributeValue("num"));
                 for (Iterator<Element> itr4 = dia.elementIterator("hora"); itr4.hasNext();) {
-                    int horaInicio = (Integer) mapas.getMapaHoras().get((String.valueOf(((Element) itr4.next()).getData())).trim());
-                    int horaFin = (Integer) mapas.getMapaHoras().get((String.valueOf(((Element) itr4.next()).getData())).trim());
+                    int horaInicio = (Integer) mapa.getMapaHoras().get((String.valueOf(((Element) itr4.next()).getData())).trim());
+                    int horaFin = (Integer) mapa.getMapaHoras().get((String.valueOf(((Element) itr4.next()).getData())).trim());
                     Parent pantalla = crearTarjetaHorario(nombreGrupo, colorGrupo, false, true, horaInicio);
                     gridHorario.add(pantalla, 1, horaInicio, 1, (horaFin - horaInicio));
                 }
@@ -185,29 +193,27 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
         }
     }
 
-    public void mostrarRentas() {
-        if (mapas == null) {
-            mapas = new Mapas();
+    public void mostrarRenta() {
+        int horaInicio = Integer.parseInt(mapa.getMapaHoras().get(lblHorario.getText().split("-")[0]).toString());
+        int horaFin = Integer.parseInt(mapa.getMapaHoras().get(lblHorario.getText().split("-")[1]).toString());
+        for (int i = horaInicio; i < horaFin; i++) {
+            Parent pantalla = crearTarjetaHorario("Reservado", "#ffe6fd", true, true, i);
+            gridHorario.add(pantalla, 1, i);
         }
+    }
+
+    public void mostrarTodasLasRentas() {
+        
         List<org.dom4j.Node> rentas = document.selectNodes("/ared/rentas/renta[@dia = '"
-                + txtDia.getValue().toString() + "']");
+                + txtDia.getValue().toString() + "' and @id != '" + rentaXML.getId() + "']");
         for (org.dom4j.Node renta : rentas) {
             String id = renta.valueOf("@id");
             String nombreCliente = renta.selectSingleNode("cliente").getText();
             String horario = renta.selectSingleNode("horario").getText();
-            int horaInicio = Integer.parseInt(mapas.getMapaHoras().get(horario.split("-")[0]).toString());
-            int horaFin = Integer.parseInt(mapas.getMapaHoras().get(horario.split("-")[1]).toString());
-            if (id.equals(this.renta.getId()) && !cambioDia) {
-                for (int i = horaInicio; i < horaFin; i++) {
-                    Parent pantalla = crearTarjetaHorario("Reservado", "#ffe6fd", true, true, i);
-                    gridHorario.add(pantalla, 1, i);
-                }
-            } else {
-                if (!id.equals(this.renta.getId())) {
-                    Parent pantalla = crearTarjetaHorario(nombreCliente, "#D7BDE2", false, true, horaInicio);
-                    gridHorario.add(pantalla, 1, horaInicio, 1, (horaFin - horaInicio));
-                }
-            }
+            int horaInicio = Integer.parseInt(mapa.getMapaHoras().get(horario.split("-")[0]).toString());
+            int horaFin = Integer.parseInt(mapa.getMapaHoras().get(horario.split("-")[1]).toString());
+            Parent pantalla = crearTarjetaHorario(nombreCliente, "#D7BDE2", false, true, horaInicio);
+            gridHorario.add(pantalla, 1, horaInicio, 1, (horaFin - horaInicio));
 
         }
     }
@@ -233,13 +239,13 @@ public class PantallaEditarHorarioRentaController implements Initializable, ICon
     @FXML
     private void cambiarHorario(ActionEvent event) {
         Stage mainStage = (Stage) btnAceptar.getScene().getWindow();
-        if(lblHorario.getText().equals("")){
-            
-        }else{
+        if (lblHorario.getText().equals("")) {
+            Mensajes.mensajeAlert("Debe elegir un horario para la renta");
+        } else {
             controlador.cambiarHorario(txtDia.getValue().toString(), lblHorario.getText());
             mainStage.close();
         }
-        
+
     }
 
 }

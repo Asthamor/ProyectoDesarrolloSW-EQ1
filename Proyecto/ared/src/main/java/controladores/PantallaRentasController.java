@@ -50,12 +50,11 @@ public class PantallaRentasController implements Initializable, Controlador {
     private TableColumn<RentaXML, String> colMonto;
     @FXML
     private JFXButton btnNuevaRenta;
-    
+
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     private List<RentaXML> rentas;
     private Document document;
-    
 
     /**
      * Initializes the controller class.
@@ -89,8 +88,8 @@ public class PantallaRentasController implements Initializable, Controlador {
         pnlPrincipal.getChildren().add(root);
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
-    
-    public void mostrarRentas(){
+
+    public void mostrarRentas() {
         leerRentasXML();
         colCliente.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("nombreCliente"));
         colFecha.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("dia"));
@@ -98,10 +97,10 @@ public class PantallaRentasController implements Initializable, Controlador {
         colMonto.setCellValueFactory(new PropertyValueFactory<RentaXML, String>("monto"));
         tbRentas.setItems(FXCollections.observableArrayList(rentas));
     }
-    
-    public void leerRentasXML(){
+
+    public void leerRentasXML() {
         List<org.dom4j.Node> nodos = document.selectNodes("/ared/rentas/renta");
-        for(org.dom4j.Node renta: nodos){
+        for (org.dom4j.Node renta : nodos) {
             RentaXML rentaXML = new RentaXML();
             rentaXML.setId(renta.valueOf("@id"));
             rentaXML.setDia(renta.valueOf("@dia"));
@@ -125,24 +124,28 @@ public class PantallaRentasController implements Initializable, Controlador {
     @FXML
     private void mostrarDetallesRenta(MouseEvent event) {
         RentaXML renta = tbRentas.getSelectionModel().getSelectedItem();
-        Parent root = null;
-        StackPane pnlSecundario = new StackPane();
-        FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaEditarRenta.fxml"));
-        try {
-            root = (Parent) loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+        if (renta != null) {
+            Parent root = null;
+            StackPane pnlSecundario = new StackPane();
+            FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaEditarRenta.fxml"));
+            try {
+                root = (Parent) loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            PantallaEditarRentaController controlador = loader.getController();
+            controlador.setRentaXML(renta);
+            controlador.setPantallaDividida(pantallaDividida);
+            controlador.setPnlPrincipal(pnlPrincipal);
+            pnlSecundario.getChildren().add(root);
+            PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
+            if (pantallaDividida.getChildren().size() > 1) {
+                pantallaDividida.getChildren().remove(1);
+            }
+            pantallaDividida.getChildren().add(pnlSecundario);
         }
-        
-        PantallaEditarRentaController controlador = loader.getController();
-        controlador.setRentaXML(renta);
-        controlador.setPantallaDividida(pantallaDividida);
-        pnlSecundario.getChildren().add(root);
-        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
-        if(pantallaDividida.getChildren().size() > 1){
-            pantallaDividida.getChildren().remove(1);
-        }
-        pantallaDividida.getChildren().add(pnlSecundario);
+
     }
 
 }
