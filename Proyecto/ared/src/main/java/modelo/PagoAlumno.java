@@ -8,6 +8,7 @@ package modelo;
 import interfaces.IPagoAlumno;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -26,7 +27,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import modelo.controladores.PagoAlumnoJpaController;
-import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -227,6 +227,11 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
     this.monto = monto;
   }
 
+  public List<PagoAlumno> obtenerPagosAlumno(int idAlumno){
+      EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+      PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+      return controlador.findPagoByIdAlumno(idAlumno);
+  }
 
 
 }

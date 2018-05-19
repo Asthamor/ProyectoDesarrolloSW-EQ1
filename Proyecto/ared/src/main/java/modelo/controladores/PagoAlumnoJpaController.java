@@ -11,10 +11,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Alumno;
 import modelo.Grupo;
+import modelo.Maestro;
 import modelo.PagoAlumno;
 import modelo.PagoAlumnoPK;
 import modelo.Promocion;
@@ -241,6 +243,12 @@ public class PagoAlumnoJpaController implements Serializable {
     } finally {
       em.close();
     }
+  }
+  
+  public List<PagoAlumno> findPagoByIdAlumno(int idAlumno){
+      EntityManager em = getEntityManager();
+        TypedQuery<PagoAlumno> query = em.createNamedQuery("PagoAlumno.findByAlumnoidAlumno", PagoAlumno.class);
+        return query.setParameter("alumnoidAlumno", idAlumno).getResultList();
   }
   
 }

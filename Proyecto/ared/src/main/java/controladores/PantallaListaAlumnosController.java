@@ -83,7 +83,20 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
 
     @FXML
     private void realizarPago(ActionEvent event) {
-        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoAlumno.fxml", this.pnlPrincipal, this.pantallaDividida));
+        limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(PantallaListaAlumnosController.class.getResource("/fxml/PantallaRegistrarPagoAlumno.fxml"));
+        try {
+            root = (Parent) loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaListaAlumnosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PantallaRegistrarPagoAlumnoController controlador = loader.getController();
+        controlador.setGrupo(grupo);
+        controlador.setPantallaDividida(pantallaDividida);
+        controlador.setPnlPrincipal(pnlPrincipal);
+
+        pnlPrincipal.getChildren().add(root);
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 

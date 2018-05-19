@@ -254,30 +254,37 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
 
     @FXML
     private void nuevaLista(ActionEvent event) throws IOException {
-        if (fechasLista.isEmpty() || !fechasLista.get(0).equals(DateFormat.getDateInstance().format(new Date()))) {
-            limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(PantallaAdministrarAsistenciaController.class.getResource("/fxml/PantallaNuevaAsistencia.fxml"));
-            try {
-                root = (Parent) loader.load();
-            } catch (IOException ex) {
-                Logger.getLogger(PantallaAdministrarAsistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        if (!new ArrayList(grupo.getAlumnoCollection()).isEmpty()) {
+            if (fechasLista.isEmpty() || !fechasLista.get(0).equals(DateFormat.getDateInstance().format(new Date()))) {
+                limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
+                Parent root = null;
+                FXMLLoader loader = new FXMLLoader(PantallaAdministrarAsistenciaController.class.getResource("/fxml/PantallaNuevaAsistencia.fxml"));
+                try {
+                    root = (Parent) loader.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaAdministrarAsistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                PantallaNuevaAsistenciaController controlador = loader.getController();
+                controlador.setGrupo(grupo);
+                controlador.setHorario(documento, grupoXML);
+                controlador.setPantallaDividida(pantallaDividida);
+                controlador.setPnlPrincipal(pnlPrincipal);
+                pnlPrincipal.getChildren().add(root);
+                pantallaDividida.getChildren().add(pnlPrincipal);
+            } else {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Atencion");
+                alert.setHeaderText(null);
+                alert.setContentText("Ya has creado la lista de este dia");
+                alert.showAndWait();
             }
-            PantallaNuevaAsistenciaController controlador = loader.getController();
-            controlador.setGrupo(grupo);
-            controlador.setHorario(documento, grupoXML);
-            controlador.setPantallaDividida(pantallaDividida);
-            controlador.setPnlPrincipal(pnlPrincipal);
-            pnlPrincipal.getChildren().add(root);
-            pantallaDividida.getChildren().add(pnlPrincipal);
         } else {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Atencion");
             alert.setHeaderText(null);
-            alert.setContentText("Ya has creado la lista de este dia");
+            alert.setContentText("No existen alumnos inscritos en el grupo");
             alert.showAndWait();
         }
-
     }
 
 }
