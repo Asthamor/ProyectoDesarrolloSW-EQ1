@@ -17,11 +17,11 @@
 <?import javafx.scene.text.Font?>
 <?import clasesApoyo.JFXLimitedTextField?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaInscribirAlumnoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaInscribirAlumnoController">
    <center>
       <Pane prefHeight="53.0" prefWidth="1200.0" style="-fx-background-color: #ffffff; -fx-border-color: 000000;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="666.0" prefWidth="1103.0">
+            <HBox prefHeight="592.0" prefWidth="1103.0">
                <children>
                   <VBox prefHeight="768.0" prefWidth="300.0">
                      <children>
@@ -36,7 +36,7 @@
                               <Insets left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lstGrupo" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;">
+                        <ListView fx:id="lstGrupo" prefHeight="474.0" prefWidth="260.0" style="-fx-padding: 10px;">
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
@@ -56,7 +56,7 @@
                               <Insets left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lstAlumnos" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;">
+                        <ListView fx:id="lstAlumnos" prefHeight="469.0" prefWidth="260.0" style="-fx-padding: 10px;">
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
@@ -128,7 +128,7 @@
                         </GridPane>
                         <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="212.0" prefWidth="495.0">
                            <children>
-                              <JFXButton fx:id="btnInscribir" layoutX="14.0" layoutY="147.0" onAction="#inscribirAlumno" prefHeight="41.0" prefWidth="231.0" style="-fx-background-color: #c08ed6#9870aa;" text="Inscribir">
+                              <JFXButton fx:id="btnInscribir" layoutX="-7.0" layoutY="94.0" onAction="#inscribirAlumno" prefHeight="41.0" prefWidth="231.0" style="-fx-background-color: #c08ed6#9870aa;" text="Inscribir">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
@@ -141,9 +141,6 @@
             </HBox>
          </children></Pane>
    </center>
-   <top>
-      <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </top>
    <left>
       <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
    </left>

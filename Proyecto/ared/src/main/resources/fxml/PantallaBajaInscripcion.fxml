@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaBajaInscripcion">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaBajaInscripcionController">
    <center>
       <Pane prefHeight="53.0" prefWidth="1200.0" style="-fx-background-color: #ffffff; -fx-border-color: 000000;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="666.0" prefWidth="1103.0">
+            <HBox prefHeight="599.0" prefWidth="1103.0">
                <children>
                   <VBox prefHeight="666.0" prefWidth="370.0">
                      <children>
@@ -41,7 +41,7 @@
                         </ListView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="666.0" prefWidth="370.0">
+                  <VBox prefHeight="617.0" prefWidth="368.0">
                      <children>
                         <Label text="Alumnos:">
                            <font>
@@ -61,7 +61,7 @@
                         </ListView>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="666.0" prefWidth="370.0" style="-fx-background-color: f3d0f0;">
+                  <VBox alignment="TOP_CENTER" prefHeight="634.0" prefWidth="368.0" style="-fx-background-color: #ffffff;">
                      <children>
                         <Label text="Información del alumno">
                            <font>
@@ -145,13 +145,8 @@
                            </VBox.margin>
                         </GridPane>
                         <Pane prefHeight="55.0" prefWidth="368.0" />
-                        <HBox alignment="CENTER" prefHeight="74.0" prefWidth="368.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="368.0">
                            <children>
-                              <JFXButton fx:id="btnReinscribir" onAction="#reinscribir" prefHeight="39.0" prefWidth="118.0" style="-fx-background-color: c08ed6;" text="Reinscribir">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
                               <JFXButton fx:id="btnDarBaja" onAction="#darBaja" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: c08ed6;" text="Dar de baja">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -165,9 +160,6 @@
             </HBox>
          </children></Pane>
    </center>
-   <top>
-      <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </top>
    <left>
       <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
    </left>

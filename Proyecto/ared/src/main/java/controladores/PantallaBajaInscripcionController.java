@@ -36,7 +36,7 @@ import modelo.Usuario;
  *
  * @author mauricio
  */
-public class PantallaBajaInscripcion implements Initializable, Controlador {
+public class PantallaBajaInscripcionController implements Initializable, Controlador {
 
   private HBox pantallaDividida;
   private StackPane pnlPrincipal;
@@ -59,8 +59,6 @@ public class PantallaBajaInscripcion implements Initializable, Controlador {
   private Label lblTelefono;
   @FXML
   private Label lblCorreo;
-  @FXML
-  private JFXButton btnReinscribir;
   @FXML
   private JFXButton btnDarBaja;
 
@@ -164,11 +162,6 @@ public class PantallaBajaInscripcion implements Initializable, Controlador {
       }
     });
     return true;
-  }
-
-  @FXML
-  private void reinscribir(ActionEvent event) {
-     Mensajes.mensajeAlert("En construcción");
   }
 
   @FXML
