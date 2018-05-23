@@ -46,8 +46,8 @@ public class TarjetaNotificacionController implements Initializable {
 
     public void setTipoNotificacion(String tipoNotificacion) {
         this.tipoNotificacion = tipoNotificacion;
-        
-        switch (this.tipoNotificacion){
+
+        switch (this.tipoNotificacion) {
             case "renta":
                 iconoRenta.setVisible(true);
                 iconoAlumno.setVisible(false);
@@ -58,8 +58,16 @@ public class TarjetaNotificacionController implements Initializable {
                 iconoAlumno.setVisible(true);
                 iconoMaestro.setVisible(false);
                 break;
+            case "maestro":
+                iconoRenta.setVisible(false);
+                iconoAlumno.setVisible(false);
+                iconoMaestro.setVisible(true);
+                break;
+            default:
+                iconoRenta.setVisible(false);
+                iconoAlumno.setVisible(false);
+                iconoMaestro.setVisible(false);
+                break;
         }
     }
-    
-    
 }

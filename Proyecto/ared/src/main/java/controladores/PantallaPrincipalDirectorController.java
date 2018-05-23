@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -207,28 +208,23 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
     @FXML
     private void abrirVentanaNotificaciones(ActionEvent event) {
-        try {
-            
-            VBox vBox = new VBox();
-            vBox.setBackground(new Background(new BackgroundFill(Color.web("#ffe6fd"), CornerRadii.EMPTY, Insets.EMPTY)));
-            if (notificaciones == null) {
-                String nombreUsuario = System.getProperty("nombreUsuario");
-                Usuario usuario = new Usuario();
-                usuario = usuario.buscar(nombreUsuario);
-                Maestro maestro = (Maestro) usuario.getMaestroCollection().toArray()[0];
-                Notificaciones notificaciones = new Notificaciones(1, true);
-                notificaciones.setMaestro(maestro);
-                this.notificaciones = notificaciones.buscarNotificaciones();
-                vBox.getChildren().addAll(this.notificaciones);
-            }else{
-                vBox.getChildren().addAll(this.notificaciones);
-            }
-            
-            popOver.setContentNode(vBox);
-            popOver.show(btnNotificaciones);
-        } catch (Exception ex) {
-
+        VBox vBox = new VBox();        
+        vBox.setBackground(new Background(new BackgroundFill(Color.web("#ffe6fd"), CornerRadii.EMPTY, Insets.EMPTY)));
+        if (notificaciones == null) {
+            String nombreUsuario = System.getProperty("nombreUsuario");
+            Usuario usuario = new Usuario();
+            usuario = usuario.buscar(nombreUsuario);
+            Maestro maestro = (Maestro) usuario.getMaestroCollection().toArray()[0];
+            Notificaciones notificaciones = new Notificaciones(1, true);
+            notificaciones.setMaestro(maestro);
+            this.notificaciones = notificaciones.buscarNotificaciones();
+            vBox.getChildren().addAll(this.notificaciones);
+        } else {
+            vBox.getChildren().addAll(this.notificaciones);
         }
+
+        popOver.setContentNode(vBox);
+        popOver.show(btnNotificaciones);
 
     }
 

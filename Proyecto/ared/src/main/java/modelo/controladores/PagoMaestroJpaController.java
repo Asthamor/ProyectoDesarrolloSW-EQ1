@@ -6,6 +6,7 @@
 package modelo.controladores;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -179,4 +180,15 @@ public class PagoMaestroJpaController implements Serializable {
     }
   }
   
+  public List<PagoMaestro> findByFechaVencimiento(Date fechaVencimiento){
+       EntityManager em = getEntityManager();
+       List<PagoMaestro> maestros = null;
+    try {        
+      maestros =  em.createNamedQuery("PagoMaestro.findByFechaVencimiento").setParameter("fechaVencimiento", fechaVencimiento)
+              .getResultList();
+    } finally {
+      em.close();
+    }
+    return maestros;
+  }
 }

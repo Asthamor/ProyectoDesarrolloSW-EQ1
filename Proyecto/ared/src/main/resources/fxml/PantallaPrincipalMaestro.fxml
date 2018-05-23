@@ -35,7 +35,7 @@
                      </graphic>
                   </JFXButton>
                   <Pane prefHeight="501.0" prefWidth="166.0" />
-                  <JFXButton fx:id="btnNotificaciones" alignment="TOP_LEFT" graphicTextGap="15.0" prefHeight="43.0" prefWidth="166.0" text="Notificaciones">
+                  <JFXButton fx:id="btnNotificaciones" alignment="TOP_LEFT" graphicTextGap="15.0" onAction="#abrirVentanaNotificaciones" prefHeight="43.0" prefWidth="166.0" text="Notificaciones">
                      <graphic>
                         <FontAwesomeIconView fill="#f7dc6f" glyphName="BELL" size="30" />
                      </graphic>

@@ -211,5 +211,12 @@ public class PagoMaestro extends Ingreso implements Serializable, IPagoMaestro {
   public void setMonto(Double monto) {
     this.monto = monto;
   }
+  
+  public List<PagoMaestro> obtenerMaestroPorFechaVencimiento(Date fechaVencimiento){
+      EntityManagerFactory entityManagerFactory = Persistence
+            .createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PagoMaestroJpaController controlador = new PagoMaestroJpaController(entityManagerFactory);    
+    return controlador.findByFechaVencimiento(fechaVencimiento);
+  }
 
 }
