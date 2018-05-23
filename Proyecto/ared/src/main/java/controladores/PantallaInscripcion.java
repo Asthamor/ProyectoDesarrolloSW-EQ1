@@ -44,7 +44,8 @@ public class PantallaInscripcion implements Initializable, Controlador {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlInscripciones);
+        pnlInscripciones.getChildren().add(crearPantalla("/fxml/PantallaInscribirAlumno.fxml"));
     }
 
     @Override

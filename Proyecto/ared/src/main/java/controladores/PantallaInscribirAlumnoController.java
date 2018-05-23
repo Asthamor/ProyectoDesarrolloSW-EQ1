@@ -45,143 +45,138 @@ import modelo.Usuario;
  */
 public class PantallaInscribirAlumnoController implements Initializable, Controlador {
 
-  @FXML
-  private JFXLimitedTextField txtMonto;
-  @FXML
-  private JFXComboBox<?> comboPromocion;
-  @FXML
-  private Label labelMontoFinal;
-  @FXML
-  private JFXButton btnInscribir;
+    @FXML
+    private JFXLimitedTextField txtMonto;
+    @FXML
+    private JFXComboBox<?> comboPromocion;
+    @FXML
+    private Label labelMontoFinal;
+    @FXML
+    private JFXButton btnInscribir;
 
-  private HBox pantallaDividida;
-  private StackPane pnlPrincipal;
-  @FXML
-  private ListView<String> lstAlumnos;
-  private ArrayList<String> nombresAlumnos;
-  private List<Alumno> alumnos;
-  @FXML
-  private ListView<String> lstGrupo;
-  private ArrayList<String> nombresGrupos;
-  private List<Grupo> grupos;
+    private HBox pantallaDividida;
+    private StackPane pnlPrincipal;
+    @FXML
+    private ListView<String> lstAlumnos;
+    private ArrayList<String> nombresAlumnos;
+    private List<Alumno> alumnos;
+    @FXML
+    private ListView<String> lstGrupo;
+    private ArrayList<String> nombresGrupos;
+    private List<Grupo> grupos;
 
-  private Persona persona;
-  private Usuario usuario;
+    private Persona persona;
+    private Usuario usuario;
 
-  public boolean setUserData() {
-    String nombreUsuario = System.getProperty("nombreUsuario");
-    usuario = new Usuario();
-    usuario = usuario.buscar(nombreUsuario);
-    if (usuario.getTipoUsuario().equals("maestro")) {
-      this.persona = (Maestro) usuario.getMaestroCollection().toArray()[0];
-    }
-    if (usuario.getTipoUsuario().equals("director")) {
-      this.persona = (Maestro) usuario.getMaestroCollection().toArray()[0];
-    }
-    return true;
-  }
-
-  /**
-   * Initializes the controller class.
-   */
-  @Override
-  public void initialize(URL url, ResourceBundle rb) {
-    txtMonto.setRequired(true);
-    txtMonto.setNumLimiter(6);
-    setUserData();
-    setListGrupos();
-    ValidatorBase numVal = new NumberValidator();
-    numVal.setMessage("Inserte el monto");
-    ValidatorBase req = new RequiredFieldValidator();
-    req.setMessage("Inserte el monto de inscripción");
-    txtMonto.setValidators(numVal, req);
-    
-    txtMonto.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observable,
-          String oldValue, String newValue) {
-        labelMontoFinal.setText("$" + newValue);
-      }
-    });
-
-  }
-
-  @FXML
-  private void inscribirAlumno(ActionEvent event) {
-    int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
-    int almIndex = lstAlumnos.getSelectionModel().getSelectedIndex();
-    if (txtMonto.validate() && almIndex != -1 && grpIndex != -1) {
-
-      Grupo grupo = grupos.get(grpIndex);
-      Alumno alumn = alumnos.get(almIndex);
-      alumn.getGrupoCollection().add(grupo);
-      grupo.getAlumnoCollection().add(alumn);
-      alumn.actualizarDatos(false);
-      grupo.actualizarDatosGrupo(grupo);
-      
-      PagoAlumno pago = new PagoAlumno();
-      pago.setAlumno(alumn);
-      pago.setGrupo(grupo);
-      pago.setMonto(Integer.parseInt(txtMonto.getText()));
-      pago.setFechaPago(new Date());
-      Date vence = java.sql.Date.valueOf(LocalDate.now().plusMonths(1));
-      pago.setFechaVencimiento(vence);
-      pago.registrarPago();
-      
-      setListGrupos();
-      Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
-          + " inscrito en el grupo " + grupo.getNombre());
-    } else if (almIndex == -1) {
-      Mensajes.mensajeAlert("Selecciona un alumno");
-    } else if (grpIndex == -1){
-      Mensajes.mensajeAlert("Selecciona un grupo");
+    public boolean setUserData() {
+        String nombreUsuario = System.getProperty("nombreUsuario");
+        usuario = new Usuario();
+        usuario = usuario.buscar(nombreUsuario);
+        this.persona = (Maestro) usuario.getMaestroCollection().toArray()[0];
+        return true;
     }
 
-  }
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        txtMonto.setRequired(true);
+        txtMonto.setNumLimiter(6);
+        setUserData();
+        setListGrupos();
+        ValidatorBase numVal = new NumberValidator();
+        numVal.setMessage("Inserte el monto");
+        ValidatorBase req = new RequiredFieldValidator();
+        req.setMessage("Inserte el monto de inscripción");
+        txtMonto.setValidators(numVal, req);
 
-  @Override
-  public void setPantallaDividida(HBox pantallaDividida) {
-    this.pantallaDividida = pantallaDividida;
-  }
+        txtMonto.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                labelMontoFinal.setText("$" + newValue);
+            }
+        });
 
-  @Override
-  public void setPnlPrincipal(StackPane pnlPrincipal) {
-    this.pnlPrincipal = pnlPrincipal;
-  }
-
-  private boolean setListGrupos() {
-    Grupo g = new Grupo();
-    nombresGrupos = new ArrayList();
-    if (usuario.getTipoUsuario().equals("director")){
-      grupos = g.obtenerTodosLosGrupos();
-    } else {
-      grupos = g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro());
     }
-    
-    grupos.forEach((grupo) -> {
-      nombresGrupos.add(grupo.getNombre());
-    });
-    ObservableList<String> items = FXCollections.observableArrayList();
-    items.addAll(nombresGrupos);
-    lstGrupo.setItems(items);
-    lstGrupo.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        lstAlumnos.setItems(null);
-        nombresAlumnos = new ArrayList();
+
+    @FXML
+    private void inscribirAlumno(ActionEvent event) {
         int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
-        if (grpIndex != -1) {
-          alumnos = grupos.get(grpIndex).obtenerAlumnosNoInscritos();
-          alumnos.forEach((alumno) -> {
-            nombresAlumnos.add(alumno.getNombre() + " " + alumno.getApellidos());
-          });
-          ObservableList<String> items = FXCollections.observableArrayList();
-          items.addAll(nombresAlumnos);
-          lstAlumnos.setItems(items);
+        int almIndex = lstAlumnos.getSelectionModel().getSelectedIndex();
+        if (txtMonto.validate() && almIndex != -1 && grpIndex != -1) {
+
+            Grupo grupo = grupos.get(grpIndex);
+            Alumno alumn = alumnos.get(almIndex);
+            alumn.getGrupoCollection().add(grupo);
+            grupo.getAlumnoCollection().add(alumn);
+            alumn.actualizarDatos(false);
+            grupo.actualizarDatosGrupo(grupo);
+
+            PagoAlumno pago = new PagoAlumno();
+            pago.setAlumno(alumn);
+            pago.setGrupo(grupo);
+            pago.setMonto(Integer.parseInt(txtMonto.getText()));
+            pago.setFechaPago(new Date());
+            Date vence = java.sql.Date.valueOf(LocalDate.now().plusMonths(1));
+            pago.setFechaVencimiento(vence);
+            pago.registrarPago();
+
+            setListGrupos();
+            Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
+                    + " inscrito en el grupo " + grupo.getNombre());
+        } else if (almIndex == -1) {
+            Mensajes.mensajeAlert("Selecciona un alumno");
+        } else if (grpIndex == -1) {
+            Mensajes.mensajeAlert("Selecciona un grupo");
         }
-      }
-    });
-    return true;
-  }
+
+    }
+
+    @Override
+    public void setPantallaDividida(HBox pantallaDividida) {
+        this.pantallaDividida = pantallaDividida;
+    }
+
+    @Override
+    public void setPnlPrincipal(StackPane pnlPrincipal) {
+        this.pnlPrincipal = pnlPrincipal;
+    }
+
+    private boolean setListGrupos() {
+        Grupo g = new Grupo();
+        nombresGrupos = new ArrayList();
+        if (usuario.getTipoUsuario().equals("director")) {
+            grupos = g.obtenerTodosLosGrupos();
+        } else {
+            grupos = g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro());
+        }
+
+        grupos.forEach((grupo) -> {
+            nombresGrupos.add(grupo.getNombre());
+        });
+        ObservableList<String> items = FXCollections.observableArrayList();
+        items.addAll(nombresGrupos);
+        lstGrupo.setItems(items);
+        lstGrupo.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                lstAlumnos.setItems(null);
+                nombresAlumnos = new ArrayList();
+                int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
+                if (grpIndex != -1) {
+                    alumnos = grupos.get(grpIndex).obtenerAlumnosNoInscritos();
+                    alumnos.forEach((alumno) -> {
+                        nombresAlumnos.add(alumno.getNombre() + " " + alumno.getApellidos());
+                    });
+                    ObservableList<String> items = FXCollections.observableArrayList();
+                    items.addAll(nombresAlumnos);
+                    lstAlumnos.setItems(items);
+                }
+            }
+        });
+        return true;
+    }
 
 }

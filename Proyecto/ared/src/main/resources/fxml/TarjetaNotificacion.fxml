@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" prefHeight="53.0" prefWidth="400.0" style="-fx-background-color: ffe6fd;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TarjetaNotificacionController">
+   <children>
+      <GridPane prefHeight="60.0" prefWidth="400.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="12.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Separator prefHeight="3.0" prefWidth="400.0" GridPane.rowIndex="1" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="45.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="355.0" minWidth="10.0" prefWidth="355.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <FontAwesomeIconView fx:id="iconoRenta" glyphName="BUILDING" size="25">
+                     <GridPane.margin>
+                        <Insets left="13.0" />
+                     </GridPane.margin>
+                  </FontAwesomeIconView>
+                  <Label fx:id="lblNotificacion" alignment="CENTER" contentDisplay="CENTER" text="Label" GridPane.columnIndex="1">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <FontAwesomeIconView fx:id="iconoAlumno" glyphName="MORTAR_BOARD" size="25">
+                     <GridPane.margin>
+                        <Insets left="8.0" />
+                     </GridPane.margin>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fx:id="iconoMaestro" glyphName="USER" size="25">
+                     <GridPane.margin>
+                        <Insets left="8.0" />
+                     </GridPane.margin>
+                  </FontAwesomeIconView>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
