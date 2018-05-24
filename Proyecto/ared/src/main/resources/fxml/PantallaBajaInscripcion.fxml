@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -34,11 +34,11 @@
                               <Insets left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lstGrupo" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;">
+                        <JFXListView fx:id="lstGrupo" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;" stylesheets="@../styles/listView.css">
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
-                        </ListView>
+                        </JFXListView>
                      </children>
                   </VBox>
                   <VBox prefHeight="617.0" prefWidth="368.0">
@@ -54,11 +54,11 @@
                               <Insets left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lstAlumnos" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;">
+                        <JFXListView fx:id="lstAlumnos" prefHeight="557.0" prefWidth="260.0" style="-fx-padding: 10px;" stylesheets="@../styles/listView.css">
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
-                        </ListView>
+                        </JFXListView>
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="634.0" prefWidth="368.0" style="-fx-background-color: #ffffff;">

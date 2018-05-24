@@ -1,0 +1,24 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-may-2018, 22:59:16
+    Author     : alonso
+*/
+.pane{
+    -fx-background-color: #ffe6fd;
+}
+
+.pane:hover{
+    -fx-background-color: #FFD4FC;
+}
+
+.pane:pressed {
+    -fx-background-color: #FFD4FC;
+    -fx-rotate: 3; 
+    -fx-translate-y: -2; 
+    -fx-background-insets: 20 10 15 80;
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);
+}

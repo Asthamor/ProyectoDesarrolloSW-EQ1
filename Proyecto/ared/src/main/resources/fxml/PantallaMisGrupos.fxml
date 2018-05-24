@@ -12,7 +12,7 @@
    <center>
       <ScrollPane fx:id="scrollGrupos" stylesheets="@../styles/scrollpane.css">
          <content>
-            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="775.0" style="-fx-background-color: #ffffff;">
+            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="775.0" style="-fx-background-color: #ffffff;">
                <children>
                   <GridPane fx:id="gridGrupos">
                     <columnConstraints>

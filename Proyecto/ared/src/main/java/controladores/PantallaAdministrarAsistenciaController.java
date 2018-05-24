@@ -33,15 +33,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import modelo.Grupo;
 import org.dom4j.Document;
@@ -59,9 +57,9 @@ import org.dom4j.io.XMLWriter;
 public class PantallaAdministrarAsistenciaController implements Initializable, Controlador {
 
     @FXML
-    private ListView<String> lstFechas;
+    private JFXListView<String> lstFechas;
     @FXML
-    private ListView<String> lstAlumnos;
+    private JFXListView<String> lstAlumnos;
 
     private Document documento;
     private Element root;
@@ -80,6 +78,10 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lstFechas.setExpanded(true);
+        lstFechas.depthProperty().set(1);
+        lstAlumnos.setExpanded(true);
+        lstAlumnos.depthProperty().set(1);
         fechasLista = new ArrayList();
         crearXML();
         SAXReader reader = new SAXReader();

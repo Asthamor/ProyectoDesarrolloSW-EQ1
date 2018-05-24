@@ -22,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -81,7 +80,6 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private StackPane contenedor;
 
-    private Stage mainStage;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal = new StackPane();
     private ImageView imagen = new ImageView("/imagenes/aredEspacioCompleto.png");

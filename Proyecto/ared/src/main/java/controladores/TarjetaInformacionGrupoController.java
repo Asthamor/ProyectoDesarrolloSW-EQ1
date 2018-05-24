@@ -41,7 +41,7 @@ public class TarjetaInformacionGrupoController implements Initializable {
     @FXML
     private Label lblTipoDanza;
     @FXML
-    private JFXTextArea txtHorario;
+    private Label txtHorario;
 
     private Grupo grupo;
     private Color colorGrupo;
@@ -67,6 +67,8 @@ public class TarjetaInformacionGrupoController implements Initializable {
                 .then(focusBackground)
                 .otherwise(unfocusBackground)
         );
+        panelTarjeta.getStyleClass().add("pane");
+        
     }
 
     public void setGrupo(Grupo grupo) {

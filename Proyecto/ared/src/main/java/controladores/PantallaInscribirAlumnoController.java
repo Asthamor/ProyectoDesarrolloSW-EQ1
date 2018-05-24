@@ -9,7 +9,7 @@ import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
@@ -28,7 +28,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Alumno;
@@ -57,11 +56,11 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     @FXML
-    private ListView<String> lstAlumnos;
+    private JFXListView<String> lstAlumnos;
     private ArrayList<String> nombresAlumnos;
     private List<Alumno> alumnos;
     @FXML
-    private ListView<String> lstGrupo;
+    private JFXListView<String> lstGrupo;
     private ArrayList<String> nombresGrupos;
     private List<Grupo> grupos;
 
@@ -83,6 +82,10 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
     public void initialize(URL url, ResourceBundle rb) {
         txtMonto.setRequired(true);
         txtMonto.setNumLimiter(6);
+        lstGrupo.setExpanded(true);
+        lstGrupo.depthProperty().set(1);
+        lstAlumnos.setExpanded(true);
+        lstAlumnos.depthProperty().set(1);
         setUserData();
         setListGrupos();
         ValidatorBase numVal = new NumberValidator();

@@ -9,6 +9,7 @@ import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
@@ -27,7 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -45,11 +46,11 @@ import modelo.Usuario;
 public class PantallaReinscripcionController implements Initializable, Controlador {
 
     @FXML
-    private ListView<String> lstGrupo;
+    private JFXListView<String> lstGrupo;
     @FXML
-    private ListView<String> lstAlumnos;
+    private JFXListView<String> lstAlumnos;
     @FXML
-    private JFXLimitedTextField txtMonto;
+    private JFXTextField txtMonto;
     @FXML
     private JFXComboBox<?> comboPromocion;
     @FXML
@@ -84,8 +85,12 @@ public class PantallaReinscripcionController implements Initializable, Controlad
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lblNombreAlumno.setText("");
-        txtMonto.setRequired(true);
-        txtMonto.setNumLimiter(6);
+//        txtMonto.setRequired(true);
+//        txtMonto.setNumLimiter(6);
+        lstGrupo.setExpanded(true);
+        lstGrupo.depthProperty().set(1);
+        lstAlumnos.setExpanded(true);
+        lstAlumnos.depthProperty().set(1);
         setUserData();
         setListGrupos();
         ValidatorBase numVal = new NumberValidator();

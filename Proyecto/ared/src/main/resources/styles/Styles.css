@@ -1,3 +1,16 @@
-.button {
-    -fx-font-weight: bold;
+.jfx-button {
+     -jfx-button-type: RAISED;
+     -fx-background-color: #C08ED6;
+     -fx-text-fill: black;
+}
+
+.jfx-button:hover {
+     -fx-background-color: #ffe6fd;
+     -fx-text-fill: black;
+}
+
+.jfx-button:pressed {
+     -fx-background-color: #ffe6fd;
+     -fx-text-fill: black;
+     -fx-rotate: 5;
 }

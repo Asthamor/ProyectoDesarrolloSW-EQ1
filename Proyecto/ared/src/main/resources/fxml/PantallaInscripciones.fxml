@@ -13,14 +13,14 @@
    <children>
       <VBox alignment="CENTER" prefHeight="718.0" prefWidth="1200.0" spacing="5.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="937.0" style="-fx-background-color: c08ed6;">
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="937.0">
                <children>
                   <Pane prefHeight="42.0" prefWidth="390.0" style="-fx-background-color: ffffff;" />
-                  <JFXButton fx:id="btnInscripcion" onAction="#abrirPantallaInscripcion" prefHeight="41.0" prefWidth="138.0" style="-fx-background-color: c08ed6;" text="Inscripciones" />
+                  <JFXButton fx:id="btnInscripcion" onAction="#abrirPantallaInscripcion" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Inscripciones" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXButton fx:id="btnBaja" onAction="#abrirPantallaBajas" prefHeight="41.0" prefWidth="138.0" style="-fx-background-color: c08ed6;" text="Bajas" />
+                  <JFXButton fx:id="btnBaja" onAction="#abrirPantallaBajas" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Bajas" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXButton fx:id="btnReiscripciones" onAction="#abrirPantallaReinscribir" prefHeight="41.0" prefWidth="138.0" style="-fx-background-color: c08ed6;" text="Reinscripciones" />
+                  <JFXButton fx:id="btnReiscripciones" onAction="#abrirPantallaReinscribir" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Reinscripciones" />
                   <Pane prefHeight="42.0" prefWidth="392.0" style="-fx-background-color: ffffff;" />
                </children>
             </HBox>

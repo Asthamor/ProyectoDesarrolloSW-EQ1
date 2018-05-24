@@ -8,7 +8,7 @@
     <children>
       <ScrollPane fx:id="scrollGrupos" layoutX="22.0" layoutY="35.0" prefHeight="605.0" prefWidth="731.0" style="-fx-background-color: #ffffff;" stylesheets="@../styles/scrollpane.css">
         <content>
-          <AnchorPane fx:id="pnlGrupos" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ffffff;" />
+          <AnchorPane fx:id="pnlGrupos" minHeight="0.0" minWidth="0.0" prefHeight="603.0" prefWidth="728.0" style="-fx-background-color: #ffffff;" />
         </content>
       </ScrollPane>
       <JFXButton fx:id="btnRegistrarGrupo" layoutX="629.0" layoutY="664.0" onAction="#abrirVentanaRegistrarGrupo" style="-fx-background-color: #c08ed6;" text="Registrar grupo" AnchorPane.rightAnchor="22.0" />

@@ -5,24 +5,27 @@
  */
 package controladores;
 
-import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import modelo.Persona;
 
 /**
@@ -42,23 +45,26 @@ public class TarjetaInformacionUsuarioController implements Initializable {
     private Label lblTelefonoUsuario;
     @FXML
     private Label lblCorreoElectronicoUsuario;
-    @FXML
-    private JFXButton btnEditarUsuario;
-    @FXML
-    private Tooltip etBtnEditar;
-    @FXML
-    private FontAwesomeIconView iconoBtn;
 
     private Persona persona;
     private HBox pantallaDividida;
     private StackPane pnlSecundario = new StackPane();
+    private final Background focusBackground = new Background(new BackgroundFill(Color.web("#FFD4FC"), CornerRadii.EMPTY, Insets.EMPTY));
+    private final Background unfocusBackground = new Background(new BackgroundFill(Color.web("#ffe6fd"), CornerRadii.EMPTY, Insets.EMPTY));
+    @FXML
+    private StackPane panelTarjeta;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        panelTarjeta.backgroundProperty().bind(Bindings
+                .when(panelTarjeta.focusedProperty())
+                .then(focusBackground)
+                .otherwise(unfocusBackground)
+        );
+        panelTarjeta.getStyleClass().add("pane");
     }
 
     public void setPersona(Persona persona) {
@@ -74,7 +80,7 @@ public class TarjetaInformacionUsuarioController implements Initializable {
         lblNombresUsuario.setText(persona.getNombre());
         lblApellidosUsuario.setText(persona.getApellidos());
         lblTelefonoUsuario.setText(persona.getTelefono());
-        Image imagen = new Image("file:" + persona.obtenerImagen(),true);
+        Image imagen = new Image("file:" + persona.obtenerImagen(), true);
         imgFotoUsuario.setImage(imagen);
         if (persona.getEmail() == null) {
             lblCorreoElectronicoUsuario.setText("");
@@ -84,7 +90,12 @@ public class TarjetaInformacionUsuarioController implements Initializable {
     }
 
     @FXML
-    private void editarUsuario(ActionEvent event) {
+    private void cambiarColor(MouseEvent event) {
+        panelTarjeta.requestFocus();
+    }
+
+    @FXML
+    private void editarUsuario(MouseEvent event) {
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaEditarUsuario.fxml"));
         try {
@@ -92,18 +103,17 @@ public class TarjetaInformacionUsuarioController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         PantallaEditarUsuarioController controlador = loader.getController();
         controlador.setPersona(persona);
         controlador.setPantallaDividida(pantallaDividida);
         controlador.setControlador(this);
         pnlSecundario.getChildren().add(root);
         PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
-        if(pantallaDividida.getChildren().size() > 1){
+        if (pantallaDividida.getChildren().size() > 1) {
             pantallaDividida.getChildren().remove(1);
         }
         pantallaDividida.getChildren().add(pnlSecundario);
     }
-    
-    
+
 }
