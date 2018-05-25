@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -46,7 +47,7 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <GridPane prefHeight="30.0" prefWidth="800.0">
+            <GridPane prefHeight="38.0" prefWidth="800.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="207.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="169.0" />
@@ -56,10 +57,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="btnAceptar" onAction="#cambiarHorario" prefHeight="50.0" prefWidth="86.0" style="-fx-background-color: #c08ed6;" text="Aceptar" GridPane.columnIndex="2">
+                  <JFXButton fx:id="btnAceptar" stylesheets="@../styles/Styles.css" onAction="#cambiarHorario" prefHeight="37.0" prefWidth="86.0" text="Aceptar" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets right="15.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                   <Label text="Horario:">
                      <GridPane.margin>

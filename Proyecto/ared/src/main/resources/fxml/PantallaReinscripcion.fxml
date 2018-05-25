@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -37,14 +38,15 @@
                                         <Insets left="20.0" right="20.0" top="20.0" />
                                     </VBox.margin>
                                 </Label>
-                        <JFXListView fx:id="lstGrupo" prefHeight="400.0" prefWidth="275.0" stylesheets="@../styles/listView.css">
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </VBox.margin></JFXListView>
+                                <JFXListView fx:id="lstGrupo" prefHeight="400.0" prefWidth="275.0" stylesheets="@../styles/listView.css">
+                                    <VBox.margin>
+                                        <Insets left="20.0" right="20.0" />
+                                    </VBox.margin>
+                                </JFXListView>
                             </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
                         </VBox>
                         <VBox prefHeight="768.0" prefWidth="300.0" spacing="20.0">
                             <children>
@@ -59,11 +61,11 @@
                                         <Insets left="20.0" right="20.0" top="20.0" />
                                     </VBox.margin>
                                 </Label>
-                        <JFXListView fx:id="lstAlumnos" prefHeight="400.0" prefWidth="275.0" stylesheets="@../styles/listView.css">
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </JFXListView>
+                                <JFXListView fx:id="lstAlumnos" prefHeight="400.0" prefWidth="275.0" stylesheets="@../styles/listView.css">
+                                    <VBox.margin>
+                                        <Insets left="20.0" right="20.0" />
+                                    </VBox.margin>
+                                </JFXListView>
                             </children>
                         </VBox>
                         <VBox prefHeight="666.0" prefWidth="489.0">
@@ -74,56 +76,40 @@
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.33331298828125" minWidth="10.0" prefWidth="296.33331298828125" />
                                     </columnConstraints>
                                     <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
                                         <Label text="Monto:" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </padding>
                                         </Label>
                                         <JFXTextField fx:id="txtMonto" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label text="Promoción:" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </padding>
                                         </Label>
                                         <JFXComboBox fx:id="comboPromocion" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <Label text="Monto final:" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </padding>
                                         </Label>
                                         <Label fx:id="labelMontoFinal" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                             <font>
-                                                <Font name="Arial" size="18.0" />
+                                                <Font name="Arial" size="13.0" />
                                             </font>
                                         </Label>
-                              <Label text="Alumno:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets right="10.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label fx:id="lblNombreAlumno" text="Label" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
+                                        <Label text="Alumno:">
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label fx:id="lblNombreAlumno" text="Label" GridPane.columnIndex="1" />
                                     </children>
                                     <VBox.margin>
                                         <Insets bottom="50.0" top="50.0" />
@@ -134,10 +120,13 @@
                                 </GridPane>
                                 <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="212.0" prefWidth="495.0">
                                     <children>
-                                        <JFXButton fx:id="btnReinscribir" layoutX="-1.0" layoutY="97.0" onAction="#reinscribir" prefHeight="41.0" prefWidth="170.0" style="-fx-background-color: #c08ed6#9870aa;" text="Reinscribir">
+                                        <JFXButton fx:id="btnReinscribir" stylesheets="@../styles/Styles.css" layoutX="-1.0" layoutY="97.0" onAction="#reinscribir" prefHeight="37.0" prefWidth="122.0" text="Reinscribir">
                                             <font>
-                                                <Font name="Arial" size="18.0" />
+                                                <Font name="Arial" size="13.0" />
                                             </font>
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
                                         </JFXButton>
                                     </children>
                                 </AnchorPane>

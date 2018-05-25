@@ -34,7 +34,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Alumno;
@@ -53,11 +53,11 @@ import modelo.Persona;
 public class PantallaRegistraPagoAlumnoExternoController implements Initializable, Controlador {
 
     @FXML
-    private ListView<String> lstColaboradores;
+    private JFXListView<String> lstColaboradores;
     @FXML
-    private ListView<String> lstGrupos;
+    private JFXListView<String> lstGrupos;
     @FXML
-    private ListView<String> lstAlumno;
+    private JFXListView<String> lstAlumno;
     @FXML
     private Label labelAlumno;
     @FXML
@@ -79,12 +79,20 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
     private Maestro maestro;
     @FXML
     private Label labelFechaProximoPago;
+    @FXML
+    private Label lblFechaProximo;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lstAlumno.setExpanded(true);
+        lstAlumno.depthProperty().set(1);
+        lstColaboradores.setExpanded(true);
+        lstColaboradores.depthProperty().set(1);
+        lstGrupos.setExpanded(true);
+        lstGrupos.depthProperty().set(1);
         nombresColaboradores = new ArrayList();
         ValidatorBase requeridos = new NumberValidator();
         requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)

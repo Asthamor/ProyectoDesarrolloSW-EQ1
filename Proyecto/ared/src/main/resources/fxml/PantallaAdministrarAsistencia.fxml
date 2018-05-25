@@ -2,96 +2,117 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaAdministrarAsistenciaController">
-   <children>
-      <BorderPane prefHeight="718.0" prefWidth="1200.0">
-         <top>
-            <Pane prefHeight="112.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="560.0" layoutY="42.0" text="Asistencia">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Separator layoutX="508.0" layoutY="68.0" prefWidth="200.0" style="-fx-background-color: C08ED6;" />
-               </children>
-            </Pane>
-         </top>
-         <left>
-            <Pane prefHeight="430.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
-         </left>
-         <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="532.0" stroke="BLACK" strokeType="INSIDE" width="1040.0" />
-                  <HBox prefHeight="539.0" prefWidth="1038.0">
-                     <children>
-                        <VBox prefHeight="539.0" prefWidth="314.0" spacing="10.0">
-                           <children>
-                              <Label text="Fechas:">
-                                 <VBox.margin>
-                                    <Insets left="13.0" top="10.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <JFXListView fx:id="lstFechas" prefHeight="405.0" prefWidth="200.0" stylesheets="@../styles/listView.css">
-                                 <VBox.margin>
-                                    <Insets left="13.0" right="10.0" />
-                                 </VBox.margin>
-                              </JFXListView>
-                              <JFXButton onAction="#nuevaLista" prefHeight="28.0" prefWidth="142.0" style="-fx-background-color: C08ED6;" text="Nueva lista">
-                                 <VBox.margin>
-                                    <Insets left="230.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="539.0" prefWidth="691.0">
-                           <children>
-                              <Label text="Alumnos:">
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <JFXListView fx:id="lstAlumnos" prefHeight="405.0" prefWidth="659.0" stylesheets="@../styles/listView.css">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </JFXListView>
-                              <JFXButton onAction="#guardar" prefHeight="37.0" prefWidth="95.0" style="-fx-background-color: C08ED6;" text="Guardar">
-                                 <VBox.margin>
-                                    <Insets left="600.0" top="10.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-         </center>
-         <right>
-            <Pane prefHeight="530.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
-         </right>
-         <bottom>
-            <Pane prefHeight="76.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
-         </bottom>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane prefHeight="718.0" prefWidth="1200.0">
+            <top>
+                <Pane prefHeight="112.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="560.0" layoutY="42.0" text="Asistencia">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Separator layoutX="508.0" layoutY="68.0" prefWidth="200.0" style="-fx-background-color: C08ED6;" />
+                    </children>
+                </Pane>
+            </top>
+            <left>
+                <Pane prefHeight="430.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            </left>
+            <center>
+                <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="539.0" prefWidth="1038.0">
+                            <children>
+                                <VBox prefHeight="539.0" prefWidth="314.0" spacing="10.0">
+                                    <children>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="269.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="45.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label text="Fechas:">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </Label>
+                                                <JFXButton fx:id="btnAgregar" onAction="#nuevaLista" prefHeight="28.0" prefWidth="142.0" style="-fx-background-color: C08ED6;" stylesheets="@../styles/botonesMenu.css" text="N" GridPane.columnIndex="1">
+                                                    <graphic>
+                                                        <FontAwesomeIconView fill="#ffe6fd" glyphName="PLUS" size="15" />
+                                                    </graphic>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND" />
+                                                    </cursor>
+                                                    <tooltip>
+                                                        <Tooltip fx:id="mensajeBtn" text="Agregar lista" />
+                                                    </tooltip>
+                                                </JFXButton>
+                                            </children>
+                                        </GridPane>
+                                        <JFXListView fx:id="lstFechas" prefHeight="405.0" prefWidth="200.0" stylesheets="@../styles/listView.css">
+                                            <VBox.margin>
+                                                <Insets left="13.0" right="10.0" />
+                                            </VBox.margin>
+                                        </JFXListView>
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="539.0" prefWidth="691.0">
+                                    <children>
+                                        <Label text="Alumnos:">
+                                            <VBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                            </VBox.margin>
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <JFXListView fx:id="lstAlumnos" prefHeight="405.0" prefWidth="659.0" stylesheets="@../styles/listView.css">
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </JFXListView>
+                                        <JFXButton onAction="#guardar" prefHeight="37.0" prefWidth="95.0" stylesheets="@../styles/Styles.css" text="Guardar">
+                                            <VBox.margin>
+                                                <Insets left="600.0" top="10.0" />
+                                            </VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                        </JFXButton>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </Pane>
+            </center>
+            <right>
+                <Pane prefHeight="530.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            </right>
+            <bottom>
+                <Pane prefHeight="76.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import clasesApoyo.JFXLimitedTextField?>
+<?import javafx.scene.Cursor?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEditarUsuarioController">
    <children>
@@ -22,8 +23,16 @@
       <ImageView fx:id="imgFotoUsuario" fitHeight="150.0" fitWidth="200.0" layoutX="131.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="lblCorreoElectronico" layoutX="24.0" layoutY="524.0" text="Correo electrónico:" />
       <JFXLimitedTextField fx:id="txtCorreoElectronico" focusColor="#c08ed6" layoutX="147.0" layoutY="520.0" prefHeight="26.0" prefWidth="179.0" />
-      <JFXButton fx:id="btnSeleccionarFoto" layoutX="142.0" layoutY="469.0" onAction="#seleccionarFoto" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #c08ed6;" text="Seleccionar foto" />
-      <JFXButton fx:id="btnGuardar" layoutX="312.0" layoutY="661.0" onAction="#actualizarInformacion" style="-fx-background-color: #c08ed6;" text="Guardar" />
+      <JFXButton fx:id="btnSeleccionarFoto" stylesheets="@../styles/Styles.css" layoutX="142.0" layoutY="469.0" onAction="#seleccionarFoto" prefHeight="37.0" prefWidth="131.0" text="Seleccionar foto">
+          <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" prefHeight="37.0" prefWidth="105.0" layoutX="295.0" layoutY="640.0" onAction="#actualizarInformacion" text="Guardar">
+          <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+      </JFXButton>
       <GridPane layoutX="14.0" layoutY="83.0" prefHeight="150.0" prefWidth="332.0" vgap="10.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="99.0" />

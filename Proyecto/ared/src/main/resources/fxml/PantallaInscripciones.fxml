@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,11 +17,20 @@
             <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="937.0">
                <children>
                   <Pane prefHeight="42.0" prefWidth="390.0" style="-fx-background-color: ffffff;" />
-                  <JFXButton fx:id="btnInscripcion" onAction="#abrirPantallaInscripcion" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Inscripciones" />
+                  <JFXButton fx:id="btnInscripcion" onAction="#abrirPantallaInscripcion" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Inscripciones">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXButton fx:id="btnBaja" onAction="#abrirPantallaBajas" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Bajas" />
+                  <JFXButton fx:id="btnBaja" onAction="#abrirPantallaBajas" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Bajas">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <JFXButton fx:id="btnReiscripciones" onAction="#abrirPantallaReinscribir" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Reinscripciones" />
+                  <JFXButton fx:id="btnReiscripciones" onAction="#abrirPantallaReinscribir" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Reinscripciones">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
                   <Pane prefHeight="42.0" prefWidth="392.0" style="-fx-background-color: ffffff;" />
                </children>
             </HBox>

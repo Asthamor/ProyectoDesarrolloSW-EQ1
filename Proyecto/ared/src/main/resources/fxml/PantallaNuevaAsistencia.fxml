@@ -2,17 +2,17 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaNuevaAsistenciaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaNuevaAsistenciaController">
    <children>
       <BorderPane prefHeight="718.0" prefWidth="1200.0">
          <top>
@@ -23,7 +23,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Separator layoutX="500.0" layoutY="58.0" prefWidth="200.0" style="-fx-background-color: C08ED6;" />
+                  <Separator layoutX="500.0" layoutY="58.0" prefHeight="3.0" prefWidth="221.0" style="-fx-background-color: C08ED6;" />
                </children>
             </Pane>
          </top>
@@ -33,7 +33,6 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="584.0" stroke="BLACK" strokeType="INSIDE" width="1046.0" />
                   <VBox prefHeight="578.0" prefWidth="1044.0">
                      <children>
                         <Label text="Alumnos:">
@@ -44,18 +43,18 @@
                               <Insets left="250.0" top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lstAlumnos" prefHeight="482.0" prefWidth="542.0">
+                        <JFXListView fx:id="lstAlumnos" prefHeight="482.0" prefWidth="542.0" stylesheets="@../styles/listView.css">
                            <VBox.margin>
                               <Insets left="250.0" right="250.0" top="10.0" />
                            </VBox.margin>
-                        </ListView>
-                        <JFXButton onAction="#registrar" style="-fx-background-color: C08ED6;" text="Registrar">
+                        </JFXListView>
+                        <JFXButton minHeight="37.0" stylesheets="@../styles/Styles.css" onAction="#registrar" text="Registrar">
                            <VBox.margin>
                               <Insets bottom="20.0" left="900.0" />
                            </VBox.margin>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                   </VBox>

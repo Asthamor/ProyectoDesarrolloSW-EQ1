@@ -12,65 +12,81 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Tooltip?>
 
 
 <AnchorPane id="AnchorPane" prefHeight="685.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="controladores.PantallaEditarRentaController">
-   <children>
-      <Label layoutX="149.0" layoutY="31.0" text="Detalle de renta" />
-      <Separator layoutX="141.0" layoutY="51.0" prefHeight="0.0" prefWidth="114.0" style="-fx-background-color: #c08ed6;" />
-      <GridPane layoutX="96.0" layoutY="103.0" prefHeight="189.0" prefWidth="204.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="85.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="119.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Cliente:">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Fecha:" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lblFecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Horario:" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Monto:" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lblNombreCliente" text="Label" GridPane.columnIndex="1" />
-            <Label fx:id="lblHorario" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <Label text="\$">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="60.0" />
-               </children>
-            </HBox>
-         </children>
-      </GridPane>
-      <JFXButton fx:id="btnGuardar" layoutX="268.0" layoutY="602.0" onAction="#actualizarRenta" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #c08ed6;" text="Guardar" />
-      <JFXButton fx:id="btnCancelarRenta" layoutX="28.0" layoutY="602.0" onAction="#cancelarRenta" prefHeight="34.0" prefWidth="121.0" style="-fx-background-color: #D7DBDD;" text="Cancelar Renta" />
-      <JFXButton fx:id="btnEditarHorario" layoutX="300.0" layoutY="210.0" onAction="#editarHorario" text="">
-         <graphic>
-            <FontAwesomeIconView glyphName="PENCIL_SQUARE_ALT" size="25" />
-         </graphic>
-      </JFXButton>
-   </children>
+    <children>
+        <Label layoutX="149.0" layoutY="31.0" text="Detalle de renta" />
+        <Separator layoutX="141.0" layoutY="51.0" prefHeight="0.0" prefWidth="114.0" style="-fx-background-color: #c08ed6;" />
+        <GridPane layoutX="96.0" layoutY="103.0" prefHeight="189.0" prefWidth="204.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="85.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="119.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Cliente:">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Fecha:" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="lblFecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Horario:" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Monto:" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="lblNombreCliente" text="Label" GridPane.columnIndex="1" />
+                <Label fx:id="lblHorario" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <Label text="\$">
+                            <font>
+                                <Font size="19.0" />
+                            </font>
+                        </Label>
+                        <JFXTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="60.0" />
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+        <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" layoutX="268.0" layoutY="602.0" onAction="#actualizarRenta" prefHeight="37.0" prefWidth="105.0" text="Guardar" >
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnCancelarRenta" stylesheets="@../styles/Styles.css" layoutX="28.0" layoutY="602.0" onAction="#cancelarRenta" prefHeight="37.0" prefWidth="121.0" style="-fx-background-color: #D7DBDD;" text="Cancelar Renta" >
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnEditar" layoutX="300.0" stylesheets="@../styles/botonesMenu.css" layoutY="210.0" onAction="#editarHorario" text="">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <tooltip>
+                <Tooltip text="Editar horario" />
+            </tooltip>
+            <graphic>
+                <FontAwesomeIconView fill="#ffe6fd" glyphName="PENCIL_SQUARE_ALT" size="20" />
+            </graphic>
+        </JFXButton>
+    </children>
 </AnchorPane>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,10 +15,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistraPagoAlumnoExternoController">
+<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistraPagoAlumnoExternoController">
    <children>
       <BorderPane prefHeight="718.0" prefWidth="1200.0">
          <top>
@@ -33,19 +33,18 @@
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="588.0" prefWidth="96.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="504.0" prefWidth="46.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="588.0" prefWidth="96.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="504.0" prefWidth="27.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="97.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
          </bottom>
          <center>
-            <Pane prefHeight="551.0" prefWidth="1008.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="504.0" prefWidth="1055.0" BorderPane.alignment="CENTER">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="515.0" stroke="BLACK" strokeType="INSIDE" width="1008.0" />
-                  <HBox prefHeight="516.0" prefWidth="1006.0">
+                  <HBox prefHeight="516.0" prefWidth="1127.0">
                      <children>
                         <VBox focusTraversable="true" prefHeight="582.0" prefWidth="253.0">
                            <children>
@@ -57,11 +56,11 @@
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="lstColaboradores" prefHeight="436.0" prefWidth="158.0" style="-fx-padding: 10px;">
+                              <JFXListView fx:id="lstColaboradores" prefHeight="436.0" prefWidth="158.0" style="-fx-padding: 10px;" stylesheets="@../styles/listView.css">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
-                              </ListView>
+                              </JFXListView>
                            </children>
                         </VBox>
                         <VBox prefHeight="582.0" prefWidth="230.0">
@@ -74,11 +73,11 @@
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="lstGrupos" prefHeight="436.0" prefWidth="217.0" style="-fx-padding: 10px;">
+                              <JFXListView fx:id="lstGrupos" prefHeight="436.0" prefWidth="217.0" style="-fx-padding: 10px;" stylesheets="@../styles/listView.css">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
-                              </ListView>
+                              </JFXListView>
                            </children>
                         </VBox>
                         <VBox prefHeight="545.0" prefWidth="227.0">
@@ -91,25 +90,23 @@
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="lstAlumno" prefHeight="436.0" prefWidth="236.0">
+                              <JFXListView fx:id="lstAlumno" prefHeight="436.0" prefWidth="236.0" stylesheets="@../styles/listView.css">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
-                              </ListView>
+                              </JFXListView>
                            </children>
                         </VBox>
-                        <AnchorPane prefHeight="471.0" prefWidth="292.0">
+                        <AnchorPane prefHeight="516.0" prefWidth="418.0">
                            <children>
-                              <Label layoutX="24.0" layoutY="59.0" prefHeight="27.0" prefWidth="69.0" text="Detalle:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton layoutX="195.0" layoutY="461.0" onAction="#registrarPago" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: C08ED6;" text="Registrar" />
-                              <GridPane layoutX="-20.0" layoutY="106.0" prefHeight="228.0" prefWidth="279.0">
+                              <JFXButton layoutX="312.0" layoutY="454.0" onAction="#registrarPago" prefHeight="37.0" prefWidth="88.0" stylesheets="@../styles/Styles.css" text="Registrar">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></JFXButton>
+                              <GridPane layoutX="36.0" layoutY="38.0" prefHeight="272.0" prefWidth="352.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="161.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="214.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -120,17 +117,17 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label prefHeight="17.0" prefWidth="53.0" text="Alumno:">
+                                    <Label prefHeight="20.0" prefWidth="58.0" text="Alumno:">
                                        <GridPane.margin>
-                                          <Insets left="70.0" right="10.0" />
+                                          <Insets right="6.0" />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Colborador:" GridPane.rowIndex="2">
+                                    <Label text="Colaborador:" GridPane.rowIndex="2">
                                        <GridPane.margin>
-                                          <Insets left="50.0" />
+                                          <Insets right="6.0" />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="14.0" />
@@ -138,55 +135,61 @@
                                     </Label>
                                     <Label text="Fecha:" GridPane.rowIndex="3">
                                        <GridPane.margin>
-                                          <Insets left="80.0" />
+                                          <Insets right="6.0" />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelAlumno" prefHeight="20.0" prefWidth="119.0" GridPane.columnIndex="1">
+                                    <Label fx:id="labelAlumno" prefHeight="20.0" prefWidth="163.0" GridPane.columnIndex="1">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelColaborador" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Label fx:id="labelColaborador" prefHeight="20.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelFecha" prefHeight="20.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Label fx:id="labelFecha" prefHeight="20.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <Label text="Grupo:" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets left="80.0" />
+                                          <Insets right="6.0" />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelGrupo" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Label fx:id="labelGrupo" prefHeight="20.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <Label text="Monto:" GridPane.rowIndex="5">
                                        <GridPane.margin>
-                                          <Insets left="80.0" />
+                                          <Insets right="6.0" />
                                        </GridPane.margin>
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextField fx:id="txtMonto" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Label text="Fecha proximo pago:" GridPane.rowIndex="4">
+                                    <JFXTextField fx:id="txtMonto" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <GridPane.margin>
-                                          <Insets left="20.0" />
+                                          <Insets right="150.0" />
+                                       </GridPane.margin></JFXTextField>
+                                    <Label fx:id="lblFechaProximo" text="Fecha proximo pago:" GridPane.rowIndex="4">
+                                       <GridPane.margin>
+                                          <Insets right="6.0" />
                                        </GridPane.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
                                     </Label>
-                                    <Label fx:id="labelFechaProximoPago" prefHeight="17.0" prefWidth="96.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                    <Label fx:id="labelFechaProximoPago" prefHeight="20.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

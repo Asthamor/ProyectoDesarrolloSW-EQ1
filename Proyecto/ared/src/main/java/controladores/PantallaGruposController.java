@@ -52,6 +52,8 @@ public class PantallaGruposController implements Initializable, Controlador {
     private StackPane pnlPrincipal;
     private Document document;
     private Element gruposXML;
+    @FXML
+    private GridPane grid;
 
     /**
      * Initializes the controller class.
@@ -81,13 +83,12 @@ public class PantallaGruposController implements Initializable, Controlador {
     @Override
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
-        pnlGrupos.getChildren().add(mostrarGrupos());
+        mostrarGrupos();
     }
 
-    public GridPane mostrarGrupos() {
+    public void mostrarGrupos() {
         Grupo grupo = new Grupo();
         List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
-        GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
         int filas = grupos.size() / 2;
@@ -134,7 +135,6 @@ public class PantallaGruposController implements Initializable, Controlador {
                 }
             }
         }
-        return grid;
     }
 
     @FXML

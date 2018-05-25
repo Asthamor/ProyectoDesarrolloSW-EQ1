@@ -18,116 +18,122 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import clasesApoyo.JFXLimitedTextField?>
+<?import javafx.scene.Cursor?>
 
 <BorderPane prefHeight="611.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEditarPerfilController">
-   <top>
-      <Pane prefHeight="50.0" prefWidth="1177.0" BorderPane.alignment="CENTER" />
-   </top>
-   <center>
-      <Pane prefHeight="357.0" prefWidth="534.0" BorderPane.alignment="CENTER">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="513.0" stroke="BLACK" strokeType="INSIDE" width="1048.0" />
-            <HBox alignment="CENTER" prefHeight="518.0" prefWidth="1052.0">
-               <children>
-                  <VBox alignment="TOP_CENTER" fillWidth="false">
-                     <children>
-                        <Label text="Editar Perfil">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <StackPane prefHeight="250.0" prefWidth="250.0">
-                           <children>
-                              <JFXButton fx:id="btnEditarImagen" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" onAction="#openImgExplorer" prefHeight="32.0" prefWidth="37.0" style="-fx-background-color: #C08ED6;" text=" " StackPane.alignment="BOTTOM_RIGHT">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="PENCIL" size="20" />
-                                 </graphic>
-                                 <StackPane.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                 </StackPane.margin>
-                              </JFXButton>
-                              <ImageView fx:id="imgUsuario" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                 <StackPane.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                 </StackPane.margin></ImageView>
-                           </children>
-                        </StackPane>
-                        <GridPane prefHeight="90.0" prefWidth="850.0">
-                          <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="292.0" minWidth="0.0" prefWidth="140.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="579.0" minWidth="10.0" prefWidth="140.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Nombre:">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Teléfono:" GridPane.rowIndex="1">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="E-mail:" GridPane.rowIndex="2">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="lblNombreUsuario" text="NOMBRELABEL" GridPane.columnIndex="1" />
-                              <JFXLimitedTextField fx:id="txtTelefono" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <JFXLimitedTextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </JFXLimitedTextField>
-                              <Label text="Contraseña:" GridPane.columnIndex="2" />
-                              <Label text="Confirmar contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <JFXPasswordField fx:id="txtContraseña" GridPane.columnIndex="3" />
-                              <JFXPasswordField fx:id="txtConfContraseña" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                           </children>
-                           <padding>
-                              <Insets right="50.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="15.0" />
-                           </VBox.margin>
-                        </GridPane>
-                        <Label fx:id="lblError" text="Error de contraseñas" textFill="#d60404" visible="false" />
-                        <Pane prefHeight="64.0" prefWidth="952.0">
-                           <children>
-                              <JFXButton fx:id="btnGuardar" alignment="CENTER_RIGHT" defaultButton="true" layoutX="863.0" layoutY="14.0" onAction="#guardarCambios" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: C08ED6;" text="Guardar" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Pane>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="50.0" right="50.0" />
-                     </HBox.margin>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
-   </center>
-   <left>
-      <Pane prefHeight="357.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
-   </right>
-   <bottom>
-      <Pane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </bottom>
+    <top>
+        <Pane prefHeight="50.0" prefWidth="1177.0" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <Pane prefHeight="357.0" prefWidth="534.0" BorderPane.alignment="CENTER">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="513.0" stroke="BLACK" strokeType="INSIDE" width="1048.0" />
+                <HBox alignment="CENTER" prefHeight="518.0" prefWidth="1052.0">
+                    <children>
+                        <VBox alignment="TOP_CENTER" fillWidth="false">
+                            <children>
+                                <Label text="Editar Perfil">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                                <StackPane prefHeight="250.0" prefWidth="250.0">
+                                    <children>
+                                        <JFXButton fx:id="btnEditarImagen" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" onAction="#openImgExplorer" prefHeight="32.0" prefWidth="37.0" style="-fx-background-color: #C08ED6;" text=" " StackPane.alignment="BOTTOM_RIGHT">
+                                            <graphic>
+                                                <FontAwesomeIconView glyphName="PENCIL" size="20" />
+                                            </graphic>
+                                            <StackPane.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </StackPane.margin>
+                                        </JFXButton>
+                                        <ImageView fx:id="imgUsuario" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                            <StackPane.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </StackPane.margin>
+                                        </ImageView>
+                                    </children>
+                                </StackPane>
+                                <GridPane prefHeight="90.0" prefWidth="850.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="292.0" minWidth="0.0" prefWidth="140.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="579.0" minWidth="10.0" prefWidth="140.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Nombre:">
+                                            <padding>
+                                                <Insets right="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <Label text="Teléfono:" GridPane.rowIndex="1">
+                                            <padding>
+                                                <Insets right="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <Label text="E-mail:" GridPane.rowIndex="2">
+                                            <padding>
+                                                <Insets right="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <Label fx:id="lblNombreUsuario" text="NOMBRELABEL" GridPane.columnIndex="1" />
+                                        <JFXLimitedTextField fx:id="txtTelefono" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <JFXLimitedTextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets />
+                                            </GridPane.margin>
+                                        </JFXLimitedTextField>
+                                        <Label text="Contraseña:" GridPane.columnIndex="2" />
+                                        <Label text="Confirmar contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                        <JFXPasswordField fx:id="txtContraseña" GridPane.columnIndex="3" />
+                                        <JFXPasswordField fx:id="txtConfContraseña" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    </children>
+                                    <padding>
+                                        <Insets right="50.0" />
+                                    </padding>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="15.0" />
+                                    </VBox.margin>
+                                </GridPane>
+                                <Label fx:id="lblError" text="Error de contraseñas" textFill="#d60404" visible="false" />
+                                <Pane prefHeight="64.0" prefWidth="952.0">
+                                    <children>
+                                        <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" alignment="CENTER_RIGHT" defaultButton="true" layoutX="863.0" layoutY="14.0" onAction="#guardarCambios" prefHeight="37.0" prefWidth="60.0" text="Guardar" >
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </JFXButton>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </Pane>
+                            </children>
+                            <HBox.margin>
+                                <Insets left="50.0" right="50.0" />
+                            </HBox.margin>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </Pane>
+    </center>
+    <left>
+        <Pane prefHeight="357.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+    </left>
+    <right>
+        <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+    </right>
+    <bottom>
+        <Pane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    </bottom>
 </BorderPane>

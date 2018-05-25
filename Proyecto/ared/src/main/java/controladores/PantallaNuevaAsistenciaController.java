@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -53,7 +52,7 @@ import org.dom4j.io.XMLWriter;
 public class PantallaNuevaAsistenciaController implements Initializable, Controlador {
 
     @FXML
-    private ListView<String> lstAlumnos;
+    private JFXListView<String> lstAlumnos;
     private ArrayList<String> nombreAlumnos;
     private HashMap<String, Boolean> hashMap;
     private Document documento;
@@ -70,6 +69,8 @@ public class PantallaNuevaAsistenciaController implements Initializable, Control
     public void initialize(URL url, ResourceBundle rb) {
         nombreAlumnos = new ArrayList();
         hashMap = new HashMap<>();
+        lstAlumnos.setExpanded(true);
+        lstAlumnos.depthProperty().set(1);
     }
 
     @Override

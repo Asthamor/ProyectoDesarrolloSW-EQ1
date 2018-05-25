@@ -11,57 +11,61 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.Cursor?>
 
 <AnchorPane fx:id="panelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #f3d0f0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaLoginController">
-   <children>
-      <ImageView fx:id="imgAredEspacio" fitHeight="706.0" fitWidth="552.0" layoutX="91.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-         <viewport>
-            <Rectangle2D />
-         </viewport>
-         <image>
-            <Image url="@../imagenes/bailarina.png" />
-         </image>
-      </ImageView>
-      <BorderPane layoutX="731.0" layoutY="-1.0" prefHeight="768.0" prefWidth="636.0" style="-fx-background-color: #ffffff;">
-         <center>
-            <AnchorPane prefHeight="574.0" prefWidth="472.0" style="-fx-background-color: #ffe6fd;" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" labelFloat="true" layoutX="36.0" layoutY="230.0" prefHeight="63.0" prefWidth="401.0" promptText="Nombre de usuario">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXPasswordField fx:id="txtContraseña" focusColor="#c08ed6" labelFloat="true" layoutX="36.0" layoutY="355.0" prefHeight="63.0" prefWidth="401.0" promptText="Contraseña">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXPasswordField>
-                  <JFXButton fx:id="btnIniciarSesion" layoutX="36.0" layoutY="486.0" onAction="#tryLogin" prefHeight="55.0" prefWidth="401.0" style="-fx-background-color: #c08ed6;" text="Iniciar sesión">
-                     <font>
-                        <Font name="Century Gothic" size="25.0" />
-                     </font>
-                  </JFXButton>
-                  <ImageView fitHeight="169.0" fitWidth="402.0" layoutX="36.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/nombreAred.png" />
-                     </image>
-                  </ImageView>
-                  <Label id="lblErrorLogin" fx:id="lblError" layoutX="36.0" layoutY="420.0" prefHeight="29.0" prefWidth="231.0" text="Los datos introducidos son erroneos" textFill="#dd0000" visible="false" />
-               </children>
-            </AnchorPane>
-         </center>
-         <top>
-            <Pane prefHeight="68.0" prefWidth="636.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
-         </top>
-         <left>
-            <Pane prefHeight="544.0" prefWidth="96.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <Pane prefHeight="544.0" prefWidth="68.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
-         </right>
-         <bottom>
-            <Pane prefHeight="118.0" prefWidth="636.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
-         </bottom>
-      </BorderPane>
-   </children>
+    <children>
+        <ImageView fx:id="imgAredEspacio" fitHeight="706.0" fitWidth="552.0" layoutX="91.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+            <viewport>
+                <Rectangle2D />
+            </viewport>
+            <image>
+                <Image url="@../imagenes/bailarina.png" />
+            </image>
+        </ImageView>
+        <BorderPane layoutX="731.0" layoutY="-1.0" prefHeight="768.0" prefWidth="636.0" style="-fx-background-color: #ffffff;">
+            <center>
+                <AnchorPane prefHeight="574.0" prefWidth="472.0" style="-fx-background-color: #ffe6fd;" BorderPane.alignment="CENTER">
+                    <children>
+                        <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" labelFloat="true" layoutX="36.0" layoutY="230.0" prefHeight="63.0" prefWidth="401.0" promptText="Nombre de usuario">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </JFXTextField>
+                        <JFXPasswordField fx:id="txtContraseña" focusColor="#c08ed6" labelFloat="true" layoutX="36.0" layoutY="355.0" prefHeight="63.0" prefWidth="401.0" promptText="Contraseña">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </JFXPasswordField>
+                        <JFXButton fx:id="btnIniciarSesion" stylesheets="@../styles/Styles.css" layoutX="36.0" layoutY="486.0" onAction="#tryLogin" prefHeight="55.0" prefWidth="401.0" style="-fx-background-color: #c08ed6;" text="Iniciar sesión">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font name="Century Gothic" size="25.0" />
+                            </font>
+                        </JFXButton>
+                        <ImageView fitHeight="169.0" fitWidth="402.0" layoutX="36.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../imagenes/nombreAred.png" />
+                            </image>
+                        </ImageView>
+                        <Label id="lblErrorLogin" fx:id="lblError" layoutX="36.0" layoutY="420.0" prefHeight="29.0" prefWidth="231.0" text="Los datos introducidos son erroneos" textFill="#dd0000" visible="false" />
+                    </children>
+                </AnchorPane>
+            </center>
+            <top>
+                <Pane prefHeight="68.0" prefWidth="636.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+            </top>
+            <left>
+                <Pane prefHeight="544.0" prefWidth="96.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+            </left>
+            <right>
+                <Pane prefHeight="544.0" prefWidth="68.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+            </right>
+            <bottom>
+                <Pane prefHeight="118.0" prefWidth="636.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>

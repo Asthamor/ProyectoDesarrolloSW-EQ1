@@ -82,8 +82,8 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private StackPane contenedor;
 
-    static HBox pantallaDividida;
-    static StackPane pnlPrincipal;
+    private HBox pantallaDividida;
+    private StackPane pnlPrincipal;
     private ImageView imagen = new ImageView("/imagenes/aredEspacioCompleto.png");
     private List<StackPane> notificaciones;
     private PopOver popOver;

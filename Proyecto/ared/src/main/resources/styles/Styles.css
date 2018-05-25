@@ -7,10 +7,11 @@
 .jfx-button:hover {
      -fx-background-color: #ffe6fd;
      -fx-text-fill: black;
+     -fx-rotate: 5;
 }
 
 .jfx-button:pressed {
      -fx-background-color: #ffe6fd;
      -fx-text-fill: black;
-     -fx-rotate: 5;
+     
 }

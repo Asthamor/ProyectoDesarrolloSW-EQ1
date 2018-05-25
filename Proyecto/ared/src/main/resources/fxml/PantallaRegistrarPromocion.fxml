@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
@@ -59,7 +60,10 @@
                   <JFXComboBox fx:id="cmbTipoPromocion" prefHeight="28.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <JFXButton fx:id="btnGuardar" layoutX="675.0" layoutY="434.0" onAction="#guardarPromocion" prefHeight="43.0" prefWidth="119.0" style="-fx-background-color: #c08ed6;" text="Guardar" />
+            <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" layoutX="690.0" layoutY="434.0" onAction="#guardarPromocion" prefHeight="37.0" prefWidth="105.0" text="Guardar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
          </children>
       </AnchorPane>
    </center>

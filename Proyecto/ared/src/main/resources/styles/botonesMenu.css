@@ -33,3 +33,12 @@ and open the template in the editor.
     -fx-max-width: 35px; 
     -fx-max-height: 35px;
 }
+
+#btnEditar {
+    -fx-background-color: #c08ed6;
+    -fx-background-radius: 5em; 
+    -fx-min-width: 35px;
+    -fx-min-height: 35px; 
+    -fx-max-width: 35px; 
+    -fx-max-height: 35px;
+}

@@ -81,6 +81,8 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
     private String dia;
     private List<Persona> clientes;
     private ArrayList<Integer> horarioRenta;
+    @FXML
+    private StackPane pnlGrid;
 
     /**
      * Initializes the controller class.

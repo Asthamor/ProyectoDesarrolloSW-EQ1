@@ -7,7 +7,6 @@ package controladores;
 
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -35,12 +34,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Maestro;
-import modelo.PagoAlumno;
 import modelo.PagoMaestro;
 import modelo.Persona;
 
@@ -52,9 +49,7 @@ import modelo.Persona;
 public class PantallaRegistrarPagoMaestroController implements Initializable, Controlador {
 
     @FXML
-    private ImageView imgMaestro;
-    @FXML
-    private ListView<String> lstMaestros;
+    private JFXListView<String> lstMaestros;
     @FXML
     private JFXButton btnRegistrar;
     @FXML
@@ -77,6 +72,8 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lstMaestros.setExpanded(true);
+        lstMaestros.depthProperty().set(1);
         nombresColaboradores = new ArrayList();
         ValidatorBase requeridos = new NumberValidator();
         requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)

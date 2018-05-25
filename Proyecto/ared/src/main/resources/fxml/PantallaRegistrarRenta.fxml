@@ -3,9 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarRentaController">
@@ -37,7 +38,10 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXDatePicker fx:id="txtDia" defaultColor="#c08ed6" editable="false" onAction="#mostrarFecha" prefHeight="26.0" prefWidth="237.0" GridPane.columnIndex="1" />
+                        <JFXDatePicker fx:id="txtDia" defaultColor="#c08ed6" editable="false" onAction="#mostrarFecha" prefHeight="26.0" prefWidth="237.0" GridPane.columnIndex="1">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></JFXDatePicker>
                      </children>
                   </GridPane>
                   <ScrollPane fx:id="scrollHorario" prefHeight="531.0" prefWidth="769.0" stylesheets="@../styles/scrollpane.css">
@@ -68,56 +72,63 @@
           <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="112.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton fx:id="btnGuardar" onAction="#guardarRenta" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #c08ed6;" text="Guardar" GridPane.rowIndex="1">
+            <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" onAction="#guardarRenta" prefHeight="37.0" prefWidth="110.0" text="Guardar" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
             <Pane prefHeight="255.0" prefWidth="431.0">
                <children>
-                  <GridPane hgap="10.0" layoutX="36.0" layoutY="69.0" prefHeight="196.0" prefWidth="368.0">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="90.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="259.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <StackPane fx:id="pnlGrid" layoutX="36.0" layoutY="69.0">
                      <children>
-                        <Label text="Cliente">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Fecha:" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="lblFecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Horario:" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <JFXComboBox fx:id="cmbCliente" prefHeight="28.0" prefWidth="162.0" GridPane.columnIndex="1" />
-                        <Label text="Monto:" GridPane.rowIndex="3">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <GridPane hgap="10.0" prefHeight="196.0" prefWidth="368.0">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="90.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="259.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <Label text="\$" />
-                              <JFXTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="71.0" />
+                              <Label text="Cliente">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Fecha:" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="lblFecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Horario:" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <JFXComboBox fx:id="cmbCliente" prefHeight="28.0" prefWidth="162.0" GridPane.columnIndex="1" />
+                              <Label text="Monto:" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label text="\$" />
+                                    <JFXTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="71.0" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="lblHorarioRenta" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
-                        </HBox>
-                        <Label fx:id="lblHorarioRenta" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        </GridPane>
                      </children>
-                  </GridPane>      
+                  </StackPane>      
                </children>
             </Pane>
          </children>

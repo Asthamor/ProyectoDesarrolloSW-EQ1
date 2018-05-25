@@ -67,8 +67,6 @@ public class PantallaEditarGrupoController implements Initializable {
     private JFXButton btnGuardarGrupo;
     @FXML
     private JFXButton btnEliminarGrupo;
-    @FXML
-    private JFXButton btnEditarHorario;
 
     private Grupo grupo;
 
@@ -89,6 +87,8 @@ public class PantallaEditarGrupoController implements Initializable {
     private Label lblNombreMaestro;
     @FXML
     private JFXColorPicker colorPicker;
+    @FXML
+    private JFXButton btnEditar;
 
     /**
      * Initializes the controller class.

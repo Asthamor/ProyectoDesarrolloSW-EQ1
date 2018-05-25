@@ -1,7 +1,6 @@
 package controladores;
 
 import com.jfoenix.controls.JFXButton;
-import static controladores.PantallaGruposController.obtnerHorarioGrupo;
 import interfaces.Controlador;
 import java.io.IOException;
 import java.net.URL;
@@ -16,13 +15,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import modelo.Maestro;
 import modelo.Promocion;
-import org.dom4j.Element;
 
 /**
  * FXML Controller class
@@ -35,12 +33,14 @@ public class PantallaPromocionesController implements Initializable, Controlador
     private ScrollPane scrollPromociones;
     @FXML
     private GridPane gridPromociones;
-    @FXML
-    private JFXButton bntNuevaPromocion;
 
     private Maestro maestro;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
+    @FXML
+    private JFXButton btnAgregar;
+    @FXML
+    private Tooltip mensajeBtn;
 
     /**
      * Initializes the controller class.

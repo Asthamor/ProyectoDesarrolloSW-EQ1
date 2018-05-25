@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,29 +12,24 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="718.0" prefWidth="775.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRentasController">
+<BorderPane prefHeight="685.0" prefWidth="775.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRentasController">
    <center>
-      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="715.0">
          <children>
-            <VBox alignment="TOP_RIGHT" prefHeight="718.0" prefWidth="715.0" spacing="10.0">
+            <StackPane fx:id="pnlTabla" prefHeight="606.0" prefWidth="715.0" stylesheets="@../styles/panelTabla.css">
                <children>
-                  <StackPane fx:id="pnlTabla" stylesheets="@../styles/panelTabla.css">
-                     <children>
-                        <TableView fx:id="tbRentas" onMouseClicked="#mostrarDetallesRenta" prefHeight="644.0" prefWidth="715.0" stylesheets="@../styles/tableView.css">
-                          <columns>
-                            <TableColumn fx:id="colCliente" prefWidth="276.0" text="Cliente" />
-                            <TableColumn fx:id="colFecha" prefWidth="189.0" text="Fecha" />
-                              <TableColumn fx:id="colHorario" prefWidth="128.0" text="Horario" />
-                              <TableColumn fx:id="colMonto" prefWidth="121.0" text="Monto" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </StackPane>
+                  <TableView fx:id="tbRentas" onMouseClicked="#mostrarDetallesRenta" prefHeight="624.0" prefWidth="715.0" stylesheets="@../styles/tableView.css">
+                    <columns>
+                      <TableColumn fx:id="colCliente" prefWidth="276.0" text="Cliente" />
+                      <TableColumn fx:id="colFecha" prefWidth="189.0" text="Fecha" />
+                        <TableColumn fx:id="colHorario" prefWidth="128.0" text="Horario" />
+                        <TableColumn fx:id="colMonto" prefWidth="121.0" text="Monto" />
+                    </columns>
+                  </TableView>
                </children>
-            </VBox>
+            </StackPane>
          </children>
       </AnchorPane>
    </center>
@@ -44,21 +40,24 @@
       <Pane prefHeight="400.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
    </right>
    <top>
-      <Pane prefHeight="77.0" prefWidth="775.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="57.0" prefWidth="775.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnAgregar" alignment="CENTER" contentDisplay="CENTER" layoutX="709.0" layoutY="26.0" onAction="#crearRenta" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #c08ed6;" stylesheets="@../styles/botonesMenu.css" text="">
+            <JFXButton fx:id="btnAgregar" alignment="CENTER" contentDisplay="CENTER" layoutX="706.0" layoutY="16.0" onAction="#crearRenta" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #c08ed6;" stylesheets="@../styles/botonesMenu.css" text="">
                <graphic>
                   <FontAwesomeIconView fill="#ffe6fd" glyphName="PLUS" size="15" />
                </graphic>
                <tooltip>
                   <Tooltip text="Agregar renta" />
                </tooltip>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
-            <Label layoutX="432.0" layoutY="17.0" text="Rentas">
+            <Label layoutX="364.0" layoutY="15.0" text="Rentas">
                <font>
-                  <Font size="20.0" />
+                  <Font size="15.0" />
                </font></Label>
-            <Separator layoutX="423.0" layoutY="44.0" prefHeight="3.0" prefWidth="86.0" style="-fx-background-color: #c08ed6;" />
+            <Separator layoutX="345.0" layoutY="40.0" prefHeight="3.0" prefWidth="86.0" style="-fx-background-color: #c08ed6;" />
          </children>
       </Pane>
    </top>
