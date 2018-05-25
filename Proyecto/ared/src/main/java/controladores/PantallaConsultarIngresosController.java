@@ -109,6 +109,10 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
   private StackPane stack;
   @FXML
   private JFXButton btnEstadisticas;
+    @FXML
+    private StackPane pnlTabla1;
+    @FXML
+    private StackPane pnlTabla2;
 
   /**
    * Initializes the controller class.
@@ -117,7 +121,10 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
   public void initialize(URL url, ResourceBundle rb) {
     setCurrencyFormatters();
     setDateFormatter();
-
+    tbPagos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    tbPagosAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    pnlTabla1.getStyleClass().add("panel");
+    pnlTabla2.getStyleClass().add("panel");
     obtenerPagos();
     obtenerPagosAlumnos();
     // TODO

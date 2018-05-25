@@ -7,12 +7,10 @@ and open the template in the editor.
     Created on : 23-may-2018, 21:28:09
     Author     : alonso
 */
-.table-view {
-    -fx-border-color: transparent;
-}
 
-.table-view {
-    -fx-table-color: rgba(82, 100, 174, 0.4);
+.table-view{
+   -fx-background-color: transparent;
+   -fx-table-color: rgba(82, 100, 174, 0.4);
     -fx-table-rippler-color: rgba(82, 100, 174, 0.6);
 }
 :focused {

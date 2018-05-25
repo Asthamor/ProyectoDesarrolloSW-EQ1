@@ -2,192 +2,189 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import clasesApoyo.JFXLimitedTextField?>
 
-
-<BorderPane prefHeight="611.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
-   <top>
-      <Pane prefHeight="50.0" prefWidth="1177.0" BorderPane.alignment="CENTER" />
-   </top>
-   <center>
-      <Pane prefHeight="357.0" prefWidth="534.0" BorderPane.alignment="CENTER">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="513.0" stroke="BLACK" strokeType="INSIDE" width="1048.0" />
-            <HBox prefHeight="517.0" prefWidth="1045.0">
-               <children>
-                  <VBox prefHeight="517.0" prefWidth="255.0">
+<BorderPane prefHeight="611.0" prefWidth="1152.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
+    <top>
+        <Pane prefHeight="50.0" prefWidth="1177.0" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <Pane prefHeight="543.0" prefWidth="1133.0" BorderPane.alignment="CENTER">
+            <children>
+                <GridPane prefHeight="508.0" prefWidth="1103.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="10.0" prefWidth="213.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="512.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="367.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <VBox prefHeight="508.0" prefWidth="262.0">
+                            <children>
+                                <Label text="Alumnos:">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </Label>
+                                <JFXListView fx:id="lstAlumnos" prefHeight="451.0" prefWidth="270.0" style="-fx-padding: 10px;" stylesheets="@../styles/listView.css">
+                                    <VBox.margin>
+                                        <Insets left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </JFXListView>
+                            </children>
+                        </VBox>
+                  <StackPane fx:id="pnlTabla" GridPane.columnIndex="2" stylesheets="@../styles/panelTabla.css">
                      <children>
-                        <Label text="Alumnos:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <ListView fx:id="lstAlumnos" prefHeight="451.0" prefWidth="235.0" style="-fx-padding: 10px;">
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </ListView>
+                              <TableView fx:id="tbPagos" prefHeight="497.0" prefWidth="376.0" stylesheets="@../styles/tableView.css">
+                                  <columns>
+                                      <TableColumn fx:id="colFecha" prefWidth="137.0" text="Fecha pago" />
+                                      <TableColumn fx:id="colMonto" prefWidth="115.0" text="Monto" />
+                                      <TableColumn fx:id="colPromocion" prefWidth="123.0" text="Promocion" />
+                                  </columns>
+                              </TableView>
                      </children>
-                  </VBox>
-                  <VBox prefHeight="517.0" prefWidth="255.0">
-                     <children>
-                        <AnchorPane prefHeight="517.0" prefWidth="413.0">
-                           <children>
-                              <Label layoutX="60.0" layoutY="59.0" text="Detalle:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton fx:id="btnRegistrar" layoutX="293.0" layoutY="431.0" onAction="#registrarAlumno" prefHeight="38.0" prefWidth="98.0" ripplerFill="#bcbcbc" style="-fx-background-color: #c08ed6;" text="Guardar" />
-                              <GridPane layoutX="1.0" layoutY="103.0" prefHeight="328.0" prefWidth="390.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="52.0" minHeight="7.0" prefHeight="43.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="12.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Nombre del alumno:" textAlignment="RIGHT">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Grupo:" textAlignment="RIGHT" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Fecha:" textAlignment="RIGHT" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <JFXComboBox fx:id="cboxPromocion" onAction="#limpiarMonto" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="lblAlumno" prefHeight="27.0" prefWidth="163.0" GridPane.columnIndex="1">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXLimitedTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Monto: $" textAlignment="RIGHT" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Promoción:" textAlignment="RIGHT" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Total: $" textAlignment="RIGHT" GridPane.rowIndex="5">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <Label fx:id="lblGrupo" prefHeight="17.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblFecha" prefHeight="17.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblMontoTotal" prefHeight="27.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Fecha proximo pago:" GridPane.rowIndex="6">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <Label fx:id="lblFechaProximoPago" prefHeight="27.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <padding>
-                                    <Insets right="30.0" />
-                                 </padding>
-                              </GridPane>
-                           </children>
+                  </StackPane>
+                        <AnchorPane prefHeight="517.0" prefWidth="413.0" GridPane.columnIndex="1">
+                            <children>
+                                <JFXButton fx:id="btnRegistrar" layoutX="391.0" layoutY="478.0" onAction="#registrarAlumno" prefHeight="30.0" prefWidth="98.0" ripplerFill="#bcbcbc" style="-fx-background-color: #c08ed6;" text="Guardar" />
+                                <GridPane layoutX="1.0" layoutY="40.0" prefHeight="328.0" prefWidth="390.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="52.0" minHeight="7.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Nombre del alumno:" textAlignment="RIGHT">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Grupo:" textAlignment="RIGHT" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Fecha:" textAlignment="RIGHT" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <JFXComboBox fx:id="cboxPromocion" onAction="#limpiarMonto" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <Label fx:id="lblAlumno" prefHeight="27.0" prefWidth="163.0" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <JFXLimitedTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Monto: $" textAlignment="RIGHT" GridPane.rowIndex="3">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Promoción:" textAlignment="RIGHT" GridPane.rowIndex="4">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Total: $" textAlignment="RIGHT" GridPane.rowIndex="5">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label fx:id="lblGrupo" prefHeight="17.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblFecha" prefHeight="17.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblMontoTotal" prefHeight="27.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label text="Fecha proximo pago:" GridPane.rowIndex="6">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets right="10.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label fx:id="lblFechaProximoPago" prefHeight="27.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <padding>
+                                        <Insets right="30.0" />
+                                    </padding>
+                                </GridPane>
+                            </children>
                         </AnchorPane>
-                     </children>
-                  </VBox>
-                  <TableView fx:id="tbPagos" prefHeight="497.0" prefWidth="376.0">
-                    <columns>
-                      <TableColumn fx:id="colFecha" prefWidth="137.0" text="Fecha pago" />
-                      <TableColumn fx:id="colMonto" prefWidth="115.0" text="Monto" />
-                        <TableColumn fx:id="colPromocion" prefWidth="123.0" text="Promocion" />
-                    </columns>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </TableView>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
-   </center>
-   <left>
-      <Pane prefHeight="357.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
-   </right>
-   <bottom>
-      <Pane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </bottom>
+                    </children>
+                </GridPane>
+            </children>
+        </Pane>
+    </center>
+    <left>
+        <Pane prefHeight="511.0" prefWidth="18.0" BorderPane.alignment="CENTER" />
+    </left>
+    <right>
+        <Pane prefHeight="543.0" prefWidth="13.0" BorderPane.alignment="CENTER" />
+    </right>
+    <bottom>
+        <Pane prefHeight="18.0" prefWidth="1152.0" BorderPane.alignment="CENTER" />
+    </bottom>
 </BorderPane>

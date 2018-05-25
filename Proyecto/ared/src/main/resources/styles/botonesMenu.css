@@ -9,17 +9,27 @@ and open the template in the editor.
 */
 
 .jfx-button {
-     -fx-background-color: #ffe6fd;
-     -fx-text-fill: black;
+    -fx-background-color: #ffe6fd;
+    -fx-text-fill: black;
 }
 
 .jfx-button:hover {
-     -fx-background-color: #FFD4FC;
-     -fx-text-fill: black;
+    -fx-background-color: #FFD4FC;
+    -fx-text-fill: black;
+    -fx-rotate: 3;
+    -fx-translate-y: -2; 
 }
 
 .jfx-button:pressed {
-     -fx-background-color: #FFD4FC;
-     -fx-text-fill: black;
-     -fx-rotate: 5;
+    -fx-background-color: #FFD4FC;
+    -fx-text-fill: black;
+}
+
+#btnAgregar {
+    -fx-background-color: #c08ed6;
+    -fx-background-radius: 5em; 
+    -fx-min-width: 35px;
+    -fx-min-height: 35px; 
+    -fx-max-width: 35px; 
+    -fx-max-height: 35px;
 }

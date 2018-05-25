@@ -41,7 +41,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -69,7 +69,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     @FXML
-    private ListView<String> lstAlumnos;
+    private JFXListView<String> lstAlumnos;
     private ArrayList<String> nombresAlumnos;
     private ArrayList<String> nombrePromociones;
     private List<Alumno> alumnos;
@@ -100,12 +100,18 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private TableColumn<HistorialPagos, String> colPromocion;
     private List<PagoAlumno> pagos;
+    @FXML
+    private StackPane pnlTabla;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lstAlumnos.setExpanded(true);
+        lstAlumnos.depthProperty().set(1);
+        pnlTabla.getStyleClass().add("panel");
+        tbPagos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         nombresAlumnos = new ArrayList();
         ValidatorBase requeridos = new NumberValidator();
         requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)

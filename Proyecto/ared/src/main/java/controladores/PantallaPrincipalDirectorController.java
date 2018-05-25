@@ -15,6 +15,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +34,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import modelo.Alumno;
 import modelo.Cliente;
@@ -80,11 +82,20 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private StackPane contenedor;
 
-    private HBox pantallaDividida;
-    private StackPane pnlPrincipal = new StackPane();
+    static HBox pantallaDividida;
+    static StackPane pnlPrincipal;
     private ImageView imagen = new ImageView("/imagenes/aredEspacioCompleto.png");
     private List<StackPane> notificaciones;
     private PopOver popOver;
+    static Persona persona;
+
+    public HBox getPantallaDividida() {
+        return pantallaDividida;
+    }
+
+    public StackPane getPnlPrincipal() {
+        return pnlPrincipal;
+    }
 
     /**
      * Initializes the controller class.
@@ -108,6 +119,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
         btnNotificaciones.setFocusTraversable(false);
         btnSesionUsuario.setFocusTraversable(false);
         pantallaDividida = new HBox();
+        pnlPrincipal = new StackPane();
         contenedor.getChildren().addAll(pantallaDividida, imagen);
         contenedor.setAlignment(imagen, Pos.CENTER);
         btnSesionUsuario.setText(System.getProperty("nombreUsuario"));
@@ -173,10 +185,12 @@ public class PantallaPrincipalDirectorController implements Initializable {
     @FXML
     private void abrirVentanaAlumnos(ActionEvent event) {
         imagen.setVisible(false);
-        pnlPrincipal.getChildren().add(crearPantallaUsuarios(new Alumno(),
-                this.pnlPrincipal, this.pantallaDividida));
-        pantallaDividida.getChildren().add(pnlPrincipal);
+        persona = new Alumno();
+        new HiloPersona().restart();
 
+//        pnlPrincipal.getChildren().add(crearPantallaUsuarios(new Alumno(),
+//                this.pnlPrincipal, this.pantallaDividida));
+//        pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
     @FXML
@@ -206,7 +220,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
     @FXML
     private void abrirVentanaNotificaciones(ActionEvent event) {
-        VBox vBox = new VBox();        
+        VBox vBox = new VBox();
         vBox.setBackground(new Background(new BackgroundFill(Color.web("#ffe6fd"), CornerRadii.EMPTY, Insets.EMPTY)));
         if (notificaciones == null) {
             String nombreUsuario = System.getProperty("nombreUsuario");
@@ -285,4 +299,27 @@ public class PantallaPrincipalDirectorController implements Initializable {
                 this.pnlPrincipal, this.pantallaDividida));
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
+
+    public class HiloPersona extends Service<Void> {
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pnlPrincipal.getChildren().add(crearPantallaUsuarios(persona,
+                                    pnlPrincipal, pantallaDividida));
+                            pantallaDividida.getChildren().add(pnlPrincipal);
+                        }
+                    });
+                    return null;
+                }
+
+            };
+        }
+    }
+
 }

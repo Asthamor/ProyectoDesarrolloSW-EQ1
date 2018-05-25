@@ -5,8 +5,6 @@
  */
 package controladores;
 
-import static controladores.PantallaPrincipalDirectorController.crearPantalla;
-import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import static controladores.PantallaPrincipalDirectorController.limpiarPanelPrincipal;
 import interfaces.Controlador;
 import java.io.IOException;
@@ -23,8 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
+import com.jfoenix.controls.JFXListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Alumno;
@@ -38,7 +35,7 @@ import modelo.Grupo;
 public class PantallaListaAlumnosController implements Initializable, Controlador {
 
     @FXML
-    private ListView<String> tbAlumnos;
+    private JFXListView<String> tbAlumnos;
     private List<Alumno> alumnos;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
@@ -49,7 +46,8 @@ public class PantallaListaAlumnosController implements Initializable, Controlado
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        tbAlumnos.setExpanded(true);
+        tbAlumnos.depthProperty().set(1);
     }
 
     public void setAlumnos(List<Alumno> alumnos) {

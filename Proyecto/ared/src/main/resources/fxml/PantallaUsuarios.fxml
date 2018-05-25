@@ -3,8 +3,11 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="775.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaUsuariosController">
@@ -15,8 +18,17 @@
         </content>
       </ScrollPane>
       <Label fx:id="etNombreUsuario" layoutX="22.0" layoutY="32.0" text="Nombre del usuario:" />
-      <JFXButton fx:id="btnRegistrarUsuario" graphicTextGap="1.0" layoutX="629.0" layoutY="661.0" onAction="#abrirVentanaRegistrarUsuario" prefHeight="28.0" prefWidth="181.0" style="-fx-background-color: #c08ed6;" text="Registrar &#10;usuario" AnchorPane.rightAnchor="22.0" />
+      <JFXButton fx:id="btnAgregar" graphicTextGap="1.0" layoutX="688.0" layoutY="19.0" onAction="#abrirVentanaRegistrarUsuario" stylesheets="@../styles/botonesMenu.css" text="" AnchorPane.rightAnchor="42.0">
+         <graphic>
+            <FontAwesomeIconView fill="#ffe6fd" glyphName="PLUS" size="15" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip fx:id="mensajeBtn" text="Empty Tooltip" />
+         </tooltip></JFXButton>
       <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" layoutX="155.0" layoutY="28.0" onKeyReleased="#buscar" prefHeight="26.0" prefWidth="254.0" />
-      <JFXToggleButton fx:id="toggleActivos" layoutX="637.0" layoutY="11.0" onAction="#toggleActivos" selected="true" style="-jfx-toggle-color: #c08ed6;" text="Activos" />
+      <JFXToggleButton fx:id="toggleActivos" layoutX="437.0" layoutY="11.0" onAction="#toggleActivos" selected="true" style="-jfx-toggle-color: #c08ed6;" text="Activos" />
    </children>
 </AnchorPane>

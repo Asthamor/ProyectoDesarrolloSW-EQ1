@@ -26,12 +26,12 @@
          <center>
             <AnchorPane prefHeight="574.0" prefWidth="472.0" style="-fx-background-color: #ffe6fd;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" layoutX="36.0" layoutY="208.0" prefHeight="63.0" prefWidth="401.0" promptText="Nombre de usuario">
+                  <JFXTextField fx:id="txtNombreUsuario" focusColor="#c08ed6" labelFloat="true" layoutX="36.0" layoutY="230.0" prefHeight="63.0" prefWidth="401.0" promptText="Nombre de usuario">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="txtContraseña" focusColor="#c08ed6" layoutX="36.0" layoutY="339.0" prefHeight="63.0" prefWidth="401.0" promptText="Contraseña">
+                  <JFXPasswordField fx:id="txtContraseña" focusColor="#c08ed6" labelFloat="true" layoutX="36.0" layoutY="355.0" prefHeight="63.0" prefWidth="401.0" promptText="Contraseña">
                      <font>
                         <Font size="20.0" />
                      </font>

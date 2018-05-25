@@ -46,14 +46,18 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Separator>
-                  <TableView fx:id="tbPagos" prefHeight="550.0" prefWidth="550.0">
-                    <columns>
-                        <TableColumn fx:id="tcFecha" prefWidth="193.0" text="Fecha" />
-                        <TableColumn fx:id="tcNombre" prefWidth="141.0" text="Nombre" />
-                      <TableColumn fx:id="tcTipo" prefWidth="86.0" text="Tipo" />
-                        <TableColumn fx:id="tcMonto" prefWidth="89.0" text="Monto" />
-                    </columns>
-                  </TableView>
+                  <StackPane fx:id="pnlTabla1" stylesheets="@../styles/panelTabla.css">
+                     <children>
+                        <TableView fx:id="tbPagos" prefHeight="550.0" prefWidth="550.0" stylesheets="@../styles/tableView.css">
+                          <columns>
+                              <TableColumn fx:id="tcFecha" prefWidth="193.0" text="Fecha" />
+                              <TableColumn fx:id="tcNombre" prefWidth="141.0" text="Nombre" />
+                            <TableColumn fx:id="tcTipo" prefWidth="86.0" text="Tipo" />
+                              <TableColumn fx:id="tcMonto" prefWidth="94.0" text="Monto" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </StackPane>
                </children>
                <HBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -85,20 +89,27 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Separator>
-                  <TableView fx:id="tbPagosAlumnos" prefHeight="550.0" prefWidth="550.0">
-                    <columns>
-                      <TableColumn fx:id="tcAlumno" prefWidth="96.0" text="Alumno" />
-                      <TableColumn fx:id="tcMaestro" prefWidth="126.0" text="Maestro" />
-                        <TableColumn fx:id="tcFechaPaAlumn" prefWidth="171.0" text="Fecha" />
-                        <TableColumn fx:id="tcMontoPaAlumn" prefWidth="83.0" text="Monto" />
-                        <TableColumn fx:id="tcEliminar" prefWidth="73.0" text="Eliminar" />
-                    </columns>
-                  </TableView>
+                  <StackPane fx:id="pnlTabla2" stylesheets="@../styles/panelTabla.css">
+                     <children>
+                        <TableView fx:id="tbPagosAlumnos" prefHeight="550.0" prefWidth="550.0" stylesheets="@../styles/tableView.css">
+                          <columns>
+                            <TableColumn fx:id="tcAlumno" prefWidth="96.0" text="Alumno" />
+                            <TableColumn fx:id="tcMaestro" prefWidth="126.0" text="Maestro" />
+                              <TableColumn fx:id="tcFechaPaAlumn" prefWidth="171.0" text="Fecha" />
+                              <TableColumn fx:id="tcMontoPaAlumn" prefWidth="83.0" text="Monto" />
+                              <TableColumn fx:id="tcEliminar" prefWidth="73.0" text="Eliminar" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </StackPane>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
                         <JFXButton fx:id="btnEstadisticas" onAction="#mostrarEstadisticas" style="-fx-background-color: #c08ed6;" text="Estadísticas" />
                         <JFXButton fx:id="btnGenerarRecibo" onAction="#generarReciboAction" style="-fx-background-color: #c08ed6;" text="Generar recibo" />
                     </buttons>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
                   </ButtonBar>
                </children>
                <HBox.margin>

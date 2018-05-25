@@ -48,20 +48,24 @@ public class PantallaRentasController implements Initializable, Controlador {
     private TableColumn<RentaXML, String> colHorario;
     @FXML
     private TableColumn<RentaXML, String> colMonto;
-    @FXML
-    private JFXButton btnNuevaRenta;
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     private List<RentaXML> rentas;
     private Document document;
+    @FXML
+    private StackPane pnlTabla;
+    @FXML
+    private JFXButton btnAgregar;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tbRentas.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         rentas = new ArrayList();
+        pnlTabla.getStyleClass().add("panel");
         PantallaGruposController.crearArchivoXML();
         SAXReader reader = new SAXReader();
         try {
