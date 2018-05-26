@@ -6,9 +6,12 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import modelo.controladores.EgresoJpaController;
 import modelo.controladores.PromocionJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -39,7 +43,9 @@ import modelo.controladores.PromocionJpaController;
     , @NamedQuery(name = "Egreso.findByIdEgreso", query = "SELECT e FROM Egreso e WHERE e.idEgreso = :idEgreso")
     , @NamedQuery(name = "Egreso.findByConcepto", query = "SELECT e FROM Egreso e WHERE e.concepto = :concepto")
     , @NamedQuery(name = "Egreso.findByMonto", query = "SELECT e FROM Egreso e WHERE e.monto = :monto")
-    , @NamedQuery(name = "Egreso.findByFecha", query = "SELECT e FROM Egreso e WHERE e.fecha = :fecha")})
+    , @NamedQuery(name = "Egreso.findByFecha", query = "SELECT e FROM Egreso e WHERE e.fecha = :fecha")
+    , @NamedQuery(name = "Egreso.findAllOrderFecha", query = "SELECT e FROM Egreso e ORDER BY e.fecha DESC")
+})
 public class Egreso implements Serializable {
 
   @Basic(optional = false)
@@ -148,6 +154,47 @@ public class Egreso implements Serializable {
     List<Egreso> resultado = controlador.findEgresoEntities();
     
     return resultado;
+  }
+  public List<Egreso> obtenerTodosPorFecha(){
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    EgresoJpaController controlador = new EgresoJpaController(entityManagerFactory);
+    
+    List<Egreso> egresos = controlador.findEgresoEntitiesByDate();
+    List<Egreso> resultado = new ArrayList<>();
+    for (Egreso e : egresos ){
+      if (e.fecha.before(new Date())){
+        resultado.add(e);
+      }
+    }
+    
+    return resultado;
+  }
+  
+  public boolean registrar(){
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    EgresoJpaController controlador = new EgresoJpaController(entityManagerFactory);
+    try {
+      controlador.create(this);
+    } catch (Exception ex) {
+      Logger.getLogger(Egreso.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    }
+    return true;
+  }
+  
+  public boolean editar(){
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    EgresoJpaController controlador = new EgresoJpaController(entityManagerFactory);
+    try {
+      controlador.edit(this);
+    } catch (NonexistentEntityException ex) {
+      Logger.getLogger(Egreso.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    } catch (Exception ex) {
+      Logger.getLogger(Egreso.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    }
+    return true;
   }
     
 }

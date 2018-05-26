@@ -18,7 +18,75 @@
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>Your Organisation</name>
     </organization>
+ <!--   <profiles>
+        <profile>
+            <id>deb</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                </os>
+            </activation>
+            <build>
+                <finalName>aredEspacio</finalName>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-war-plugin</artifactId>
+                            <version>2.6</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>com.springsource.bundlor</groupId>
+                            <artifactId>com.springsource.bundlor.maven</artifactId>
+                            <version>1.0.0.M1B</version>
+                        </plugin>
+                        <plugin>
+                            <artifactId>maven-assembly-plugin</artifactId>
+                            <inherited>false</inherited>
+                            <configuration>
+                                <descriptorRefs>
+                                    <descriptorRef>project</descriptorRef>
+                                </descriptorRefs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+
+                        <groupId>org.vafer</groupId>
+                        <artifactId>jdeb</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>deb</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>jdeb</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                    <deb>target/${project.build.finalName}${project.version}BETA.deb</deb>
+                                
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+        </profile>
+    </profiles>
+    -->
+    
     <dependencies>
+        <!-- SQLite database JDBC -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.7.2</version>
+        </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>

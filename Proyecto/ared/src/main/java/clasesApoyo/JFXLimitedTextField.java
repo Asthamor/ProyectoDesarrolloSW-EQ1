@@ -6,11 +6,12 @@ package clasesApoyo;
  * and open the template in the editor.
  */
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
+import java.util.function.UnaryOperator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextFormatter;
 
 /**
  *
@@ -44,7 +45,6 @@ public class JFXLimitedTextField extends JFXTextField {
   }
 
   public final void setNumLimiter(int size) {
-    //setTextFormatter(Formatters.getNumFormatter());
     textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -92,4 +92,20 @@ public class JFXLimitedTextField extends JFXTextField {
       setValidators(req);
     }
   }
+  public final void setCurrencyFilter(){
+    UnaryOperator<TextFormatter.Change> dineroFilter = (change -> {
+      String newText = change.getControlNewText();
+      if (newText.matches("(\\$[^0\\D][0-9]*\\.?[0-9]{0,2})")) {
+        return change;
+      } else if (newText.matches("([1-9]+?\\d*\\.?[0-9]{0,2})")){
+        change.setText("$" + newText);
+        return change;
+      } else if (newText.matches("(\\$)")){
+        return change;
+      }
+      return null;
+    });
+    this.setTextFormatter(new TextFormatter(dineroFilter));
+  }
+  
 }

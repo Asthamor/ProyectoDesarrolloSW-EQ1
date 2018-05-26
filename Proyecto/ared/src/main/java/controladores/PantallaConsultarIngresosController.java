@@ -23,6 +23,7 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,7 +128,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
     pnlTabla2.getStyleClass().add("panel");
     obtenerPagos();
     obtenerPagosAlumnos();
-    // TODO
+  
     tbPagos.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldSelection, newSelection) -> {
               if (newSelection != null) {
@@ -146,7 +147,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
   private void setDateFormatter() {
     DateTimeFormatter formatter = DateTimeFormatter
-            .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
+            .ofLocalizedDate(FormatStyle.MEDIUM);
 
     tcFecha.setCellFactory(column -> {
       return new TableCell<Ingreso, Date>() {
@@ -282,7 +283,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
   @FXML
   private void buscarPagos(KeyEvent event) {
-    String busqueda = txtBuscarPago.getText().toLowerCase();
+    String busqueda = txtBuscarPago.getText().toLowerCase(Locale.getDefault());
     if (!busqueda.isEmpty()) {
       ingresos.clear();
       for (Ingreso ing : datosIngresos) {
@@ -300,7 +301,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
   @FXML
   private void buscarPAE(KeyEvent event) {
-    String busqueda = txtBuscarPAlumno.getText().toLowerCase();
+    String busqueda = txtBuscarPAlumno.getText().toLowerCase(Locale.getDefault());
     if (!busqueda.isEmpty()) {
       pagosAlumnos.clear();
       datosPagoAlumnos.stream().filter((pae) -> 

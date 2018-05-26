@@ -43,7 +43,7 @@ import modelo.controladores.exceptions.NonexistentEntityException;
 @Table(name = "cliente")
 @XmlRootElement
 @NamedQueries({
-  @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
+  @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c ORDER BY c.nombre")
   , @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente")
   , @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre LIKE :nombre")
   , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c WHERE c.apellidos = :apellidos")

@@ -32,12 +32,13 @@ public class PantallaInscripcion implements Initializable, Controlador {
     private JFXButton btnInscripcion;
     @FXML
     private JFXButton btnBaja;
-    private HBox pantallaDividida;
-    private StackPane pnlPrincipal;
+   
     @FXML
     private JFXButton btnReiscripciones;
     @FXML
     private StackPane pnlInscripciones;
+     private HBox pantallaDividida;
+    private StackPane pnlPrincipal;
 
     /**
      * Initializes the controller class.

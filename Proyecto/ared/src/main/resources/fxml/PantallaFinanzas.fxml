@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaFinanzas">
+   <children>
+      <VBox alignment="CENTER" prefHeight="718.0" prefWidth="1200.0" spacing="5.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="937.0">
+               <children>
+                  <JFXButton fx:id="btnIngresos" onAction="#abrirIngresos" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Ingresos">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnEgresos" onAction="#abrirEgresos" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Egresos">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnEstadisticas" onAction="#abrirEstadisticas" prefHeight="41.0" prefWidth="138.0" stylesheets="@../styles/Styles.css" text="Estadisticas">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <StackPane fx:id="pnlFinanzas" prefHeight="639.0" prefWidth="1200.0" />
+         </children>
+         <padding>
+            <Insets top="25.0" />
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

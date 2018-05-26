@@ -1,0 +1,8 @@
+Package: uv.pulpos.ared
+Name: AredEspacio
+Description: Proyecto de desarrollo de software
+Maintainer: Mauricio Torres
+Version: 1.0-1
+Architecture: amd64
+Section: Standalone
+Priority: Low

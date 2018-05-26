@@ -19,114 +19,115 @@
 
 <StackPane fx:id="stack" maxHeight="718.0" maxWidth="1200.0" prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaConsultarIngresosController">
    <children>
-      <HBox prefHeight="718.0" prefWidth="1200.0">
-         <children>
-            <VBox prefHeight="611.0" prefWidth="515.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0">
-                     <children>
-                        <Label fx:id="lblPagos" alignment="CENTER" text="Pagos" textAlignment="CENTER">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <JFXTextField fx:id="txtBuscarPago" onKeyTyped="#buscarPagos" prefHeight="28.0" prefWidth="220.0" promptText="Buscar pagos" />
-                        <FontAwesomeIconView glyphName="SEARCH" size="20">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <JFXComboBox fx:id="cbFiltrarPago" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="180.0" promptText="Filtrar" />
-                     </children>
-                  </HBox>
-                  <Separator prefWidth="200.0" style="-fx-background-color: #c08ed6;">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <StackPane fx:id="pnlTabla1" stylesheets="@../styles/panelTabla.css">
-                     <children>
-                        <TableView fx:id="tbPagos" prefHeight="550.0" prefWidth="550.0" stylesheets="@../styles/tableView.css">
-                          <columns>
-                              <TableColumn fx:id="tcFecha" prefWidth="193.0" text="Fecha" />
-                              <TableColumn fx:id="tcNombre" prefWidth="141.0" text="Nombre" />
-                            <TableColumn fx:id="tcTipo" prefWidth="86.0" text="Tipo" />
-                              <TableColumn fx:id="tcMonto" prefWidth="94.0" text="Monto" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </StackPane>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="TOP_RIGHT" prefHeight="550.0" prefWidth="550.0">
-               <children>
-                  <FlowPane prefHeight="40.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="lblPagosAlumnos" text="Pagos de &#10;Alumnos">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <FlowPane.margin>
-                              <Insets right="20.0" />
-                           </FlowPane.margin>
-                        </Label>
-                        <JFXTextField fx:id="txtBuscarPAlumno" onKeyTyped="#buscarPAE" prefHeight="28.0" prefWidth="230.0" promptText="Buscar pagos de alumnos" />
-                        <FontAwesomeIconView glyphName="SEARCH" size="20">
-                           <FlowPane.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </FlowPane.margin>
-                        </FontAwesomeIconView>
-                        <JFXComboBox fx:id="cbFiltrarPA" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="185.0" promptText="Filtrar" />
-                     </children>
-                  </FlowPane>
-                  <Separator prefWidth="200.0" style="-fx-background-color: #c08ed6;">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <StackPane fx:id="pnlTabla2" stylesheets="@../styles/panelTabla.css">
-                     <children>
-                        <TableView fx:id="tbPagosAlumnos" prefHeight="550.0" prefWidth="550.0" stylesheets="@../styles/tableView.css">
-                          <columns>
-                            <TableColumn fx:id="tcAlumno" prefWidth="96.0" text="Alumno" />
-                            <TableColumn fx:id="tcMaestro" prefWidth="126.0" text="Maestro" />
-                              <TableColumn fx:id="tcFechaPaAlumn" prefWidth="171.0" text="Fecha" />
-                              <TableColumn fx:id="tcMontoPaAlumn" prefWidth="83.0" text="Monto" />
-                              <TableColumn fx:id="tcEliminar" prefWidth="73.0" text="Eliminar" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </StackPane>
-                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                        <JFXButton fx:id="btnEstadisticas" onAction="#mostrarEstadisticas" prefHeight="37.0" stylesheets="@../styles/Styles.css" text="Estadísticas">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></JFXButton>
-                        <JFXButton fx:id="btnGenerarRecibo" onAction="#generarReciboAction" prefHeight="37.0" stylesheets="@../styles/Styles.css" text="Generar recibo">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></JFXButton>
-                    </buttons>
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </ButtonBar>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </HBox.margin>
-            </VBox>
-         </children>
+      <VBox>
          <StackPane.margin>
             <Insets left="10.0" />
          </StackPane.margin>
-      </HBox>
+         <children>
+            <HBox prefHeight="718.0" prefWidth="1200.0">
+               <children>
+                  <VBox prefHeight="550.0" prefWidth="570.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
+                           <children>
+                              <Label fx:id="lblPagos" alignment="CENTER" text="Pagos" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXTextField fx:id="txtBuscarPago" onKeyTyped="#buscarPagos" prefHeight="28.0" prefWidth="284.0" promptText="Buscar pagos" />
+                              <FontAwesomeIconView glyphName="SEARCH" size="20">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </FontAwesomeIconView>
+                              <JFXComboBox fx:id="cbFiltrarPago" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="180.0" promptText="Filtrar" />
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" style="-fx-background-color: #c08ed6;">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Separator>
+                        <StackPane fx:id="pnlTabla1" stylesheets="@../styles/panelTabla.css">
+                           <children>
+                              <TableView fx:id="tbPagos" prefHeight="550.0" prefWidth="550.0" stylesheets="@../styles/tableView.css">
+                                <columns>
+                                    <TableColumn fx:id="tcFecha" prefWidth="193.0" text="Fecha" />
+                                    <TableColumn fx:id="tcNombre" prefWidth="141.0" text="Nombre" />
+                                  <TableColumn fx:id="tcTipo" prefWidth="86.0" text="Tipo" />
+                                    <TableColumn fx:id="tcMonto" prefWidth="94.0" text="Monto" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" right="10.0" top="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="550.0" prefWidth="570.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
+                           <children>
+                              <Label fx:id="lblPagosAlumnos" prefHeight="42.0" prefWidth="78.0" text="Pagos de &#10;Alumnos">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="txtBuscarPAlumno" onKeyTyped="#buscarPAE" prefHeight="28.0" prefWidth="230.0" promptText="Buscar pagos de alumnos" />
+                              <FontAwesomeIconView glyphName="SEARCH" size="20" />
+                              <JFXComboBox fx:id="cbFiltrarPA" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="185.0" promptText="Filtrar" />
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" style="-fx-background-color: #c08ed6;">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Separator>
+                        <StackPane fx:id="pnlTabla2" stylesheets="@../styles/panelTabla.css">
+                           <children>
+                              <TableView fx:id="tbPagosAlumnos" prefHeight="550.0" prefWidth="550.0" stylesheets="@../styles/tableView.css">
+                                <columns>
+                                  <TableColumn fx:id="tcAlumno" prefWidth="96.0" text="Alumno" />
+                                  <TableColumn fx:id="tcMaestro" prefWidth="126.0" text="Maestro" />
+                                    <TableColumn fx:id="tcFechaPaAlumn" prefWidth="171.0" text="Fecha" />
+                                    <TableColumn fx:id="tcMontoPaAlumn" prefWidth="83.0" text="Monto" />
+                                    <TableColumn fx:id="tcEliminar" prefWidth="73.0" text="Eliminar" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <FlowPane alignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="208.0">
+                    <buttons>
+                        <JFXButton fx:id="btnGenerarRecibo" alignment="CENTER" onAction="#generarReciboAction" prefHeight="37.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Generar recibo">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                    </buttons>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </ButtonBar>
+               </children>
+            </FlowPane>
+         </children>
+      </VBox>
    </children>
 </StackPane>

@@ -165,16 +165,6 @@ public class PantallaUsuariosController implements Initializable {
         pantallaDividida.getChildren().add(pnlPrincipal);
     }
 
-    private void buscarUsuario(ActionEvent event) {
-        if (txtNombreUsuario.getText().isEmpty()) {
-            Mensajes.mensajeAlert("Ingrese el nombre del " + persona.getTipoUsario() + " que desea buscar");
-        } else {
-            pnlUsuarios.getChildren().clear();
-            pnlUsuarios.getChildren().add(mostrarUsuarios(persona.buscar(txtNombreUsuario.getText())));
-        }
-
-    }
-
     @FXML
     private void buscar(KeyEvent event) {
         if (txtNombreUsuario.getText().trim().isEmpty()) {
