@@ -61,6 +61,11 @@ public class Notificaciones {
             notificaciones = buscarNotificionesDirector();
         } else {
             notificaciones = buscarNotificionesMaestro();
+            if (notificaciones.size() == 0) {
+                StackPane panel = new StackPane();
+                panel.getChildren().add(crearPantalla("Por el momento no tiene notificaciones", ""));
+                notificaciones.add(panel);
+            }
         }
 
         return notificaciones;
@@ -71,7 +76,7 @@ public class Notificaciones {
         notificaciones.addAll(buscarNotificionesMaestro());
         notificaciones.addAll(buscarProximasRentas());
         notificaciones.addAll(buscarNotificacionPagoMaestro());
-        if(notificaciones.size() == 0){
+        if (notificaciones.size() == 0) {
             StackPane panel = new StackPane();
             panel.getChildren().add(crearPantalla("Por el momento no tiene notificaciones", ""));
             notificaciones.add(panel);
@@ -97,26 +102,26 @@ public class Notificaciones {
             StackPane panelNotificacion = new StackPane();
             String cadena = nombreCliente + " ocupará\n el espacio el día "
                     + DateFormat.getDateInstance().format(dia) + " de " + horario;
-            panelNotificacion.getChildren().add(crearPantalla(cadena,"renta"));
+            panelNotificacion.getChildren().add(crearPantalla(cadena, "renta"));
             notificaciones.add(panelNotificacion);
         }
         return notificaciones;
     }
-    
-    public List<StackPane> buscarNotificacionPagoMaestro(){
+
+    public List<StackPane> buscarNotificacionPagoMaestro() {
         List<StackPane> notificaciones = new ArrayList();
         PagoMaestro pagoMaestro = new PagoMaestro();
 //        LocalDate local = LocalDate.parse("2018-06-23");
 //        Date date = Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant());
         List<PagoMaestro> pagos = (pagoMaestro.obtenerMaestroPorFechaVencimiento(dia));
-        for(PagoMaestro pago: pagos){
+        for (PagoMaestro pago : pagos) {
             StackPane panel = new StackPane();
-            String cadena = pago.getMaestro().getNombre() + " " + pago.getMaestro().getApellidos() + 
-                    " debe pagar \nel día " + DateFormat.getDateInstance().format(dia);
+            String cadena = pago.getMaestro().getNombre() + " " + pago.getMaestro().getApellidos()
+                    + " debe pagar \nel día " + DateFormat.getDateInstance().format(dia);
             panel.getChildren().add(crearPantalla(cadena, "maestro"));
             notificaciones.add(panel);
         }
-        
+
         return notificaciones;
     }
 
@@ -130,7 +135,6 @@ public class Notificaciones {
 
 //        LocalDate local = LocalDate.parse("2018-06-23");
 //        Date date = Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
         List<PagoAlumno> pagosProximos = new ArrayList();
         for (PagoAlumno pago : pagos) {
             if (dia.equals(pago.getFechaVencimiento()) && alumnoEnGrupo(gruposMaestro, pago.getAlumno())) {
@@ -143,7 +147,7 @@ public class Notificaciones {
             String cadena = pago.getAlumno().getNombre() + " " + pago.getAlumno().getApellidos()
                     + " del grupo " + pago.getGrupo().getNombre() + " \ndebe pagar el día "
                     + DateFormat.getDateInstance().format(dia);
-            panelNotificacion.getChildren().add(crearPantalla(cadena,"alumno"));
+            panelNotificacion.getChildren().add(crearPantalla(cadena, "alumno"));
             notificaciones.add(panelNotificacion);
         }
 
@@ -162,7 +166,7 @@ public class Notificaciones {
         return estaEnGrupo;
     }
 
-    public Parent crearPantalla(String cadena,String tipoNotificacion) {
+    public Parent crearPantalla(String cadena, String tipoNotificacion) {
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaNotificacion.fxml"));
         try {

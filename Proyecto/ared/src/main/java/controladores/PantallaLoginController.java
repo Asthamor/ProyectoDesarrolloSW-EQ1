@@ -130,6 +130,8 @@ public class PantallaLoginController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalMaestro.fxml"));
         mainStage.setScene(new Scene(root));
         mainStage.setFullScreen(true);
+        mainStage.setResizable(false);
+        mainStage.setFullScreenExitHint("");
         mainStage.show();
         
       } catch (IOException ex) {
@@ -149,6 +151,8 @@ public class PantallaLoginController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PantallaPrincipalDirector.fxml"));
         mainStage.setScene(new Scene(root));
         mainStage.setFullScreen(true);
+        mainStage.setResizable(false);
+        mainStage.setFullScreenExitHint("");
         mainStage.show();
         
       } catch (IOException ex) {

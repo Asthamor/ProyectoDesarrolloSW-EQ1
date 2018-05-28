@@ -68,6 +68,7 @@ public class PantallaPrincipalMaestroController implements Initializable {
         btnNotificaciones.setFocusTraversable(false);   
         btnSesionUsuario.setFocusTraversable(false);       
         pantallaDividida = new HBox();
+        popOver = new PopOver();
         contenedor.getChildren().addAll(pantallaDividida,imagen);
         contenedor.setAlignment(imagen,Pos.CENTER);
         btnSesionUsuario.setText(System.getProperty("nombreUsuario"));
