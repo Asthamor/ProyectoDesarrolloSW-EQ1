@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -29,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import modelo.Grupo;
+import org.controlsfx.control.PopOver;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -89,6 +91,7 @@ public class PantallaGruposController implements Initializable, Controlador {
     public void mostrarGrupos() {
         Grupo grupo = new Grupo();
         List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
+        
         grid.setVgap(10);
         grid.setHgap(10);
         int filas = grupos.size() / 2;

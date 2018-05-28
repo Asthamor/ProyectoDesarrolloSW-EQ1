@@ -137,11 +137,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
   @FXML
   private void abrirVentanaAnterior(ActionEvent event) {
-    imagen.setVisible(false);
-
-    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaEgresos.fxml",
-            this.pnlPrincipal, this.pantallaDividida));
-    pantallaDividida.getChildren().add(pnlPrincipal);
+    
   }
 
   @FXML
@@ -360,6 +356,10 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
   @FXML
   private void abrirVentanaAnuncios(ActionEvent event) {
+    imagen.setVisible(false);
+    pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaAnuncios.fxml",
+            this.pnlPrincipal, this.pantallaDividida));
+    pantallaDividida.getChildren().add(pnlPrincipal);
   }
 
   public class HiloPersona extends Service<Void> {

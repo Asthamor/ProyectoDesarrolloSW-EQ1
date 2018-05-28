@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 import interfaces.Controlador;
 import java.net.URL;
 import java.time.Instant;
@@ -52,8 +53,9 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
   private String concepto;
   private double monto;
   private Date fecha;
-  
+
   private PantallaEgresosController controlador;
+  private RequiredFieldValidator reqVal;
 
   public PantallaEgresosController getControlador() {
     return controlador;
@@ -68,9 +70,22 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    
+    UnaryOperator<TextFormatter.Change> limiteConcepto = (change -> {
+      String newText = change.getControlNewText();
+      if (newText.matches(".{0,150}")) {
+        return change;
+      }
+      return null;
+    });
+
     txtMonto.setCurrencyFilter();
-    
+    txtMonto.setRequired(true);
+    pickerDate.setEditable(false);
+    reqVal = new RequiredFieldValidator();
+    ((JFXTextField) pickerDate.getEditor()).setValidators(reqVal);
+    txtConcepto.setValidators(reqVal);
+    txtConcepto.setTextFormatter(new TextFormatter(limiteConcepto));
+
     // TODO
   }
 
@@ -86,19 +101,21 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
 
   @FXML
   private void actualizarEgreso(ActionEvent event) {
-    if (esNuevoEgreso){
-      egreso = new Egreso();
-      egreso.setConcepto(txtConcepto.getText());
-      egreso.setFecha(Date.from(pickerDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-      egreso.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
-      egreso.registrar();
-    } else {
-      egreso.setConcepto(txtConcepto.getText());
-      egreso.setFecha(Date.from(pickerDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-      egreso.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
-      egreso.editar();
+    if (validarDatos()) {
+      if (esNuevoEgreso) {
+        egreso = new Egreso();
+        egreso.setConcepto(txtConcepto.getText());
+        egreso.setFecha(Date.from(pickerDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        egreso.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
+        egreso.registrar();
+      } else {
+        egreso.setConcepto(txtConcepto.getText());
+        egreso.setFecha(Date.from(pickerDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        egreso.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
+        egreso.editar();
+      }
+      controlador.refreshList();
     }
-    controlador.refreshList();
   }
 
   public void setEgreso(Egreso egreso) {
@@ -117,10 +134,34 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
 
   public void cargarDatos() {
     txtConcepto.setText(concepto);
-    
+
     txtMonto.setText(Double.toString(monto));
     pickerDate.setValue(
             fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+  }
+
+  private boolean validarDatos() {
+    boolean errores = false;
+
+    boolean errorDeMonto = false;
+    
+    if (txtMonto.getText().replace("$", "").trim().isEmpty()) {
+      txtMonto.setTextFormatter(null);
+      txtMonto.setText("");
+      errorDeMonto = true;
+    }
+    if (!txtConcepto.validate()) {
+      errores = true;
+    }
+    if (!txtMonto.validate()){
+      errores = true;
+    }
+    if (errorDeMonto) {
+      txtMonto.setText("$");
+      txtMonto.setCurrencyFilter();
+    }
+
+    return !errores;
   }
 
 }

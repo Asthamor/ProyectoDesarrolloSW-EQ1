@@ -208,4 +208,9 @@ public class PublicidadJpaController implements Serializable {
     }
   }
   
+  public List<Publicidad> getAllbyDate(){
+    EntityManager em = getEntityManager();
+    return em.createNamedQuery("Publicidad.findAllOrderByDate").getResultList();
+  }
+  
 }

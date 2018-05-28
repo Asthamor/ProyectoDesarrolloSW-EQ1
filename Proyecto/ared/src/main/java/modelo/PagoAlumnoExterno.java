@@ -6,6 +6,8 @@
 package modelo;
 
 import clasesApoyo.Mensajes;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfWriter;
 import interfaces.IPagoAlumnoExterno;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -181,7 +183,6 @@ public class PagoAlumnoExterno implements Serializable, IPagoAlumnoExterno {
   }
 
   public boolean generarRecibo() {
-    Mensajes.mensajeAlert("Por implementar");
     return true;
   }
 

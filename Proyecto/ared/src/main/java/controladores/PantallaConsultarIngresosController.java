@@ -179,7 +179,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
           super.updateItem(item, empty);
 
           if (item == null || empty) {
-            setText("$0");
+            setText("");
             setStyle("");
           } else {
             setText("$" + item);
