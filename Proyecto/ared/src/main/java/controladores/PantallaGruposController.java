@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -31,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import modelo.Grupo;
 import org.controlsfx.control.PopOver;
+import org.controlsfx.control.PopOver.ArrowLocation;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -47,8 +49,6 @@ public class PantallaGruposController implements Initializable, Controlador {
     private ScrollPane scrollGrupos;
     @FXML
     private AnchorPane pnlGrupos;
-    @FXML
-    private JFXButton btnRegistrarGrupo;
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
@@ -56,6 +56,12 @@ public class PantallaGruposController implements Initializable, Controlador {
     private Element gruposXML;
     @FXML
     private GridPane grid;
+  @FXML
+  private JFXButton btnAgregar;
+  @FXML
+  private Tooltip mensajeBtn;
+  @FXML
+  private Label lblNohay;
 
     /**
      * Initializes the controller class.
@@ -96,6 +102,10 @@ public class PantallaGruposController implements Initializable, Controlador {
         grid.setHgap(10);
         int filas = grupos.size() / 2;
         int auxiliar = 0;
+        if (grupos.isEmpty()){
+          lblNohay.setVisible(true);
+        }
+        
         if (grupos.size() % 2 != 0) {
             filas = (grupos.size() + 1) / 2;
         }

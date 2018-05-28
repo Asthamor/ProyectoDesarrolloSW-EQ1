@@ -155,7 +155,7 @@ public class PantallaLoginController implements Initializable {
       mainStage.setFullScreen(true);
       mainStage.setResizable(false);
       mainStage.setFullScreenExitHint(null);
-      mainStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+      mainStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); 
       mainStage.show();
 
     } catch (IOException ex) {

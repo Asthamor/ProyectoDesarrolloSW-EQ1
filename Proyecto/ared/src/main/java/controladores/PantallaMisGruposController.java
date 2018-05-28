@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -48,6 +49,8 @@ public class PantallaMisGruposController implements Initializable, Controlador {
     private Maestro maestro;
     private Element gruposXML;
     private Document document;
+  @FXML
+  private Label lblNohay;
 
     /**
      * Initializes the controller class.
@@ -87,6 +90,9 @@ public class PantallaMisGruposController implements Initializable, Controlador {
         gridGrupos.setHgap(10);
         int filas = maestro.getGrupoCollection().size() / 2;
         int auxiliar = 0;
+        if (maestro.getGrupoCollection().isEmpty()){
+          lblNohay.setVisible(true);
+        }
         if (maestro.getGrupoCollection().size() % 2 != 0) {
             filas = (maestro.getGrupoCollection().size() + 1) / 2;
         }
