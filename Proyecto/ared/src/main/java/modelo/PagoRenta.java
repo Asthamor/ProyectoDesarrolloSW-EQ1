@@ -6,6 +6,7 @@
 package modelo;
 
 import interfaces.IIngreso;
+import interfaces.IPagoRenta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +45,7 @@ import modelo.controladores.exceptions.NonexistentEntityException;
     , @NamedQuery(name = "PagoRenta.obtenerUltimoPago", query = "SELECT p FROM PagoRenta p order by p.idPago desc")
     , @NamedQuery(name = "PagoRenta.findByMonto", query = "SELECT p FROM PagoRenta p WHERE p.monto = :monto")
     , @NamedQuery(name = "PagoRenta.findByFecha", query = "SELECT p FROM PagoRenta p WHERE p.fecha = :fecha")})
-public class PagoRenta extends Ingreso implements Serializable, IIngreso {
+public class PagoRenta extends Ingreso implements Serializable, IIngreso,IPagoRenta {
 
     @Basic(optional = false)
     @Column(name = "monto")
@@ -146,6 +147,7 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public PagoRenta obtenerUltimoPago() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoRentaJpaController controladorPago = new PagoRentaJpaController(entityManagerFactory);
@@ -166,6 +168,7 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
         return result;
     }
     
+    @Override
     public boolean actualizarPago(){
         boolean seActualizo = false;
         EntityManagerFactory entityManagerFactory = Persistence
@@ -183,6 +186,7 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso {
         return seActualizo;
     }
     
+    @Override
     public boolean eliminarPago(){
          boolean seElimino = false;
         EntityManagerFactory entityManagerFactory = Persistence

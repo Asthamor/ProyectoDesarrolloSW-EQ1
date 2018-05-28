@@ -5,16 +5,14 @@
  */
 package interfaces;
 
-import java.util.Date;
-import java.util.List;
-import modelo.Renta;
+import modelo.PagoRenta;
 
 /**
  *
  * @author alonso
  */
-public interface IRenta {
-    public List<Renta> obtenerTodaRentas();
-    public boolean crearRenta();
-    public List<Renta> buscarRenta(Date fecha);
+public interface IPagoRenta {
+    public PagoRenta obtenerUltimoPago();
+    public boolean actualizarPago();
+    public boolean eliminarPago();
 }

@@ -5,7 +5,9 @@
  */
 package interfaces;
 
+import java.util.List;
 import modelo.Grupo;
+import modelo.Horario;
 import modelo.Maestro;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,84 +15,63 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 public class IMaestroTest {
-    
+
     public IMaestroTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-
-    /**
-     * Test of obtenerActivos method, of class IMaestro.
-     */
     @Test
-    public void testObtenerActivos() {
-        System.out.println("obtenerActivos");
-        IMaestro instance = new Maestro();
-        boolean expResult = true;
-        boolean result = instance.obtenerActivos().size() > 0;
-        assertEquals(expResult, result);
-    }
-
-    
-    @Test
-    public void testObtenerMaestro(){
-        System.out.println("obtenerMaestro");
-        IMaestro instance = new Maestro();
-        boolean expResult = true;
-        Maestro maestro = instance.obtenerMaestro("IrvinVera");
-        boolean result = maestro != null;
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testObtenerGruposMaestro(){
+    public void testObtenerGruposMaestro() {
+        System.out.println("obtenerGruposMaestro");
         Maestro maestroPrueba = new Maestro();
-        if(maestroPrueba.obtenerMaestro("IstaelOzuna") == null){
+        List<Maestro> maestros = (List<Maestro>) ((Object) maestroPrueba.buscar("Istael"));
+        if (maestros.size() == 0) {
             maestroPrueba.setApellidos("Ozuna");
             maestroPrueba.setNombre("Istael");
             maestroPrueba.setTelefono("25578");
             maestroPrueba.registrar(maestroPrueba);
-           
-            
-            
+        } else {
+            maestroPrueba = maestros.get(0);
         }
-        
-        Grupo grupo = new Grupo();
-        
-        
-        System.out.println("obtenerGruposMaestro");
+        if (maestroPrueba.getGrupoCollection().size() <= 0) {
+            Grupo grupo = new Grupo();
+            grupo.setMaestro(maestroPrueba);
+            grupo.setNombre("Salsa Isra");
+            Horario horario = new Horario();
+            horario.setRutaArchivo("/");
+            horario.setIdHorario(1);
+            grupo.setHorario(horario);
+            grupo.setTipoDanza("Salsa");
+            grupo.registrarGrupo(grupo);
+            maestroPrueba.getGrupoCollection().add(grupo);
+        }
 
         boolean expResult = true;
-        
-        boolean result = true;
-        
-        System.out.println(maestroPrueba.obtenerMaestro("IstaelOzuna"));
+        boolean result = maestroPrueba.getGrupoCollection().size() > 0;
+
         assertEquals(expResult, result);
     }
 
-
-    
 }

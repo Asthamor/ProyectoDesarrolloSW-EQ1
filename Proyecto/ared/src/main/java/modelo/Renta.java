@@ -146,11 +146,6 @@ public class Renta implements Serializable, IRenta {
     }
 
     @Override
-    public boolean editarRenta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Renta> buscarRenta(Date fecha) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

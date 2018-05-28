@@ -20,16 +20,15 @@ public abstract class Persona implements IPersona {
     private String telefono;
     private String imgFoto;
     protected String tipoUsario;
+    private boolean esActivo;
     
     
 
     @Override
     public abstract List<Persona> obtenerTodos();
     
-    
-
     @Override
-    public abstract boolean actualizarDatos();
+    public abstract boolean actualizarDatos(boolean editarImagen);
 
     @Override
     public abstract List<Persona> buscar(String nombre);
@@ -85,4 +84,11 @@ public abstract class Persona implements IPersona {
         return imgFoto;
     }
 
+    public boolean getEsActivo() {
+        return esActivo;
+    }
+
+    public void setEsActivo(boolean esActivo) {
+        this.esActivo = esActivo;
+    }
 }

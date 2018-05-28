@@ -204,11 +204,13 @@ public class PantallaUsuariosController implements Initializable {
                             if (getActivos) {
                                 datosPersonas = persona.obtenerActivos();
                                 personas = new ArrayList();
+                                pnlUsuarios.getChildren().clear();
                                 personas.addAll(datosPersonas);
                                 pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
                             } else {
                                 datosPersonas = persona.obtenerInactivos();
                                 personas = new ArrayList();
+                                pnlUsuarios.getChildren().clear();
                                 personas.addAll(datosPersonas);
                                 pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
                             }

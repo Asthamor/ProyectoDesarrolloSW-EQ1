@@ -8,11 +8,9 @@ package controladores;
 import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.validation.base.ValidatorBase;
 import static controladores.PantallaPrincipalDirectorController.crearPantallaUsuarios;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -121,6 +119,7 @@ public class PantallaRegistrarUsuarioController implements Initializable {
             persona.setTelefono(txtTelefonoUsuario.getText());
             persona.setImgFoto(rutaFoto);
             persona.setEmail(txtCorreoElectronicoUsuario.getText());
+            persona.setEsActivo(true);
             if (persona.registrar(persona)) {
                 pnlPrincipal.getChildren().add(crearPantallaUsuarios(persona, this.pnlPrincipal, this.pantallaDividida));
                 pantallaDividida.getChildren().add(pnlPrincipal);

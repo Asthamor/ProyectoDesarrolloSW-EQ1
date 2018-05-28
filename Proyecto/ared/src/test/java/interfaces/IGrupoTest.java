@@ -72,7 +72,7 @@ public class IGrupoTest {
         grupo.setTipoDanza("prueba");
         grupo.setFechaCreacion(new Date());
         Horario horario = new Horario();
-        horario = horario.obtenerRutaHorario();
+        horario.setIdHorario(1);
         grupo.setHorario(horario);
         Maestro maestro = new Maestro();
         List<Persona> maestros = maestro.obtenerTodos();

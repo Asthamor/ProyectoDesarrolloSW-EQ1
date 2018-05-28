@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -383,11 +382,11 @@ public class Maestro extends Persona implements Serializable, IMaestro {
         return imagePath;
     }
 
-    public Boolean getEsActivo() {
+    public boolean getEsActivo() {
         return esActivo;
     }
 
-    public void setEsActivo(Boolean esActivo) {
+    public void setEsActivo(boolean esActivo) {
         this.esActivo = esActivo;
     }
 
@@ -420,17 +419,6 @@ public class Maestro extends Persona implements Serializable, IMaestro {
             }
             this.imgFoto = imageDirectory.getName();
         }
-    }
-
-    @Override
-    public boolean actualizarDatos(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean actualizarDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
     }
 
     @Override

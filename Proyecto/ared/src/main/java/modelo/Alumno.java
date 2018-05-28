@@ -107,14 +107,6 @@ public class Alumno extends Persona implements Serializable, IAlumno {
     this.telefono = telefono;
   }
 
-  public Alumno(Persona persona) {
-    this.nombre = persona.getNombre();
-    this.apellidos = persona.getApellidos();
-    this.telefono = persona.getTelefono();
-    this.email = persona.getEmail();
-    this.imgFoto = persona.getImgFoto();
-  }
-
   public Integer getIdAlumno() {
     return idAlumno;
   }
@@ -231,26 +223,6 @@ public class Alumno extends Persona implements Serializable, IAlumno {
     return personas;
   }
 
-  @Override
-  public boolean actualizarDatos(Persona persona) {
-    boolean seActualizo = false;
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
-    AlumnoJpaController controlador = new AlumnoJpaController(entityManagerFactory);
-    Alumno alumno = new Alumno(persona);
-    alumno.setIdAlumno(idAlumno);
-    alumno.setGrupoCollection(grupoCollection);
-    alumno.setPagoAlumnoCollection(pagoAlumnoCollection);
-    alumno.setPagoAlumnoExternoCollection(pagoAlumnoExternoCollection);
-    try {
-      controlador.edit(alumno);
-      seActualizo = true;
-    } catch (NonexistentEntityException ex) {
-      Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (Exception ex) {
-      Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return seActualizo;
-  }
 
   @Override
   public List<Persona> buscar(String nombre) {
@@ -297,11 +269,6 @@ public class Alumno extends Persona implements Serializable, IAlumno {
       imagePath = currentPath + imagePath;
     }
     return imagePath;
-  }
-
-  @Override
-  public boolean actualizarDatos() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   private void guardarImagen(String nombreUsuario) {
