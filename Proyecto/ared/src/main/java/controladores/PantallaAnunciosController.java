@@ -82,6 +82,7 @@ public class PantallaAnunciosController implements Initializable, Controlador {
   public void initialize(URL url, ResourceBundle rb) {
     DateTimeFormatter formatter = DateTimeFormatter
             .ofLocalizedDate(FormatStyle.MEDIUM);
+    
     tbPublicidad.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
       @Override
       public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -163,7 +164,7 @@ public class PantallaAnunciosController implements Initializable, Controlador {
   private boolean obtenerDatos() {
     colInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
     colFin.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));
-    colCreador.setCellValueFactory(new PropertyValueFactory<>("publicidadPK.maestroIdMaestro"));
+    colCreador.setCellValueFactory(new PropertyValueFactory<>("maestro"));
     colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
     colMonto.setCellValueFactory(new PropertyValueFactory<>("monto"));
     colURL.setCellValueFactory(new PropertyValueFactory<>("url"));
@@ -191,6 +192,7 @@ public class PantallaAnunciosController implements Initializable, Controlador {
 
   @FXML
   private void crearPublicidad(ActionEvent event) {
+    tbPublicidad.getSelectionModel().clearSelection();
     cargarTarjetaLateral(null);
   }
   
@@ -211,9 +213,7 @@ public class PantallaAnunciosController implements Initializable, Controlador {
       controlador.setControlador(this);
       controlador.setPublicidad(publicidad);
       controlador.setPantallaDividida(pantallaDividida);
-      if (pnlPrincipal.getChildren().size() > 1) {
-        pnlPrincipal.getChildren().remove(1);
-      }
+      pnlSecundario.getChildren().clear();
       pnlSecundario.getChildren().add(root);
       PantallaPrincipalDirectorController.animacionCargarPantalla(pnlSecundario);
       if (pantallaDividida.getChildren().size() > 1) {

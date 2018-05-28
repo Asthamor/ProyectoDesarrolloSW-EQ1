@@ -184,8 +184,6 @@ public class EgresoJpaController implements Serializable {
       em.close();
     }
   }
-  
-  
 
   public Egreso findEgreso(Integer id) {
     EntityManager em = getEntityManager();
@@ -208,10 +206,10 @@ public class EgresoJpaController implements Serializable {
       em.close();
     }
   }
-  
-  public List<Egreso> findEgresoEntitiesByDate(){
+
+  public List<Egreso> findEgresoEntitiesByDate() {
     EntityManager em = getEntityManager();
     return em.createNamedQuery("Egreso.findAllOrderFecha").getResultList();
   }
-  
+
 }

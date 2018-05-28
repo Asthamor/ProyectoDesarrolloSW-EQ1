@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -41,16 +42,24 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXButton id="btnAgregar" fx:id="btnRegEgreso" alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="10.0" minHeight="35.0" onAction="#crearEgreso" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #c08ed6;" stylesheets="@../styles/botonesMenu.css" text="Registrar egreso">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="PLUS" size="15" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </HBox>
-                  <TableView fx:id="tbEgresos" prefHeight="588.0" prefWidth="715.0" stylesheets="@../styles/tableView.css">
+                  <TableView fx:id="tbEgresos" prefHeight="588.0" prefWidth="715.0" stylesheets="@../styles/tableView.css" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="colConcepto" prefWidth="376.0" text="Concepto" />
                       <TableColumn fx:id="colFecha" prefWidth="180.0" text="Fecha" />
                         <TableColumn fx:id="colMonto" prefWidth="158.0" text="Monto" />
                     </columns>
                   </TableView>
-                  <JFXButton fx:id="btnRegEgreso" alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" onAction="#crearEgreso" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #c08ed6;" text="Registrar egreso" />
                </children>
             </VBox>
             <StackPane fx:id="pnlSecundario" prefHeight="150.0" prefWidth="250.0" />

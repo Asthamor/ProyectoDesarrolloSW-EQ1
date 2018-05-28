@@ -82,7 +82,6 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
     txtMonto.setRequired(true);
     pickerDate.setEditable(false);
     reqVal = new RequiredFieldValidator();
-    ((JFXTextField) pickerDate.getEditor()).setValidators(reqVal);
     txtConcepto.setValidators(reqVal);
     txtConcepto.setTextFormatter(new TextFormatter(limiteConcepto));
 
@@ -141,7 +140,7 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
   }
 
   private boolean validarDatos() {
-    boolean errores = false;
+    boolean huboErrores = false;
 
     boolean errorDeMonto = false;
     
@@ -149,19 +148,20 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
       txtMonto.setTextFormatter(null);
       txtMonto.setText("");
       errorDeMonto = true;
+      huboErrores = true;
     }
     if (!txtConcepto.validate()) {
-      errores = true;
+      huboErrores = true;
     }
     if (!txtMonto.validate()){
-      errores = true;
+      huboErrores = true;
     }
     if (errorDeMonto) {
       txtMonto.setText("$");
       txtMonto.setCurrencyFilter();
     }
 
-    return !errores;
+    return !huboErrores;
   }
 
 }

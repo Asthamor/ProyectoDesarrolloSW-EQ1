@@ -39,8 +39,8 @@ public class PublicidadJpaController implements Serializable {
     if (publicidad.getPublicidadPK() == null) {
       publicidad.setPublicidadPK(new PublicidadPK());
     }
-    publicidad.getPublicidadPK().setMaestroidMaestro(publicidad.getMaestro().getMaestroPK().getIdMaestro());
     publicidad.getPublicidadPK().setMaestrousuarionombreUsuario(publicidad.getMaestro().getMaestroPK().getUsuarionombreUsuario());
+    publicidad.getPublicidadPK().setMaestroidMaestro(publicidad.getMaestro().getMaestroPK().getIdMaestro());
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -78,8 +78,8 @@ public class PublicidadJpaController implements Serializable {
   }
 
   public void edit(Publicidad publicidad) throws NonexistentEntityException, Exception {
-    publicidad.getPublicidadPK().setMaestroidMaestro(publicidad.getMaestro().getMaestroPK().getIdMaestro());
     publicidad.getPublicidadPK().setMaestrousuarionombreUsuario(publicidad.getMaestro().getMaestroPK().getUsuarionombreUsuario());
+    publicidad.getPublicidadPK().setMaestroidMaestro(publicidad.getMaestro().getMaestroPK().getIdMaestro());
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -207,10 +207,10 @@ public class PublicidadJpaController implements Serializable {
       em.close();
     }
   }
-  
-  public List<Publicidad> getAllbyDate(){
+
+  public List<Publicidad> getAllbyDate() {
     EntityManager em = getEntityManager();
     return em.createNamedQuery("Publicidad.findAllOrderByDate").getResultList();
   }
-  
+
 }

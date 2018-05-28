@@ -437,46 +437,44 @@ public class MaestroJpaController implements Serializable {
     }
   }
 
-     public Maestro findMaestro(MaestroPK id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Maestro.class, id);
-        } finally {
-            em.close();
-        }
+  public Maestro findMaestro(MaestroPK id) {
+    EntityManager em = getEntityManager();
+    try {
+      return em.find(Maestro.class, id);
+    } finally {
+      em.close();
     }
-    
-    public List<Maestro> findMaestroByName(String name){
-        EntityManager em = getEntityManager();
-        TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByNombre", Maestro.class);
-        return query.setParameter("nombre", "%" + name +"%").getResultList();
-    }
-    
-     public List<Maestro> findMaestroById(int id){
-        EntityManager em = getEntityManager();
-        TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByIdMaestro", Maestro.class);
-        return query.setParameter("idMaestro", id).getResultList();
-    }
-    
-    public List<Maestro> findMaestrobyNombreUsuario(String nombreUsuario){
-        EntityManager em = getEntityManager();
-        TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByUsuarionombreUsuario", Maestro.class);
-        return query.setParameter("usuarionombreUsuario", nombreUsuario).getResultList();
-    }
+  }
 
-    public int getMaestroCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Maestro> rt = cq.from(Maestro.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
-    
+  public List<Maestro> findMaestroByName(String name) {
+    EntityManager em = getEntityManager();
+    TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByNombre", Maestro.class);
+    return query.setParameter("nombre", "%" + name + "%").getResultList();
+  }
 
-  
+  public List<Maestro> findMaestroById(int id) {
+    EntityManager em = getEntityManager();
+    TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByIdMaestro", Maestro.class);
+    return query.setParameter("idMaestro", id).getResultList();
+  }
+
+  public List<Maestro> findMaestrobyNombreUsuario(String nombreUsuario) {
+    EntityManager em = getEntityManager();
+    TypedQuery<Maestro> query = em.createNamedQuery("Maestro.findByUsuarionombreUsuario", Maestro.class);
+    return query.setParameter("usuarionombreUsuario", nombreUsuario).getResultList();
+  }
+
+  public int getMaestroCount() {
+    EntityManager em = getEntityManager();
+    try {
+      CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+      Root<Maestro> rt = cq.from(Maestro.class);
+      cq.select(em.getCriteriaBuilder().count(rt));
+      Query q = em.createQuery(cq);
+      return ((Long) q.getSingleResult()).intValue();
+    } finally {
+      em.close();
+    }
+  }
+
 }

@@ -17,6 +17,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -54,6 +56,7 @@ public class Egreso implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idEgreso")
     private Integer idEgreso;
@@ -170,16 +173,16 @@ public class Egreso implements Serializable {
     return resultado;
   }
   
-  public boolean registrar(){
+  public Egreso registrar(){
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     EgresoJpaController controlador = new EgresoJpaController(entityManagerFactory);
     try {
       controlador.create(this);
     } catch (Exception ex) {
       Logger.getLogger(Egreso.class.getName()).log(Level.SEVERE, null, ex);
-      return false;
+      return null;
     }
-    return true;
+    return this;
   }
   
   public boolean editar(){

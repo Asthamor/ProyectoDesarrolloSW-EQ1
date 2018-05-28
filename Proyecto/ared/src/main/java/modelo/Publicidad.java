@@ -8,6 +8,8 @@ package modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -24,6 +26,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import modelo.controladores.PublicidadJpaController;
+import modelo.controladores.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -178,6 +181,41 @@ public class Publicidad implements Serializable {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
     PublicidadJpaController controlador = new PublicidadJpaController(entityManagerFactory);
     return controlador.getAllbyDate();
+  }
+  
+  public boolean registrar(){
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PublicidadJpaController controlador = new PublicidadJpaController(entityManagerFactory);
+    try {
+      controlador.create(this);
+    } catch (Exception ex) {
+      Logger.getLogger(Publicidad.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    }
+    return true;
+  }
+  
+  public boolean editar(){
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PublicidadJpaController controlador = new PublicidadJpaController(entityManagerFactory);
+    try {
+      controlador.edit(this);
+    } catch (Exception ex) {
+      Logger.getLogger(Publicidad.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    }
+    return true;
+  }
+  
+  public boolean eliminar(){
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+    PublicidadJpaController controlador = new PublicidadJpaController(entityManagerFactory);
+    try {
+      controlador.destroy(publicidadPK);
+    } catch (NonexistentEntityException ex) {
+      Logger.getLogger(Publicidad.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return true;
   }
 
   public double getMonto() {
