@@ -20,7 +20,7 @@ import org.junit.Ignore;
  *
  * @author alonso
  */
-@Ignore
+//@Ignore
 public class IPromocionTest {
     
     public IPromocionTest() {

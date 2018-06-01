@@ -24,7 +24,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import modelo.Grupo;
 import modelo.Maestro;
 import org.dom4j.Document;
@@ -86,8 +85,8 @@ public class PantallaMisGruposController implements Initializable, Controlador {
         maestro = new Maestro();
         String nombreUsuario = System.getProperty("nombreUsuario");
         maestro = maestro.obtenerMaestro(nombreUsuario);
-        gridGrupos.setVgap(10);
-        gridGrupos.setHgap(10);
+        gridGrupos.setVgap(20);
+        gridGrupos.setHgap(20);
         int filas = maestro.getGrupoCollection().size() / 2;
         int auxiliar = 0;
         if (maestro.getGrupoCollection().isEmpty()){

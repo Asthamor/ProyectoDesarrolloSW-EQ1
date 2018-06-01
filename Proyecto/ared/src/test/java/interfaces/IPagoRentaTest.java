@@ -19,7 +19,7 @@ import org.junit.Ignore;
  *
  * @author alonso
  */
-@Ignore
+//@Ignore
 public class IPagoRentaTest {
     
     public IPagoRentaTest() {

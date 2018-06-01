@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +25,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -108,16 +109,21 @@ public class PantallaEditarRentaController implements Initializable, Controlador
 
     @FXML
     private void cancelarRenta(ActionEvent event) {
-        if (renta.eliminarRenta() && renta.getPagoRenta().eliminarPago()) {
-            eliminarObjetoXML();
-            Mensajes.mensajeExitoso("La renta se ha cancelado");
-            pnlPrincipal.getChildren().clear();
-            pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
-                    this.pnlPrincipal, this.pantallaDividida));
-            pantallaDividida.getChildren().clear();
-            pantallaDividida.getChildren().add(pnlPrincipal);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Seguro que desea cancelar la renta?",
+                 ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            if (renta.eliminarRenta() && renta.getPagoRenta().eliminarPago()) {
+                eliminarObjetoXML();
+                Mensajes.mensajeExitoso("La renta se ha cancelado");
+                pnlPrincipal.getChildren().clear();
+                pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
+                        this.pnlPrincipal, this.pantallaDividida));
+                pantallaDividida.getChildren().clear();
+                pantallaDividida.getChildren().add(pnlPrincipal);
+            }
         }
-
     }
 
     public Element crearObjetoXML() {
@@ -203,8 +209,6 @@ public class PantallaEditarRentaController implements Initializable, Controlador
         renta = new Renta();
         renta = renta.buscarRenta(Integer.parseInt(this.rentaXML.getId()));
     }
-
-
 
     @Override
     public void setPantallaDividida(HBox pantallaDividida) {

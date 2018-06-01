@@ -31,8 +31,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import modelo.Grupo;
-import org.controlsfx.control.PopOver;
-import org.controlsfx.control.PopOver.ArrowLocation;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -56,12 +54,12 @@ public class PantallaGruposController implements Initializable, Controlador {
     private Element gruposXML;
     @FXML
     private GridPane grid;
-  @FXML
-  private JFXButton btnAgregar;
-  @FXML
-  private Tooltip mensajeBtn;
-  @FXML
-  private Label lblNohay;
+    @FXML
+    private JFXButton btnAgregar;
+    @FXML
+    private Tooltip mensajeBtn;
+    @FXML
+    private Label lblNohay;
 
     /**
      * Initializes the controller class.
@@ -97,54 +95,39 @@ public class PantallaGruposController implements Initializable, Controlador {
     public void mostrarGrupos() {
         Grupo grupo = new Grupo();
         List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
-        
+
         grid.setVgap(10);
         grid.setHgap(10);
         int filas = grupos.size() / 2;
         int auxiliar = 0;
-        if (grupos.isEmpty()){
-          lblNohay.setVisible(true);
+        if (grupos.isEmpty()) {
+            lblNohay.setVisible(true);
         }
-        
+
         if (grupos.size() % 2 != 0) {
             filas = (grupos.size() + 1) / 2;
         }
 
         for (int i = 0; i < filas; i++) {
-            try {
-                FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionGrupo.fxml"));
-                Parent root = (Parent) loader.load();
-                TarjetaInformacionGrupoController controlador = loader.getController();
-                controlador.setGrupo(grupos.get(auxiliar));
-                Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
-                        + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
-                controlador.setColorGrupo(Color.web(grupoXML.attributeValue("color")));
-                controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
-                controlador.setPantallaDividida(pantallaDividida);
-                controlador.setPnlPrincipal(pnlPrincipal);
-                controlador.setEditarGrupo(true);
-                auxiliar++;
-                grid.add(root, 0, i);
-            } catch (IOException ex) {
-                Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (auxiliar < grupos.size()) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionGrupo.fxml"));
-                    Parent root = (Parent) loader.load();
-                    TarjetaInformacionGrupoController controlador = loader.getController();
-                    controlador.setGrupo(grupos.get(auxiliar));
-                    Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
-                            + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
-                    controlador.setColorGrupo(Color.web(grupoXML.attributeValue("color")));
-                    controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
-                    controlador.setPantallaDividida(pantallaDividida);
-                    controlador.setPnlPrincipal(pnlPrincipal);
-                    controlador.setEditarGrupo(true);
-                    auxiliar++;
-                    grid.add(root, 1, i);
-                } catch (IOException ex) {
-                    Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+            for (int j = 0; j < 2; j++) {
+                if (auxiliar < grupos.size()) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionGrupo.fxml"));
+                        Parent root = (Parent) loader.load();
+                        TarjetaInformacionGrupoController controlador = loader.getController();
+                        controlador.setGrupo(grupos.get(auxiliar));
+                        Element grupoXML = (Element) gruposXML.selectSingleNode("/ared/grupos/grupo[@id = "
+                                + "'" + grupos.get(auxiliar).getGrupoPK().getIdGrupo() + "']");
+                        controlador.setColorGrupo(Color.web(grupoXML.attributeValue("color")));
+                        controlador.agregarHorario(obtnerHorarioGrupo(grupoXML));
+                        controlador.setPantallaDividida(pantallaDividida);
+                        controlador.setPnlPrincipal(pnlPrincipal);
+                        controlador.setEditarGrupo(true);
+                        auxiliar++;
+                        grid.add(root, j, i);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
@@ -191,12 +174,12 @@ public class PantallaGruposController implements Initializable, Controlador {
                 Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
             }
             try (FileWriter fileWriter = new FileWriter(file);
-                    PrintWriter printWriter = new PrintWriter(fileWriter,true)) {
+                    PrintWriter printWriter = new PrintWriter(fileWriter, true)) {
                 String contenido = "<ared>\n"
-                        +   "   <grupos>\n"
-                        +   "   </grupos>\n"
-                        +   "   <rentas>\n"
-                        +   "   </rentas>\n"
+                        + "   <grupos>\n"
+                        + "   </grupos>\n"
+                        + "   <rentas>\n"
+                        + "   </rentas>\n"
                         + "</ared>";
                 printWriter.write(contenido);
             } catch (IOException ex) {

@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import com.jfoenix.controls.JFXTextArea;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -121,7 +120,6 @@ public class TarjetaInformacionGrupoController implements Initializable {
                 controlador.setGrupo(grupo);
                 controlador.setPantallaDividida(pantallaDividida);
                 controlador.setPnlPrincipal(pnlPrincipal);
-                controlador.setControlador(this);
                 controlador.agregarHorario(txtHorario.getText());
                 controlador.setColorGrupo(colorGrupo);
                 pnlSecundario.getChildren().add(root);

@@ -20,7 +20,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 
 public class IPagoMaestroTest {
 
@@ -65,12 +65,7 @@ public class IPagoMaestroTest {
     public void testRegistrarPagoInvalido() {
         System.out.println("registrarPagoInvalido");
         PagoMaestro pagoMaestro = new PagoMaestro();
-        Maestro maestro = new Maestro();
-        maestro = (Maestro) maestro.obtenerTodos().get(0);
-        pagoMaestro.setMaestro(maestro);
-        boolean expResult = true;
-        boolean result = pagoMaestro.registrarPago();
-        assertEquals(expResult, result);
+        assertFalse(pagoMaestro.registrarPago());
     }
 
 }

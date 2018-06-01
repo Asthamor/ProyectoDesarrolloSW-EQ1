@@ -24,7 +24,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 public class IPagoAlumnoTest {
 
     public IPagoAlumnoTest() {
@@ -60,6 +60,7 @@ public class IPagoAlumnoTest {
         pago.setGrupo(grupo.get(0));
         pago.setAlumno(alumno.get(0));
         pago.setFechaPago(new Date());
+        pago.setFechaVencimiento(new Date());
         pago.setMonto(200);
         boolean expResult = true;
         boolean result = pago.registrarPagoMensual(pago);

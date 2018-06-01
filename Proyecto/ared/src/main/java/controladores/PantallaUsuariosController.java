@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -16,9 +15,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,22 +45,23 @@ public class PantallaUsuariosController implements Initializable {
     private Label etNombreUsuario;
     @FXML
     private JFXTextField txtNombreUsuario;
-
-    private HBox pantallaDividida;
-    private StackPane pnlPrincipal;
-
-    private Persona persona;
-    private List<Persona> personas;
-    private List<Persona> datosPersonas;
-    private boolean getActivos = true;
-
     @FXML
     private JFXToggleButton toggleActivos;
     @FXML
     private JFXButton btnAgregar;
     @FXML
     private Tooltip mensajeBtn;
+    @FXML
+    private GridPane gridUsuarios;
 
+    private HBox pantallaDividida;
+    private StackPane pnlPrincipal;
+    private Persona persona;
+    private List<Persona> personas;
+    private List<Persona> datosPersonas;
+    private boolean getActivos = true;
+
+    
     /**
      * Initializes the controller class.
      */
@@ -97,30 +94,23 @@ public class PantallaUsuariosController implements Initializable {
         personas.addAll(datosPersonas);
     }
 
-    public AnchorPane getPnlUsuarios() {
-        return pnlUsuarios;
-    }
-
     private void obtenerDatos() {
-//        if (getActivos) {
-//            datosPersonas = this.persona.obtenerActivos();
-//            personas = new ArrayList();
-//            personas.addAll(datosPersonas);
-//            pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
-//        } else {
-//            datosPersonas = this.persona.obtenerInactivos();
-//            personas = new ArrayList();
-//            personas.addAll(datosPersonas);
-//            pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
-//        }
-        new HiloBuscarPersonas().restart();
-        
+        if (getActivos) {
+            datosPersonas = this.persona.obtenerActivos();
+            personas = new ArrayList();
+            personas.addAll(datosPersonas);
+            mostrarUsuarios(personas);
+        } else {
+            datosPersonas = this.persona.obtenerInactivos();
+            personas = new ArrayList();
+            personas.addAll(datosPersonas);
+            mostrarUsuarios(personas);
+        }
     }
 
-    public GridPane mostrarUsuarios(List<Persona> personas) {
-        GridPane grid = new GridPane();
-        grid.setVgap(10);
-        grid.setHgap(10);
+    public void mostrarUsuarios(List<Persona> personas) {
+        gridUsuarios.setVgap(20);
+        gridUsuarios.setHgap(20);
         int filas = personas.size() / 2;
         int auxiliar = 0;
         if (personas.size() % 2 != 0) {
@@ -136,15 +126,13 @@ public class PantallaUsuariosController implements Initializable {
                         controlador.setPersona(personas.get(auxiliar));
                         auxiliar++;
                         controlador.setPantallaDividida(pantallaDividida);
-                        grid.add(root, j, i);
+                        gridUsuarios.add(root, j, i);
                     } catch (IOException ex) {
                         Logger.getLogger(PantallaPrincipalDirectorController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
-
         }
-        return grid;
     }
 
     @FXML
@@ -171,7 +159,7 @@ public class PantallaUsuariosController implements Initializable {
             pnlUsuarios.getChildren().clear();
             personas.clear();
             personas.addAll(datosPersonas);
-            pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
+            mostrarUsuarios(personas);
         } else {
             personas.clear();
             for (Persona p : datosPersonas) {
@@ -180,7 +168,7 @@ public class PantallaUsuariosController implements Initializable {
                 }
             }
             pnlUsuarios.getChildren().clear();
-            pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
+            mostrarUsuarios(personas);
         }
     }
 
@@ -190,36 +178,4 @@ public class PantallaUsuariosController implements Initializable {
         obtenerDatos();
 
     }
-
-    public class HiloBuscarPersonas extends Service<Void> {
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (getActivos) {
-                                datosPersonas = persona.obtenerActivos();
-                                personas = new ArrayList();
-                                pnlUsuarios.getChildren().clear();
-                                personas.addAll(datosPersonas);
-                                pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
-                            } else {
-                                datosPersonas = persona.obtenerInactivos();
-                                personas = new ArrayList();
-                                pnlUsuarios.getChildren().clear();
-                                personas.addAll(datosPersonas);
-                                pnlUsuarios.getChildren().add(mostrarUsuarios(personas));
-                            }
-                        }
-                    });
-                    return null;
-                }
-            };
-        }
-    }
-
 }

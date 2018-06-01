@@ -24,7 +24,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 public class IPagoAlumnoExternoTest {
     
     public IPagoAlumnoExternoTest() {
@@ -70,9 +70,7 @@ public class IPagoAlumnoExternoTest {
     public void testRegistrarPagoInvalido() {
         System.out.println("registrarPagoInvalido");
         PagoAlumnoExterno instance = new PagoAlumnoExterno();
-        boolean expResult = false;
-        boolean result = instance.registrarPago();
-        assertEquals(expResult, result);
+        assertFalse(instance.registrarPago());
     }
 
     

@@ -214,7 +214,6 @@ public class PantallaDefinirHorarioGrupoController implements Initializable {
             } else {
                 controladorEditarGrupo.setHorario(txtHorarioGrupo.getText(), this.document, this.grupos, this.grupo);
                 controladorEditarGrupo.setHorarioGrupo(horarioGrupo);
-                controladorEditarGrupo.setHorasGrupo(horasGrupo);
             }
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
         }

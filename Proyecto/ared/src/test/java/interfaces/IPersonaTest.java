@@ -22,7 +22,7 @@ import org.junit.Ignore;
  *
  * @author raymundo
  */
-@Ignore
+//@Ignore
 public class IPersonaTest {
 
     public IPersonaTest() {
@@ -83,7 +83,7 @@ public class IPersonaTest {
     @Test
     public void testBuscarAlumno() {
         System.out.println("buscarAlumno");
-        String nombre = "Wayne";
+        String nombre = "W";
         IPersona instance = new Alumno();
         boolean expResult = true;
         boolean result = instance.buscar(nombre).size() > 0;
@@ -93,7 +93,7 @@ public class IPersonaTest {
     @Test
     public void testBuscarMaestro() {
         System.out.println("buscarMaestro");
-        String nombre = "Ray";
+        String nombre = "R";
         IPersona instance = new Maestro();
         boolean expResult = true;
         boolean result = instance.buscar(nombre).size() > 0;
@@ -103,7 +103,7 @@ public class IPersonaTest {
     @Test
     public void testBuscarCliente() {
         System.out.println("buscarCliente");
-        String nombre = "Simone";
+        String nombre = "S";
         IPersona instance = new Cliente();
         boolean expResult = true;
         boolean result = instance.buscar(nombre).size() > 0;
@@ -120,6 +120,7 @@ public class IPersonaTest {
         persona.setNombre("Jesus 2");
         persona.setApellidos("Aja 2");
         persona.setTelefono("223029");
+        persona.setEsActivo(true);
         boolean expResult = true;
         boolean result = persona.registrar(persona);
         assertEquals(expResult, result);
@@ -131,6 +132,7 @@ public class IPersonaTest {
         Persona persona = new Alumno();
         persona.setNombre("Jorge Alberto");
         persona.setApellidos("Gomez Sanchez");
+        persona.setEsActivo(true);
         persona.setTelefono("222445");
 
         boolean expResult = true;
@@ -145,6 +147,7 @@ public class IPersonaTest {
         persona.setNombre("Roberto");
         persona.setApellidos("Diaz Leon");
         persona.setTelefono("2456445");
+        persona.setEsActivo(true);
         boolean expResult = true;
         boolean result = persona.registrar(persona);
         assertEquals(expResult, result);
@@ -221,7 +224,7 @@ public class IPersonaTest {
     public void testActualizarMaestro() {
         System.out.println("ActualizarMaestro");
         Persona persona = new Maestro();
-        persona = persona.buscar("Luke").get(0);
+        persona = persona.obtenerActivos().get(0);
         persona.setNombre("Alberto");
         boolean expResult = true;
         boolean result = persona.actualizarDatos(false);
@@ -232,7 +235,7 @@ public class IPersonaTest {
     public void testActualizarAlumno() {
         System.out.println("ActualizarAlumno");
         Persona persona = new Alumno();
-        persona = persona.buscar("Charde").get(0);
+        persona = persona.obtenerActivos().get(0);
         persona.setNombre("Carlos");
         boolean expResult = true;
         boolean result = persona.actualizarDatos(false);
@@ -243,7 +246,7 @@ public class IPersonaTest {
     public void testActualizarCliente() {
         System.out.println("ActualizarCliente");
         Persona persona = new Cliente();
-        persona = persona.buscar("Raymond").get(0);
+        persona = persona.obtenerActivos().get(0);
         persona.setNombre("Raymundo");
         boolean expResult = true;
         boolean result = persona.actualizarDatos(false);

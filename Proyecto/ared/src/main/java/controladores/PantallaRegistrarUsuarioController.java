@@ -125,8 +125,6 @@ public class PantallaRegistrarUsuarioController implements Initializable {
                 pantallaDividida.getChildren().add(pnlPrincipal);
                 Mensajes.mensajeExitoso("El " + persona.getTipoUsario() + " se registro correctamente");
             }
-        } else {
-            Mensajes.mensajeAlert("Error");
         }
     }
 
