@@ -158,6 +158,7 @@ public class PantallaEditarGrupoController implements Initializable {
             grupo.eliminarGrupo(grupo.getGrupoPK());
             pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
             pantallaDividida.getChildren().add(pnlPrincipal);
+            eliminarObjetoXML();
             Mensajes.mensajeExitoso("Grupo eliminado correctamente");
         }
     }
@@ -282,7 +283,7 @@ public class PantallaEditarGrupoController implements Initializable {
         }
         
         Element root = document.getRootElement();
-        Element grupos = root.element("grupos");
+        Element grupos = root.element("grupos");        
         Element grupoXML = (Element) grupos.selectSingleNode("/ared/grupos/grupo[@id = "
                             + "'" + this.grupo.getGrupoPK().getIdGrupo() + "']");
         grupos.remove(grupoXML);
