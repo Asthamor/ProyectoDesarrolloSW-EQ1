@@ -38,6 +38,7 @@ import modelo.PagoAlumno;
 import modelo.Persona;
 import modelo.Promocion;
 import modelo.Usuario;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -149,15 +150,19 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
       PagoAlumno pago = new PagoAlumno();
       pago.setAlumno(alumn);
       pago.setGrupo(grupo);
+      pago.setEsInscripcion(true);
       pago.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")) * (1-porcentajeDesc));
       pago.setFechaPago(new Date());
-      Date vence = java.sql.Date.valueOf(LocalDate.now().plusMonths(1));
+      Date vence = java.sql.Date.valueOf(LocalDate.now().plusYears(1));
       pago.setFechaVencimiento(vence);
       pago.registrarPago();
 
       setListGrupos();
-      Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
-              + " inscrito en el grupo " + grupo.getNombre());
+      Notifications.create()
+                .title("¡Exito!")
+                .text(alumn.getNombre() + " " + alumn.getApellidos()
+              + " inscrito en el grupo " + grupo.getNombre())
+                .showInformation();
     } else if (almIndex == -1) {
       Mensajes.mensajeAlert("Selecciona un alumno");
     } else if (grpIndex == -1) {

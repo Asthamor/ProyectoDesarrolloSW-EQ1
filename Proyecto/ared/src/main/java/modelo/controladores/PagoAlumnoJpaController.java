@@ -16,7 +16,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Alumno;
 import modelo.Grupo;
-import modelo.Maestro;
 import modelo.PagoAlumno;
 import modelo.PagoAlumnoPK;
 import modelo.Promocion;
@@ -251,4 +250,16 @@ public class PagoAlumnoJpaController implements Serializable {
         return query.setParameter("alumnoidAlumno", idAlumno).getResultList();
   }
   
+  public PagoAlumno obtenerUltimoPago(Integer idAlumno){
+      EntityManager em = getEntityManager();
+      PagoAlumno pagoAlumno = null;
+    try {
+      pagoAlumno = (PagoAlumno) em.createNamedQuery("PagoAlumno.findByUltimaFechaPago")
+              .setParameter("idAlumno", idAlumno).setMaxResults(1).getSingleResult();
+      
+    } finally {
+      em.close();
+    }
+    return pagoAlumno;
+  }
 }
