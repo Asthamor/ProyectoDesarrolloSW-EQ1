@@ -1,11 +1,15 @@
 package controladores;
 
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mapas;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.validation.ValidationFacade;
+import com.jfoenix.validation.base.ValidatorBase;
 import static controladores.PantallaGruposController.crearArchivoXML;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import interfaces.Controlador;
@@ -37,12 +41,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import modelo.Cliente;
 import modelo.Horario;
 import modelo.PagoRenta;
 import modelo.Persona;
 import modelo.Renta;
 import modelo.RentaPK;
+import org.controlsfx.control.Notifications;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -68,11 +74,13 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
     @FXML
     private JFXComboBox<String> cmbCliente;
     @FXML
-    private JFXTextField txtMonto;
+    private JFXLimitedTextField txtMonto;
     @FXML
     private ScrollPane scrollHorario;
     @FXML
-    private Label lblHorarioRenta;
+    private JFXTextField lblHorarioRenta;
+    @FXML
+    private StackPane pnlGrid;
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
@@ -81,8 +89,9 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
     private String dia;
     private List<Persona> clientes;
     private ArrayList<Integer> horarioRenta;
+    private ValidationFacade validationFacade;
     @FXML
-    private StackPane pnlGrid;
+    private VBox VBcliente;
 
     /**
      * Initializes the controller class.
@@ -102,6 +111,24 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         }
         mostrarClientes();
         mostrarFechaActual();
+        crearValidaciones();
+
+    }
+
+    public void crearValidaciones() {
+        validationFacade = new ValidationFacade();
+        validationFacade.setControl(cmbCliente);
+        ValidatorBase req = new RequiredFieldValidator();
+        req.setMessage("Campo requerido");
+        validationFacade.getValidators().add(req);
+        VBcliente.getChildren().add(validationFacade);
+        ValidatorBase validatorHorario = new RequiredFieldValidator();
+        validatorHorario.setMessage("Campo requerido");
+        lblHorarioRenta.setValidators(validatorHorario);
+        txtMonto.setRequired(true);
+        txtMonto.setCurrencyFilter();
+        txtMonto.setText("$");
+
     }
 
     @Override
@@ -143,7 +170,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
             gridHorario.add(crearTarjetaHorario("", "", true, false, i), 1, i);
         }
     }
-    
+
     public void mostrarFechaActual() {
         txtDia.setValue(LocalDate.now());
         lblFecha.setText(txtDia.getValue().toString());
@@ -257,27 +284,32 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
 
     @FXML
     private void guardarRenta(ActionEvent event) {
-        Renta renta = new Renta();
-        renta.setRentaPK(new RentaPK());
-        renta.setCliente((Cliente) clientes.get(cmbCliente.getSelectionModel().getSelectedIndex()));
-        Horario horario = new Horario();
-        horario.setRutaArchivo("/");
-        horario.setIdHorario(1);
-        renta.setHorario(horario);
-        PagoRenta pagoRenta = new PagoRenta();
-        pagoRenta.setMonto(Integer.parseInt(txtMonto.getText()));
-        pagoRenta.setFecha(Date.from(txtDia.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        renta.setPagoRenta(pagoRenta);
-        if (renta.crearRenta()) {
-            guardarRentaXML(renta.obtenerUltimaRenta());
-            Mensajes.mensajeExitoso("Renta guardada");            
-            pnlPrincipal.getChildren().clear();
-            pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
-                    this.pnlPrincipal, this.pantallaDividida));
-            pantallaDividida.getChildren().add(pnlPrincipal);
-            
-        } else {
-            Mensajes.mensajeAlert("Lo sentimos, no se puedo realizar la acción");
+        if (!existenCamposVacios()) {
+            Renta renta = new Renta();
+            renta.setRentaPK(new RentaPK());
+            renta.setCliente((Cliente) clientes.get(cmbCliente.getSelectionModel().getSelectedIndex()));
+            Horario horario = new Horario();
+            horario.setRutaArchivo("/");
+            horario.setIdHorario(1);
+            renta.setHorario(horario);
+            PagoRenta pagoRenta = new PagoRenta();
+            pagoRenta.setMonto(Integer.valueOf(txtMonto.getText().replace("$", "")));
+            pagoRenta.setFecha(Date.from(txtDia.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            renta.setPagoRenta(pagoRenta);
+            if (renta.crearRenta()) {
+                guardarRentaXML(renta.obtenerUltimaRenta());
+                Notifications.create()
+                        .title("¡Exito!")
+                        .text("La renta se guardo correctamente")
+                        .showInformation();
+                pnlPrincipal.getChildren().clear();
+                pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
+                        this.pnlPrincipal, this.pantallaDividida));
+                pantallaDividida.getChildren().add(pnlPrincipal);
+
+            } else {
+                Mensajes.mensajeAlert("Lo sentimos, no se puedo realizar la acción");
+            }
         }
     }
 
@@ -287,13 +319,13 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         Element rentaXML = document.addElement("renta");
         rentaXML.addAttribute("dia", lblFecha.getText());
         rentaXML.addAttribute("id", idRenta);
-        rentaXML.addElement("monto").addText(txtMonto.getText());
+        rentaXML.addElement("monto").addText(txtMonto.getText().replace("$", ""));
         rentaXML.addElement("horario").addText(lblHorarioRenta.getText());
         rentaXML.addElement("cliente").addText(cmbCliente.getValue());
         rentas.add(rentaXML);
-        try {            
+        try {
             XMLWriter writer = new XMLWriter(
-			new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {
@@ -302,4 +334,26 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
             e.printStackTrace();
         }
     }
+
+    public boolean existenCamposVacios() {
+        boolean errorDeMonto = false;
+        boolean huboErrores = false;
+        
+        if (txtMonto.getText().replace("$", "").trim().isEmpty()) {
+            txtMonto.setTextFormatter(null);
+            txtMonto.setText("");
+            errorDeMonto = true;
+            huboErrores = true;
+        }
+        if (!txtMonto.validate()) {
+            huboErrores = true;
+        }
+        if (errorDeMonto) {
+            txtMonto.setText("$");
+            txtMonto.setCurrencyFilter();
+        }
+        return !validationFacade.validate(cmbCliente) | !lblHorarioRenta.validate()
+                | huboErrores;
+    }
+
 }

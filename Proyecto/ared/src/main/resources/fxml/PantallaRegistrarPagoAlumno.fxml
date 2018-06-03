@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,7 +18,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import clasesApoyo.JFXLimitedTextField?>
-<?import javafx.scene.Cursor?>
 
 <BorderPane prefHeight="611.0" prefWidth="1152.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
     <top>
@@ -28,8 +28,8 @@
             <children>
                 <GridPane prefHeight="508.0" prefWidth="1103.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="10.0" prefWidth="213.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="512.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="10.0" prefWidth="234.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="499.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="367.0" />
                     </columnConstraints>
                     <rowConstraints>
@@ -53,7 +53,7 @@
                                 </JFXListView>
                             </children>
                         </VBox>
-                        <StackPane fx:id="pnlTabla" GridPane.columnIndex="2" stylesheets="@../styles/panelTabla.css">
+                        <StackPane fx:id="pnlTabla" stylesheets="@../styles/panelTabla.css" GridPane.columnIndex="2">
                             <children>
                                 <TableView fx:id="tbPagos" prefHeight="497.0" prefWidth="376.0" stylesheets="@../styles/tableView.css">
                                     <columns>
@@ -64,14 +64,14 @@
                                 </TableView>
                             </children>
                         </StackPane>
-                        <AnchorPane prefHeight="517.0" prefWidth="413.0" GridPane.columnIndex="1">
+                        <AnchorPane prefHeight="515.0" prefWidth="494.0" GridPane.columnIndex="1">
                             <children>
-                                <JFXButton fx:id="btnRegistrar" stylesheets="@../styles/Styles.css" layoutX="391.0" layoutY="478.0" onAction="#registrarAlumno" prefHeight="37.0" prefWidth="98.0" ripplerFill="#bcbcbc" text="Guardar">
+                                <JFXButton fx:id="btnRegistrar" layoutX="391.0" layoutY="478.0" onAction="#registrarAlumno" prefHeight="37.0" prefWidth="98.0" ripplerFill="#bcbcbc" stylesheets="@../styles/Styles.css" text="Guardar">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </JFXButton>
-                                <GridPane layoutX="1.0" layoutY="40.0" prefHeight="328.0" prefWidth="390.0">
+                                <GridPane layoutX="1.0" layoutY="17.0" prefHeight="388.0" prefWidth="390.0" vgap="20.0">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -84,13 +84,11 @@
                                         <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
                                         <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
                                         <RowConstraints maxHeight="34.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="12.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
                                         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Nombre del alumno:" textAlignment="RIGHT">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
@@ -98,7 +96,7 @@
                                         </Label>
                                         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Grupo:" textAlignment="RIGHT" GridPane.rowIndex="1">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
@@ -106,22 +104,17 @@
                                         </Label>
                                         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Fecha:" textAlignment="RIGHT" GridPane.rowIndex="2">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <JFXComboBox fx:id="cboxPromocion" onAction="#limpiarMonto" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <Label fx:id="lblAlumno" prefHeight="27.0" prefWidth="163.0" GridPane.columnIndex="1">
+                                        <JFXComboBox fx:id="cboxPromocion" focusColor="#c08ed6" onAction="#limpiarMonto" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <JFXLimitedTextField fx:id="txtMonto" focusColor="#c08ed6" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Monto:" textAlignment="RIGHT" GridPane.rowIndex="3">
                                             <font>
-                                                <Font size="12.0" />
-                                            </font>
-                                        </Label>
-                                        <JFXLimitedTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Monto: $" textAlignment="RIGHT" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
@@ -129,7 +122,7 @@
                                         </Label>
                                         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Promoción:" textAlignment="RIGHT" GridPane.rowIndex="4">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
@@ -137,7 +130,7 @@
                                         </Label>
                                         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Total: $" textAlignment="RIGHT" GridPane.rowIndex="5">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
@@ -145,22 +138,22 @@
                                         </Label>
                                         <Label fx:id="lblGrupo" prefHeight="17.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                         </Label>
                                         <Label fx:id="lblFecha" prefHeight="17.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                         </Label>
                                         <Label fx:id="lblMontoTotal" prefHeight="27.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                         </Label>
                                         <Label text="Fecha proximo pago:" GridPane.rowIndex="6">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
@@ -168,9 +161,10 @@
                                         </Label>
                                         <Label fx:id="lblFechaProximoPago" prefHeight="27.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <font>
-                                                <Font size="12.0" />
+                                                <Font size="14.0" />
                                             </font>
                                         </Label>
+                              <JFXLimitedTextField fx:id="lblAlumno" editable="false" focusColor="#405aa800" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" />
                                     </children>
                                     <padding>
                                         <Insets right="30.0" />

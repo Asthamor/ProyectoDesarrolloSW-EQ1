@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -16,8 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<!--<?import clasesApoyo.JFXLimitedTextField?>-->
+<?import clasesApoyo.JFXLimitedTextField?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaReinscripcionController">
     <center>
@@ -86,30 +84,48 @@
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                                         </Label>
-                                        <JFXTextField fx:id="txtMonto" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <JFXLimitedTextField fx:id="txtMonto" onKeyReleased="#añadirTotal" focusColor="#c08ed6" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="120.0" />
+                                 </GridPane.margin></JFXLimitedTextField>
                                         <Label text="Promoción:" GridPane.rowIndex="2">
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                                         </Label>
-                                        <JFXComboBox fx:id="comboPromocion" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <JFXComboBox fx:id="comboPromocion" onAction="#aplicarPromocion" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets right="100.0" />
+                                 </GridPane.margin></JFXComboBox>
                                         <Label text="Monto final:" GridPane.rowIndex="3">
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                                         </Label>
                                         <Label fx:id="labelMontoFinal" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font name="Arial" size="13.0" />
-                                            </font>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                                         </Label>
                                         <Label text="Alumno:">
                                             <GridPane.margin>
                                                 <Insets right="10.0" />
                                             </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                                         </Label>
-                                        <Label fx:id="lblNombreAlumno" text="Label" GridPane.columnIndex="1" />
+                              <JFXLimitedTextField fx:id="lblNombreAlumno" editable="false" focusColor="#405aa800" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" />
                                     </children>
                                     <VBox.margin>
                                         <Insets bottom="50.0" top="50.0" />
@@ -120,7 +136,7 @@
                                 </GridPane>
                                 <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="212.0" prefWidth="495.0">
                                     <children>
-                                        <JFXButton fx:id="btnReinscribir" stylesheets="@../styles/Styles.css" layoutX="-1.0" layoutY="97.0" onAction="#reinscribir" prefHeight="37.0" prefWidth="122.0" text="Reinscribir">
+                                        <JFXButton fx:id="btnReinscribir" layoutX="-1.0" layoutY="97.0" onAction="#reinscribir" prefHeight="37.0" prefWidth="122.0" stylesheets="@../styles/Styles.css" text="Reinscribir">
                                             <font>
                                                 <Font name="Arial" size="13.0" />
                                             </font>

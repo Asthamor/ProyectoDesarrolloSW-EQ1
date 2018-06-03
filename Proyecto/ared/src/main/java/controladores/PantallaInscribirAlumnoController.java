@@ -97,8 +97,7 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
       public void changed(ObservableValue observable, Object oldValue, Object newValue) {
         double porcentaje = comboPromocion.getValue().getDescuento();
         porcentajeDesc = porcentaje / 100;
-        calcTotal();
-        
+        calcTotal();        
       }
     });
 

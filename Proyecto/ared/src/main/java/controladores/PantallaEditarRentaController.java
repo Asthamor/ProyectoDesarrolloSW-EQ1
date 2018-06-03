@@ -5,10 +5,9 @@
  */
 package controladores;
 
-import clasesApoyo.Mapas;
+import clasesApoyo.JFXLimitedTextField;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import interfaces.Controlador;
 import java.io.FileWriter;
@@ -33,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import modelo.Renta;
 import modelo.RentaXML;
+import org.controlsfx.control.Notifications;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -54,20 +54,19 @@ public class PantallaEditarRentaController implements Initializable, Controlador
     @FXML
     private Label lblHorario;
     @FXML
-    private JFXTextField txtMonto;
+    private JFXLimitedTextField txtMonto;
     @FXML
     private JFXButton btnGuardar;
     @FXML
     private JFXButton btnCancelarRenta;
     @FXML
-    private JFXButton btnEditarHorario;
-
+    private JFXButton btnEditar;
+    
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     private RentaXML rentaXML;
     private Renta renta;
     private ArrayList<Integer> horarioRenta;
-    private Mapas mapa;
     private Document document;
 
     /**
@@ -76,47 +75,59 @@ public class PantallaEditarRentaController implements Initializable, Controlador
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         horarioRenta = new ArrayList();
-        mapa = new Mapas();
         SAXReader reader = new SAXReader();
         try {
             document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaEditarRentaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        txtMonto.setRequired(true);
+        txtMonto.setCurrencyFilter();
+        txtMonto.setText("$");
+
     }
 
     @FXML
     private void actualizarRenta(ActionEvent event) {
         boolean seActualizo = true;
-        if (rentaXML.getMonto() != txtMonto.getText()) {
-            renta.getPagoRenta().setMonto(Integer.parseInt(txtMonto.getText()));
-            if (!renta.getPagoRenta().actualizarPago()) {
-                Mensajes.mensajeAlert("La renta no se pudo actualizar");
-                seActualizo = false;
+        if (!existenCamposVacios()) {
+            if (!rentaXML.getMonto().equals(txtMonto.getText().replace("$", ""))) {
+                renta.getPagoRenta().setMonto(Integer.valueOf(txtMonto.getText().replace("$", "")));
+                if (!renta.getPagoRenta().actualizarPago()) {
+                    Mensajes.mensajeAlert("La renta no se pudo actualizar");
+                    seActualizo = false;
+                }
             }
-        }
 
-        if (seActualizo) {
-            guardarObjetoXML(crearObjetoXML());
-            Mensajes.mensajeExitoso("La renta se actualizo correctamente");
-            pnlPrincipal.getChildren().clear();
-            pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
-                    this.pnlPrincipal, this.pantallaDividida));
-            pantallaDividida.getChildren().clear();
-            pantallaDividida.getChildren().add(pnlPrincipal);
+            if (seActualizo) {
+                guardarObjetoXML(crearObjetoXML());
+                Notifications.create()
+                        .title("¡Exito!")
+                        .text("La renta se actualizo correctamente")
+                        .showInformation();
+                pnlPrincipal.getChildren().clear();
+                pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
+                        this.pnlPrincipal, this.pantallaDividida));
+                pantallaDividida.getChildren().clear();
+                pantallaDividida.getChildren().add(pnlPrincipal);
+            }
         }
     }
 
     @FXML
     private void cancelarRenta(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Seguro que desea cancelar la renta?",
-                 ButtonType.YES, ButtonType.NO);
+                ButtonType.YES, ButtonType.NO);
         alert.setHeaderText(null);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             if (renta.eliminarRenta() && renta.getPagoRenta().eliminarPago()) {
                 eliminarObjetoXML();
-                Mensajes.mensajeExitoso("La renta se ha cancelado");
+                Notifications.create()
+                        .title("¡Exito!")
+                        .text("La renta se ha cancelado correctamente")
+                        .showInformation();
                 pnlPrincipal.getChildren().clear();
                 pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRentas.fxml",
                         this.pnlPrincipal, this.pantallaDividida));
@@ -131,7 +142,7 @@ public class PantallaEditarRentaController implements Initializable, Controlador
         Element rentaXML = document.addElement("renta");
         rentaXML.addAttribute("dia", lblFecha.getText());
         rentaXML.addAttribute("id", this.rentaXML.getId());
-        rentaXML.addElement("monto").addText(txtMonto.getText());
+        rentaXML.addElement("monto").addText(txtMonto.getText().replace("$", ""));
         rentaXML.addElement("horario").addText(lblHorario.getText());
         rentaXML.addElement("cliente").addText(lblNombreCliente.getText());
 
@@ -218,6 +229,26 @@ public class PantallaEditarRentaController implements Initializable, Controlador
     @Override
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
+    }
+
+    public boolean existenCamposVacios() {
+        boolean huboError = false;
+        boolean errorDeMonto = false;
+
+        if (txtMonto.getText().replace("$", "").trim().isEmpty()) {
+            txtMonto.setTextFormatter(null);
+            txtMonto.setText("");
+            errorDeMonto = true;
+            huboError = true;
+        }
+        if (!txtMonto.validate()) {
+            huboError = true;
+        }
+        if (errorDeMonto) {
+            txtMonto.setText("$");
+            txtMonto.setCurrencyFilter();
+        }
+        return huboError;
     }
 
 }

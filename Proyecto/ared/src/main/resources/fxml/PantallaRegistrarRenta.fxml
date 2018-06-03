@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import clasesApoyo.JFXLimitedTextField?>
 
 <BorderPane prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarRentaController">
    <center>
@@ -72,7 +72,7 @@
           <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="112.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" onAction="#guardarRenta" prefHeight="37.0" prefWidth="110.0" text="Guardar" GridPane.rowIndex="1">
+            <JFXButton fx:id="btnGuardar" onAction="#guardarRenta" prefHeight="37.0" prefWidth="110.0" stylesheets="@../styles/Styles.css" text="Guardar" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
@@ -82,7 +82,7 @@
             </JFXButton>
             <Pane prefHeight="255.0" prefWidth="431.0">
                <children>
-                  <StackPane fx:id="pnlGrid" layoutX="36.0" layoutY="69.0">
+                  <StackPane fx:id="pnlGrid" layoutX="36.0" layoutY="69.0" prefHeight="308.0" prefWidth="368.0">
                      <children>
                         <GridPane hgap="10.0" prefHeight="196.0" prefWidth="368.0">
                           <columnConstraints>
@@ -112,19 +112,26 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <JFXComboBox fx:id="cmbCliente" prefHeight="28.0" prefWidth="162.0" GridPane.columnIndex="1" />
+                              <VBox fx:id="VBcliente" spacing="10.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <JFXComboBox fx:id="cmbCliente" focusColor="#c08ed6" prefHeight="28.0" prefWidth="162.0">
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </JFXComboBox>
+                                 </children>
+                              </VBox>
                               <Label text="Monto:" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <children>
-                                    <Label text="\$" />
-                                    <JFXTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="71.0" />
-                                 </children>
-                              </HBox>
-                              <Label fx:id="lblHorarioRenta" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXLimitedTextField fx:id="txtMonto" focusColor="#c08ed6" prefHeight="26.0" prefWidth="71.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets right="130.0" />
+                                 </GridPane.margin>
+                              </JFXLimitedTextField>
+                              <JFXTextField fx:id="lblHorarioRenta" editable="false" focusColor="#405aa800" unFocusColor="#4d4d4d00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>

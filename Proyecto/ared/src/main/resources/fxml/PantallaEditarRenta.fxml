@@ -4,19 +4,17 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Tooltip?>
+<?import clasesApoyo.JFXLimitedTextField?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="685.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="controladores.PantallaEditarRentaController">
+<AnchorPane id="AnchorPane" prefHeight="685.0" prefWidth="395.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaEditarRentaController">
     <children>
         <Label layoutX="149.0" layoutY="31.0" text="Detalle de renta" />
         <Separator layoutX="141.0" layoutY="51.0" prefHeight="0.0" prefWidth="114.0" style="-fx-background-color: #c08ed6;" />
@@ -55,29 +53,20 @@
                 </Label>
                 <Label fx:id="lblNombreCliente" text="Label" GridPane.columnIndex="1" />
                 <Label fx:id="lblHorario" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <children>
-                        <Label text="\$">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <JFXTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="60.0" />
-                    </children>
-                </HBox>
+                <JFXLimitedTextField fx:id="txtMonto" focusColor="#c08ed6" prefHeight="26.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" layoutX="268.0" layoutY="602.0" onAction="#actualizarRenta" prefHeight="37.0" prefWidth="105.0" text="Guardar" >
+        <JFXButton fx:id="btnGuardar" layoutX="268.0" layoutY="602.0" onAction="#actualizarRenta" prefHeight="37.0" prefWidth="105.0" stylesheets="@../styles/Styles.css" text="Guardar">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <JFXButton fx:id="btnCancelarRenta" stylesheets="@../styles/Styles.css" layoutX="28.0" layoutY="602.0" onAction="#cancelarRenta" prefHeight="37.0" prefWidth="121.0" style="-fx-background-color: #D7DBDD;" text="Cancelar Renta" >
+        <JFXButton fx:id="btnCancelarRenta" layoutX="28.0" layoutY="602.0" onAction="#cancelarRenta" prefHeight="37.0" prefWidth="121.0" style="-fx-background-color: #D7DBDD;" stylesheets="@../styles/Styles.css" text="Cancelar Renta">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <JFXButton fx:id="btnEditar" layoutX="300.0" stylesheets="@../styles/botonesMenu.css" layoutY="210.0" onAction="#editarHorario" text="">
+        <JFXButton fx:id="btnEditar" layoutX="300.0" layoutY="210.0" onAction="#editarHorario" stylesheets="@../styles/botonesMenu.css" text="">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>

@@ -2,8 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -15,14 +13,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.VBox?>
+
+<?import clasesApoyo.JFXLimitedTextField?>
+<?import clasesApoyo.JFXLimitedTextArea?>
 
 <BorderPane prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPromocionController">
    <center>
-      <AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1200.0">
+      <AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="933.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="463.0" layoutX="261.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" width="552.0" />
-            <GridPane layoutX="293.0" layoutY="92.0" prefHeight="213.0" prefWidth="471.0" vgap="10.0">
+            <GridPane layoutX="280.0" layoutY="38.0" prefHeight="363.0" prefWidth="471.0" vgap="20.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="185.0" />
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="273.0" />
@@ -50,17 +50,25 @@
                      </GridPane.margin>
                   </Label>
                   <Spinner fx:id="spinnerDescuento" prefHeight="28.0" prefWidth="68.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <JFXTextField fx:id="txtNombre" prefHeight="26.0" prefWidth="191.0" GridPane.columnIndex="1" />
-                  <JFXTextArea fx:id="txtDescripcion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXLimitedTextField fx:id="txtNombre" focusColor="#c08ed6" prefHeight="26.0" prefWidth="191.0" GridPane.columnIndex="1" />
+                  <JFXLimitedTextArea fx:id="txtDescripcion" focusColor="#c08ed6" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label fx:id="lblTipoPromocion" text="Tipo:" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXComboBox fx:id="cmbTipoPromocion" prefHeight="28.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <VBox fx:id="vboxTipo" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <JFXComboBox fx:id="cmbTipoPromocion" focusColor="#c08ed6" prefHeight="28.0" prefWidth="188.0">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </JFXComboBox>
+                     </children>
+                  </VBox>
                </children>
             </GridPane>
-            <JFXButton fx:id="btnGuardar" stylesheets="@../styles/Styles.css" layoutX="690.0" layoutY="434.0" onAction="#guardarPromocion" prefHeight="37.0" prefWidth="105.0" text="Guardar">
+            <JFXButton fx:id="btnGuardar" layoutX="690.0" layoutY="460.0" onAction="#guardarPromocion" prefHeight="37.0" prefWidth="105.0" stylesheets="@../styles/Styles.css" text="Guardar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
@@ -76,10 +84,10 @@
       </Pane>
    </top>
    <left>
-      <Pane prefHeight="671.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="586.0" prefWidth="43.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <Pane prefHeight="671.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="586.0" prefWidth="235.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
       <Pane prefHeight="85.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />

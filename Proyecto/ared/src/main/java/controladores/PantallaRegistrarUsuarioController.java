@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import modelo.Persona;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -123,7 +124,10 @@ public class PantallaRegistrarUsuarioController implements Initializable {
             if (persona.registrar(persona)) {
                 pnlPrincipal.getChildren().add(crearPantallaUsuarios(persona, this.pnlPrincipal, this.pantallaDividida));
                 pantallaDividida.getChildren().add(pnlPrincipal);
-                Mensajes.mensajeExitoso("El " + persona.getTipoUsario() + " se registro correctamente");
+                Notifications.create()
+                        .title("¡Exito!")
+                        .text("El " + persona.getTipoUsario() + " se registro correctamente")
+                        .showInformation();
             }
         }
     }
@@ -132,12 +136,12 @@ public class PantallaRegistrarUsuarioController implements Initializable {
         boolean vacios = true;
         txtNombresUsuario.setText(txtNombresUsuario.getText().trim());
         txtApellidosUsuario.setText(txtApellidosUsuario.getText().trim());
-        
+
         boolean valNombre = txtNombresUsuario.validate();
         boolean valApellidos = txtApellidosUsuario.validate();
         boolean valTel = txtTelefonoUsuario.validate();
-        
-        if ((valNombre && valApellidos) && valTel){ 
+
+        if ((valNombre && valApellidos) && valTel) {
             vacios = false;
         }
         return vacios;
