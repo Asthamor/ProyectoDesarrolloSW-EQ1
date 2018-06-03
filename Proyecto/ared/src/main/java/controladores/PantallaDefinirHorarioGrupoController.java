@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -54,9 +55,10 @@ public class PantallaDefinirHorarioGrupoController implements Initializable {
     private Document document;
     private Element grupos;
     private Element grupo;
+    private Stage stage;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {        
         HorasGrupo();
         HorarioGrupo();
         scrollAgenda.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -81,6 +83,17 @@ public class PantallaDefinirHorarioGrupoController implements Initializable {
 
     public void setEditarGrupo(boolean editarGrupo) {
         this.editarGrupo = editarGrupo;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        this.stage.setOnCloseRequest((WindowEvent event) -> {
+            if (controladorRegsitrarGrupo != null) {
+                controladorRegsitrarGrupo.show();
+            }else{
+                controladorEditarGrupo.show();
+            }  
+        });
     }
 
     public void setIdGrupoEditar(String idGrupoEditar) {
@@ -211,11 +224,14 @@ public class PantallaDefinirHorarioGrupoController implements Initializable {
             if (controladorRegsitrarGrupo != null) {
                 controladorRegsitrarGrupo.setHorario(txtHorarioGrupo.getText(), this.horarioGrupo,
                         this.horasGrupo, this.document, this.grupos);
+                controladorRegsitrarGrupo.show();
             } else {
                 controladorEditarGrupo.setHorario(txtHorarioGrupo.getText(), this.document, this.grupos, this.grupo);
                 controladorEditarGrupo.setHorarioGrupo(horarioGrupo);
+                controladorEditarGrupo.show();
             }
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+            
         }
     }
 

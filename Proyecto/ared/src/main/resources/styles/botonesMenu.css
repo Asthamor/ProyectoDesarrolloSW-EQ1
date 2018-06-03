@@ -26,6 +26,7 @@ and open the template in the editor.
 }
 
 #btnAgregar {
+    -jfx-button-type: RAISED;
     -fx-background-color: #c08ed6;
     -fx-background-radius: 5em; 
     -fx-min-width: 35px;
@@ -35,6 +36,7 @@ and open the template in the editor.
 }
 
 #btnEditar {
+    -jfx-button-type: RAISED;
     -fx-background-color: #c08ed6;
     -fx-background-radius: 5em; 
     -fx-min-width: 35px;

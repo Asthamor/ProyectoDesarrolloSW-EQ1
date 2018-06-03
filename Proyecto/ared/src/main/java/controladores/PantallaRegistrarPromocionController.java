@@ -154,6 +154,8 @@ public class PantallaRegistrarPromocionController implements Initializable {
     }
 
     public boolean existenCamposVacios() {
+        txtDescripcion.setText(txtDescripcion.getText().trim());
+        txtNombre.setText(txtNombre.getText().trim());
         return !txtDescripcion.validate() | !validationFacade.validate(cmbTipoPromocion)
                 | !txtNombre.validate();
     }

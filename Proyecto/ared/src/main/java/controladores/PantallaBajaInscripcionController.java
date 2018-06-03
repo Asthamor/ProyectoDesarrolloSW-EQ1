@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXListView;
+import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -130,7 +131,9 @@ public class PantallaBajaInscripcionController implements Initializable, Control
                                 lblAlumno.setText(alumn.getNombre() + " " + alumn.getApellidos());
                                 lblCorreo.setText(alumn.getEmail());
                                 lblTelefono.setText(alumn.getTelefono());
-                                imgAlumno.setImage(new Image(alumn.obtenerImagen()));
+
+                                imgAlumno.setImage(new Image("file:" + alumn.obtenerImagen(), true));
+
                             }
                         }
 

@@ -5,16 +5,8 @@
  */
 package controladores;
 
-import clasesApoyo.Mensajes;
+import clasesApoyo.JFXLimitedTextField;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.NumberValidator;
-import com.jfoenix.validation.RequiredFieldValidator;
-import com.jfoenix.validation.base.ValidatorBase;
-import static controladores.PantallaPrincipalDirectorController.crearPantalla;
-import de.jensd.fx.glyphs.GlyphsBuilder;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import interfaces.Controlador;
 import java.net.URL;
 import java.text.DateFormat;
@@ -40,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import modelo.Maestro;
 import modelo.PagoMaestro;
 import modelo.Persona;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -55,11 +48,11 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
     @FXML
     private Label lblFechaPago;
     @FXML
-    private Label lblNombreMaestro;
+    private JFXLimitedTextField lblNombreMaestro;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
     @FXML
-    private JFXTextField txtMonto;
+    private JFXLimitedTextField txtMonto;
     @FXML
     private Label labelProximoPago;
 
@@ -75,25 +68,18 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
         lstMaestros.setExpanded(true);
         lstMaestros.depthProperty().set(1);
         nombresColaboradores = new ArrayList();
-        ValidatorBase requeridos = new NumberValidator();
-        requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
-                .glyph(FontAwesomeIcon.WARNING)
-                .size("1em")
-                .styleClass("error")
-                .build());
-        txtMonto.getValidators().add(requeridos);
-        ValidatorBase requeridos2 = new RequiredFieldValidator();
-        requeridos.setMessage("Monto necesario");
-        requeridos.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
-                .glyph(FontAwesomeIcon.WARNING)
-                .size("1em")
-                .styleClass("error")
-                .build());
-        txtMonto.getValidators().add(requeridos2);
-        //txtMonto.setNumLimiter(6);
+        crearValidaciones();
+    }
+
+    public void crearValidaciones() {
+        txtMonto.setRequired(true);
+        txtMonto.setCurrencyFilter();
+        txtMonto.setText("$");
+        lblNombreMaestro.setRequired(true);
     }
 
     public void mostrarColaboradores() {
+        lstMaestros.getItems().clear();
         lblFechaPago.setText(DateFormat.getDateInstance().format(new Date()));
         maestro = new Maestro();
         maestros = maestro.obtenerTodos();
@@ -113,7 +99,7 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
                         PagoMaestro ultimoPago = pagos.get(pagos.size() - 1);
                         Date fechaActualPago = ultimoPago.getFechaVencimiento();
                         labelProximoPago.setText(DateFormat.getDateInstance().format(fechaActualPago));
-                    }else{
+                    } else {
                         labelProximoPago.setText("Primer pago");
                     }
                     lblNombreMaestro.setText(maestros.get(lstMaestros.getSelectionModel().getSelectedIndex()).getNombre() + " " + maestros.get(lstMaestros.getSelectionModel().getSelectedIndex()).getApellidos());
@@ -138,68 +124,78 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
     @FXML
     private void registrarPago(ActionEvent event) {
         boolean bandera = false;
-        if (lstMaestros.getSelectionModel().getSelectedIndex() != -1) {
-            if (!existenCamposErroneos()) {
-                if (tamañoInvalidoCaracteres()) {
-                    Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
-                } else {
-                    Calendar calendario = Calendar.getInstance();
-                    calendario.setTime(new Date());
-                    calendario.add(Calendar.MONTH, 1);
-                    Date fechaVencimiento = calendario.getTime();
-                    Maestro maestro = (Maestro) maestros.get(lstMaestros.getSelectionModel().getSelectedIndex());
-                    List<PagoMaestro> pagos = new ArrayList<>(maestro.getPagoMaestroCollection());
+        if (!existenCamposVacios()) {
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(new Date());
+            calendario.add(Calendar.MONTH, 1);
+            Date fechaVencimiento = calendario.getTime();
+            Maestro maestro = (Maestro) maestros.get(lstMaestros.getSelectionModel().getSelectedIndex());
+            List<PagoMaestro> pagos = new ArrayList<>(maestro.getPagoMaestroCollection());
 
-                    if (pagos.size() > 0) {
-                        PagoMaestro ultimoPago = pagos.get(pagos.size() - 1);
-                        Date fechaActualPago = ultimoPago.getFechaVencimiento();
-                        Date fechaActual = new Date();
-                        if (fechaActualPago.getTime() > fechaActual.getTime()) {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Atención");
-                            alert.setHeaderText("Atención");
-                            alert.setContentText("El ultimo pago se realizó el: " + DateFormat.getDateInstance().format(ultimoPago.getFecha()) + ","
-                                    + "el proximo pago se debe realizar el: " + DateFormat.getDateInstance().format(fechaActualPago) + " ¿Seguro que desea continuar?");
+            if (pagos.size() > 0) {
+                PagoMaestro ultimoPago = pagos.get(pagos.size() - 1);
+                Date fechaActualPago = ultimoPago.getFechaVencimiento();
+                Date fechaActual = new Date();
+                if (fechaActualPago.getTime() > fechaActual.getTime()) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Atención");
+                    alert.setHeaderText("Atención");
+                    alert.setContentText("El ultimo pago se realizó el: " + DateFormat.getDateInstance().format(ultimoPago.getFecha()) + ",\n"
+                            + "el proximo pago se debe realizar el: " + DateFormat.getDateInstance().format(fechaActualPago) + " \n¿Seguro que desea continuar?");
 
-                            Optional<ButtonType> result = alert.showAndWait();
-                            if (result.get() == ButtonType.OK) {
-                                bandera = false;
-                                calendario.setTime(fechaActualPago);
-                                calendario.add(Calendar.MONTH, 1);
-                                fechaVencimiento = calendario.getTime();
-                            } else {
-                                bandera = true;
-                            }
-
-                        }
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        bandera = false;
+                        calendario.setTime(fechaActualPago);
+                        calendario.add(Calendar.MONTH, 1);
+                        fechaVencimiento = calendario.getTime();
+                    } else {
+                        bandera = true;
                     }
 
-                    if (bandera != true) {
-                        PagoMaestro pagoMaestro = new PagoMaestro();
-                        pagoMaestro.setMaestro((Maestro) maestros.get(lstMaestros.getSelectionModel().getSelectedIndex()));
-                        pagoMaestro.setFecha(new Date());
-                        pagoMaestro.setFechaVencimiento(fechaVencimiento);
-                        pagoMaestro.setMonto(Double.parseDouble(txtMonto.getText()));
-                        if (pagoMaestro.registrarPago()) {
-                            pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoMaestro.fxml", this.pnlPrincipal, this.pantallaDividida));
-                            pantallaDividida.getChildren().add(pnlPrincipal);
-                            Mensajes.mensajeExitoso("El pago se registro correctamente, el proximo pago deberá realizarse el: " + DateFormat.getDateInstance().format(fechaVencimiento));
-                        }
-                    }
                 }
-
             }
-        } else {
-            Mensajes.mensajeAlert("Debe seleccionar un maestro");
+
+            if (bandera != true) {
+                PagoMaestro pagoMaestro = new PagoMaestro();
+                pagoMaestro.setMaestro((Maestro) maestros.get(lstMaestros.getSelectionModel().getSelectedIndex()));
+                pagoMaestro.setFecha(new Date());
+                pagoMaestro.setFechaVencimiento(fechaVencimiento);
+                pagoMaestro.setMonto(Double.parseDouble(txtMonto.getText().replace("$", "")));
+                if (pagoMaestro.registrarPago()) {
+                    Notifications.create()
+                    .title("¡Exito!")
+                    .text("El pago se registro correctamente")
+                    .showInformation();
+                    mostrarColaboradores();
+                    txtMonto.setText("$");
+                    labelProximoPago.setText("");
+                    lblNombreMaestro.setText("");
+                }
+            }
+
         }
     }
 
-    public boolean tamañoInvalidoCaracteres() {
-        return txtMonto.getText().length() > 11;
-    }
+    public boolean existenCamposVacios() {
+        boolean errorDeMonto = false;
+        boolean huboErrores = false;
 
-    public boolean existenCamposErroneos() {
-        return !txtMonto.validate();
+        if (txtMonto.getText().replace("$", "").trim().isEmpty()) {
+            txtMonto.setTextFormatter(null);
+            txtMonto.setText("");
+            errorDeMonto = true;
+            huboErrores = true;
+        }
+        if (!txtMonto.validate()) {
+            huboErrores = true;
+        }
+        if (errorDeMonto) {
+            txtMonto.setText("$");
+            txtMonto.setCurrencyFilter();
+        }
+
+        return huboErrores | !lblNombreMaestro.validate();
     }
 
 }

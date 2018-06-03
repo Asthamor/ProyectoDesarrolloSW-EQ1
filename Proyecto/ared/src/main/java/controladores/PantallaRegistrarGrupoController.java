@@ -5,13 +5,14 @@
  */
 package controladores;
 
+import clasesApoyo.JFXLimitedTextArea;
 import clasesApoyo.JFXLimitedTextField;
-import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.validation.ValidationFacade;
+import com.jfoenix.validation.base.ValidatorBase;
 import static com.sun.javafx.PlatformUtil.isLinux;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import interfaces.Controlador;
@@ -36,11 +37,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.Grupo;
 import modelo.Horario;
 import modelo.Maestro;
 import modelo.Persona;
+import org.controlsfx.control.Notifications;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -74,9 +77,11 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
     @FXML
     private JFXButton btnDefinirHorario;
     @FXML
-    private JFXTextArea txtHorario;
+    private JFXLimitedTextArea txtHorario;
     @FXML
     private JFXColorPicker colorPicker;
+    @FXML
+    private VBox vboxMaestro;
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
@@ -85,6 +90,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
     private String[] horarioGrupo = null;
     private Document document;
     private Element grupos;
+    private ValidationFacade validationFacade;
 
     /**
      * Initializes the controller class.
@@ -94,7 +100,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
         txtNombreGrupo.setRequired(true);
         txtNombreGrupo.setAlphanumericLimiter(100);
         txtNombreGrupo.setText("");
-        
+
         txtTipoDanza.setRequired(true);
         txtTipoDanza.setAlphanumericLimiter(45);
         txtTipoDanza.setText("");
@@ -107,6 +113,21 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
         ObservableList<String> items = FXCollections.observableArrayList();
         items.addAll(nombresMaestros);
         cmbMaestro.setItems(items);
+        crearValidaciones();
+    }
+
+    public void crearValidaciones() {
+        txtHorario.setHorarioRequiered(true);
+        txtNombreGrupo.setRequired(true);
+        txtNombreGrupo.setAlphanumericLimiter(100);
+        txtTipoDanza.setRequired(true);
+        txtTipoDanza.setAlphanumericLimiter(45);
+        validationFacade = new ValidationFacade();
+        validationFacade.setControl(cmbMaestro);
+        ValidatorBase req = new RequiredFieldValidator();
+        req.setMessage("Campo requerido");
+        validationFacade.getValidators().add(req);
+        vboxMaestro.getChildren().add(validationFacade);
     }
 
     @Override
@@ -120,7 +141,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
     }
 
     public void setHorario(String horario, String[] horarioGrupo, ArrayList<ArrayList<Integer>> horasGrupo, Document document,
-             Element grupos) {
+            Element grupos) {
         this.txtHorario.setText(horario);
         this.horarioGrupo = horarioGrupo;
         this.horasGrupo = horasGrupo;
@@ -130,7 +151,11 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
 
     @FXML
     private void definirHorario(ActionEvent event) {
-        if (!existenCamposVacios()) {
+        txtNombreGrupo.setText(txtNombreGrupo.getText().trim());
+        if (txtNombreGrupo.validate()) {
+            Stage mainStage = (Stage) txtNombreGrupo.getScene().getWindow();
+            Stage stage = new Stage();
+            mainStage.hide();
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(PantallaDefinirHorarioGrupoController.class.getResource("/fxml/PantallaDefinirHorarioGrupo.fxml"));
             try {
@@ -143,6 +168,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
             controlador.setEditarGrupo(false);
             controlador.setColorGrupo(colorPicker.getValue().toString());
             controlador.setNombreGrupo(txtNombreGrupo.getText());
+            controlador.setStage(stage);
             controlador.llenarHorario();
             if (!txtHorario.getText().equals("")) {
                 controlador.setColorGrupo(colorPicker.getValue().toString());
@@ -150,25 +176,15 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
                 controlador.llenarHorario(txtHorario.getText());
             }
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
+            Scene scene = new Scene(root);            
             stage.setScene(scene);
             stage.show();
-        } else {
-            Mensajes.mensajeAlert("Algunos campos estan vacíos");
         }
-
     }
 
     @FXML
     private void guardarGrupo(ActionEvent event) {
-        if (existenCamposVacios() || txtHorario.getText().equals("")) {
-            Mensajes.mensajeAlert("Algunos campos estan vacíos");
-
-        } else {
-            if (tamañoInvalidoCaracteres()) {
-                Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
-            } else {
+        if (!existenCamposVacios()) {
             Grupo grupo = new Grupo();
             grupo.setTipoDanza(txtTipoDanza.getText());
             grupo.setNombre(txtNombreGrupo.getText());
@@ -194,28 +210,22 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
                 agregarHorario(grupo.obtenerUltimoGrupo(), grupo);
                 pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
                 pantallaDividida.getChildren().add(pnlPrincipal);
-                Mensajes.mensajeExitoso("El grupo se registro correctamente");
-            }
+                Notifications.create()
+                        .title("¡Exito!")
+                        .text("El grupo se registro correctamente")
+                        .showInformation();
             }
         }
     }
-    
-    public boolean tamañoInvalidoCaracteres(){
-        return txtNombreGrupo.getText().length() > 100 || txtTipoDanza.getText().length() > 45;
-    }
 
-    public boolean existenCamposVacios() {
-        return txtNombreGrupo.getText().equals("") || txtTipoDanza.getText().equals("") || cmbMaestro.getValue() == null;
-    }
-
-    public void agregarHorario(String idGrupo, Grupo grupo) {        
+    public void agregarHorario(String idGrupo, Grupo grupo) {
         Document document = DocumentHelper.createDocument();
         Element grupoXML = document.addElement("grupo");
         grupoXML.addAttribute("id", idGrupo).
                 addAttribute("nombreGrupo", grupo.getNombre()).
                 addAttribute("color", colorPicker.getValue().toString());
         Element horarioXML = grupoXML.addElement("horario");
-        
+
         for (int i = 0; i < horarioGrupo.length; i++) {
             if (!horarioGrupo[i].equals("")) {
                 String dia = (horarioGrupo[i].split("\\s"))[0];
@@ -224,7 +234,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
                 Element diaXML = horarioXML.addElement("dia").
                         addAttribute("num", String.valueOf(i)).
                         addAttribute("nombreDia", dia);
-                for(int j = 0; j < horas.length; j++){
+                for (int j = 0; j < horas.length; j++) {
                     Element horaInicio = diaXML.addElement("hora").
                             addText((horas[j].split("-"))[0]);
                     Element horaFin = diaXML.addElement("hora").
@@ -232,11 +242,11 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
                 }
             }
         }
-        
+
         grupos.add(grupoXML);
-        try {            
+        try {
             XMLWriter writer = new XMLWriter(
-			new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {
@@ -244,7 +254,18 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public boolean existenCamposVacios() {
+        txtNombreGrupo.setText(txtNombreGrupo.getText().trim());
+        txtTipoDanza.setText(txtTipoDanza.getText().trim());
+        return !validationFacade.validate(cmbMaestro) | !txtHorario.validate() | !txtNombreGrupo.validate()
+                | !txtTipoDanza.validate();
+    }
+
+    public void show() {
+        Stage mainStage = (Stage) txtNombreGrupo.getScene().getWindow();
+        mainStage.show();
     }
 
 }

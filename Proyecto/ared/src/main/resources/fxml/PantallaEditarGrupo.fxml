@@ -2,8 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXColorPicker?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import clasesApoyo.JFXLimitedTextArea?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -31,7 +30,7 @@
                 </Label>
             </children>
         </VBox>
-        <JFXTextArea fx:id="txtHorario" editable="false" focusColor="#405aa800" layoutX="164.0" layoutY="321.0" prefHeight="196.0" prefWidth="175.0" unFocusColor="#4d4d4d00" />
+        <JFXLimitedTextArea fx:id="txtHorario" editable="false" focusColor="#405aa800" layoutX="164.0" layoutY="321.0" prefHeight="196.0" prefWidth="175.0" unFocusColor="#4d4d4d00" />
         <JFXButton fx:id="btnGuardarGrupo" prefHeight="37.0" layoutX="298.0" layoutY="613.0" onAction="#actualizarInformacion" text="Guardar" stylesheets="@../styles/Styles.css" >
             <cursor>
                 <Cursor fx:constant="HAND" />

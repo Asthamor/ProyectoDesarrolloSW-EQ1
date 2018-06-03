@@ -3,8 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXColorPicker?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<!--<?import com.jfoenix.controls.JFXTextField?>-->
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -15,8 +13,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.layout.VBox?>
 <?import clasesApoyo.JFXLimitedTextField?>
+<?import clasesApoyo.JFXLimitedTextArea?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarGrupoController">
     <children>
@@ -33,7 +32,7 @@
                 <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
                        
-                        <GridPane layoutX="423.0" layoutY="14.0" prefHeight="294.0" prefWidth="355.0">
+                        <GridPane layoutX="423.0" layoutY="14.0" prefHeight="382.0" prefWidth="355.0" vgap="15.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="157.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="250.0" />
@@ -69,7 +68,15 @@
                                         <Insets right="10.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <JFXComboBox fx:id="cmbMaestro" focusColor="#c08ed6" prefHeight="28.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <VBox fx:id="vboxMaestro" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                                      <JFXComboBox fx:id="cmbMaestro" focusColor="#c08ed6" prefHeight="28.0" prefWidth="250.0">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </JFXComboBox>
+                           </children>
+                        </VBox>
                                 <JFXLimitedTextField fx:id="txtTipoDanza" focusColor="#c08ed6" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <JFXButton fx:id="btnDefinirHorario" onAction="#definirHorario" prefHeight="37.0" prefWidth="150.0" stylesheets="@../styles/Styles.css" text="Definir horario" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                     <cursor>
@@ -80,17 +87,17 @@
                                 <Label text="Color:" GridPane.rowIndex="3" />
                                 <JFXColorPicker fx:id="colorPicker" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <GridPane.margin>
-                                        <Insets left="5.0"/>
+                                        <Insets left="5.0" />
                                     </GridPane.margin>
                                 </JFXColorPicker>
                             </children>
                         </GridPane>
-                        <JFXButton fx:id="btnGuardarGrupo" layoutX="796.0" layoutY="447.0" onAction="#guardarGrupo" prefHeight="37.0" prefWidth="105.0" stylesheets="@../styles/Styles.css" text="Guardar">
+                        <JFXButton fx:id="btnGuardarGrupo" layoutX="831.0" layoutY="497.0" onAction="#guardarGrupo" prefHeight="37.0" prefWidth="105.0" stylesheets="@../styles/Styles.css" text="Guardar">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </JFXButton>
-                        <JFXTextArea fx:id="txtHorario" editable="false" focusColor="#405aa800" layoutX="489.0" layoutY="311.0" prefHeight="101.0" prefWidth="223.0" unFocusColor="#4d4d4d00" />
+                        <JFXLimitedTextArea fx:id="txtHorario" editable="false" focusColor="#405aa800" layoutX="489.0" layoutY="396.0" prefHeight="101.0" prefWidth="223.0" unFocusColor="#4d4d4d00" />
                     </children>
                 </Pane>
             </center>

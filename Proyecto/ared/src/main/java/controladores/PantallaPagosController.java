@@ -6,14 +6,17 @@
 package controladores;
 
 import com.jfoenix.controls.JFXButton;
-import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import interfaces.Controlador;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -28,11 +31,9 @@ public class PantallaPagosController implements Initializable,Controlador {
     @FXML
     private JFXButton btnPagoMaestro;
     @FXML
-    private JFXButton btnPagoRenta;
-    @FXML
     private JFXButton btnPagoAlumno;
     @FXML
-    private Label lbRegistrarPago;
+    private StackPane pnlPagos;
     
     /**
      * Initializes the controller class.
@@ -41,7 +42,8 @@ public class PantallaPagosController implements Initializable,Controlador {
     public void initialize(URL url, ResourceBundle rb) {
         btnPagoAlumno.setFocusTraversable(false);
         btnPagoMaestro.setFocusTraversable(false);
-        btnPagoRenta.setFocusTraversable(false);
+        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);
+        pnlPagos.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoMaestro.fxml"));
     }    
 
     @Override
@@ -56,14 +58,30 @@ public class PantallaPagosController implements Initializable,Controlador {
 
     @FXML
     private void ventanaPagoMaestro(ActionEvent event) {
-        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoMaestro.fxml", this.pnlPrincipal, this.pantallaDividida));
-        pantallaDividida.getChildren().add(pnlPrincipal);
+        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);
+        pnlPagos.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoMaestro.fxml"));
     }
 
     @FXML
     private void ventanaPagoAlumnoExterno(ActionEvent event) {
-        pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistraPagoAlumnoExterno.fxml", this.pnlPrincipal, this.pantallaDividida));
-        pantallaDividida.getChildren().add(pnlPrincipal);
+        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);
+        pnlPagos.getChildren().add(crearPantalla("/fxml/PantallaRegistraPagoAlumnoExterno.fxml"));
+    }
+    
+    public Parent crearPantalla(String ruta) {
+        pnlPagos.getChildren().clear();
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource(ruta));
+        try {
+            root = (Parent) loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipalDirectorController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        Controlador controlador = loader.getController();
+        controlador.setPantallaDividida(pantallaDividida);
+        controlador.setPnlPrincipal(pnlPrincipal);
+        return root;
     }
     
 }

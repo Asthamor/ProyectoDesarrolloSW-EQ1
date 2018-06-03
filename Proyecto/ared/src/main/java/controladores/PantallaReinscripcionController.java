@@ -212,6 +212,7 @@ public class PantallaReinscripcionController implements Initializable, Controlad
                     .showInformation();
             txtMonto.setText("$");
             lblNombreAlumno.setText("");
+            labelMontoFinal.setText("$");
         }
     }
 

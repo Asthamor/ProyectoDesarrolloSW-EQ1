@@ -1,57 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaPagosController">
-   <children>
-      <HBox layoutX="50.0" layoutY="117.0" prefHeight="452.0" prefWidth="1104.0" spacing="20.0">
+<BorderPane prefHeight="718.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaPagosController">
+   <top>
+      <Pane prefHeight="67.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnPagoMaestro" contentDisplay="TOP" onAction="#ventanaPagoMaestro" prefHeight="450.0" prefWidth="358.0" style="-fx-background-color: #ffe6fd;" text="Maestro">
-               <graphic>
-                  <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/iconoMaestro.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btnPagoRenta" contentDisplay="TOP" prefHeight="450.0" prefWidth="365.0" style="-fx-background-color: #ffe6fd;" text="Renta">
-               <graphic>
-                  <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/iconoEdificio.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btnPagoAlumno" contentDisplay="TOP" onAction="#ventanaPagoAlumnoExterno" prefHeight="446.0" prefWidth="359.0" style="-fx-background-color: #ffe6fd;" text="Alumno">
-               <graphic>
-                  <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/iconoAlumno.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXButton>
+            <ButtonBar layoutX="451.0" layoutY="14.0" prefHeight="40.0" prefWidth="299.0">
+               <buttons>
+                  <JFXButton fx:id="btnPagoMaestro" stylesheets="@../styles/Styles.css" onAction="#ventanaPagoMaestro" prefHeight="40.0" prefWidth="132.0" text="Maestro">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="btnPagoAlumno" stylesheets="@../styles/Styles.css" onAction="#ventanaPagoAlumnoExterno" prefHeight="41.0" text="Alumno">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </buttons>
+            </ButtonBar>
          </children>
-      </HBox>
-      <Label fx:id="lbRegistrarPago" layoutX="563.0" layoutY="46.0" text="Registrar pago" />
-      <Separator layoutX="546.0" layoutY="69.0" prefHeight="0.0" prefWidth="125.0" style="-fx-background-color: #c08ed6;" />
-   </children>
-</AnchorPane>
+      </Pane>
+   </top>
+   <center>
+      <StackPane fx:id="pnlPagos" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

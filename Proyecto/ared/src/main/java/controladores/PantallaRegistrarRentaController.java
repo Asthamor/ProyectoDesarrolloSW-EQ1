@@ -81,6 +81,8 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
     private JFXTextField lblHorarioRenta;
     @FXML
     private StackPane pnlGrid;
+    @FXML
+    private VBox VBcliente;
 
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
@@ -90,8 +92,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
     private List<Persona> clientes;
     private ArrayList<Integer> horarioRenta;
     private ValidationFacade validationFacade;
-    @FXML
-    private VBox VBcliente;
+    
 
     /**
      * Initializes the controller class.

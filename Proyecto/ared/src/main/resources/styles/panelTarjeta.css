@@ -7,9 +7,6 @@ and open the template in the editor.
     Created on : 23-may-2018, 22:59:16
     Author     : alonso
 */
-.pane{
-    -fx-background-color: #ffe6fd;
-}
 
 .pane:hover{
     -fx-background-color: #FFD4FC;

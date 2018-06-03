@@ -6,18 +6,16 @@
 package controladores;
 
 import clasesApoyo.JFXLimitedTextField;
+import clasesApoyo.JFXLimitedTextArea;
 import clasesApoyo.Mapas;
 import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
-import com.jfoenix.controls.JFXTextArea;
 import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +34,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import modelo.Grupo;
+import org.controlsfx.control.Notifications;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -65,7 +64,7 @@ public class PantallaEditarGrupoController implements Initializable {
     @FXML
     private JFXLimitedTextField txtTipoDanza;
     @FXML
-    private JFXTextArea txtHorario;
+    private JFXLimitedTextArea txtHorario;
     @FXML
     private JFXButton btnGuardarGrupo;
     @FXML
@@ -98,6 +97,15 @@ public class PantallaEditarGrupoController implements Initializable {
         for (int i = 0; i < 7; i++) {
             horarioGrupo[i] = "";
         }
+        crearValidaciones();
+    }
+
+    public void crearValidaciones() {
+        txtHorario.setHorarioRequiered(true);
+        txtNombreGrupo.setRequired(true);
+        txtNombreGrupo.setAlphanumericLimiter(100);
+        txtTipoDanza.setRequired(true);
+        txtTipoDanza.setAlphanumericLimiter(45);
     }
 
     public void crearHorario() {
@@ -165,37 +173,35 @@ public class PantallaEditarGrupoController implements Initializable {
 
     @FXML
     private void actualizarInformacion(ActionEvent event) {
-        if (existenCamposVacios()) {
-            Mensajes.mensajeAlert("Algunos campos estan vacíos");
-        } else {
-            if (tamañoInvalidoCaracteres()) {
-                Mensajes.mensajeAlert("Algunos campos sobre pasan el limite de caracteres");
-            } else {
-                grupo.setTipoDanza(txtTipoDanza.getText());
+        if (!existenCamposVacios()) {
+            grupo.setTipoDanza(txtTipoDanza.getText());
                 grupo.setNombre(txtNombreGrupo.getText());
                 if (grupo.actualizarDatosGrupo(grupo)) {
                     agregarHorarioXML();
                     pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
                     pantallaDividida.getChildren().add(pnlPrincipal);
-                    Mensajes.mensajeExitoso("La información se actualizó correctamente");
+                    Notifications.create()
+                        .title("¡Exito!")
+                        .text("El grupo se actualizó correctamente")
+                        .showInformation();
                 }
-            }
-
         }
 
     }
 
-    public boolean tamañoInvalidoCaracteres() {
-        return txtNombreGrupo.getText().length() > 100 || txtTipoDanza.getText().length() > 45;
-    }
-
     public boolean existenCamposVacios() {
-        return txtNombreGrupo.getText().equals("") || txtTipoDanza.getText().equals("");
+        txtNombreGrupo.setText(txtNombreGrupo.getText().trim());
+        txtTipoDanza.setText(txtTipoDanza.getText().trim());
+        return !txtNombreGrupo.validate() | !txtTipoDanza.validate();
     }
 
     @FXML
     private void editarHorario(ActionEvent event) {
-        if (!existenCamposVacios()) {
+        txtNombreGrupo.setText(txtNombreGrupo.getText().trim());
+        if (txtNombreGrupo.validate()) {
+            Stage mainStage = (Stage) txtNombreGrupo.getScene().getWindow();
+            mainStage.hide();
+            Stage stage = new Stage();
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(PantallaDefinirHorarioGrupoController.class.getResource("/fxml/PantallaDefinirHorarioGrupo.fxml"));
             try {
@@ -206,13 +212,14 @@ public class PantallaEditarGrupoController implements Initializable {
             PantallaDefinirHorarioGrupoController controlador = loader.getController();
             controlador.setControladorEditarGrupo(this);
             controlador.setEditarGrupo(true);
+            controlador.setStage(stage);
             controlador.setColorGrupo(colorPicker.getValue().toString());
             controlador.setNombreGrupo(txtNombreGrupo.getText());
             controlador.setIdGrupoEditar(String.valueOf(grupo.getGrupoPK().getIdGrupo()));
             controlador.llenarHorario(txtHorario.getText());
 
             Scene scene = new Scene(root);
-            Stage stage = new Stage();
+            
             stage.setScene(scene);
             stage.show();
         }
@@ -266,14 +273,14 @@ public class PantallaEditarGrupoController implements Initializable {
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Element root = document.getRootElement();
         Element grupos = root.element("grupos");
         Element grupoXML = (Element) grupos.selectSingleNode("/ared/grupos/grupo[@id = "
-                            + "'" + this.grupo.getGrupoPK().getIdGrupo() + "']");
+                + "'" + this.grupo.getGrupoPK().getIdGrupo() + "']");
         return grupoXML;
     }
-    
+
     public void eliminarObjetoXML() {
         SAXReader reader = new SAXReader();
         try {
@@ -281,11 +288,11 @@ public class PantallaEditarGrupoController implements Initializable {
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Element root = document.getRootElement();
-        Element grupos = root.element("grupos");        
+        Element grupos = root.element("grupos");
         Element grupoXML = (Element) grupos.selectSingleNode("/ared/grupos/grupo[@id = "
-                            + "'" + this.grupo.getGrupoPK().getIdGrupo() + "']");
+                + "'" + this.grupo.getGrupoPK().getIdGrupo() + "']");
         grupos.remove(grupoXML);
         try {
             XMLWriter writer = new XMLWriter(
@@ -297,5 +304,10 @@ public class PantallaEditarGrupoController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void show() {
+        Stage mainStage = (Stage) txtNombreGrupo.getScene().getWindow();
+        mainStage.show();
     }
 }

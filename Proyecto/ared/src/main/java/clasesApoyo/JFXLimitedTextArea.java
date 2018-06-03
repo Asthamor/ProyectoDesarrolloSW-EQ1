@@ -88,4 +88,12 @@ public class JFXLimitedTextArea extends JFXTextArea{
       setValidators(req);
     }
   }
+  
+  public void setHorarioRequiered(boolean isRequired) {
+    if (isRequired) {
+      ValidatorBase req = new RequiredFieldValidator();
+      req.setMessage("El horario no puede estar vacío");
+      setValidators(req);
+    }
+  }
 }
