@@ -6,6 +6,7 @@
 package controladores;
 
 import clasesApoyo.JFXLimitedTextField;
+import clasesApoyo.Recibo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -37,17 +38,23 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXListView;
+import java.io.File;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import modelo.Alumno;
 import modelo.Grupo;
 import modelo.HistorialPagos;
 import modelo.Maestro;
 import modelo.PagoAlumno;
+import modelo.PagoAlumnoExterno;
 import modelo.Promocion;
 import org.controlsfx.control.Notifications;
 
@@ -195,9 +202,9 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         if (pagos.get(i).getGrupo().getGrupoPK().getIdGrupo() == grupo.getGrupoPK().getIdGrupo()) {
                             HistorialPagos historial = new HistorialPagos();
                             historial.setFechaPago(DateFormat.getDateInstance().format(pagos.get(i).getFechaPago()));
-                            if(pagos.get(i).getEsInscripcion()){
+                            if (pagos.get(i).getEsInscripcion()) {
                                 historial.setTipo("Inscripción");
-                            }else{
+                            } else {
                                 historial.setTipo("Mensualidad");
                             }
                             historial.setMonto("$" + String.valueOf(pagos.get(i).getMonto()));
@@ -313,6 +320,28 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                 pagoAlumno.setFechaVencimiento(fechaVencimiento);
                 pagoAlumno.setMonto(montoFinal);
                 if (pagoAlumno.registrarPagoMensual(pagoAlumno)) {
+                    File recibo = null;
+                    FileChooser fchooser = new FileChooser();
+                    fchooser.setSelectedExtensionFilter(new ExtensionFilter("Archivos pdf","*.pdf"));
+                    fchooser.setInitialDirectory(new File(System.getProperty("user.home")));
+                    fchooser.setInitialFileName("pago "+pagoAlumno.getAlumno().toString()+".pdf");
+                    fchooser.setTitle("Guardar Recibo");
+                    try {
+                        recibo = Recibo.crearReciboPagoAlumno(
+                                System.getProperty("user.dir"), "recibotemp",
+                                pagoAlumno, pagoAlumno.getAlumno(), 
+                                pagoAlumno.getGrupo().getMaestro());
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    File destino = fchooser.showSaveDialog(btnRegistrar.getScene().getWindow());
+                    if (destino != null && recibo != null) {
+                        try {
+                            Files.copy(recibo.toPath(), destino.toPath(), REPLACE_EXISTING);
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                     limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
                     Parent root = null;
                     FXMLLoader loader = new FXMLLoader(PantallaRegistrarPagoAlumnoController.class.getResource("/fxml/PantallaRegistrarPagoAlumno.fxml"));

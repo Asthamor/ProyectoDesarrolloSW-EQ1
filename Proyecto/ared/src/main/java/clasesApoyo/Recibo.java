@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Maestro;
+import modelo.PagoAlumno;
 import modelo.PagoAlumnoExterno;
 import modelo.PagoMaestro;
 import modelo.PagoRenta;
@@ -117,6 +118,46 @@ public class Recibo {
               .setTextAlignment(TextAlignment.RIGHT)
               .setMultipliedLeading(1)
               .add(new Text(pagoalumno.pkToString())
+                      .setFont(bold).setFontSize(13))
+              .add(NEWLINE)
+              .add(new Text(LocalDate.now().toString()).setFontSize(9)
+              ));
+
+      doc.add(crearTablaInvolucrados(bold, italic, cliente, emisor)
+              .setBorder(Border.NO_BORDER)
+              .setBorderBottom(Border.NO_BORDER)
+              .setBorderLeft(Border.NO_BORDER)
+      );
+      doc.add(new Paragraph()
+              .add(NEWLINE));
+
+      doc.add(crearTablaConceptoPagoAlumnoExterno(bold, italic, pagoalumno));
+
+      doc.add(new Paragraph()
+              .add(NEWLINE)
+              .add(NEWLINE));
+      doc.add(crearTablaDeFirmas("Firma de Conformidad", "Firma del Emisor"));
+      agregarImagenFondo(pdf, "/imagenes/aredEspacioCompleto.png");
+
+    }
+    return file;
+  }
+  
+    public static File crearReciboPagoAlumno(String ruta, String nombrearchivo,
+          PagoAlumno pagoalumno, Persona cliente, Persona emisor) throws IOException {
+
+    PdfFont bold = PdfFontFactory.createFont(RESOURCEDIR + BOLD, true);
+    PdfFont italic = PdfFontFactory.createFont(RESOURCEDIR + ITALIC, true);
+
+    String rutaDeArchivo = ruta + nombrearchivo + ".pdf";
+    File file = new File(rutaDeArchivo);
+    PdfWriter writer = new PdfWriter(rutaDeArchivo);
+    PdfDocument pdf = new PdfDocument(writer);
+    try (Document doc = new Document(pdf, new PageSize(A5.rotate()))) {
+      doc.add(new Paragraph()
+              .setTextAlignment(TextAlignment.RIGHT)
+              .setMultipliedLeading(1)
+              .add(new Text(pagoalumno.toString())
                       .setFont(bold).setFontSize(13))
               .add(NEWLINE)
               .add(new Text(LocalDate.now().toString()).setFontSize(9)
@@ -233,12 +274,22 @@ public class Recibo {
     return table;
   }
 
-  private static Table crearTablaConceptoPagoAlumno(
+  private static Table crearTablaConceptoPagoAlumnoExterno(
           PdfFont bold, PdfFont italic, PagoAlumnoExterno pagoalumno) {
     String concepto = "Pago del alumno " + pagoalumno.getAlumno().toString()
             + " para " + pagoalumno.getMaestro().toString()
             + ", realizado el "
             + pagoalumno.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+    String monto = "$ " + Double.toString(pagoalumno.getMonto());
+    return crearTablaConcepto(bold, italic, concepto, monto);
+  }
+  
+    private static Table crearTablaConceptoPagoAlumno(
+          PdfFont bold, PdfFont italic, PagoAlumno pagoalumno) {
+    String concepto = "Pago del alumno " + pagoalumno.getAlumno().toString()
+            + " inscrito en el grupo " + pagoalumno.getGrupo().getNombre()
+            + ", realizado el "
+            + pagoalumno.getFechaPago().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
     String monto = "$ " + Double.toString(pagoalumno.getMonto());
     return crearTablaConcepto(bold, italic, concepto, monto);
   }

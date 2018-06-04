@@ -172,7 +172,7 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
 
     @Override
     public String toString() {
-        return "modelo.PagoAlumno[ pagoAlumnoPK=" + pagoAlumnoPK + " ]";
+        return "Pago mensualidad";
     }
 
     @Override
