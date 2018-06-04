@@ -136,7 +136,7 @@ public class PagoMaestro extends Ingreso implements Serializable, IPagoMaestro {
 
     @Override
     public String toString() {
-        return "modelo.PagoMaestro[ pagoMaestroPK=" + pagoMaestroPK + " ]";
+        return "Pago de colaborador #" + Integer.toString(pagoMaestroPK.getIdPagoMaestro());
     }
 
     @Override

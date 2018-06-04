@@ -46,6 +46,7 @@ import modelo.Persona;
 import modelo.Usuario;
 import org.controlsfx.control.PopOver;
 import javafx.stage.Stage;
+  
 
 /**
  * FXML Controller class
@@ -137,6 +138,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
 
   @FXML
   private void abrirVentanaAnterior(ActionEvent event) {
+
     
   }
 

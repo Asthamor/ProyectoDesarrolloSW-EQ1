@@ -188,7 +188,9 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
     if (usuario.getTipoUsuario().equals("director")) {
       grupos = g.obtenerTodosLosGrupos();
       Promocion promoAux = new Promocion();
-      comboPromocion.setItems(FXCollections.observableArrayList(promoAux.obtenerPromociones()));
+      List<Promocion> promoList = FXCollections.observableArrayList(promoAux.obtenerPromociones());
+      promoList.add(0, null);
+      comboPromocion.setItems(FXCollections.observableArrayList(promoList));
     } else {
       comboPromocion.setItems(FXCollections.observableArrayList(((Maestro) persona).getPromocionCollection()));
       grupos = g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro());

@@ -84,12 +84,20 @@ public class Cliente extends Persona implements Serializable {
     public Cliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
-
     public Cliente(Integer idCliente, String nombre, String apellidos, String telefono) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
+
+    }
+
+    public Cliente(Integer idCliente, String nombre, String apellidos, String telefono, String email) {
+        this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
     }
 
     public Cliente(Persona persona) {

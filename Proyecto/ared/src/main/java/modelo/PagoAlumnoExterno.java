@@ -6,8 +6,7 @@
 package modelo;
 
 import clasesApoyo.Mensajes;
-import com.itextpdf.text.pdf.PdfDocument;
-import com.itextpdf.text.pdf.PdfWriter;
+
 import interfaces.IPagoAlumnoExterno;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -158,6 +157,10 @@ public class PagoAlumnoExterno implements Serializable, IPagoAlumnoExterno {
             + "\n\tMonto: $" + Double.toString(monto)
             + "\n\tRealizado: "
             + LocalDateTime.ofInstant(fecha.toInstant(), ZoneId.systemDefault()).toString();
+  }
+  
+  public String pkToString(){
+    return "Pago alumno externo # " + Integer.toString(this.getPagoAlumnoExternoPK().getIdPagoAlExterno());
   }
 
   @Override

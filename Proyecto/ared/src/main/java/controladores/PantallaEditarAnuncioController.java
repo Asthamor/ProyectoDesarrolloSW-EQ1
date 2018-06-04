@@ -6,6 +6,7 @@
 package controladores;
 
 import clasesApoyo.JFXLimitedTextField;
+import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -15,6 +16,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import interfaces.Controlador;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -224,6 +226,26 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
       txtMonto.setCurrencyFilter();
     }
     return !huboErrores;
+  }
+
+  @FXML
+  private void chkInitialDate(ActionEvent event) {
+    if (startPicker.getValue().isAfter(LocalDate.now())){
+      startPicker.setValue(LocalDate.now());
+      Mensajes.mensajeAlert("La fecha de inicio no puede ser posterior al día de hoy");
+      chkEndDate(event);
+    }
+  }
+
+  @FXML
+  private void chkEndDate(ActionEvent event) {
+    if (startPicker.getValue() != null){
+      if (endPicker.getValue().isBefore(startPicker.getValue())){
+        endPicker.setValue(startPicker.getValue().plusDays(1));
+        Mensajes.mensajeAlert("La fecha de término no puede ser previa a la fecha de inicio");
+        
+      }
+    }
   }
 
   

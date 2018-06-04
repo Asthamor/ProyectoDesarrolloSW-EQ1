@@ -6,6 +6,7 @@
 package controladores;
 
 import clasesApoyo.Mensajes;
+import clasesApoyo.Recibo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -13,8 +14,11 @@ import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import interfaces.Controlador;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -42,12 +46,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
+import modelo.Cliente;
 import modelo.Ingreso;
+import modelo.Maestro;
 import modelo.PagoAlumnoExterno;
 import modelo.PagoMaestro;
 import modelo.PagoRenta;
 import modelo.Persona;
 import modelo.Usuario;
+import org.dom4j.DocumentException;
 
 /**
  * FXML Controller class
@@ -110,10 +118,10 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
   private StackPane stack;
   @FXML
   private JFXButton btnEstadisticas;
-    @FXML
-    private StackPane pnlTabla1;
-    @FXML
-    private StackPane pnlTabla2;
+  @FXML
+  private StackPane pnlTabla1;
+  @FXML
+  private StackPane pnlTabla2;
 
   /**
    * Initializes the controller class.
@@ -128,7 +136,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
     pnlTabla2.getStyleClass().add("panel");
     obtenerPagos();
     obtenerPagosAlumnos();
-  
+
     tbPagos.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldSelection, newSelection) -> {
               if (newSelection != null) {
@@ -238,6 +246,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
     tcEliminar.setCellFactory(param -> new TableCell<PagoAlumnoExterno, PagoAlumnoExterno>() {
       private final JFXButton delete = new JFXButton("", GlyphsDude.createIcon(FontAwesomeIcon.TRASH, "15px"));
+
       @Override
       protected void updateItem(PagoAlumnoExterno item, boolean empty) {
         super.updateItem(item, empty);
@@ -304,12 +313,12 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
     String busqueda = txtBuscarPAlumno.getText().toLowerCase(Locale.getDefault());
     if (!busqueda.isEmpty()) {
       pagosAlumnos.clear();
-      datosPagoAlumnos.stream().filter((pae) -> 
-              (pae.getAlumno().toString().toLowerCase().contains(busqueda)
+      datosPagoAlumnos.stream().filter((pae)
+              -> (pae.getAlumno().toString().toLowerCase().contains(busqueda)
               || pae.getMaestro().toString().toLowerCase().contains(busqueda)))
               .forEachOrdered((pae) -> {
                 pagosAlumnos.add(pae);
-      });
+              });
       tbPagosAlumnos.setItems(pagosAlumnos);
     } else {
       pagosAlumnos.clear();
@@ -320,15 +329,66 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
   @FXML
   private void generarReciboAction(ActionEvent event) {
+    Maestro director = new Maestro();
+    director = director.obtenerMaestro(System.getProperty("nombreUsuario"));
+    File recibo = null;
+    FileChooser fchooser = new FileChooser();
+    fchooser.setInitialDirectory(new File(System.getProperty("user.home")));
+    fchooser.setTitle("Guardar Recibo");
+
     if (selectedIndex != null) {
       if (selectedIndex.getClass().equals(PagoAlumnoExterno.class)) {
-        ((PagoAlumnoExterno) selectedIndex).generarRecibo();
+        PagoAlumnoExterno pae = (PagoAlumnoExterno) selectedIndex;
+        try {
+          recibo = Recibo.crearReciboPagoAlumnoExterno(
+                  System.getProperty("user.dir"), "recibotemp", pae, pae.getAlumno(), director);
+        } catch (IOException ex) {
+          Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        File destino = fchooser.showSaveDialog(btnGenerarRecibo.getScene().getWindow());
+        if (destino != null && recibo != null) {
+          try {
+            Files.copy(recibo.toPath(), destino.toPath(), REPLACE_EXISTING);
+          } catch (IOException ex) {
+            Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+
       } else {
         if (selectedIndex.getClass().equals(PagoRenta.class)) {
-          ((PagoRenta) selectedIndex).generarRecibo();
+          PagoRenta pr = (PagoRenta) selectedIndex;
+          
+          try {
+            recibo = Recibo.crearReciboPagoIngreso(
+                    System.getProperty("user.dir"), "recibotemp", pr, pr.getCliente(), director);
+          } catch (DocumentException | IOException ex) {
+            Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          File destino = fchooser.showSaveDialog(btnGenerarRecibo.getScene().getWindow());
+          if (destino != null && recibo != null) {
+            try {
+              Files.copy(recibo.toPath(), destino.toPath(), REPLACE_EXISTING);
+            } catch (IOException ex) {
+              Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
         }
         if (selectedIndex.getClass().equals(PagoMaestro.class)) {
-          ((PagoMaestro) selectedIndex).generarRecibo();
+          PagoMaestro pm = (PagoMaestro) selectedIndex;
+          try {
+            recibo = Recibo.crearReciboPagoIngreso(
+                    System.getProperty("user.dir"), "recibotemp", pm, pm.getMaestro(), director);
+          } catch (DocumentException | IOException ex) {
+            Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          File destino = fchooser.showSaveDialog(btnGenerarRecibo.getScene().getWindow());
+          if (destino != null && recibo != null) {
+            try {
+              Files.copy(recibo.toPath(), destino.toPath(), REPLACE_EXISTING);
+            } catch (IOException ex) {
+              Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
         }
       }
     }

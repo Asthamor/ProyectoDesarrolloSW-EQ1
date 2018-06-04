@@ -127,7 +127,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         validatorHorario.setMessage("Campo requerido");
         lblHorarioRenta.setValidators(validatorHorario);
         txtMonto.setRequired(true);
-        txtMonto.setCurrencyFilter();
+        txtMonto.setIntCurrencyFilter();
         txtMonto.setText("$");
 
     }

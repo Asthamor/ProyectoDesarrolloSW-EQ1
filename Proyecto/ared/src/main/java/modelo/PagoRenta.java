@@ -92,6 +92,16 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso,IPagoRe
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    public Cliente getCliente(){
+      Renta renta = new Renta();
+      Cliente cliente = new Cliente(-1,"-------","---------","---------","--------");
+      if (!rentaCollection.isEmpty()){
+        renta = (Renta) rentaCollection.toArray()[0];
+        cliente = renta.getCliente();
+      }
+      
+      return cliente;
+    }
 
     @XmlTransient
     public Collection<Renta> getRentaCollection() {
@@ -124,7 +134,7 @@ public class PagoRenta extends Ingreso implements Serializable, IIngreso,IPagoRe
 
     @Override
     public String toString() {
-        return "modelo.PagoRenta[ idPago=" + idPago + " ]";
+        return "Pago de renta #" + Integer.toString(idPago);
     }
 
     @Override

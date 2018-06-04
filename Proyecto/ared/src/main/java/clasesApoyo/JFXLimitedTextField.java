@@ -107,5 +107,20 @@ public class JFXLimitedTextField extends JFXTextField {
     });
     this.setTextFormatter(new TextFormatter(dineroFilter));
   }
+   public final void setIntCurrencyFilter(){
+    UnaryOperator<TextFormatter.Change> dineroFilter = (change -> {
+      String newText = change.getControlNewText();
+      if (newText.matches("(\\$[^0\\D][0-9]{0,10})")) {
+        return change;
+      } else if (newText.matches("([1-9]+?\\d{0,10}})")){
+        change.setText("$" + newText);
+        return change;
+      } else if (newText.matches("(\\$)")){
+        return change;
+      }
+      return null;
+    });
+    this.setTextFormatter(new TextFormatter(dineroFilter));
+  }
   
 }
