@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,26 +73,11 @@ public class PantallaRegistrarPromocionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        NumberFormat format = NumberFormat.getIntegerInstance();
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.isContentChange()) {
-                ParsePosition parsePosition = new ParsePosition(0);
-                format.parse(c.getControlNewText(), parsePosition);
-                if (parsePosition.getIndex() == 0
-                        || parsePosition.getIndex() < c.getControlNewText().length()) {
-                    return null;
-                }
-            }
-            return c;
-        };
-        TextFormatter<Integer> priceFormatter = new TextFormatter<Integer>(
-                new IntegerStringConverter(), 0, filter);
-        spinnerDescuento.setEditable(true);
+        spinnerDescuento.setEditable(false);
         spinnerDescuento.setFocusTraversable(false);
         SpinnerValueFactory<Integer> valueFactory
-                = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
+                = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 100,5   , 5);
         spinnerDescuento.setValueFactory(valueFactory);
-        spinnerDescuento.getEditor().setTextFormatter(priceFormatter);
         List<String> tipoPromociones = new ArrayList();
         tipoPromociones.add("Mensualidad");
         tipoPromociones.add("Inscripción");
@@ -124,6 +111,7 @@ public class PantallaRegistrarPromocionController implements Initializable {
     public void setPnlPrincipal(StackPane pnlPrincipal) {
         this.pnlPrincipal = pnlPrincipal;
     }
+    
 
     @FXML
     private void guardarPromocion(ActionEvent event) {
