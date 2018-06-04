@@ -13,6 +13,7 @@ public class HistorialPagos {
     private String fechaPago;
     private String monto;
     private String nombrePromocion;
+    private String tipo;
 
     public String getFechaPago() {
         return fechaPago;
@@ -37,6 +38,16 @@ public class HistorialPagos {
     public void setNombrePromocion(String nombrePromocion) {
         this.nombrePromocion = nombrePromocion;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
     
     
     

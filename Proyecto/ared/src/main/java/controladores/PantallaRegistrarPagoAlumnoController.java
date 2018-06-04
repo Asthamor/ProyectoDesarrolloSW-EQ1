@@ -63,7 +63,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private JFXLimitedTextField txtMonto;
     @FXML
-    private JFXListView<String> lstAlumnos;    
+    private JFXListView<String> lstAlumnos;
     @FXML
     private JFXComboBox<String> cboxPromocion;
     @FXML
@@ -75,18 +75,18 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private JFXLimitedTextField lblAlumno;
     @FXML
-    private TableView<HistorialPagos> tbPagos;    
+    private TableView<HistorialPagos> tbPagos;
     @FXML
     private TableColumn<HistorialPagos, String> colFecha;
     @FXML
     private TableColumn<HistorialPagos, String> colMonto;
     @FXML
-    private TableColumn<HistorialPagos, String> colPromocion;    
+    private TableColumn<HistorialPagos, String> colPromocion;
     @FXML
     private StackPane pnlTabla;
     @FXML
     private Label lblFechaProximoPago;
-    
+
     private int montoFinal;
     private Grupo grupo;
     private HBox pantallaDividida;
@@ -99,7 +99,8 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     private ArrayList<String> nombrePromociones;
     private List<Alumno> alumnos;
     private List<Promocion> promociones;
-    
+    @FXML
+    private TableColumn<HistorialPagos, String> colTipo;
 
     /**
      * Initializes the controller class.
@@ -165,6 +166,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
         colMonto.setCellValueFactory(new PropertyValueFactory<HistorialPagos, String>("monto"));
         colFecha.setCellValueFactory(new PropertyValueFactory<HistorialPagos, String>("fechaPago"));
         colPromocion.setCellValueFactory(new PropertyValueFactory<HistorialPagos, String>("nombrePromocion"));
+        colTipo.setCellValueFactory(new PropertyValueFactory<HistorialPagos, String>("tipo"));
         tbPagos.setItems(FXCollections.observableArrayList(historialesPagos));
     }
 
@@ -175,7 +177,6 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                 grupo = grupoAux;
             }
         }
-        lblFecha.setText(DateFormat.getDateInstance().format(new Date()));
         alumnos = new ArrayList(grupo.getAlumnoCollection());
         alumnos.forEach((alumno) -> {
             nombresAlumnos.add(alumno.getNombre() + " " + alumno.getApellidos());
@@ -194,6 +195,11 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                         if (pagos.get(i).getGrupo().getGrupoPK().getIdGrupo() == grupo.getGrupoPK().getIdGrupo()) {
                             HistorialPagos historial = new HistorialPagos();
                             historial.setFechaPago(DateFormat.getDateInstance().format(pagos.get(i).getFechaPago()));
+                            if(pagos.get(i).getEsInscripcion()){
+                                historial.setTipo("Inscripción");
+                            }else{
+                                historial.setTipo("Mensualidad");
+                            }
                             historial.setMonto("$" + String.valueOf(pagos.get(i).getMonto()));
                             if (pagos.get(i).getPromocion() != null) {
                                 historial.setNombrePromocion(pagos.get(i).getPromocion().getCodigo());
@@ -208,12 +214,19 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                     for (int i = pagos.size() - 1; i >= 0; i--) {
                         auxiliar = pagos.get(i);
                         if (auxiliar.getGrupo().getGrupoPK().getIdGrupo() == grupo.getGrupoPK().getIdGrupo()) {
-                            ultimoPago = pagos.get(i);
-                            break;
+                            if (!auxiliar.getEsInscripcion()) {
+                                ultimoPago = pagos.get(i);
+                                break;
+                            }
                         }
                     }
-                    Date fechaActualPago = ultimoPago.getFechaVencimiento();
-                    lblFechaProximoPago.setText(DateFormat.getDateInstance().format(fechaActualPago));
+                    if (ultimoPago == null) {
+                        lblFecha.setText("Primer pago");
+                        lblFechaProximoPago.setText("Primer pago");
+                    } else {
+                        lblFecha.setText(DateFormat.getDateInstance().format(ultimoPago.getFechaPago()));
+                        lblFechaProximoPago.setText(DateFormat.getDateInstance().format(ultimoPago.getFechaVencimiento()));
+                    }
                     lblGrupo.setText(grupo.getNombre());
                     lblAlumno.setText(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getNombre() + " " + alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()).getApellidos());
                     mostrarHistorial();
@@ -257,11 +270,18 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
             for (int i = pagos.size() - 1; i >= 0; i--) {
                 auxiliar = pagos.get(i);
                 if (auxiliar.getGrupo().getGrupoPK().getIdGrupo() == grupo.getGrupoPK().getIdGrupo()) {
-                    ultimoPago = pagos.get(i);
-                    break;
+                    if (!auxiliar.getEsInscripcion()) {
+                        ultimoPago = pagos.get(i);
+                        break;
+                    }
                 }
             }
-            Date fechaActualPago = ultimoPago.getFechaVencimiento();
+            Date fechaActualPago;
+            if (ultimoPago == null) {
+                fechaActualPago = new Date();
+            } else {
+                fechaActualPago = ultimoPago.getFechaVencimiento();
+            }
             Date fechaActual = new Date();
             if (fechaActualPago.getTime() > fechaActual.getTime()) {
                 Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -285,6 +305,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                 PagoAlumno pagoAlumno = new PagoAlumno();
                 pagoAlumno.setAlumno(alumnos.get(lstAlumnos.getSelectionModel().getSelectedIndex()));
                 pagoAlumno.setGrupo(grupo);
+                pagoAlumno.setEsInscripcion(false);
                 pagoAlumno.setFechaPago(new Date());
                 if (cboxPromocion.getSelectionModel().getSelectedIndex() != 0) {
                     pagoAlumno.setPromocion(promociones.get(cboxPromocion.getSelectionModel().getSelectedIndex() - 1));

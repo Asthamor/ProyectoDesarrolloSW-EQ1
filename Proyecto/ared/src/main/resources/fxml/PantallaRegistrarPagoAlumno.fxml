@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import clasesApoyo.JFXLimitedTextField?>
 
-<BorderPane prefHeight="611.0" prefWidth="1152.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
+<BorderPane prefHeight="611.0" prefWidth="1152.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaRegistrarPagoAlumnoController">
     <top>
         <Pane prefHeight="50.0" prefWidth="1177.0" BorderPane.alignment="CENTER" />
     </top>
@@ -57,9 +57,10 @@
                             <children>
                                 <TableView fx:id="tbPagos" prefHeight="497.0" prefWidth="376.0" stylesheets="@../styles/tableView.css">
                                     <columns>
-                                        <TableColumn fx:id="colFecha" prefWidth="137.0" text="Fecha pago" />
-                                        <TableColumn fx:id="colMonto" prefWidth="115.0" text="Monto" />
-                                        <TableColumn fx:id="colPromocion" prefWidth="123.0" text="Promocion" />
+                                        <TableColumn fx:id="colFecha" prefWidth="97.0" text="Fecha pago" />
+                                        <TableColumn fx:id="colMonto" prefWidth="93.0" text="Monto" />
+                                        <TableColumn fx:id="colPromocion" minWidth="0.0" prefWidth="89.0" text="Promocion" />
+                              <TableColumn fx:id="colTipo" prefWidth="88.0" text="Tipo" />
                                     </columns>
                                 </TableView>
                             </children>
@@ -102,7 +103,7 @@
                                                 <Insets right="10.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Fecha:" textAlignment="RIGHT" GridPane.rowIndex="2">
+                                        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Fecha último pago:" textAlignment="RIGHT" GridPane.rowIndex="2">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>
