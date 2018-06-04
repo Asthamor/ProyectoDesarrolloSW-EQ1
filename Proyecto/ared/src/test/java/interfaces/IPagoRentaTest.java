@@ -13,13 +13,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
  * @author alonso
  */
-//@Ignore
 public class IPagoRentaTest {
     
     public IPagoRentaTest() {
@@ -65,18 +63,29 @@ public class IPagoRentaTest {
         boolean expResult = true;
         boolean result = instance.actualizarPago();
         assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testActualizarPagoInvalido() {
+        System.out.println("actualizarPago");
+        PagoRenta instance = new PagoRenta();
+        boolean expResult = false;
+        boolean result = instance.actualizarPago();
+        assertEquals(expResult, result);
 
     }
 
     /**
      * Test of eliminarPago method, of class IPagoRenta.
      */
+
     @Test
-    public void testEliminarPago() {
+    public void testEliminarPagoInvalido() {
         System.out.println("eliminarPago");
         PagoRenta instance = new PagoRenta();
         instance = instance.obtenerUltimoPago();
-        boolean expResult = true;
+        instance.setIdPago(null);
+        boolean expResult = false;
         boolean result = instance.eliminarPago();
         assertEquals(expResult, result);
     }

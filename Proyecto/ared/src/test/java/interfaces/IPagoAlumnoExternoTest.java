@@ -26,22 +26,22 @@ import org.junit.Ignore;
  */
 //@Ignore
 public class IPagoAlumnoExternoTest {
-    
+
     public IPagoAlumnoExternoTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -65,13 +65,12 @@ public class IPagoAlumnoExternoTest {
         boolean result = instance.registrarPago();
         assertEquals(expResult, result);
     }
-    
-        @Test
+
+    @Test
     public void testRegistrarPagoInvalido() {
         System.out.println("registrarPagoInvalido");
         PagoAlumnoExterno instance = new PagoAlumnoExterno();
         assertFalse(instance.registrarPago());
     }
 
-    
 }

@@ -179,14 +179,14 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
     public boolean registrarPagoMensual(PagoAlumno pago) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
-        PagoAlumnoPK pagoPK = new PagoAlumnoPK();
-        pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
-        pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
-        pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
-        pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
-        pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
-        pago.setPagoAlumnoPK(pagoPK);
         try {
+            PagoAlumnoPK pagoPK = new PagoAlumnoPK();
+            pagoPK.setAlumnoidAlumno(alumno.getIdAlumno());
+            pagoPK.setGrupohorarioidHorario(grupo.getGrupoPK().getHorarioidHorario());
+            pagoPK.setGrupoidGrupo(grupo.getGrupoPK().getIdGrupo());
+            pagoPK.setGrupomaestroidMaestro(grupo.getGrupoPK().getMaestroidMaestro());
+            pagoPK.setGrupomaestrousuarionombreUsuario(grupo.getGrupoPK().getMaestrousuarionombreUsuario());
+            pago.setPagoAlumnoPK(pagoPK);
             controlador.create(pago);
         } catch (Exception ex) {
             Logger.getLogger(PagoAlumno.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,8 +243,8 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
     public void setEsInscripcion(Boolean esInscripcion) {
         this.esInscripcion = esInscripcion;
     }
-    
-    public PagoAlumno obtenerUltimoPago(Integer idAlumno){
+
+    public PagoAlumno obtenerUltimoPago(Integer idAlumno) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
         return controlador.obtenerUltimoPago(idAlumno);

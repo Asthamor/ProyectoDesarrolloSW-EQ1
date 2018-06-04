@@ -245,8 +245,9 @@ public class Grupo implements Serializable, IGrupo {
     } catch (NonexistentEntityException ex) {
       Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
       return false;
-    } catch (IllegalOrphanException ex) {
+    } catch (IllegalOrphanException | IllegalArgumentException ex) {
       Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
     }
     return true;
   }

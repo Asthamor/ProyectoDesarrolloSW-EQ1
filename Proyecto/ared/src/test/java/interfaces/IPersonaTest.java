@@ -16,13 +16,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
  * @author raymundo
  */
-//@Ignore
 public class IPersonaTest {
 
     public IPersonaTest() {
@@ -127,6 +125,17 @@ public class IPersonaTest {
     }
 
     @Test
+    public void testRegistrarClienteInvalido() {
+        System.out.println("registrarCliente");
+        Persona persona = new Cliente();
+        persona.setNombre("Jesus 2");
+        persona.setEsActivo(true);
+        boolean expResult = false;
+        boolean result = persona.registrar(persona);
+        assertEquals(expResult, result);
+    }
+
+    @Test
     public void testRegistrarAlumno() {
         System.out.println("registrarAlumno");
         Persona persona = new Alumno();
@@ -141,6 +150,16 @@ public class IPersonaTest {
     }
 
     @Test
+    public void testRegistrarAlumnoInvalido() {
+        System.out.println("registrarAlumno");
+        Persona persona = new Alumno();
+        persona.setNombre("Jorge Alberto");
+        boolean expResult = false;
+        boolean result = persona.registrar(persona);
+        assertEquals(expResult, result);
+    }
+
+    @Test
     public void testRegistrarMaestro() {
         System.out.println("registrarMaestro");
         Persona persona = new Maestro();
@@ -149,6 +168,17 @@ public class IPersonaTest {
         persona.setTelefono("2456445");
         persona.setEsActivo(true);
         boolean expResult = true;
+        boolean result = persona.registrar(persona);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testRegistrarMaestroInvalido() {
+        System.out.println("registrarMaestro");
+        Persona persona = new Maestro();
+        persona.setNombre("Roberto");
+        persona.setEsActivo(true);
+        boolean expResult = false;
         boolean result = persona.registrar(persona);
         assertEquals(expResult, result);
     }
@@ -191,7 +221,7 @@ public class IPersonaTest {
         System.out.println("ObtenerInactivosAlumnos");
         Persona persona = new Alumno();
         boolean expResult = true;
-        int inactivos= persona.obtenerInactivos().size();
+        int inactivos = persona.obtenerInactivos().size();
         boolean result = inactivos == 0;
         assertEquals(expResult, result);
     }
@@ -201,7 +231,7 @@ public class IPersonaTest {
         System.out.println("ObtenerInactivosClientes");
         Persona persona = new Cliente();
         boolean expResult = true;
-        int inactivos= persona.obtenerInactivos().size();
+        int inactivos = persona.obtenerInactivos().size();
         boolean result = inactivos == 0;
         assertEquals(expResult, result);
     }
@@ -211,15 +241,14 @@ public class IPersonaTest {
         System.out.println("ObtenerInactivosMaestros");
         Persona persona = new Maestro();
         boolean expResult = true;
-        int inactivos= persona.obtenerInactivos().size();
+        int inactivos = persona.obtenerInactivos().size();
         boolean result = inactivos > 0;
         assertEquals(expResult, result);
     }
-    
+
     /**
      * Test of actualizarDatos method, of class IPersona.
      */
-    
     @Test
     public void testActualizarMaestro() {
         System.out.println("ActualizarMaestro");
@@ -227,6 +256,17 @@ public class IPersonaTest {
         persona = persona.obtenerActivos().get(0);
         persona.setNombre("Alberto");
         boolean expResult = true;
+        boolean result = persona.actualizarDatos(false);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testActualizarMaestroInvalido() {
+        System.out.println("ActualizarMaestro");
+        Persona persona = new Maestro();
+        persona = persona.obtenerActivos().get(0);
+        persona.setNombre(null);
+        boolean expResult = false;
         boolean result = persona.actualizarDatos(false);
         assertEquals(expResult, result);
     }
@@ -243,12 +283,34 @@ public class IPersonaTest {
     }
     
     @Test
+    public void testActualizarAlumnoInvalido() {
+        System.out.println("ActualizarAlumno");
+        Persona persona = new Alumno();
+        persona = persona.obtenerActivos().get(0);
+        persona.setNombre(null);
+        boolean expResult = false;
+        boolean result = persona.actualizarDatos(false);
+        assertEquals(expResult, result);
+    }
+
+    @Test
     public void testActualizarCliente() {
         System.out.println("ActualizarCliente");
         Persona persona = new Cliente();
         persona = persona.obtenerActivos().get(0);
         persona.setNombre("Raymundo");
         boolean expResult = true;
+        boolean result = persona.actualizarDatos(false);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testActualizarClienteInvalido() {
+        System.out.println("ActualizarCliente");
+        Persona persona = new Cliente();
+        persona = persona.obtenerActivos().get(0);
+        persona.setNombre(null);
+        boolean expResult = false;
         boolean result = persona.actualizarDatos(false);
         assertEquals(expResult, result);
     }

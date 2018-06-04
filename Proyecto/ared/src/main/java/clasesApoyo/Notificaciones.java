@@ -133,19 +133,34 @@ public class Notificaciones {
             pagos.addAll(new ArrayList(grupo.getPagoAlumnoCollection()));
         }
 
-//        LocalDate local = LocalDate.parse("2018-06-23");
+//        LocalDate local = LocalDate.parse("2019-06-03");
 //        Date date = Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant());
         List<PagoAlumno> pagosProximos = new ArrayList();
+        List<PagoAlumno> pagosInscripcion = new ArrayList();
+        
         for (PagoAlumno pago : pagos) {
             if (dia.equals(pago.getFechaVencimiento()) && alumnoEnGrupo(gruposMaestro, pago.getAlumno())) {
                 pagosProximos.add(pago);
             }
+            
+            if (pago.getEsInscripcion() && dia.equals(pago.getFechaVencimiento()) && alumnoEnGrupo(gruposMaestro, pago.getAlumno())) {
+                pagosInscripcion.add(pago);
+            }            
         }
 
         for (PagoAlumno pago : pagosProximos) {
             StackPane panelNotificacion = new StackPane();
             String cadena = pago.getAlumno().getNombre() + " " + pago.getAlumno().getApellidos()
                     + " del grupo " + pago.getGrupo().getNombre() + " \ndebe pagar el día "
+                    + DateFormat.getDateInstance().format(dia);
+            panelNotificacion.getChildren().add(crearPantalla(cadena, "alumno"));
+            notificaciones.add(panelNotificacion);
+        }
+        
+        for(PagoAlumno pago: pagosInscripcion){
+            StackPane panelNotificacion = new StackPane();
+            String cadena = pago.getAlumno().getNombre() + " " + pago.getAlumno().getApellidos()
+                    + " del grupo " + pago.getGrupo().getNombre() + " \ndebe pagar reinscripción el día "
                     + DateFormat.getDateInstance().format(dia);
             panelNotificacion.getChildren().add(crearPantalla(cadena, "alumno"));
             notificaciones.add(panelNotificacion);

@@ -11,11 +11,11 @@ import modelo.Horario;
 import modelo.Maestro;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  *
@@ -43,36 +43,36 @@ public class IMaestroTest {
     public void tearDown() {
     }
 
-//    @Test
-//    public void testObtenerGruposMaestro() {
-//        System.out.println("obtenerGruposMaestro");
-//        Maestro maestroPrueba = new Maestro();
-//        List<Maestro> maestros = (List<Maestro>) ((Object) maestroPrueba.buscar("Istael"));
-//        if (maestros.size() == 0) {
-//            maestroPrueba.setApellidos("Ozuna");
-//            maestroPrueba.setNombre("Istael");
-//            maestroPrueba.setTelefono("25578");
-//            maestroPrueba.registrar(maestroPrueba);
-//        } else {
-//            maestroPrueba = maestros.get(0);
-//        }
-//        if (maestroPrueba.getGrupoCollection().size() <= 0) {
-//            Grupo grupo = new Grupo();
-//            grupo.setMaestro(maestroPrueba);
-//            grupo.setNombre("Salsa Isra");
-//            Horario horario = new Horario();
-//            horario.setRutaArchivo("/");
-//            horario.setIdHorario(1);
-//            grupo.setHorario(horario);
-//            grupo.setTipoDanza("Salsa");
-//            grupo.registrarGrupo(grupo);
-//            maestroPrueba.getGrupoCollection().add(grupo);
-//        }
-//
-//        boolean expResult = true;
-//        boolean result = maestroPrueba.getGrupoCollection().size() > 0;
-//
-//        assertEquals(expResult, result);
-//    }
+    @Test
+    public void testObtenerGruposMaestro() {
+        System.out.println("obtenerGruposMaestro");
+        Maestro maestroPrueba = new Maestro();
+        List<Maestro> maestros = (List<Maestro>) ((Object) maestroPrueba.buscar("Istael"));
+        if (maestros.size() == 0) {
+            maestroPrueba.setApellidos("Ozuna");
+            maestroPrueba.setNombre("Istael");
+            maestroPrueba.setTelefono("25578");
+            maestroPrueba.registrar(maestroPrueba);
+        } else {
+            maestroPrueba = maestros.get(0);
+        }
+        if (maestroPrueba.getGrupoCollection().size() <= 0) {
+            Grupo grupo = new Grupo();
+            grupo.setMaestro(maestroPrueba);
+            grupo.setNombre("Salsa Isra");
+            Horario horario = new Horario();
+            horario.setRutaArchivo("/");
+            horario.setIdHorario(1);
+            grupo.setHorario(horario);
+            grupo.setTipoDanza("Salsa");
+            grupo.registrarGrupo(grupo);
+            maestroPrueba.getGrupoCollection().add(grupo);
+        }
+
+        boolean expResult = true;
+        boolean result = maestroPrueba.getGrupoCollection().size() > 0;
+
+        assertEquals(expResult, result);
+    }
 
 }

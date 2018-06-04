@@ -5,7 +5,6 @@
  */
 package interfaces;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import modelo.Alumno;
@@ -20,7 +19,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -82,6 +80,20 @@ public class IGrupoTest {
         boolean result = instance.registrarGrupo(grupo);
         assertEquals(expResult, result);
     }
+    
+    @Test
+    public void testRegistrarGrupoInavlido() {
+        System.out.println("registrarGrupo");
+        Grupo grupo = new Grupo();
+        grupo.setFechaCreacion(new Date());
+        Horario horario = new Horario();
+        horario.setIdHorario(1);
+        grupo.setHorario(horario);
+        IGrupo instance = new Grupo();
+        boolean expResult = false;
+        boolean result = instance.registrarGrupo(grupo);
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of actualizarDatosGrupo method, of class IGrupo.
@@ -100,6 +112,24 @@ public class IGrupoTest {
         grupo.setNombre("prueba2");
         grupo.setTipoDanza("prueba2");
         boolean expResult = true;
+        boolean result = grupo.actualizarDatosGrupo(grupo);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testActualizarDatosGrupoInvalido() {
+        System.out.println("actualizarDatosGrupo");
+        Grupo grupo = new Grupo();
+        List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
+        for (Grupo auxiliar : grupos) {
+            if (auxiliar.getNombre().equals("prueba")) {
+                grupo = auxiliar;
+                break;
+            }
+        }
+        grupo.setNombre(null);
+        grupo.setTipoDanza(null);
+        boolean expResult = false;
         boolean result = grupo.actualizarDatosGrupo(grupo);
         assertEquals(expResult, result);
     }
@@ -126,6 +156,24 @@ public class IGrupoTest {
     }
     
     @Test
+    public void testEliminarGrupoInvalido() {
+        System.out.println("eliminarGrupo");
+        Grupo grupo = new Grupo();
+        List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
+        for (Grupo auxiliar : grupos) {
+            if (auxiliar.getNombre().equals("prueba2")) {
+                grupo = auxiliar;
+                break;
+            }
+        }
+        GrupoPK grupoPK = null;
+        IGrupo instance = new Grupo();
+        boolean expResult = false;
+        boolean result = instance.eliminarGrupo(grupoPK);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
     public void testObtenerAlumnosNoInscritos(){
         System.out.println("obtenerAlumnosNoInscritos");
         IGrupo instance = new Grupo();
@@ -145,37 +193,4 @@ public class IGrupoTest {
         boolean result = !id.equals(null);
         assertEquals(expResult, result);
     }
-
-
-//    /**
-//     * Test of registrarInscripcionAlumno method, of class IGrupo.
-//     */
-//    @Test
-//    public void testRegistrarInscripcionAlumno() {
-//        System.out.println("registrarInscripcionAlumno");
-//        String idAlumno = "";
-//        GrupoPK grupoPK = null;
-//        IGrupo instance = new IGrupoImpl();
-//        boolean expResult = false;
-//        boolean result = instance.registrarInscripcionAlumno(idAlumno, grupoPK);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of eluminarInscripciónAlumno method, of class IGrupo.
-//     */
-//    @Test
-//    public void testEluminarInscripciónAlumno() {
-//        System.out.println("eluminarInscripci\u00f3nAlumno");
-//        String idAlumno = "";
-//        GrupoPK grupoPK = null;
-//        IGrupo instance = new IGrupoImpl();
-//        boolean expResult = false;
-//        boolean result = instance.eluminarInscripciónAlumno(idAlumno, grupoPK);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 }
