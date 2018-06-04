@@ -72,7 +72,7 @@ public class PantallaPrincipalMaestroController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    btnAtras.setFocusTraversable(false);
+    btnAtras.setVisible(false);
     btnMisGrupos.setFocusTraversable(false);
     btnInscripciones.setFocusTraversable(false);
     btnPromociones.setFocusTraversable(false);

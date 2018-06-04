@@ -111,7 +111,7 @@ public class PantallaPrincipalDirectorController implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
     popOver = new PopOver();
     popOver.setAnimated(true);
-    btnAtras.setFocusTraversable(false);
+    btnAtras.setVisible(false);
     btnMisGrupos.setFocusTraversable(false);
     btnInscripciones.setFocusTraversable(false);
     btnPromociones.setFocusTraversable(false);

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Cursor?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaPrincipalMaestroController">
    <left>
@@ -19,26 +20,38 @@
                         <FontAwesomeIconView fill="#52be80" glyphName="ARROW_CIRCLE_LEFT" size="40" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnMisGrupos" alignment="TOP_LEFT" graphicTextGap="15.0" onAction="#abrirVentanaMisGrupos" prefHeight="39.0" prefWidth="166.0" text="Mis Grupos">
+                  <JFXButton fx:id="btnMisGrupos" alignment="TOP_LEFT" stylesheets="@../styles/botonesMenu.css" graphicTextGap="15.0" onAction="#abrirVentanaMisGrupos" prefHeight="39.0" prefWidth="166.0" text="Mis Grupos">
                      <graphic>
                         <FontAwesomeIconView glyphName="USERS" size="35" />
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnInscripciones" alignment="TOP_LEFT" graphicTextGap="20.0" onAction="#abrirVentanaInscripciones" prefHeight="37.0" prefWidth="166.0" text="Inscripciones">
+                  <JFXButton fx:id="btnInscripciones" stylesheets="@../styles/botonesMenu.css" alignment="TOP_LEFT" graphicTextGap="20.0" onAction="#abrirVentanaInscripciones" prefHeight="37.0" prefWidth="166.0" text="Inscripciones">
                      <graphic>
                         <FontAwesomeIconView glyphName="FILE_TEXT_ALT" size="35" />
                      </graphic>
+                      <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnPromociones" alignment="TOP_LEFT" graphicTextGap="10.0" onAction="#abrirVentanaPromociones" prefHeight="30.0" prefWidth="166.0" text="Promociones">
+                  <JFXButton fx:id="btnPromociones" stylesheets="@../styles/botonesMenu.css" alignment="TOP_LEFT" graphicTextGap="10.0" onAction="#abrirVentanaPromociones" prefHeight="30.0" prefWidth="166.0" text="Promociones">
                      <graphic>
                         <FontAwesomeIconView glyphName="TICKET" size="40" />
                      </graphic>
+                      <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                   <Pane prefHeight="501.0" prefWidth="166.0" />
-                  <JFXButton fx:id="btnNotificaciones" alignment="TOP_LEFT" graphicTextGap="15.0" onAction="#abrirVentanaNotificaciones" prefHeight="43.0" prefWidth="166.0" text="Notificaciones">
+                  <JFXButton fx:id="btnNotificaciones" stylesheets="@../styles/botonesMenu.css" alignment="TOP_LEFT" graphicTextGap="15.0" onAction="#abrirVentanaNotificaciones" prefHeight="43.0" prefWidth="166.0" text="Notificaciones">
                      <graphic>
                         <FontAwesomeIconView fill="#f7dc6f" glyphName="BELL" size="30" />
                      </graphic>
+                      <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                </children>
             </VBox>
