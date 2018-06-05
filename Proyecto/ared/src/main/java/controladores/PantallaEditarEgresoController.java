@@ -80,12 +80,11 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
 
     txtMonto.setCurrencyFilter();
     txtMonto.setRequired(true);
+    pickerDate.setValue(LocalDate.now());
     pickerDate.setEditable(false);
     reqVal = new RequiredFieldValidator();
     txtConcepto.setValidators(reqVal);
     txtConcepto.setTextFormatter(new TextFormatter(limiteConcepto));
-
-    // TODO
   }
 
   @Override

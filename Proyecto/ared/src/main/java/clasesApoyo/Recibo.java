@@ -20,7 +20,6 @@ import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
@@ -28,7 +27,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.test.annotations.WrapToTest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -192,7 +190,7 @@ public class Recibo {
     image = ImageDataFactory.create("file:" + RESOURCEDIR + recursoImagen);
     canvas.saveState();
     PdfExtGState state = new PdfExtGState();
-    state.setFillOpacity(0.4f);
+    state.setFillOpacity(0.3f);
     canvas.setExtGState(state);
     canvas.addImage(image, 0, 0, A5.rotate().getWidth(), false);
     canvas.restoreState();
