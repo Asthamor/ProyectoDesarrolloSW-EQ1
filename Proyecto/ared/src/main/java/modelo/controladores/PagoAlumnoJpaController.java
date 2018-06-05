@@ -250,16 +250,28 @@ public class PagoAlumnoJpaController implements Serializable {
         return query.setParameter("alumnoidAlumno", idAlumno).getResultList();
   }
   
-  public PagoAlumno obtenerUltimoPago(Integer idAlumno){
+  public PagoAlumno obtenerUltimoPago(Integer idAlumno, Integer idGrupo){
       EntityManager em = getEntityManager();
       PagoAlumno pagoAlumno = null;
     try {
       pagoAlumno = (PagoAlumno) em.createNamedQuery("PagoAlumno.findByUltimaFechaPago")
-              .setParameter("idAlumno", idAlumno).setMaxResults(1).getSingleResult();
+              .setParameter("idAlumno", idAlumno).setParameter("grupoidGrupo", idGrupo).setMaxResults(1).getSingleResult();
       
     } finally {
       em.close();
     }
     return pagoAlumno;
+  }
+  
+  public Long contarPagosInscripcion(Integer idAlumno, Integer idGrupo){
+      EntityManager em = getEntityManager();
+      Long pagos;
+    try {
+      pagos =  (Long) em.createNamedQuery("PagoAlumno.findByPagosAlumno")
+              .setParameter("idAlumno", idAlumno).setParameter("grupoidGrupo", idGrupo).getSingleResult();      
+    } finally {
+      em.close();
+    }
+    return pagos;
   }
 }

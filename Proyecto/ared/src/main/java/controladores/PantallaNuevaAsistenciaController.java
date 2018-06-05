@@ -39,6 +39,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import modelo.Alumno;
 import modelo.Grupo;
+import org.controlsfx.control.Notifications;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -152,7 +153,10 @@ public class PantallaNuevaAsistenciaController implements Initializable, Control
                 controlador.setGrupo(grupo);
                 controlador.setPantallaDividida(pantallaDividida);
                 controlador.setPnlPrincipal(pnlPrincipal);
-
+                Notifications.create()
+                .title("¡Exito!")
+                .text("La lista se guardo correctamente")
+                .showInformation();
                 pnlPrincipal.getChildren().add(root);
                 pantallaDividida.getChildren().add(pnlPrincipal);
             } catch (UnsupportedEncodingException e) {

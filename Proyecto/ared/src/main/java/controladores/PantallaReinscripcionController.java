@@ -196,10 +196,12 @@ public class PantallaReinscripcionController implements Initializable, Controlad
         if (!existenCamposVacios()) {
             int almIndex = lstAlumnos.getSelectionModel().getSelectedIndex();
             Alumno alumno = alumnos.get(almIndex);
+            int grpIndex = lstGrupo.getSelectionModel().getSelectedIndex();
+            Grupo grupo = grupos.get(grpIndex);
             PagoAlumno pagoAlumno = new PagoAlumno();
-            pagoAlumno = pagoAlumno.obtenerUltimoPago(alumno.getIdAlumno());
+            pagoAlumno = pagoAlumno.obtenerUltimoPago(alumno.getIdAlumno(),grupo.getGrupoPK().getIdGrupo());
             if (esInscripcionATiempo(pagoAlumno)) {
-                guardarReinscripcion(false,null);
+                guardarReinscripcion(false, null);
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle(null);
@@ -230,13 +232,13 @@ public class PantallaReinscripcionController implements Initializable, Controlad
         pago.setMonto(montoFinal);
         pago.setFechaPago(new Date());
         Date vence = null;
-        if(esAdelantada){
+        if (esAdelantada) {
             LocalDate date = fechaVencimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             vence = java.sql.Date.valueOf(date.plusYears(1));
-        }else{
+        } else {
             vence = java.sql.Date.valueOf(LocalDate.now().plusYears(1));
         }
-        
+
         pago.setFechaVencimiento(vence);
         pago.registrarPago();
         setListGrupos();

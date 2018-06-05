@@ -201,7 +201,7 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
             pagoAlumno.setAlumno(alumnos.get(lstAlumno.getSelectionModel().getSelectedIndex()));
             pagoAlumno.setMaestro((Maestro) maestros.get(lstColaboradores.getSelectionModel().getSelectedIndex()));
             pagoAlumno.setFecha(new Date());
-            pagoAlumno.setMonto(Integer.parseInt(txtMonto.getText().replace("$", "")));
+            pagoAlumno.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
             if (pagoAlumno.registrarPago()) {
                 pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistraPagoAlumnoExterno.fxml", this.pnlPrincipal, this.pantallaDividida));
                 pantallaDividida.getChildren().add(pnlPrincipal);

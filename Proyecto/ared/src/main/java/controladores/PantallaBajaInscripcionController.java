@@ -21,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXListView;
-import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -31,6 +30,7 @@ import modelo.Grupo;
 import modelo.Maestro;
 import modelo.Persona;
 import modelo.Usuario;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -155,8 +155,15 @@ public class PantallaBajaInscripcionController implements Initializable, Control
             grupo.getAlumnoCollection().remove(alumn);
             grupo.actualizarDatosGrupo(grupo);
             setListGrupos();
-            Mensajes.mensajeExitoso(alumn.getNombre() + " " + alumn.getApellidos()
-                    + " se ha eliminado del grupo " + grupo.getNombre());
+            Notifications.create()
+                .title("¡Exito!")
+                .text(alumn.getNombre() + " " + alumn.getApellidos()
+                    + " se ha eliminado del grupo " + grupo.getNombre())
+                .showInformation();
+            lblAlumno.setText("");
+            lblCorreo.setText("");
+            lblTelefono.setText("");
+            imgAlumno.setImage(null);
         } else if (almIndex == -1) {
             Mensajes.mensajeAlert("Selecciona un alumno");
         } else if (grpIndex == -1) {

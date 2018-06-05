@@ -34,7 +34,7 @@ public class TarjetaInformacionPromocionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        txtDescripcionPromocion.setEditable(false);
     }
 
     public void setPromocion(Promocion promocion) {

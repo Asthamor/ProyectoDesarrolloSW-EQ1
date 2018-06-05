@@ -42,6 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import modelo.Grupo;
+import org.controlsfx.control.Notifications;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -221,6 +222,10 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
 
                 pnlPrincipal.getChildren().add(root);
                 pantallaDividida.getChildren().add(pnlPrincipal);
+                Notifications.create()
+                .title("¡Exito!")
+                .text("La lista se actualizó correctamente")
+                .showInformation();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             } catch (IOException e) {

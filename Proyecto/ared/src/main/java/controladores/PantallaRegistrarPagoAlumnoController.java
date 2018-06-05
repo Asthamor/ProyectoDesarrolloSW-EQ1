@@ -54,7 +54,6 @@ import modelo.Grupo;
 import modelo.HistorialPagos;
 import modelo.Maestro;
 import modelo.PagoAlumno;
-import modelo.PagoAlumnoExterno;
 import modelo.Promocion;
 import org.controlsfx.control.Notifications;
 
@@ -94,7 +93,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
     @FXML
     private Label lblFechaProximoPago;
 
-    private int montoFinal;
+    private Double montoFinal;
     private Grupo grupo;
     private HBox pantallaDividida;
     private StackPane pnlPrincipal;
@@ -249,11 +248,11 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
         lblMontoTotal.setText("");
         if (!txtMonto.getText().replace("$", "").equals("")) {
             if (cboxPromocion.getSelectionModel().getSelectedIndex() == 0) {
-                montoFinal = Integer.parseInt(txtMonto.getText().replace("$", ""));
+                montoFinal = Double.valueOf(txtMonto.getText().replace("$", ""));
                 lblMontoTotal.setText(txtMonto.getText().replace("$", ""));
             } else {
                 try {
-                    montoFinal = (int) (Integer.parseInt(txtMonto.getText().replace("$", "")) - ((Integer.parseInt(txtMonto.getText().replace("$", "")))
+                    montoFinal = (Double.valueOf(txtMonto.getText().replace("$", "")) - ((Double.valueOf(txtMonto.getText().replace("$", "")))
                             * (promociones.get(cboxPromocion.getSelectionModel().getSelectedIndex() - 1).getDescuento() * .01)));
                     lblMontoTotal.setText(String.valueOf(montoFinal));
                 } catch (NumberFormatException exception) {

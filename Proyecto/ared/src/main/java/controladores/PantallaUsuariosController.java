@@ -156,7 +156,7 @@ public class PantallaUsuariosController implements Initializable {
     @FXML
     private void buscar(KeyEvent event) {
         if (txtNombreUsuario.getText().trim().isEmpty()) {
-            pnlUsuarios.getChildren().clear();
+            gridUsuarios.getChildren().clear();
             personas.clear();
             personas.addAll(datosPersonas);
             mostrarUsuarios(personas);
@@ -167,7 +167,7 @@ public class PantallaUsuariosController implements Initializable {
                     personas.add(p);
                 }
             }
-            pnlUsuarios.getChildren().clear();
+            gridUsuarios.getChildren().clear();
             mostrarUsuarios(personas);
         }
     }
@@ -175,7 +175,7 @@ public class PantallaUsuariosController implements Initializable {
     @FXML
     private void toggleActivos(ActionEvent event) {
         getActivos = toggleActivos.isSelected();
+        gridUsuarios.getChildren().clear();
         obtenerDatos();
-
     }
 }

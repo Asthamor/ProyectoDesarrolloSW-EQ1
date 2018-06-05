@@ -40,9 +40,10 @@ import modelo.controladores.PagoAlumnoJpaController;
     , @NamedQuery(name = "PagoAlumno.findByIdPagoAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.idPagoAlumno = :idPagoAlumno")
     , @NamedQuery(name = "PagoAlumno.findByMonto", query = "SELECT p FROM PagoAlumno p WHERE p.monto = :monto")
     , @NamedQuery(name = "PagoAlumno.findByFechaPago", query = "SELECT p FROM PagoAlumno p WHERE p.fechaPago = :fechaPago")
-    , @NamedQuery(name = "PagoAlumno.findByUltimaFechaPago", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :idAlumno AND p.esInscripcion = 1  ORDER BY p.fechaVencimiento DESC")
+    , @NamedQuery(name = "PagoAlumno.findByUltimaFechaPago", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :idAlumno AND p.pagoAlumnoPK.grupoidGrupo = :grupoidGrupo AND p.esInscripcion = 1  ORDER BY p.fechaVencimiento DESC")
     , @NamedQuery(name = "PagoAlumno.findByPlazo", query = "SELECT p FROM PagoAlumno p WHERE p.plazo = :plazo")
     , @NamedQuery(name = "PagoAlumno.findByAlumnoidAlumno", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :alumnoidAlumno")
+    , @NamedQuery(name = "PagoAlumno.findByPagosAlumno", query = "SELECT count(p) FROM PagoAlumno p WHERE p.pagoAlumnoPK.alumnoidAlumno = :idAlumno AND p.esInscripcion = 1 AND p.pagoAlumnoPK.grupoidGrupo = :grupoidGrupo")
     , @NamedQuery(name = "PagoAlumno.findByGrupoidGrupo", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupoidGrupo = :grupoidGrupo")
     , @NamedQuery(name = "PagoAlumno.findByGrupomaestroidMaestro", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupomaestroidMaestro = :grupomaestroidMaestro")
     , @NamedQuery(name = "PagoAlumno.findByGrupomaestrousuarionombreUsuario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupomaestrousuarionombreUsuario = :grupomaestrousuarionombreUsuario")
@@ -244,10 +245,16 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
         this.esInscripcion = esInscripcion;
     }
 
-    public PagoAlumno obtenerUltimoPago(Integer idAlumno) {
+    public PagoAlumno obtenerUltimoPago(Integer idAlumno, Integer idGrupo) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
-        return controlador.obtenerUltimoPago(idAlumno);
+        return controlador.obtenerUltimoPago(idAlumno,idGrupo);
+    }
+    
+    public Long contarPagosInscripcion(Integer idAlumno, Integer idGrupo){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+        return controlador.contarPagosInscripcion(idAlumno,idGrupo);
     }
 
 }
