@@ -327,7 +327,7 @@ public class PantallaRegistrarPagoAlumnoController implements Initializable, Con
                     fchooser.setTitle("Guardar Recibo");
                     try {
                         recibo = Recibo.crearReciboPagoAlumno(
-                                System.getProperty("user.dir"), "recibotemp",
+                                System.getProperty("user.home")+"/.ared/", "recibotemp",
                                 pagoAlumno, pagoAlumno.getAlumno(), 
                                 pagoAlumno.getGrupo().getMaestro());
                     } catch (IOException ex) {

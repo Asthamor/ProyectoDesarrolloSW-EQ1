@@ -369,7 +369,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
         PagoAlumnoExterno pae = (PagoAlumnoExterno) selectedIndex;
         try {
           recibo = Recibo.crearReciboPagoAlumnoExterno(
-                  System.getProperty("user.dir"), "recibotemp", pae, pae.getAlumno(), director);
+                  System.getProperty("user.home")+ "/.ared/", "recibotemp", pae, pae.getAlumno(), director);
         } catch (IOException ex) {
           Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -388,7 +388,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
 
           try {
             recibo = Recibo.crearReciboPagoIngreso(
-                    System.getProperty("user.dir"), "recibotemp", pr, pr.getCliente(), director);
+                    System.getProperty("user.home")+ "/.ared/", "recibotemp", pr, pr.getCliente(), director);
           } catch (DocumentException | IOException ex) {
             Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
           }
@@ -405,7 +405,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
           PagoMaestro pm = (PagoMaestro) selectedIndex;
           try {
             recibo = Recibo.crearReciboPagoIngreso(
-                    System.getProperty("user.dir"), "recibotemp", pm, pm.getMaestro(), director);
+                    System.getProperty("user.home")+"/.ared/", "recibotemp", pm, pm.getMaestro(), director);
           } catch (DocumentException | IOException ex) {
             Logger.getLogger(PantallaConsultarIngresosController.class.getName()).log(Level.SEVERE, null, ex);
           }

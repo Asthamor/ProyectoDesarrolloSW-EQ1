@@ -35,9 +35,6 @@ import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import modelo.Maestro;
 import modelo.PagoAlumno;
 import modelo.PagoAlumnoExterno;
 import modelo.PagoMaestro;
@@ -51,7 +48,7 @@ import org.dom4j.DocumentException;
  */
 public class Recibo {
 
-  public static final String RESOURCEDIR = "src/main/resources";
+  public static final String RESOURCEDIR = System.getProperty("user.home")+ "/.ared";
   public static final String DEST = System.getProperty("user.home") + "/Desktop/";
   public static final String REGULAR = "/fonts/OpenSans-Regular.ttf";
   public static final String BOLD = "/fonts/OpenSans-Bold.ttf";
@@ -63,7 +60,9 @@ public class Recibo {
           throws FileNotFoundException, DocumentException, IOException {
 
     PdfFont bold = PdfFontFactory.createFont(RESOURCEDIR + BOLD, true);
+      System.out.println(RESOURCEDIR + BOLD);
     PdfFont italic = PdfFontFactory.createFont(RESOURCEDIR + ITALIC, true);
+      System.out.println(RESOURCEDIR + ITALIC);
 
     String rutaDeArchivo = ruta + nombrearchivo + ".pdf";
     File file = new File(rutaDeArchivo);

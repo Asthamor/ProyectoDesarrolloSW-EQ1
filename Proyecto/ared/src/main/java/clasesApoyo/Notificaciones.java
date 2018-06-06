@@ -42,6 +42,7 @@ public class Notificaciones {
     private Date dia;
 
     public Notificaciones(int diasAntelacion, boolean notificacionesDirector) {
+        PantallaGruposController.crearArchivoXML();
         this.diasAntelacion = diasAntelacion;
         this.notificacionesDirector = notificacionesDirector;
         Calendar calendario = Calendar.getInstance();
