@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -94,8 +95,7 @@ public class PantallaGruposController implements Initializable, Controlador {
 
     public void mostrarGrupos() {
         Grupo grupo = new Grupo();
-        List<Grupo> grupos = grupo.obtenerTodosLosGrupos();
-
+        List<Grupo> grupos = obtenerGruposActivos(grupo.obtenerTodosLosGrupos());
         grid.setVgap(10);
         grid.setHgap(10);
         int filas = grupos.size() / 2;
@@ -187,6 +187,15 @@ public class PantallaGruposController implements Initializable, Controlador {
             }
 
         }
+    }
+    
+    public static List<Grupo> obtenerGruposActivos(List<Grupo> grupos){
+        List<Grupo> gruposActivos = new ArrayList();
+        for(Grupo grupoActivo: grupos){
+            if(grupoActivo.getEsActivo())
+                gruposActivos.add(grupoActivo);
+        }
+        return gruposActivos;
     }
 
 }

@@ -55,6 +55,9 @@ import modelo.controladores.exceptions.NonexistentEntityException;
     , @NamedQuery(name = "Grupo.findByHorarioidHorario", query = "SELECT g FROM Grupo g WHERE g.grupoPK.horarioidHorario = :horarioidHorario")})
 public class Grupo implements Serializable, IGrupo {
 
+    @Column(name = "esActivo")
+    private Boolean esActivo;
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "grupo")
     private Collection<Asistencia> asistenciaCollection;
 
@@ -238,30 +241,20 @@ public class Grupo implements Serializable, IGrupo {
     }
 
     @Override
-    public boolean eliminarGrupo(GrupoPK grupoPK) {
+    public boolean eliminarGrupo() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         GrupoJpaController controlador = new GrupoJpaController(entityManagerFactory);
         try {
-            controlador.destroy(grupoPK);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            controlador.edit(this);
         } catch (IllegalOrphanException | IllegalArgumentException ex) {
             Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } catch (Exception ex) {
+            Logger.getLogger(Grupo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
 
-//    @Override
-//    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public boolean eluminarInscripciónAlumno(String idAlumno, GrupoPK grupoPK) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
     @XmlTransient
     public Collection<PagoAlumno> getPagoAlumnoCollection() {
         return pagoAlumnoCollection;
@@ -300,5 +293,13 @@ public class Grupo implements Serializable, IGrupo {
 
     public void setAsistenciaCollection(Collection<Asistencia> asistenciaCollection) {
         this.asistenciaCollection = asistenciaCollection;
+    }
+
+    public Boolean getEsActivo() {
+        return esActivo;
+    }
+
+    public void setEsActivo(Boolean esActivo) {
+        this.esActivo = esActivo;
     }
 }

@@ -18,7 +18,7 @@ public interface IGrupo {
     public List<Grupo> obtenerTodosLosGrupos();
     public boolean registrarGrupo(Grupo grupo);
     public boolean actualizarDatosGrupo(Grupo grupo);
-    public boolean eliminarGrupo(GrupoPK grupoPK);
+    public boolean eliminarGrupo();
     public List<Alumno> obtenerAlumnosNoInscritos();
     public String obtenerUltimoGrupo();
 //    public boolean registrarInscripcionAlumno(String idAlumno, GrupoPK grupoPK);

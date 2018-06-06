@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
+import static controladores.PantallaGruposController.obtenerGruposActivos;
 import interfaces.Controlador;
 import java.net.URL;
 import java.text.DateFormat;
@@ -233,7 +234,7 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
         nombresGrupos = new ArrayList();
 
         if (usuario.getTipoUsuario().equals("director")) {
-            grupos = g.obtenerTodosLosGrupos();
+            grupos = PantallaGruposController.obtenerGruposActivos(g.obtenerTodosLosGrupos());
             Promocion promoAux = new Promocion();
             promoAux.setCodigo("Ninguna");
             promoAux.setDescuento(0);
@@ -252,7 +253,7 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
               promoList.add(p);
             }
           }
-            grupos = g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro());
+            grupos = obtenerGruposActivos(g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro()));
         }
 
         grupos.forEach((grupo) -> {

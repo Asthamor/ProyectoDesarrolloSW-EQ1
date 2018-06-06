@@ -34,7 +34,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import static jdk.nashorn.tools.ShellFunctions.input;
 import modelo.Alumno;
 import modelo.Grupo;
 import modelo.Maestro;
@@ -42,6 +41,7 @@ import modelo.PagoAlumno;
 import modelo.Promocion;
 import modelo.Usuario;
 import org.controlsfx.control.Notifications;
+import static controladores.PantallaGruposController.obtenerGruposActivos;
 
 /**
  *
@@ -137,10 +137,10 @@ public class PantallaReinscripcionController implements Initializable, Controlad
         nombresGrupos = new ArrayList();
         if (usuario.getTipoUsuario().equals("director")) {
             obtenerPromociones();
-            grupos = g.obtenerTodosLosGrupos();
+            grupos = obtenerGruposActivos(g.obtenerTodosLosGrupos());
         } else {
             obtenerPromociones();
-            grupos = g.obtenerGruposMaestro(maestro.getMaestroPK().getIdMaestro());
+            grupos = obtenerGruposActivos(g.obtenerGruposMaestro(maestro.getMaestroPK().getIdMaestro()));
         }
 
         grupos.forEach((grupo) -> {

@@ -151,7 +151,7 @@ public class IGrupoTest {
         GrupoPK grupoPK = grupo.getGrupoPK();
         IGrupo instance = new Grupo();
         boolean expResult = true;
-        boolean result = instance.eliminarGrupo(grupoPK);
+        boolean result = instance.eliminarGrupo();
         assertEquals(expResult, result);
     }
     
@@ -169,7 +169,7 @@ public class IGrupoTest {
         GrupoPK grupoPK = null;
         IGrupo instance = new Grupo();
         boolean expResult = false;
-        boolean result = instance.eliminarGrupo(grupoPK);
+        boolean result = instance.eliminarGrupo();
         assertEquals(expResult, result);
     }
     

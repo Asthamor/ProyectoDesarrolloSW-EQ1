@@ -31,6 +31,7 @@ import modelo.Maestro;
 import modelo.Persona;
 import modelo.Usuario;
 import org.controlsfx.control.Notifications;
+import static controladores.PantallaGruposController.obtenerGruposActivos;
 
 /**
  * FXML Controller class
@@ -50,7 +51,7 @@ public class PantallaBajaInscripcionController implements Initializable, Control
     private ArrayList<String> nombresGrupos;
     private List<Grupo> grupos;
 
-    private Persona persona;
+    private Maestro maestro;
     private Usuario usuario;
     @FXML
     private ImageView imgAlumno;
@@ -68,10 +69,10 @@ public class PantallaBajaInscripcionController implements Initializable, Control
         usuario = new Usuario();
         usuario = usuario.buscar(nombreUsuario);
         if (usuario.getTipoUsuario().equals("maestro")) {
-            this.persona = (Maestro) usuario.getMaestroCollection().toArray()[0];
+            this.maestro = (Maestro) usuario.getMaestroCollection().toArray()[0];
         }
         if (usuario.getTipoUsuario().equals("director")) {
-            this.persona = (Maestro) usuario.getMaestroCollection().toArray()[0];
+            this.maestro = (Maestro) usuario.getMaestroCollection().toArray()[0];
         }
         return true;
     }
@@ -101,8 +102,12 @@ public class PantallaBajaInscripcionController implements Initializable, Control
 
     private boolean setListGrupos() {
         Grupo g = new Grupo();
-        nombresGrupos = new ArrayList();
-        grupos = g.obtenerTodosLosGrupos();
+        nombresGrupos = new ArrayList();       
+        if (usuario.getTipoUsuario().equals("director")) {
+            grupos = obtenerGruposActivos(g.obtenerTodosLosGrupos());
+        } else {
+            grupos = obtenerGruposActivos(g.obtenerGruposMaestro(maestro.getMaestroPK().getIdMaestro()));
+        }
         grupos.forEach((grupo) -> {
             nombresGrupos.add(grupo.getNombre());
         });

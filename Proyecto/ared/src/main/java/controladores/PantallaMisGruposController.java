@@ -87,15 +87,16 @@ public class PantallaMisGruposController implements Initializable, Controlador {
         maestro = maestro.obtenerMaestro(nombreUsuario);
         gridGrupos.setVgap(20);
         gridGrupos.setHgap(20);
-        int filas = maestro.getGrupoCollection().size() / 2;
+        List<Grupo> grupos = PantallaGruposController
+                .obtenerGruposActivos(new ArrayList(maestro.getGrupoCollection()));
+        int filas = grupos.size() / 2;
         int auxiliar = 0;
-        if (maestro.getGrupoCollection().isEmpty()){
+        if (grupos.isEmpty()){
           lblNohay.setVisible(true);
         }
-        if (maestro.getGrupoCollection().size() % 2 != 0) {
-            filas = (maestro.getGrupoCollection().size() + 1) / 2;
+        if (grupos.size() % 2 != 0) {
+            filas = (grupos.size() + 1) / 2;
         }
-        List<Grupo> grupos = new ArrayList(maestro.getGrupoCollection());
          for (int i = 0; i < filas; i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/TarjetaInformacionGrupo.fxml"));

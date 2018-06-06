@@ -98,7 +98,6 @@ public class PantallaEditarGrupoController implements Initializable {
             horarioGrupo[i] = "";
         }
         crearValidaciones();
-        btnEliminarGrupo.setVisible(false);
     }
 
     public void crearValidaciones() {
@@ -160,19 +159,20 @@ public class PantallaEditarGrupoController implements Initializable {
 
     @FXML
     private void eliminarGrupo(ActionEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION, "¿Seguro que desea eliminar el grupo?,"
-                + " se eliminaran las inscripciones y pagos asocioados.", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "¿Seguro que desea eliminar el grupo?"
+                , ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
+        grupo.setEsActivo(false);
         if (alert.getResult() == ButtonType.YES) {
-            if(grupo.eliminarGrupo(grupo.getGrupoPK())){
+            if(grupo.eliminarGrupo()){
                 pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
             pantallaDividida.getChildren().add(pnlPrincipal);
             eliminarObjetoXML();
-            Mensajes.mensajeExitoso("Grupo eliminado correctamente");
-            }else{
-                Mensajes.mensajeAlert("petoooooooooooo");
-            }
-            
+            Notifications.create()
+                        .title("¡Exito!")
+                        .text("El grupo se elimino correctamente")
+                        .showInformation();
+            }            
         }
     }
 

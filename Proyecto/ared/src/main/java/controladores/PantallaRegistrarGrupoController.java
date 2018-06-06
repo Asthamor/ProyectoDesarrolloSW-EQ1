@@ -188,6 +188,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
             Grupo grupo = new Grupo();
             grupo.setTipoDanza(txtTipoDanza.getText());
             grupo.setNombre(txtNombreGrupo.getText());
+            grupo.setEsActivo(true);
             grupo.setFechaCreacion(new Date());
             grupo.setMaestro((Maestro) maestros.get(cmbMaestro.getSelectionModel().getSelectedIndex()));
             Horario horario = new Horario();

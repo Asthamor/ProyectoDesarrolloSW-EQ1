@@ -6,7 +6,6 @@
 package controladores;
 
 import clasesApoyo.JFXLimitedTextField;
-import static controladores.PantallaPrincipalDirectorController.crearPantalla;
 import interfaces.Controlador;
 import java.net.URL;
 import java.text.DateFormat;
@@ -37,6 +36,7 @@ import modelo.PagoAlumno;
 import modelo.PagoAlumnoExterno;
 import modelo.Persona;
 import org.controlsfx.control.Notifications;
+import static controladores.PantallaGruposController.obtenerGruposActivos;
 
 /**
  * FXML Controller class
@@ -126,7 +126,7 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
                 if (maestro.getGrupoCollection().isEmpty()) {
 
                 } else {
-                    grupos = new ArrayList(maestro.getGrupoCollection());
+                    grupos = obtenerGruposActivos(new ArrayList(maestro.getGrupoCollection()));
                     grupos.forEach((grupo) -> {
                         nombresGrupos.add(grupo.getNombre());
                     });
