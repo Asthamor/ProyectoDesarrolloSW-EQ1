@@ -60,7 +60,7 @@
             </Label>
             <JFXLimitedTextField fx:id="txtMonto" prefHeight="26.0" prefWidth="60.0" text="\$" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <JFXTextArea fx:id="txtConcepto" GridPane.columnIndex="1" />
-            <JFXDatePicker fx:id="pickerDate" defaultColor="#c08ed6" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXDatePicker fx:id="pickerDate" defaultColor="#c08ed6" onAction="#chkDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <VBox.margin>
             <Insets top="40.0" />

@@ -186,6 +186,9 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
                     pago.setAlumno(alumn);
                     pago.setGrupo(grupo);
                     pago.setEsInscripcion(true);
+                    if (comboPromocion.getValue().getDescuento() != 0){
+                    pago.setPromocion(comboPromocion.getValue());
+                    }
                     pago.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")) * (1 - porcentajeDesc));
                     pago.setFechaPago(new Date());
                     Date vence;
@@ -232,11 +235,23 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
         if (usuario.getTipoUsuario().equals("director")) {
             grupos = g.obtenerTodosLosGrupos();
             Promocion promoAux = new Promocion();
-            List<Promocion> promoList = FXCollections.observableArrayList(promoAux.obtenerPromociones());
-            promoList.add(0, null);
+            promoAux.setCodigo("Ninguna");
+            promoAux.setDescuento(0);
+            List<Promocion> promoList = FXCollections.observableArrayList();
+            for (Promocion p : promoAux.obtenerPromociones()){
+              if(p.getParaInscripcion() == 1){
+                promoList.add(p);
+              }
+            }
+            promoList.add(0, promoAux);
             comboPromocion.setItems(FXCollections.observableArrayList(promoList));
         } else {
-            comboPromocion.setItems(FXCollections.observableArrayList(((Maestro) persona).getPromocionCollection()));
+          List<Promocion> promoList = FXCollections.observableArrayList();
+          for (Promocion p: ((Maestro) persona).getPromocionCollection()){
+            if (p.getParaInscripcion() == 1){
+              promoList.add(p);
+            }
+          }
             grupos = g.obtenerGruposMaestro(((Maestro) persona).getMaestroPK().getIdMaestro());
         }
 

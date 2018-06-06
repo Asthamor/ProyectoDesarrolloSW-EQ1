@@ -36,6 +36,7 @@ import modelo.Maestro;
 import modelo.Persona;
 import modelo.Publicidad;
 import modelo.PublicidadPK;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -75,6 +76,7 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
   private boolean esNuevoAnuncio;
   @FXML
   private JFXComboBox<Persona> maestroCB;
+  private final String facebookURL = "https://www.facebook.com/";
   
   
    @Override
@@ -118,6 +120,7 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
     txtMonto.setRequired(true);
     txtURL.setSizeLimiter(200);
     txtURL.setRequired(true);
+    txtURL.setText(facebookURL);
     txtDescripcion.setValidators(new RequiredFieldValidator());
     txtDescripcion.setTextFormatter(new TextFormatter(limiteConcepto));
     Maestro maestroAux = new Maestro();
@@ -147,8 +150,12 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
         
         
         publicidad.setEgresoidEgreso(egreso);
-        publicidad.registrar();
-
+        if (publicidad.registrar()){
+          Notifications.create()
+                .title("¡Exito!")
+                .text("Publicidad registrada con éxito")
+                .showInformation();
+        }
       } else {
         Egreso eg = publicidad.getEgresoidEgreso();
         eg.setConcepto(txtDescripcion.getText().trim());
@@ -167,12 +174,26 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
         p.setUrl(txtURL.getText().trim());
         p.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
         p.setEgresoidEgreso(eg);
-        p.registrar();
+        if (p.registrar()){
+          Notifications.create()
+                .title("¡Exito!")
+                .text("Publicidad modificada con éxito")
+                .showInformation();
+        }
         
       }
       controlador.refreshList();
+      this.setPublicidad(null);
+      txtMonto.setText("$");
+      startPicker.setValue(LocalDate.now().minusDays(1));
+      endPicker.setValue(LocalDate.now());
+      txtDescripcion.setText("");
+      txtURL.setText(facebookURL);
+      maestroCB.getSelectionModel().clearSelection();
     }
   }
+  
+  
   
   public void setPublicidad(Publicidad publicidad) {
     if (publicidad != null) {
@@ -230,7 +251,7 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
 
   @FXML
   private void chkInitialDate(ActionEvent event) {
-    if (startPicker.getValue().isAfter(LocalDate.now())){
+    if (startPicker.getValue() != null && startPicker.getValue().isAfter(LocalDate.now())){
       startPicker.setValue(LocalDate.now());
       Mensajes.mensajeAlert("La fecha de inicio no puede ser posterior al día de hoy");
       chkEndDate(event);
@@ -239,7 +260,7 @@ public class PantallaEditarAnuncioController implements Initializable, Controlad
 
   @FXML
   private void chkEndDate(ActionEvent event) {
-    if (startPicker.getValue() != null){
+    if (startPicker.getValue() != null && endPicker.getValue() != null){
       if (endPicker.getValue().isBefore(startPicker.getValue())){
         endPicker.setValue(startPicker.getValue().plusDays(1));
         Mensajes.mensajeAlert("La fecha de término no puede ser previa a la fecha de inicio");

@@ -10,7 +10,6 @@ import clasesApoyo.Recibo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-//import com.jfoenix.controls.JFXButton.ButtonType;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import interfaces.Controlador;
@@ -38,6 +37,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -55,6 +55,7 @@ import modelo.PagoMaestro;
 import modelo.PagoRenta;
 import modelo.Persona;
 import modelo.Usuario;
+import org.controlsfx.control.Notifications;
 import org.dom4j.DocumentException;
 
 /**
@@ -164,7 +165,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
           super.updateItem(item, empty);
 
           if (item == null || empty) {
-            setText("-----");
+            setText("");
             setStyle("");
           } else {
             // Formato de fecha
@@ -177,6 +178,28 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
         }
       };
     });
+
+    tcFechaPaAlumn.setCellFactory(column -> {
+      return new TableCell<PagoAlumnoExterno, Date>() {
+        @Override
+        protected void updateItem(Date item, boolean empty) {
+          super.updateItem(item, empty);
+
+          if (item == null || empty) {
+            setText("");
+            setStyle("");
+          } else {
+            // Formato de fecha
+            Instant instant = Instant.ofEpochMilli(item.getTime());
+            setText(formatter.format(
+                    LocalDateTime.ofInstant(instant, ZoneId.systemDefault())));
+            setStyle("");
+
+          }
+        }
+      };
+    });
+    
   }
 
   private void setCurrencyFormatters() {
@@ -258,13 +281,18 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
         setGraphic(delete);
         delete.setOnAction(event -> {
           PagoAlumnoExterno seleccion = item;
-          javafx.scene.control.ButtonType respuesta = Mensajes.dialogoConfirmacion("Confirmar eliminar",
+          ButtonType respuesta = Mensajes.dialogoConfirmacion("Confirmar eliminar",
                   "Desea eliminar el registro\n"
                   + ((PagoAlumnoExterno) item).toString());
-          if (respuesta == javafx.scene.control.ButtonType.APPLY) {
+          
+          if (respuesta.getButtonData() == ButtonType.APPLY.getButtonData()) {
             if (item.eliminar()) {
               getTableView().getItems().remove(item);
               datosPagoAlumnos.remove(seleccion);
+              Notifications.create()
+                .title("¡Exito!")
+                .text("Registro de pago eliminado")
+                .showInformation();
             }
           }
 
@@ -357,7 +385,7 @@ public class PantallaConsultarIngresosController implements Initializable, Contr
       } else {
         if (selectedIndex.getClass().equals(PagoRenta.class)) {
           PagoRenta pr = (PagoRenta) selectedIndex;
-          
+
           try {
             recibo = Recibo.crearReciboPagoIngreso(
                     System.getProperty("user.dir"), "recibotemp", pr, pr.getCliente(), director);

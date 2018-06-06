@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
@@ -44,7 +43,6 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
                               </FontAwesomeIconView>
-                              <JFXComboBox fx:id="cbFiltrarPago" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="180.0" promptText="Filtrar" />
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" style="-fx-background-color: #c08ed6;">
@@ -80,7 +78,6 @@
                               </Label>
                               <JFXTextField fx:id="txtBuscarPAlumno" onKeyTyped="#buscarPAE" prefHeight="28.0" prefWidth="230.0" promptText="Buscar pagos de alumnos" />
                               <FontAwesomeIconView glyphName="SEARCH" size="20" />
-                              <JFXComboBox fx:id="cbFiltrarPA" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="185.0" promptText="Filtrar" />
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" style="-fx-background-color: #c08ed6;">

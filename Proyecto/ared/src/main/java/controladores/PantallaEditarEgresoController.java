@@ -6,6 +6,7 @@
 package controladores;
 
 import clasesApoyo.JFXLimitedTextField;
+import clasesApoyo.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
@@ -19,6 +20,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +30,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Egreso;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -82,6 +86,7 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
     txtMonto.setRequired(true);
     pickerDate.setValue(LocalDate.now());
     pickerDate.setEditable(false);
+
     reqVal = new RequiredFieldValidator();
     txtConcepto.setValidators(reqVal);
     txtConcepto.setTextFormatter(new TextFormatter(limiteConcepto));
@@ -105,12 +110,22 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
         egreso.setConcepto(txtConcepto.getText());
         egreso.setFecha(Date.from(pickerDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         egreso.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
-        egreso.registrar();
+        if (egreso.registrar() != null) {
+          Notifications.create()
+                  .title("¡Exito!")
+                  .text("Publicidad registrada con éxito")
+                  .showInformation();
+        }
       } else {
         egreso.setConcepto(txtConcepto.getText());
         egreso.setFecha(Date.from(pickerDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         egreso.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
-        egreso.editar();
+        if (egreso.editar()) {
+          Notifications.create()
+                  .title("¡Exito!")
+                  .text("Egreso modificado con éxito")
+                  .showInformation();
+        }
       }
       controlador.refreshList();
     }
@@ -142,7 +157,7 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
     boolean huboErrores = false;
 
     boolean errorDeMonto = false;
-    
+
     if (txtMonto.getText().replace("$", "").trim().isEmpty()) {
       txtMonto.setTextFormatter(null);
       txtMonto.setText("");
@@ -152,7 +167,7 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
     if (!txtConcepto.validate()) {
       huboErrores = true;
     }
-    if (!txtMonto.validate()){
+    if (!txtMonto.validate()) {
       huboErrores = true;
     }
     if (errorDeMonto) {
@@ -161,6 +176,14 @@ public class PantallaEditarEgresoController implements Initializable, Controlado
     }
 
     return !huboErrores;
+  }
+
+  @FXML
+  private void chkDate(ActionEvent event) {
+    if (pickerDate.getValue().isAfter(LocalDate.now())) {
+      pickerDate.setValue(LocalDate.now());
+      Mensajes.mensajeAlert("La fecha no puede ser posterior al día de hoy");
+    }
   }
 
 }

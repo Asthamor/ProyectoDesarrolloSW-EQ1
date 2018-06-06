@@ -31,6 +31,7 @@ public class Mensajes {
     ButtonType btnCancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
     alert.getButtonTypes().setAll(btnCancel, btnOK);
     alert.showAndWait();
+   
     return alert.getResult();
   }
 

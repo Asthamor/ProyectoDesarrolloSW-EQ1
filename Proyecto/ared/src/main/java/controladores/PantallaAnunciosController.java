@@ -230,6 +230,8 @@ public class PantallaAnunciosController implements Initializable, Controlador {
     publicidadDisplayList = FXCollections.observableList(new ArrayList<>());
     datosPublicidad.addAll(pub.obtenerTodoOrdenFecha());
     publicidadDisplayList.addAll(datosPublicidad);
+    tbPublicidad.getItems().clear();
+    tbPublicidad.getSelectionModel().clearSelection();
     tbPublicidad.setItems((ObservableList<Publicidad>) publicidadDisplayList);
   }
 }

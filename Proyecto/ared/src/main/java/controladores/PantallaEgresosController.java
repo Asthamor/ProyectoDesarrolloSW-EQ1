@@ -141,7 +141,6 @@ public class PantallaEgresosController implements Initializable, Controlador {
     } catch (IOException ex) {
       Logger.getLogger(PantallaEgresosController.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
 
     if (root != null) {
 
@@ -191,20 +190,23 @@ public class PantallaEgresosController implements Initializable, Controlador {
   private void busqueda(KeyEvent event) {
     String busqueda = txtBuscar.getText();
     egresosDisplayList.clear();
-    for (Egreso e : datosEgreso){
-      if (e.getConcepto().toLowerCase().contains(busqueda.toLowerCase())){
+    for (Egreso e : datosEgreso) {
+      if (e.getConcepto().toLowerCase().contains(busqueda.toLowerCase())) {
         egresosDisplayList.add(e);
       }
     }
   }
 
-  
-  public void refreshList(){
+  public void refreshList() {
     Egreso eg = new Egreso();
     datosEgreso = FXCollections.observableList(new ArrayList<>());
     egresosDisplayList = FXCollections.observableList(new ArrayList<>());
     datosEgreso.addAll(eg.obtenerTodosPorFecha());
     egresosDisplayList.addAll(datosEgreso);
+    tbEgresos.getSelectionModel().clearSelection();
+
+    tbEgresos.getItems().clear();
+
     tbEgresos.setItems((ObservableList<Egreso>) egresosDisplayList);
   }
 }
