@@ -69,7 +69,7 @@ public class PantallaGruposController implements Initializable, Controlador {
         crearArchivoXML();
         SAXReader reader = new SAXReader();
         try {
-            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+            document = reader.read(System.getProperty("user.home") + "/.ared/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -164,7 +164,7 @@ public class PantallaGruposController implements Initializable, Controlador {
     }
 
     public static void crearArchivoXML() {
-        String ruta = System.getProperty("user.dir") + "/horariosAred.xml";
+        String ruta = System.getProperty("user.home") + "/.ared/horariosAred.xml";
         File file = new File(ruta);
 
         if (!file.exists()) {

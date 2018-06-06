@@ -246,7 +246,7 @@ public class PantallaRegistrarGrupoController implements Initializable, Controla
         grupos.add(grupoXML);
         try {
             XMLWriter writer = new XMLWriter(
-                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.home") + "/.ared/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {

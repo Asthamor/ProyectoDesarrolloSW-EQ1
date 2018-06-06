@@ -30,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import modelo.PagoRenta;
 import modelo.Renta;
 import modelo.RentaXML;
 import org.controlsfx.control.Notifications;
@@ -77,7 +78,7 @@ public class PantallaEditarRentaController implements Initializable, Controlador
         horarioRenta = new ArrayList();
         SAXReader reader = new SAXReader();
         try {
-            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+            document = reader.read(System.getProperty("user.home") + "/.ared/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaEditarRentaController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,7 +123,7 @@ public class PantallaEditarRentaController implements Initializable, Controlador
         alert.setHeaderText(null);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
-            if (renta.eliminarRenta() && renta.getPagoRenta().eliminarPago()) {
+            if (renta.eliminarRenta()) {
                 eliminarObjetoXML();
                 Notifications.create()
                         .title("¡Exito!")
@@ -157,7 +158,7 @@ public class PantallaEditarRentaController implements Initializable, Controlador
         rentas.add(renta);
         try {
             XMLWriter writer = new XMLWriter(
-                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.home") + "/.ared/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {
@@ -173,7 +174,7 @@ public class PantallaEditarRentaController implements Initializable, Controlador
         rentas.remove((Element) rentasXML);
         try {
             XMLWriter writer = new XMLWriter(
-                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.home") + "/.ared/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {

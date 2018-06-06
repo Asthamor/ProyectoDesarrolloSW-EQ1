@@ -106,7 +106,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         scrollHorario.setVvalue(0.5);
         SAXReader reader = new SAXReader();
         try {
-            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+            document = reader.read(System.getProperty("user.home") + "/.ared/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -326,7 +326,7 @@ public class PantallaRegistrarRentaController implements Initializable, Controla
         rentas.add(rentaXML);
         try {
             XMLWriter writer = new XMLWriter(
-                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.home") + "/.ared/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {

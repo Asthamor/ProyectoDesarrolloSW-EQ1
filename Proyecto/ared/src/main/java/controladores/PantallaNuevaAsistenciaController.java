@@ -138,7 +138,7 @@ public class PantallaNuevaAsistenciaController implements Initializable, Control
             grupoXML.add(diaXML);
             try {
                 XMLWriter writer = new XMLWriter(
-                        new FileWriter(System.getProperty("user.dir") + "/asistenciaAred.xml"));
+                        new FileWriter(System.getProperty("user.home") + "/.ared/asistenciaAred.xml"));
                 writer.write(this.documento);
                 writer.close();
                 limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);

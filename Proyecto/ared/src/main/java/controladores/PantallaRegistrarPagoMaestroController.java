@@ -80,6 +80,7 @@ public class PantallaRegistrarPagoMaestroController implements Initializable, Co
 
     public void mostrarColaboradores() {
         lstMaestros.getItems().clear();
+        nombresColaboradores.clear();
         lblFechaPago.setText(DateFormat.getDateInstance().format(new Date()));
         maestro = new Maestro();
         maestros = maestro.obtenerTodos();

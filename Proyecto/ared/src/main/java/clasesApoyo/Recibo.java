@@ -207,6 +207,9 @@ public class Recibo {
       cliente = new Cliente();
       cliente.setNombre("--------");
     }
+    if(cliente.getEmail() == null){
+        cliente.setEmail("");
+    }
     table.addCell(new Cell().add(new Paragraph()
             .addAll(Arrays.asList(
                     new Text("Para:").setFont(bold), new Text(NEWLINE),
@@ -218,7 +221,9 @@ public class Recibo {
                     new Text(cliente.getTelefono())
             ))).setFontSize(11)
             .setBorder(Border.NO_BORDER));
-
+    if(emisor.getEmail() == null){
+        emisor.setEmail("");
+    }
     table.addCell(new Cell().add(new Paragraph()
             .addAll(Arrays.asList(
                     new Text("Emite:").setFont(bold), new Text(NEWLINE),

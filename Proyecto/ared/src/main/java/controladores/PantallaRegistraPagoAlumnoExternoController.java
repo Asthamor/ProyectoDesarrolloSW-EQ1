@@ -23,6 +23,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXListView;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import modelo.Alumno;
@@ -65,6 +70,7 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
     private List<Grupo> grupos;
     private List<Persona> maestros;
     private Maestro maestro;
+    private StackPane pnlPagos;
     @FXML
     private Label labelFechaProximoPago;
     @FXML
@@ -91,6 +97,10 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
         txtMonto.setRequired(true);
         txtMonto.setCurrencyFilter();
         txtMonto.setText("$");
+    }
+
+    public void setPnlPagos(StackPane pnlPagos) {
+        this.pnlPagos = pnlPagos;
     }
 
     public void mostrarColaboradores() {
@@ -151,18 +161,22 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
                                         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                                             if (lstAlumno.getSelectionModel().getSelectedIndex() != -1) {
                                                 List<PagoAlumno> pagos = new ArrayList<>(alumnos.get(lstAlumno.getSelectionModel().getSelectedIndex()).getPagoAlumnoCollection());
-                                                //PagoAlumno ultimoPago = pagos.get(pagos.size() - 1);
                                                 PagoAlumno ultimoPago = null;
                                                 PagoAlumno auxiliar;
                                                 for (int i = pagos.size() - 1; i >= 0; i--) {
                                                     auxiliar = pagos.get(i);
-                                                    if (auxiliar.getGrupo().getGrupoPK().getIdGrupo() == grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getGrupoPK().getIdGrupo()) {
-                                                        ultimoPago = pagos.get(i);
-                                                        break;
+                                                    if (auxiliar.getGrupo().getGrupoPK().getIdGrupo() == grupo.getGrupoPK().getIdGrupo()) {
+                                                        if (!auxiliar.getEsInscripcion()) {
+                                                            ultimoPago = pagos.get(i);
+                                                            break;
+                                                        }
                                                     }
-                                                }
-                                                Date fechaActualPago = ultimoPago.getFechaVencimiento();
-                                                labelFechaProximoPago.setText(DateFormat.getDateInstance().format(fechaActualPago));
+                                                }                                                
+                                                if(ultimoPago == null)
+                                                    labelFechaProximoPago.setText("Primer pago");
+                                                else
+                                                    labelFechaProximoPago.setText(DateFormat.getDateInstance().format(ultimoPago.getFechaVencimiento()));
+                                                
                                                 labelColaborador.setText(maestros.get(lstColaboradores.getSelectionModel().getSelectedIndex()).getNombre() + " " + maestros.get(lstColaboradores.getSelectionModel().getSelectedIndex()).getApellidos());
                                                 labelGrupo.setText(grupos.get(lstGrupos.getSelectionModel().getSelectedIndex()).getNombre());
                                                 labelAlumno.setText(alumnos.get(lstAlumno.getSelectionModel().getSelectedIndex()).getNombre() + " " + alumnos.get(lstAlumno.getSelectionModel().getSelectedIndex()).getApellidos());
@@ -203,12 +217,25 @@ public class PantallaRegistraPagoAlumnoExternoController implements Initializabl
             pagoAlumno.setFecha(new Date());
             pagoAlumno.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")));
             if (pagoAlumno.registrarPago()) {
-                pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaRegistraPagoAlumnoExterno.fxml", this.pnlPrincipal, this.pantallaDividida));
-                pantallaDividida.getChildren().add(pnlPrincipal);
+                pnlPagos.getChildren().clear();
+                PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);
+                Parent root = null;
+                FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaRegistraPagoAlumnoExterno.fxml"));
+                try {
+                    root = (Parent) loader.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaPrincipalDirectorController.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                }
+                PantallaRegistraPagoAlumnoExternoController controlador = loader.getController();
+                controlador.setPantallaDividida(pantallaDividida);
+                controlador.setPnlPrincipal(pnlPrincipal);
+                controlador.setPnlPagos(pnlPagos);
+                pnlPagos.getChildren().add(root);
                 Notifications.create()
-                    .title("¡Exito!")
-                    .text("El pago del alumno se registro correctamente")
-                    .showInformation();
+                        .title("¡Exito!")
+                        .text("El pago del alumno se registro correctamente")
+                        .showInformation();
             }
         }
     }

@@ -255,12 +255,12 @@ public class Alumno extends Persona implements Serializable, IAlumno {
 
   @Override
   public String obtenerImagen() {
-    String currentPath = System.getProperty("user.dir");
+    String currentPath = System.getProperty("user.home");
 
-    String imagePath = "/userPhoto/iconoAlumno.png";
+    String imagePath = "/.ared/userPhoto/iconoAlumno.png";
     Path classPath = Paths.get(System.getProperty("java.class.path"));
     if (this.imgFoto != null) {
-      File f = new File(currentPath + "/userPhoto/" + this.imgFoto);
+      File f = new File(currentPath + "/.ared/userPhoto/" + this.imgFoto);
 
       if (f.exists()) {
         imagePath = f.getAbsolutePath();//classPath.relativize(f.toPath()).toString();
@@ -273,7 +273,7 @@ public class Alumno extends Persona implements Serializable, IAlumno {
 
   private void guardarImagen(String nombreUsuario) {
     if (this.imgFoto != null && !this.imgFoto.trim().equals("")) {
-      String imagePath = System.getProperty("user.dir") + "/userPhoto/";
+      String imagePath = System.getProperty("user.home") + "/.ared/userPhoto/";
       File imageDirectory = new File(imagePath);
       if (!imageDirectory.exists()) {
         imageDirectory.mkdir();

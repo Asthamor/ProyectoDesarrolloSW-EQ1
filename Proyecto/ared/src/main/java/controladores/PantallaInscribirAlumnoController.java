@@ -186,7 +186,7 @@ public class PantallaInscribirAlumnoController implements Initializable, Control
                     pago.setAlumno(alumn);
                     pago.setGrupo(grupo);
                     pago.setEsInscripcion(true);
-                    if (comboPromocion.getValue().getDescuento() != 0){
+                    if (comboPromocion.getValue() != null && comboPromocion.getValue().getDescuento() != 0){
                     pago.setPromocion(comboPromocion.getValue());
                     }
                     pago.setMonto(Double.valueOf(txtMonto.getText().replace("$", "")) * (1 - porcentajeDesc));

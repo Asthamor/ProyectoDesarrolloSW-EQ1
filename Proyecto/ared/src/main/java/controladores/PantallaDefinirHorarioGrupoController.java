@@ -157,7 +157,7 @@ public class PantallaDefinirHorarioGrupoController implements Initializable {
                 mapas = new Mapas();
             }
             SAXReader reader = new SAXReader();
-            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+            document = reader.read(System.getProperty("user.home") + "/.ared/horariosAred.xml");
             Element root = document.getRootElement();
             grupos = root.element("grupos");
             String idGrupo;

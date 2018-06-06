@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import clasesApoyo.Mensajes;
 
 import interfaces.IPagoAlumnoExterno;
 import java.io.Serializable;

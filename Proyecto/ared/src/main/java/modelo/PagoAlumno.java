@@ -47,7 +47,8 @@ import modelo.controladores.PagoAlumnoJpaController;
     , @NamedQuery(name = "PagoAlumno.findByGrupoidGrupo", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupoidGrupo = :grupoidGrupo")
     , @NamedQuery(name = "PagoAlumno.findByGrupomaestroidMaestro", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupomaestroidMaestro = :grupomaestroidMaestro")
     , @NamedQuery(name = "PagoAlumno.findByGrupomaestrousuarionombreUsuario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupomaestrousuarionombreUsuario = :grupomaestrousuarionombreUsuario")
-    , @NamedQuery(name = "PagoAlumno.findByGrupohorarioidHorario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupohorarioidHorario = :grupohorarioidHorario")})
+    , @NamedQuery(name = "PagoAlumno.findByGrupohorarioidHorario", query = "SELECT p FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupohorarioidHorario = :grupohorarioidHorario")
+, @NamedQuery(name = "PagoAlumno.removerPagos", query = "DELETE FROM PagoAlumno p WHERE p.pagoAlumnoPK.grupoidGrupo = :grupoidGrupo")})
 public class PagoAlumno implements Serializable, IPagoAlumno {
 
     @Column(name = "esInscripcion")
@@ -255,6 +256,12 @@ public class PagoAlumno implements Serializable, IPagoAlumno {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
         return controlador.contarPagosInscripcion(idAlumno,idGrupo);
+    }
+    
+    public boolean eliminarPagos(Integer idGrupo){
+         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
+        PagoAlumnoJpaController controlador = new PagoAlumnoJpaController(entityManagerFactory);
+        return controlador.eliminarPagos(idGrupo);
     }
 
 }

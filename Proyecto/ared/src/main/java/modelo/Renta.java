@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
@@ -50,7 +51,7 @@ public class Renta implements Serializable, IRenta {
     @ManyToOne(optional = false)
     private Horario horario;
     @JoinColumn(name = "pagoRenta_idPago", referencedColumnName = "idPago", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
     private PagoRenta pagoRenta;
 
     public Renta() {
@@ -167,7 +168,7 @@ public class Renta implements Serializable, IRenta {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("uv.pulpos_ared_jar_1.0-SNAPSHOTPU", null);
         RentaJpaController controlador = new RentaJpaController(entityManagerFactory);
         try {
-            controlador.destroy(rentaPK);
+            controlador.destroy(rentaPK);            
             seElimino = true;
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(Renta.class.getName()).log(Level.SEVERE, null, ex);

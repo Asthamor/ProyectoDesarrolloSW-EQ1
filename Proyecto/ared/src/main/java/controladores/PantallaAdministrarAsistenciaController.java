@@ -87,7 +87,7 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
         crearXML();
         SAXReader reader = new SAXReader();
         try {
-            documento = reader.read(System.getProperty("user.dir") + "/asistenciaAred.xml");
+            documento = reader.read(System.getProperty("user.home") + "/.ared/asistenciaAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaAdministrarAsistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,7 +168,7 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
             gruposXML.add(grupoXML);
             try {
                 XMLWriter writer = new XMLWriter(
-                        new FileWriter(System.getProperty("user.dir") + "/asistenciaAred.xml"));
+                        new FileWriter(System.getProperty("user.home") + "/.ared/asistenciaAred.xml"));
                 writer.write(this.documento);
                 writer.close();
             } catch (UnsupportedEncodingException e) {
@@ -204,7 +204,7 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
             grupoXML.add(diaXML);
             try {
                 XMLWriter writer = new XMLWriter(
-                        new FileWriter(System.getProperty("user.dir") + "/asistenciaAred.xml"));
+                        new FileWriter(System.getProperty("user.home") + "/.ared/asistenciaAred.xml"));
                 writer.write(this.documento);
                 writer.close();
                 limpiarPanelPrincipal(pnlPrincipal, pantallaDividida);
@@ -235,10 +235,8 @@ public class PantallaAdministrarAsistenciaController implements Initializable, C
     }
 
     public void crearXML() {
-        String ruta = System.getProperty("user.dir") + "/asistenciaAred.xml";
-        //String ruta = "C:/Users/raymu/Desktop/asistenciaAred.xml";
+        String ruta = System.getProperty("user.home") + "/.ared/asistenciaAred.xml";
         File file = new File(ruta);
-
         if (!file.exists()) {
             try {
                 file.createNewFile();

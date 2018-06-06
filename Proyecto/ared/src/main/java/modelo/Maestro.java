@@ -366,12 +366,12 @@ public class Maestro extends Persona implements Serializable, IMaestro {
 
     @Override
     public String obtenerImagen() {
-        String currentPath = System.getProperty("user.dir");
-        String imagePath = "/userPhoto/iconoUsuario.png";
+        String currentPath = System.getProperty("user.home");
+        String imagePath = "/.ared/userPhoto/iconoUsuario.png";
 
         if (this.imgFoto != null) {
             Path classPath = Paths.get(System.getProperty("java.class.path"));
-            File f = new File(currentPath + "/userPhoto/" + this.imgFoto);
+            File f = new File(currentPath + "/.ared/userPhoto/" + this.imgFoto);
 
             if (f.exists()) {
                 imagePath = f.getAbsolutePath();//classPath.relativize(f.toPath()).toString();
@@ -401,7 +401,7 @@ public class Maestro extends Persona implements Serializable, IMaestro {
 
     private void guardarImagen(String nombreUsuario) {
         if (this.imgFoto != null && !this.imgFoto.trim().equals("")) {
-            String imagePath = System.getProperty("user.dir") + "/userPhoto/";
+            String imagePath = System.getProperty("user.home") + "/.ared/userPhoto/";
             File imageDirectory = new File(imagePath);
             if (!imageDirectory.exists()) {
                 imageDirectory.mkdir();

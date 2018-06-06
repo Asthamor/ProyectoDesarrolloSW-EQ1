@@ -98,6 +98,7 @@ public class PantallaEditarGrupoController implements Initializable {
             horarioGrupo[i] = "";
         }
         crearValidaciones();
+        btnEliminarGrupo.setVisible(false);
     }
 
     public void crearValidaciones() {
@@ -163,11 +164,15 @@ public class PantallaEditarGrupoController implements Initializable {
                 + " se eliminaran las inscripciones y pagos asocioados.", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
-            grupo.eliminarGrupo(grupo.getGrupoPK());
-            pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
+            if(grupo.eliminarGrupo(grupo.getGrupoPK())){
+                pnlPrincipal.getChildren().add(crearPantalla("/fxml/PantallaGrupos.fxml", this.pnlPrincipal, this.pantallaDividida));
             pantallaDividida.getChildren().add(pnlPrincipal);
             eliminarObjetoXML();
             Mensajes.mensajeExitoso("Grupo eliminado correctamente");
+            }else{
+                Mensajes.mensajeAlert("petoooooooooooo");
+            }
+            
         }
     }
 
@@ -256,7 +261,7 @@ public class PantallaEditarGrupoController implements Initializable {
         grupos.add(grupoXML);
         try {
             XMLWriter writer = new XMLWriter(
-                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.home") + "/.ared/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {
@@ -269,7 +274,7 @@ public class PantallaEditarGrupoController implements Initializable {
     public Element buscarGrupo() {
         SAXReader reader = new SAXReader();
         try {
-            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+            document = reader.read(System.getProperty("user.home") + "/.ared/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,7 +289,7 @@ public class PantallaEditarGrupoController implements Initializable {
     public void eliminarObjetoXML() {
         SAXReader reader = new SAXReader();
         try {
-            document = reader.read(System.getProperty("user.dir") + "/horariosAred.xml");
+            document = reader.read(System.getProperty("user.home") + "/.ared/horariosAred.xml");
         } catch (DocumentException ex) {
             Logger.getLogger(PantallaGruposController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -296,7 +301,7 @@ public class PantallaEditarGrupoController implements Initializable {
         grupos.remove(grupoXML);
         try {
             XMLWriter writer = new XMLWriter(
-                    new FileWriter(System.getProperty("user.dir") + "/horariosAred.xml"));
+                    new FileWriter(System.getProperty("user.home") + "/.ared/horariosAred.xml"));
             writer.write(this.document);
             writer.close();
         } catch (UnsupportedEncodingException e) {

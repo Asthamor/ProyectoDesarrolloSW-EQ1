@@ -58,14 +58,28 @@ public class PantallaPagosController implements Initializable,Controlador {
 
     @FXML
     private void ventanaPagoMaestro(ActionEvent event) {
-        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);
+        pnlPagos.getChildren().clear();
+        PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);        
         pnlPagos.getChildren().add(crearPantalla("/fxml/PantallaRegistrarPagoMaestro.fxml"));
     }
 
     @FXML
     private void ventanaPagoAlumnoExterno(ActionEvent event) {
+        pnlPagos.getChildren().clear();
         PantallaPrincipalDirectorController.animacionCargarPantalla(pnlPagos);
-        pnlPagos.getChildren().add(crearPantalla("/fxml/PantallaRegistraPagoAlumnoExterno.fxml"));
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(PantallaPrincipalDirectorController.class.getResource("/fxml/PantallaRegistraPagoAlumnoExterno.fxml"));
+        try {
+            root = (Parent) loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipalDirectorController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        PantallaRegistraPagoAlumnoExternoController controlador = loader.getController();
+        controlador.setPantallaDividida(pantallaDividida);
+        controlador.setPnlPrincipal(pnlPrincipal);
+        controlador.setPnlPagos(pnlPagos);
+        pnlPagos.getChildren().add(root);
     }
     
     public Parent crearPantalla(String ruta) {
